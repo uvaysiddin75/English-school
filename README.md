@@ -12,7 +12,7 @@
     --blue: #1565c0;
     --sky: #42a5f5;
     --gold: #ffd54f;
-    --white: #f8faff;
+    --white: red;
     --card: #162236;
     --correct: #66bb6a;
     --wrong: #ef5350;
