@@ -1,1851 +1,3185 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EnglishMaster Pro</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0a0e1a;
-  --surface: #111827;
-  --surface2: #1a2236;
-  --border: #1e2d4a;
-  --accent: #00d4ff;
-  --accent2: #7c3aed;
-  --accent3: #10b981;
-  --accent4: #f59e0b;
-  --accent5: #ef4444;
-  --text: #e2e8f0;
-  --text2: #94a3b8;
-  --text3: #475569;
-  --gold: #fbbf24;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --shadow: 0 4px 32px rgba(0,212,255,0.08);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpeakUP English</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Orbitron:wght@700;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f1a;
+      --bg2: #151827;
+      --bg3: #1e2235;
+      --card: #1a1e30;
+      --accent: #6c63ff;
+      --accent2: #ff6584;
+      --accent3: #43e97b;
+      --accent4: #f7971e;
+      --text: #e8eaf6;
+      --text2: #9fa8c9;
+      --border: #2a2f4a;
+      --gold: #ffd700;
+      --silver: #c0c0c0;
+      --bronze: #cd7f32;
+      --danger: #ff4757;
+      --success: #2ed573;
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(108, 99, 255, 0.15);
+    }
 
-/* NAV */
-.topnav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px}
-.nav-right{display:flex;align-items:center;gap:12px}
-.lang-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 14px;border-radius:8px;cursor:pointer;font-family:'Sora',sans-serif;font-size:.8rem;font-weight:600;transition:.2s}
-.lang-btn:hover,.lang-btn.active{background:var(--accent);color:#000;border-color:var(--accent)}
-.xp-badge{background:linear-gradient(135deg,var(--gold),#f97316);color:#000;padding:5px 14px;border-radius:20px;font-weight:700;font-size:.82rem}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* SIDEBAR */
-.layout{display:flex;padding-top:62px;min-height:100vh}
-.sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);position:fixed;top:62px;bottom:0;left:0;overflow-y:auto;padding:20px 12px;z-index:50}
-.sidebar-section{margin-bottom:8px}
-.sidebar-label{font-size:.68rem;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;padding:8px 10px 4px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;color:var(--text2);font-size:.86rem;font-weight:500;transition:.18s;border:1px solid transparent}
-.nav-item:hover{background:var(--surface2);color:var(--text)}
-.nav-item.active{background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(124,58,237,.1));color:var(--accent);border-color:rgba(0,212,255,.25)}
-.nav-item .icon{font-size:1.1rem;min-width:22px}
-.main{margin-left:220px;flex:1;padding:28px 32px}
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-/* HERO */
-.hero{background:linear-gradient(135deg,rgba(0,212,255,.07),rgba(124,58,237,.07));border:1px solid var(--border);border-radius:var(--radius);padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(0,212,255,.12),transparent 70%);pointer-events:none}
-.hero h1{font-size:2rem;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:var(--text2);font-size:.95rem;margin-bottom:20px}
-.stats-row{display:flex;gap:20px;flex-wrap:wrap}
-.stat-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:14px 20px;flex:1;min-width:120px}
-.stat-card .val{font-size:1.5rem;font-weight:800;color:var(--accent)}
-.stat-card .lbl{font-size:.75rem;color:var(--text3);margin-top:2px}
+    /* NAV */
+    nav {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-/* SECTION */
-.section{display:none}
-.section.active{display:block}
-.section-title{font-size:1.35rem;font-weight:800;margin-bottom:6px}
-.section-subtitle{color:var(--text2);font-size:.88rem;margin-bottom:22px}
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-/* TOPICS GRID */
-.topics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.topic-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;cursor:pointer;transition:.22s;position:relative;overflow:hidden}
-.topic-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transition:.3s;transform-origin:left}
-.topic-card:hover{background:var(--surface2);border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,255,.12)}
-.topic-card:hover::after{transform:scaleX(1)}
-.topic-icon{font-size:2rem;margin-bottom:12px}
-.topic-card h3{font-size:1rem;font-weight:700;margin-bottom:6px}
-.topic-card p{font-size:.8rem;color:var(--text2);line-height:1.5;margin-bottom:14px}
-.topic-meta{display:flex;align-items:center;justify-content:space-between}
-.level-tag{padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700}
-.level-beginner{background:rgba(16,185,129,.15);color:var(--accent3)}
-.level-intermediate{background:rgba(245,158,11,.15);color:var(--accent4)}
-.level-advanced{background:rgba(239,68,68,.15);color:var(--accent5)}
-.progress-mini{height:5px;background:var(--border);border-radius:3px;flex:1;margin:0 10px;overflow:hidden}
-.progress-mini-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:.4s}
+    .logo span {
+      color: var(--accent2);
+    }
 
-/* TOPIC DETAIL */
-.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--accent);cursor:pointer;font-size:.88rem;font-weight:600;margin-bottom:20px;border:none;background:none;padding:0}
-.back-btn:hover{opacity:.75}
-.topic-detail-header{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:20px}
-.content-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:18px;line-height:1.8}
-.content-box h2{font-size:1.15rem;font-weight:700;margin-bottom:14px;color:var(--accent)}
-.content-box h3{font-size:1rem;font-weight:700;margin:18px 0 10px;color:var(--accent4)}
-.content-box p{color:var(--text2);margin-bottom:10px;font-size:.9rem}
-.example-box{background:rgba(0,212,255,.05);border-left:3px solid var(--accent);padding:14px 18px;border-radius:0 10px 10px 0;margin:12px 0;font-size:.88rem}
-.example-box .en{color:var(--text);font-weight:600;margin-bottom:4px}
-.example-box .tr{color:var(--text2)}
-.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0}
-.vocab-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;cursor:pointer;transition:.18s}
-.vocab-card:hover{border-color:var(--accent);background:rgba(0,212,255,.06)}
-.vocab-word{font-weight:700;color:var(--accent);font-size:.95rem}
-.vocab-tr{color:var(--text2);font-size:.8rem;margin-top:3px}
-.vocab-ex{color:var(--text3);font-size:.75rem;font-style:italic;margin-top:4px}
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+    }
 
-/* QUIZ */
-.quiz-container{max-width:680px}
-.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.quiz-progress{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:0 16px}
-.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.4s}
-.question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:16px}
-.question-type{font-size:.72rem;font-weight:700;color:var(--accent2);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
-.question-text{font-size:1.1rem;font-weight:600;margin-bottom:22px;line-height:1.5}
-.options{display:grid;gap:10px}
-.option{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:13px 18px;cursor:pointer;transition:.18s;font-size:.9rem;font-weight:500}
-.option:hover:not(.disabled){background:rgba(0,212,255,.08);border-color:var(--accent)}
-.option.correct{background:rgba(16,185,129,.12);border-color:var(--accent3);color:var(--accent3)}
-.option.wrong{background:rgba(239,68,68,.10);border-color:var(--accent5);color:var(--accent5)}
-.option.disabled{cursor:default}
-.fill-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:13px 18px;color:var(--text);font-family:'Sora',sans-serif;font-size:.95rem;outline:none;transition:.18s}
-.fill-input:focus{border-color:var(--accent)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;border:none;transition:.2s}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
-.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
-.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text2)}
-.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
-.result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px;text-align:center;max-width:480px;margin:0 auto}
-.result-score{font-size:4rem;font-weight:800;margin:16px 0;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.result-grade{font-size:1.2rem;font-weight:700;margin-bottom:8px}
-.result-msg{color:var(--text2);font-size:.9rem;margin-bottom:24px}
+    .nav-tab {
+      background: none;
+      border: none;
+      color: var(--text2);
+      font-family: 'Nunito', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: .2s;
+      white-space: nowrap;
+    }
 
-/* LISTENING */
-.audio-player{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
-.audio-controls{display:flex;align-items:center;gap:14px;margin-bottom:16px}
-.play-btn{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;transition:.2s;flex-shrink:0}
-.play-btn:hover{transform:scale(1.07)}
-.audio-track{flex:1}
-.audio-title{font-weight:700;font-size:.95rem;margin-bottom:4px}
-.audio-subtitle{color:var(--text2);font-size:.78rem}
-.waveform{height:40px;display:flex;align-items:center;gap:2px;margin:14px 0}
-.waveform-bar{flex:1;background:var(--border);border-radius:2px;transition:.15s;cursor:pointer}
-.waveform-bar.active{background:var(--accent)}
-.waveform-bar:hover{background:rgba(0,212,255,.5)}
-.transcript-box{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px;font-size:.88rem;color:var(--text2);line-height:1.8;margin-top:14px;max-height:200px;overflow-y:auto}
-.transcript-box .highlight{color:var(--accent);font-weight:600}
+    .nav-tab:hover,
+    .nav-tab.active {
+      background: var(--accent);
+      color: #fff;
+    }
 
-/* SPEAKING */
-.speaking-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:16px;max-width:680px}
-.mic-area{text-align:center;padding:30px}
-.mic-btn{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;transition:.2s;box-shadow:0 0 0 0 rgba(239,68,68,.4)}
-.mic-btn.recording{animation:pulse 1.2s infinite;background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 0 0 0 rgba(34,197,94,.4)}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}70%{box-shadow:0 0 0 20px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-.ai-message{background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6}
-.user-message{background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.2);border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6;text-align:right}
-.chat-log{max-height:360px;overflow-y:auto;padding:4px 0;margin-bottom:16px}
-.typing-indicator{display:flex;gap:4px;padding:12px 16px}
-.typing-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:typing .8s infinite}
-.typing-dot:nth-child(2){animation-delay:.15s}
-.typing-dot:nth-child(3){animation-delay:.3s}
-@keyframes typing{0%,100%{opacity:.3}50%{opacity:1}}
+    .lang-sel {
+      display: flex;
+      gap: 6px;
+    }
 
-/* VOCABULARY */
-.vocab-section-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.vtab{padding:8px 18px;border-radius:8px;cursor:pointer;font-size:.83rem;font-weight:600;border:1.5px solid var(--border);color:var(--text2);transition:.18s}
-.vtab.active,.vtab:hover{background:var(--accent);color:#000;border-color:var(--accent)}
-.vocab-search{width:100%;max-width:400px;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:11px 16px;color:var(--text);font-family:'Sora',sans-serif;font-size:.9rem;outline:none;margin-bottom:18px}
-.vocab-search:focus{border-color:var(--accent)}
-.big-vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-.big-vocab-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:.2s;position:relative}
-.big-vocab-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.big-vocab-card .word{font-size:1.1rem;font-weight:800;color:var(--accent);margin-bottom:2px}
-.big-vocab-card .phonetic{color:var(--text3);font-size:.78rem;margin-bottom:6px;font-family:'Space Mono',monospace}
-.big-vocab-card .meaning{color:var(--text2);font-size:.83rem;margin-bottom:6px}
-.big-vocab-card .example{color:var(--text3);font-size:.77rem;font-style:italic}
-.big-vocab-card .category{position:absolute;top:10px;right:10px;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(124,58,237,.15);color:var(--accent2)}
+    .lang-btn {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: .2s;
+    }
 
-/* AI CHAT */
-.ai-chat{max-width:700px}
-.chat-messages{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;height:420px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:12px}
-.ai-msg{background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.15);border-radius:0 12px 12px 12px;padding:12px 16px;font-size:.88rem;line-height:1.6;max-width:85%;align-self:flex-start}
-.user-msg{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);border-radius:12px 0 12px 12px;padding:12px 16px;font-size:.88rem;line-height:1.6;max-width:85%;align-self:flex-end}
-.ai-msg .ai-label{font-size:.7rem;font-weight:700;color:var(--accent);margin-bottom:5px}
-.chat-input-row{display:flex;gap:10px}
-.chat-input{flex:1;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-family:'Sora',sans-serif;font-size:.9rem;outline:none}
-.chat-input:focus{border-color:var(--accent)}
+    .lang-btn.active,
+    .lang-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
 
-/* LEADERBOARD */
-.leaderboard{max-width:600px}
-.lb-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 20px;margin-bottom:10px;display:flex;align-items:center;gap:16px;transition:.18s}
-.lb-card:hover{border-color:var(--accent);background:var(--surface2)}
-.lb-rank{font-size:1.1rem;font-weight:800;min-width:32px;color:var(--text3)}
-.lb-rank.top1{color:var(--gold)}
-.lb-rank.top2{color:#94a3b8}
-.lb-rank.top3{color:#b45309}
-.lb-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.lb-name{font-weight:700;flex:1}
-.lb-xp{font-weight:800;color:var(--accent);font-size:.95rem}
-.lb-badge{padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;margin-left:8px}
+    /* MAIN */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
 
-/* MODAL */
-.modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
-.modal.open{display:flex}
-.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:500px;width:90%;max-height:85vh;overflow-y:auto;position:relative}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text2);font-size:1.4rem;cursor:pointer}
+    .page {
+      display: none;
+    }
 
-/* TOAST */
-.toast{position:fixed;bottom:28px;right:28px;z-index:300;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 20px;font-size:.88rem;font-weight:600;transform:translateY(80px);opacity:0;transition:.3s;pointer-events:none}
-.toast.show{transform:translateY(0);opacity:1}
-.toast.success{border-color:var(--accent3);color:var(--accent3)}
-.toast.error{border-color:var(--accent5);color:var(--accent5)}
+    .page.active {
+      display: block;
+    }
 
-/* PROGRESS RINGS */
-.progress-ring{display:inline-block;position:relative;width:80px;height:80px}
-.progress-ring svg{transform:rotate(-90deg)}
-.progress-ring circle{fill:none;stroke-width:6;stroke-linecap:round}
-.ring-bg{stroke:var(--border)}
-.ring-fill{stroke:var(--accent);transition:stroke-dashoffset .6s ease}
-.ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem}
+    /* CARDS */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
 
-/* LOADING */
-.loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:40px;color:var(--text2)}
-.loading-spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:700;margin:2px}
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
 
-/* RESPONSIVE */
-@media(max-width:900px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:18px 16px}}
-</style>
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    /* HOME */
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--text2);
+      font-size: 1.1rem;
+      margin-bottom: 28px;
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .level-card {
+      background: var(--bg3);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: .3s;
+      text-align: center;
+    }
+
+    .level-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(108, 99, 255, .3);
+    }
+
+    .level-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .level-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .level-card .prog {
+      background: var(--bg2);
+      border-radius: 8px;
+      height: 8px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .level-card .prog-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      transition: .5s;
+    }
+
+    /* TOPICS */
+    .topic-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .topic-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .topic-item:hover {
+      border-color: var(--accent);
+      background: var(--bg2);
+    }
+
+    .topic-item .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topic-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      background: var(--bg2);
+    }
+
+    .topic-name {
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .topic-desc {
+      color: var(--text2);
+      font-size: .85rem;
+      margin-top: 2px;
+    }
+
+    .badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .badge.done {
+      background: var(--accent3);
+      color: #000;
+    }
+
+    /* LESSON */
+    .lesson-content {
+      line-height: 1.9;
+      color: var(--text2);
+      font-size: .97rem;
+    }
+
+    .lesson-content h4 {
+      color: var(--accent);
+      font-size: 1rem;
+      margin: 18px 0 8px;
+      font-weight: 800;
+    }
+
+    .lesson-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+    }
+
+    .lesson-content th {
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: .9rem;
+    }
+
+    .lesson-content td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: .9rem;
+    }
+
+    .lesson-content .example {
+      background: var(--bg3);
+      border-left: 4px solid var(--accent2);
+      padding: 10px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 10px 0;
+      font-style: italic;
+    }
+
+    .start-test-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: .2s;
+    }
+
+    .start-test-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 6px 24px rgba(108, 99, 255, .4);
+    }
+
+    /* TEST */
+    .question-block {
+      margin-bottom: 24px;
+    }
+
+    .q-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .opt-btn {
+      background: var(--bg3);
+      border: 2px solid var(--border);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: .95rem;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+      transition: .2s;
+      font-weight: 600;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--bg2);
+    }
+
+    .opt-btn.correct {
+      border-color: var(--success);
+      background: rgba(46, 213, 115, .12);
+      color: var(--success);
+    }
+
+    .opt-btn.wrong {
+      border-color: var(--danger);
+      background: rgba(255, 71, 87, .1);
+      color: var(--danger);
+    }
+
+    .prog-bar-test {
+      height: 8px;
+      background: var(--bg3);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .prog-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: .4s;
+    }
+
+    .result-box {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .result-score {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin: 16px 0;
+      background: linear-gradient(135deg, var(--accent), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .result-msg {
+      font-size: 1.1rem;
+      color: var(--text2);
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 11px 26px;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .btn:hover {
+      opacity: .85;
+      transform: scale(1.03);
+    }
+
+    .btn.outline {
+      background: none;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+    }
+
+    .btn.danger {
+      background: var(--danger);
+    }
+
+    .btn.success {
+      background: var(--success);
+      color: #000;
+    }
+
+    /* VOCAB */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .vocab-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: .2s;
+      text-align: center;
+    }
+
+    .vocab-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .vocab-word {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .vocab-tr {
+      font-size: .85rem;
+      color: var(--text2);
+      margin-top: 4px;
+    }
+
+    .vocab-pos {
+      font-size: .75rem;
+      background: var(--bg2);
+      border-radius: 6px;
+      padding: 2px 8px;
+      display: inline-block;
+      margin-top: 6px;
+      color: var(--accent4);
+    }
+
+    .vocab-ex {
+      font-size: .8rem;
+      color: var(--text2);
+      font-style: italic;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .vocab-card:hover .vocab-ex {
+      display: block;
+    }
+
+    .search-bar {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1rem;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .search-bar:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* LISTENING */
+    .audio-player {
+      background: var(--bg3);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .audio-title {
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .2s;
+    }
+
+    .play-btn:hover {
+      background: var(--accent2);
+    }
+
+    .audio-progress {
+      flex: 1;
+      height: 6px;
+      background: var(--bg2);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .audio-prog-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      transition: .1s;
+    }
+
+    .audio-time {
+      font-size: .8rem;
+      color: var(--text2);
+    }
+
+    .transcript-box {
+      background: var(--bg2);
+      border-radius: 8px;
+      padding: 14px;
+      font-size: .9rem;
+      line-height: 1.8;
+      color: var(--text2);
+      max-height: 180px;
+      overflow-y: auto;
+      margin-top: 10px;
+    }
+
+    /* SPEAKING */
+    .speak-bubble {
+      background: var(--bg3);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 12px 0;
+      position: relative;
+    }
+
+    .speak-bubble.ai {
+      border-left: 4px solid var(--accent);
+    }
+
+    .speak-bubble.user {
+      border-left: 4px solid var(--accent2);
+    }
+
+    .speak-who {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--text2);
+      margin-bottom: 6px;
+    }
+
+    .speak-text {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .mic-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent2), #ff3060);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      cursor: pointer;
+      margin: 16px auto;
+      display: block;
+      transition: .2s;
+      box-shadow: 0 6px 24px rgba(255, 101, 132, .4);
+    }
+
+    .mic-btn:hover,
+    .mic-btn.recording {
+      transform: scale(1.1);
+      background: var(--danger);
+    }
+
+    .mic-btn.recording {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 6px 24px rgba(255, 71, 87, .4);
+      }
+
+      50% {
+        box-shadow: 0 6px 40px rgba(255, 71, 87, .7);
+      }
+    }
+
+    /* READING */
+    .reading-text {
+      background: var(--bg3);
+      border-radius: 12px;
+      padding: 20px;
+      line-height: 2;
+      font-size: .97rem;
+      color: var(--text2);
+      margin-bottom: 16px;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    /* AI CHAT */
+    .chat-area {
+      height: 340px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 4px;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: .93rem;
+      line-height: 1.6;
+    }
+
+    .msg.ai {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg.user {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg.typing {
+      color: var(--text2);
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: .95rem;
+      padding: 11px 14px;
+      border-radius: 10px;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* LEADERBOARD */
+    .lb-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: var(--bg3);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .lb-rank {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      width: 36px;
+      text-align: center;
+    }
+
+    .lb-rank.g {
+      color: var(--gold);
+    }
+
+    .lb-rank.s {
+      color: var(--silver);
+    }
+
+    .lb-rank.b {
+      color: var(--bronze);
+    }
+
+    .lb-name {
+      flex: 1;
+      font-weight: 800;
+    }
+
+    .lb-xp {
+      color: var(--accent4);
+      font-weight: 700;
+    }
+
+    .lb-badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: .75rem;
+      padding: 2px 9px;
+      border-radius: 20px;
+    }
+
+    /* STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .stat-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: .8rem;
+      color: var(--text2);
+    }
+
+    /* TABS within page */
+    .inner-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .inner-tab {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-size: .85rem;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .inner-tab.active,
+    .inner-tab:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .inner-page {
+      display: none;
+    }
+
+    .inner-page.active {
+      display: block;
+    }
+
+    /* misc */
+    .flex {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .flex-wrap {
+      flex-wrap: wrap;
+    }
+
+    .mt {
+      margin-top: 14px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .emoji-big {
+      font-size: 3rem;
+      margin: 10px 0;
+    }
+
+    select {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: 'Nunito', sans-serif;
+      font-size: .9rem;
+    }
+
+    .highlight {
+      color: var(--accent4);
+      font-weight: 700;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg2);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 4px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--text2);
+      font-size: .9rem;
+      cursor: pointer;
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .back-btn:hover {
+      color: var(--accent);
+    }
+
+    .xp-bar {
+      background: var(--bg3);
+      border-radius: 8px;
+      height: 10px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .xp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--accent4));
+      transition: .5s;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: .78rem;
+      margin: 2px;
+      color: var(--text2);
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- TOP NAV -->
-<nav class="topnav">
-  <div class="logo">🎓 EnglishMaster</div>
-  <div class="nav-right">
-    <button class="lang-btn active" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" onclick="setLang('ru')">RU</button>
-    <button class="lang-btn" onclick="setLang('uz')">UZ</button>
-    <div class="xp-badge" id="xp-badge">⚡ 0 XP</div>
-  </div>
-</nav>
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="sidebar-section">
-    <div class="sidebar-label" data-t="learn">LEARN</div>
-    <div class="nav-item active" onclick="showSection('home')" id="nav-home">
-      <span class="icon">🏠</span><span data-t="home">Home</span>
+  <nav>
+    <div class="logo">🌍<span>SpeakUP</span>English</div>
+    <div class="nav-tabs" id="navTabs">
+      <button class="nav-tab active" onclick="showPage('home')" data-key="nav_home">🏠 Home</button>
+      <button class="nav-tab" onclick="showPage('vocab')" data-key="nav_vocab">📖 Vocabulary</button>
+      <button class="nav-tab" onclick="showPage('listening')" data-key="nav_listening">🎧 Listening</button>
+      <button class="nav-tab" onclick="showPage('speaking')" data-key="nav_speaking">🎤 Speaking</button>
+      <button class="nav-tab" onclick="showPage('reading')" data-key="nav_reading">📝 Reading</button>
+      <button class="nav-tab" onclick="showPage('writing')" data-key="nav_writing">✍️ Writing</button>
+      <button class="nav-tab" onclick="showPage('ai')" data-key="nav_ai">🤖 AI Tutor</button>
+      <button class="nav-tab" onclick="showPage('rank')" data-key="nav_rank">🏆 Leaderboard</button>
+      <button class="nav-tab" onclick="showPage('stats')" data-key="nav_stats">📊 Stats</button>
     </div>
-    <div class="nav-item" onclick="showSection('topics')" id="nav-topics">
-      <span class="icon">📚</span><span data-t="topics">Topics</span>
+    <div class="lang-sel">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" onclick="setLang('uz')">UZ</button>
+      <button class="lang-btn" onclick="setLang('tg')">TG</button>
     </div>
-    <div class="nav-item" onclick="showSection('vocabulary')" id="nav-vocabulary">
-      <span class="icon">📖</span><span data-t="vocabulary">Vocabulary</span>
-    </div>
-    <div class="nav-item" onclick="showSection('listening')" id="nav-listening">
-      <span class="icon">🎧</span><span data-t="listening">Listening</span>
-    </div>
-    <div class="nav-item" onclick="showSection('speaking')" id="nav-speaking">
-      <span class="icon">🎤</span><span data-t="speaking">Speaking</span>
-    </div>
-    <div class="nav-item" onclick="showSection('reading')" id="nav-reading">
-      <span class="icon">📰</span><span data-t="reading">Reading</span>
-    </div>
-    <div class="nav-item" onclick="showSection('writing')" id="nav-writing">
-      <span class="icon">✍️</span><span data-t="writing">Writing</span>
-    </div>
-  </div>
-  <div class="sidebar-section">
-    <div class="sidebar-label" data-t="compete">COMPETE</div>
-    <div class="nav-item" onclick="showSection('leaderboard')" id="nav-leaderboard">
-      <span class="icon">🏆</span><span data-t="leaderboard">Leaderboard</span>
-    </div>
-    <div class="nav-item" onclick="showSection('ai')" id="nav-ai">
-      <span class="icon">🤖</span><span data-t="aiTutor">AI Tutor</span>
-    </div>
-  </div>
-</div>
+  </nav>
 
-<!-- MAIN CONTENT -->
-<div class="main">
+  <main>
 
-<!-- HOME -->
-<div id="section-home" class="section active">
-  <div class="hero">
-    <h1 data-t="heroTitle">Master English Like a Pro</h1>
-    <p data-t="heroSub">Topics, tests, listening, speaking — all powered by real AI</p>
-    <div class="stats-row">
-      <div class="stat-card"><div class="val" id="stat-topics">0</div><div class="lbl" data-t="topicsCompleted">Topics Completed</div></div>
-      <div class="stat-card"><div class="val" id="stat-score">0%</div><div class="lbl" data-t="avgScore">Avg Test Score</div></div>
-      <div class="stat-card"><div class="val" id="stat-streak">0🔥</div><div class="lbl" data-t="dayStreak">Day Streak</div></div>
-      <div class="stat-card"><div class="val" id="stat-words">0</div><div class="lbl" data-t="wordsLearned">Words Learned</div></div>
-    </div>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-    <div class="topic-card" onclick="showSection('topics')" style="cursor:pointer">
-      <div class="topic-icon">🎯</div>
-      <h3 data-t="startLearning">Start Learning</h3>
-      <p data-t="startLearningSub">Choose a topic and take a test</p>
-    </div>
-    <div class="topic-card" onclick="showSection('ai')" style="cursor:pointer">
-      <div class="topic-icon">🤖</div>
-      <h3 data-t="chatAI">Chat with AI</h3>
-      <p data-t="chatAISub">Practice English 24/7 with smart AI</p>
-    </div>
-    <div class="topic-card" onclick="showSection('vocabulary')" style="cursor:pointer">
-      <div class="topic-icon">📖</div>
-      <h3 data-t="vocabulary">Vocabulary</h3>
-      <p data-t="vocabularySub">Learn thousands of words by category</p>
-    </div>
-    <div class="topic-card" onclick="showSection('leaderboard')" style="cursor:pointer">
-      <div class="topic-icon">🏆</div>
-      <h3 data-t="leaderboard">Leaderboard</h3>
-      <p data-t="leaderboardSub">Compete with learners worldwide</p>
-    </div>
-  </div>
-</div>
-
-<!-- TOPICS -->
-<div id="section-topics" class="section">
-  <div id="topics-list-view">
-    <div class="section-title" data-t="allTopics">All Topics</div>
-    <div class="section-subtitle" data-t="allTopicsSub">Choose a topic to study, then take a 30-question test</div>
-    <div class="topics-grid" id="topics-grid"></div>
-  </div>
-  <div id="topic-detail-view" style="display:none">
-    <button class="back-btn" onclick="backToTopics()">← <span data-t="backToTopics">Back to Topics</span></button>
-    <div id="topic-detail-content"></div>
-  </div>
-</div>
-
-<!-- VOCABULARY -->
-<div id="section-vocabulary" class="section">
-  <div class="section-title" data-t="vocabulary">Vocabulary</div>
-  <div class="section-subtitle" data-t="vocabSub">Thousands of words organized by topic and level</div>
-  <div class="vocab-section-tabs" id="vocab-tabs"></div>
-  <input class="vocab-search" id="vocab-search" placeholder="🔍 Search words..." oninput="filterVocab()">
-  <div class="big-vocab-grid" id="vocab-grid"></div>
-</div>
-
-<!-- LISTENING -->
-<div id="section-listening" class="section">
-  <div class="section-title" data-t="listening">Listening</div>
-  <div class="section-subtitle" data-t="listeningSub">Real audio exercises with comprehension tests</div>
-  <div id="listening-list"></div>
-</div>
-
-<!-- SPEAKING -->
-<div id="section-speaking" class="section">
-  <div class="section-title" data-t="speaking">Speaking Practice</div>
-  <div class="section-subtitle" data-t="speakingSub">Have real conversations with AI — it speaks and you answer!</div>
-  <div class="speaking-card">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
-      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1.3rem">🤖</div>
-      <div>
-        <div style="font-weight:700">Alex — AI English Teacher</div>
-        <div style="font-size:.78rem;color:var(--accent3)">● Online 24/7</div>
-      </div>
-    </div>
-    <div class="chat-log" id="speaking-chat"></div>
-    <div id="speaking-controls">
-      <div class="mic-area" id="mic-area">
-        <button class="mic-btn" id="mic-btn" onclick="toggleMic()">🎤</button>
-        <div id="mic-status" style="color:var(--text2);font-size:.85rem" data-t="tapToSpeak">Tap mic to start speaking</div>
-      </div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap" id="speaking-suggestions"></div>
-    </div>
-  </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:16px" id="speaking-topics-grid"></div>
-</div>
-
-<!-- READING -->
-<div id="section-reading" class="section">
-  <div class="section-title" data-t="reading">Reading</div>
-  <div class="section-subtitle" data-t="readingSub">Articles with comprehension questions</div>
-  <div id="reading-list"></div>
-</div>
-
-<!-- WRITING -->
-<div id="section-writing" class="section">
-  <div class="section-title" data-t="writing">Writing Practice</div>
-  <div class="section-subtitle" data-t="writingSub">Write and get AI feedback instantly</div>
-  <div id="writing-tasks"></div>
-</div>
-
-<!-- LEADERBOARD -->
-<div id="section-leaderboard" class="section">
-  <div class="section-title" data-t="leaderboard">Leaderboard</div>
-  <div class="section-subtitle" data-t="leaderboardSub2">Real rankings updated daily</div>
-  <div class="leaderboard" id="leaderboard-list"></div>
-</div>
-
-<!-- AI TUTOR -->
-<div id="section-ai" class="section">
-  <div class="section-title" data-t="aiTutor">AI English Tutor</div>
-  <div class="section-subtitle" data-t="aiTutorSub">Ask anything about English — grammar, vocabulary, pronunciation</div>
-  <div class="ai-chat">
-    <div class="chat-messages" id="ai-chat-messages"></div>
-    <div class="chat-input-row">
-      <input class="chat-input" id="ai-chat-input" placeholder="Ask anything in English..." onkeydown="if(event.key==='Enter')sendAIMessage()">
-      <button class="btn btn-primary" onclick="sendAIMessage()">Send ➤</button>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap" id="ai-suggestions"></div>
-  </div>
-</div>
-
-</div><!-- /main -->
-
-<!-- MODAL for vocab word -->
-<div class="modal" id="vocab-modal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('vocab-modal')">✕</button>
-    <div id="vocab-modal-content"></div>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
-
-<script>
-// =========================================================
-// TRANSLATIONS
-// =========================================================
-const T = {
-  en:{
-    learn:"LEARN",home:"Home",topics:"Topics",vocabulary:"Vocabulary",
-    listening:"Listening",speaking:"Speaking",reading:"Reading",writing:"Writing",
-    compete:"COMPETE",leaderboard:"Leaderboard",aiTutor:"AI Tutor",
-    heroTitle:"Master English Like a Pro",heroSub:"Topics, tests, listening, speaking — all powered by real AI",
-    topicsCompleted:"Topics Completed",avgScore:"Avg Test Score",dayStreak:"Day Streak",wordsLearned:"Words Learned",
-    startLearning:"Start Learning",startLearningSub:"Choose a topic and take a test",
-    chatAI:"Chat with AI",chatAISub:"Practice English 24/7 with smart AI",
-    vocabularySub:"Learn thousands of words by category",leaderboardSub:"Compete with learners worldwide",
-    allTopics:"All Topics",allTopicsSub:"Choose a topic to study, then take a 30-question test",
-    backToTopics:"Back to Topics",vocabSub:"Thousands of words organized by topic and level",
-    listeningSub:"Real audio exercises with comprehension tests",
-    speakingSub:"Have real conversations with AI — it speaks and you answer!",
-    tapToSpeak:"Tap mic to start speaking",readingSub:"Articles with comprehension questions",
-    writingSub:"Write and get AI feedback instantly",leaderboardSub2:"Real rankings updated daily",
-    aiTutorSub:"Ask anything about English — grammar, vocabulary, pronunciation",
-    question:"Question",of:"of",checkAnswer:"Check Answer",next:"Next",
-    finish:"Finish",yourScore:"Your Score",excellent:"Excellent! 🎉",
-    good:"Good job! 👍",keepPracticing:"Keep practicing! 💪",
-    studyTopic:"Study Topic",takeTest:"Take Test",
-    beginnerLevel:"Beginner",intermediateLevel:"Intermediate",advancedLevel:"Advanced",
-    wordsInSection:"words",learnedTag:"Learned",
-    listenAgain:"Listen Again",showTranscript:"Show Transcript",
-    startConversation:"Start Conversation",stopListening:"Stop Listening",
-    speakNow:"Speak now...",sending:"Sending...",
-    writingPrompt:"Write about this topic:",submitWriting:"Submit for AI Review",
-    aiReviewing:"AI is reviewing your writing...",
-    score:"Score",feedback:"Feedback",corrections:"Corrections",suggestions:"Suggestions",
-    correct:"Correct ✓",wrong:"Wrong ✗",
-  },
-  ru:{
-    learn:"УЧИТЬСЯ",home:"Главная",topics:"Темы",vocabulary:"Словарь",
-    listening:"Аудирование",speaking:"Говорение",reading:"Чтение",writing:"Письмо",
-    compete:"СОРЕВНОВАТЬСЯ",leaderboard:"Рейтинг",aiTutor:"ИИ Учитель",
-    heroTitle:"Освой английский как профессионал",heroSub:"Темы, тесты, аудирование, говорение — всё с настоящим ИИ",
-    topicsCompleted:"Пройдено тем",avgScore:"Средний балл",dayStreak:"Дней подряд",wordsLearned:"Слов изучено",
-    startLearning:"Начать учиться",startLearningSub:"Выберите тему и пройдите тест",
-    chatAI:"Чат с ИИ",chatAISub:"Практикуй английский 24/7 с умным ИИ",
-    vocabularySub:"Тысячи слов по темам и уровням",leaderboardSub:"Соревнуйтесь с учениками со всего мира",
-    allTopics:"Все темы",allTopicsSub:"Выберите тему для изучения, затем пройдите тест из 30 вопросов",
-    backToTopics:"Назад к темам",vocabSub:"Тысячи слов, организованных по теме и уровню",
-    listeningSub:"Настоящие аудио-упражнения с тестами на понимание",
-    speakingSub:"Настоящие разговоры с ИИ — он говорит, ты отвечаешь!",
-    tapToSpeak:"Нажмите микрофон чтобы говорить",readingSub:"Статьи с вопросами на понимание",
-    writingSub:"Пишите и получайте мгновенную обратную связь от ИИ",leaderboardSub2:"Реальный рейтинг обновляется ежедневно",
-    aiTutorSub:"Спрашивай что угодно об английском — грамматика, словарь, произношение",
-    question:"Вопрос",of:"из",checkAnswer:"Проверить ответ",next:"Далее",
-    finish:"Завершить",yourScore:"Ваш результат",excellent:"Отлично! 🎉",
-    good:"Хорошо! 👍",keepPracticing:"Продолжай практиковаться! 💪",
-    studyTopic:"Изучить тему",takeTest:"Пройти тест",
-    beginnerLevel:"Начальный",intermediateLevel:"Средний",advancedLevel:"Продвинутый",
-    wordsInSection:"слов",learnedTag:"Изучено",
-    listenAgain:"Слушать снова",showTranscript:"Показать текст",
-    startConversation:"Начать разговор",stopListening:"Остановить",
-    speakNow:"Говорите...",sending:"Отправка...",
-    writingPrompt:"Напишите на тему:",submitWriting:"Отправить на проверку ИИ",
-    aiReviewing:"ИИ проверяет ваш текст...",
-    score:"Оценка",feedback:"Отзыв",corrections:"Исправления",suggestions:"Предложения",
-    correct:"Верно ✓",wrong:"Неверно ✗",
-  },
-  uz:{
-    learn:"O'RGANISH",home:"Bosh sahifa",topics:"Mavzular",vocabulary:"Lug'at",
-    listening:"Tinglash",speaking:"Gapirish",reading:"O'qish",writing:"Yozish",
-    compete:"MUSOBAQA",leaderboard:"Reyting",aiTutor:"AI O'qituvchi",
-    heroTitle:"Ingliz tilini professionaldek o'rgan",heroSub:"Mavzular, testlar, tinglash, gapirish — haqiqiy AI bilan",
-    topicsCompleted:"Tugatilgan mavzular",avgScore:"O'rtacha ball",dayStreak:"Kunlik seriya",wordsLearned:"O'rganilgan so'zlar",
-    startLearning:"O'rganishni boshlash",startLearningSub:"Mavzu tanlang va test topshiring",
-    chatAI:"AI bilan suhbat",chatAISub:"Aqlli AI bilan 24/7 inglizcha mashq qiling",
-    vocabularySub:"Minglab so'zlar mavzu va darajalar bo'yicha",leaderboardSub:"Dunyo bo'ylab o'quvchilar bilan musobaqalashing",
-    allTopics:"Barcha mavzular",allTopicsSub:"O'rganish uchun mavzu tanlang, so'ng 30 savollik test topshiring",
-    backToTopics:"Mavzularga qaytish",vocabSub:"Mavzu va darajalar bo'yicha tartibga solingan minglab so'zlar",
-    listeningSub:"Tushunish testlari bilan haqiqiy audio mashqlar",
-    speakingSub:"AI bilan haqiqiy suhbatlar — u gapiradi, siz javob berasiz!",
-    tapToSpeak:"Gapirish uchun mikrofonni bosing",readingSub:"Tushunish savollari bilan maqolalar",
-    writingSub:"Yozing va AI dan darhol fikr-mulohaza oling",leaderboardSub2:"Haqiqiy reytinglar har kuni yangilanadi",
-    aiTutorSub:"Ingliz tili haqida har narsani so'rang — grammatika, lug'at, talaffuz",
-    question:"Savol",of:"dan",checkAnswer:"Javobni tekshirish",next:"Keyingi",
-    finish:"Tugatish",yourScore:"Sizning natijangiz",excellent:"Ajoyib! 🎉",
-    good:"Yaxshi! 👍",keepPracticing:"Mashq qilishni davom eting! 💪",
-    studyTopic:"Mavzuni o'rganish",takeTest:"Test topshirish",
-    beginnerLevel:"Boshlang'ich",intermediateLevel:"O'rta",advancedLevel:"Ilg'or",
-    wordsInSection:"so'z",learnedTag:"O'rganildi",
-    listenAgain:"Yana tinglash",showTranscript:"Matnni ko'rsatish",
-    startConversation:"Suhbatni boshlash",stopListening:"To'xtatish",
-    speakNow:"Gapiring...",sending:"Yuborilmoqda...",
-    writingPrompt:"Bu mavzuda yozing:",submitWriting:"AI tekshiruviga yuborish",
-    aiReviewing:"AI yozuvingizni tekshirmoqda...",
-    score:"Ball",feedback:"Fikr-mulohaza",corrections:"Tuzatishlar",suggestions:"Takliflar",
-    correct:"To'g'ri ✓",wrong:"Noto'g'ri ✗",
-  }
-};
-let currentLang='en';
-function t(k){return(T[currentLang]||T.en)[k]||T.en[k]||k}
-function setLang(l){
-  currentLang=l;
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.lang-btn').forEach(b=>{if(b.textContent.toLowerCase()===l.toLowerCase())b.classList.add('active')});
-  document.querySelectorAll('[data-t]').forEach(el=>{
-    const k=el.getAttribute('data-t');
-    if(k&&T[l]&&T[l][k])el.textContent=T[l][k];
-    else if(k&&T.en[k])el.textContent=T.en[k];
-  });
-  document.querySelectorAll('.vocab-search').forEach(el=>el.placeholder='🔍 '+(l==='ru'?'Поиск слов...':l==='uz'?"So'z qidirish...":'Search words...'));
-  document.querySelectorAll('.chat-input').forEach(el=>el.placeholder=l==='ru'?'Спросите что-нибудь...':l==='uz'?"Biror narsa so'rang...":'Ask anything in English...');
-  renderAll();
-}
-
-// =========================================================
-// GAME STATE
-// =========================================================
-let state={
-  xp:0, streak:3, topicsDone:{}, scores:{}, wordsLearned:new Set(),
-  currentTopic:null, quizState:null, chatHistory:[], speakingHistory:[],
-  speakingTopic:null, writingTask:null
-};
-function saveState(){try{localStorage.setItem('em_state',JSON.stringify({...state,wordsLearned:[...state.wordsLearned]}))}catch(e){}}
-function loadState(){try{const d=JSON.parse(localStorage.getItem('em_state')||'{}');if(d.xp!=null){state={...state,...d,wordsLearned:new Set(d.wordsLearned||[])};}}catch(e){}}
-loadState();
-
-function addXP(n){state.xp+=n;document.getElementById('xp-badge').textContent='⚡ '+state.xp+' XP';updateHomeStats();saveState();}
-function updateHomeStats(){
-  document.getElementById('stat-topics').textContent=Object.keys(state.topicsDone).length;
-  const s=Object.values(state.scores);
-  document.getElementById('stat-score').textContent=s.length?Math.round(s.reduce((a,b)=>a+b,0)/s.length)+'%':'0%';
-  document.getElementById('stat-streak').textContent=state.streak+'🔥';
-  document.getElementById('stat-words').textContent=state.wordsLearned.size;
-}
-updateHomeStats();
-
-// =========================================================
-// NAVIGATION
-// =========================================================
-function showSection(id){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById('section-'+id).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  const ni=document.getElementById('nav-'+id);
-  if(ni)ni.classList.add('active');
-  if(id==='vocabulary')renderVocab();
-  if(id==='listening')renderListening();
-  if(id==='reading')renderReading();
-  if(id==='writing')renderWriting();
-  if(id==='leaderboard')renderLeaderboard();
-  if(id==='speaking')renderSpeaking();
-  if(id==='ai')initAI();
-}
-
-// =========================================================
-// TOPICS DATA
-// =========================================================
-const TOPICS=[
-{id:'greetings',icon:'👋',level:'beginner',
- title:{en:'Greetings & Introductions',ru:'Приветствия и знакомства',uz:'Salomlashish va tanishish'},
- desc:{en:'Learn how to greet people, introduce yourself, and start conversations.',ru:'Научитесь приветствовать людей, представляться и начинать разговоры.',uz:'Odamlarni salomlashish, o\'zingizni tanishtirish va suhbat boshlashni o\'rganing.'},
- content:{en:`
-<h2>Greetings & Introductions</h2>
-<p>Greetings are the foundation of every conversation. In English, there are many ways to say hello depending on the time of day, the setting, and how well you know the person.</p>
-<h3>Formal Greetings</h3>
-<p>Use these in professional settings, with strangers, or with people older than you:</p>
-<div class="example-box"><div class="en">"Good morning, Mr. Johnson. How do you do?"</div><div class="tr">Доброе утро, мистер Джонсон. Как вы поживаете?</div></div>
-<div class="example-box"><div class="en">"Good afternoon, I'm pleased to meet you."</div><div class="tr">Добрый день, рад с вами познакомиться.</div></div>
-<div class="example-box"><div class="en">"Good evening. It's a pleasure to make your acquaintance."</div><div class="tr">Добрый вечер. Рад с вами познакомиться.</div></div>
-<h3>Informal Greetings</h3>
-<p>Use these with friends, classmates, and people your age:</p>
-<div class="example-box"><div class="en">"Hey! What's up?" / "Hi there!" / "What's going on?"</div><div class="tr">Эй! Как дела? / Привет! / Что происходит?</div></div>
-<div class="example-box"><div class="en">"Long time no see! How have you been?"</div><div class="tr">Давно не виделись! Как ты поживал?</div></div>
-<h3>Introducing Yourself</h3>
-<p>When meeting someone new, follow this structure:</p>
-<div class="example-box"><div class="en">"Hi, my name is Sarah. I'm 25 years old and I'm from New York. I work as a teacher. Nice to meet you!"</div><div class="tr">Привет, меня зовут Сара. Мне 25 лет, я из Нью-Йорка. Я работаю учителем. Приятно познакомиться!</div></div>
-<h3>Asking About Someone</h3>
-<div class="example-box"><div class="en">"What's your name?" / "Where are you from?" / "What do you do for a living?" / "How old are you?"</div><div class="tr">Как вас зовут? / Откуда вы? / Чем вы занимаетесь? / Сколько вам лет?</div></div>
-<h3>Saying Goodbye</h3>
-<div class="example-box"><div class="en">Formal: "Farewell." / "It was a pleasure meeting you." / "Have a good day."</div><div class="tr">Формально: Прощайте. / Было приятно познакомиться. / Хорошего дня.</div></div>
-<div class="example-box"><div class="en">Informal: "Bye!" / "See you later!" / "Take care!" / "Catch you later!"</div><div class="tr">Неформально: Пока! / Увидимся позже! / Береги себя! / До встречи!</div></div>
-<h3>Key Vocabulary</h3>
-<p>greeting, introduction, farewell, acquaintance, pleasure, formal, informal, native, surname, nickname, occupation, hometown</p>
- `,ru:'',uz:''},
- vocab:['hello','goodbye','name','pleased','morning','afternoon','evening','introduce','meet','farewell','acquaintance','surname']
-},
-{id:'tenses',icon:'⏰',level:'beginner',
- title:{en:'English Tenses',ru:'Времена английского языка',uz:'Ingliz tili zamonlari'},
- desc:{en:'Master all 12 English tenses with examples and practice.',ru:'Освойте все 12 времён английского языка с примерами и практикой.',uz:'Misollar va mashqlar bilan ingliz tilining barcha 12 zamonini o\'rganing.'},
- content:{en:`
-<h2>English Tenses — Complete Guide</h2>
-<p>English has 12 main tenses organized into three time frames (Past, Present, Future) and four aspects (Simple, Continuous, Perfect, Perfect Continuous).</p>
-<h3>Present Simple</h3>
-<p><strong>Form:</strong> Subject + base verb (add -s/-es for he/she/it)<br><strong>Use:</strong> Habits, routines, facts, permanent situations</p>
-<div class="example-box"><div class="en">I work every day. She speaks English. Water boils at 100°C.</div><div class="tr">Я работаю каждый день. Она говорит по-английски. Вода кипит при 100°C.</div></div>
-<h3>Present Continuous</h3>
-<p><strong>Form:</strong> am/is/are + verb-ing<br><strong>Use:</strong> Actions happening right now, temporary situations</p>
-<div class="example-box"><div class="en">I am studying now. They are playing football. She is wearing a red dress.</div><div class="tr">Я сейчас учусь. Они играют в футбол. Она надела красное платье.</div></div>
-<h3>Present Perfect</h3>
-<p><strong>Form:</strong> have/has + past participle<br><strong>Use:</strong> Past actions with present results, life experiences</p>
-<div class="example-box"><div class="en">I have visited Paris. She has eaten sushi before. They have just arrived.</div><div class="tr">Я посетил Париж. Она ела суши раньше. Они только что прибыли.</div></div>
-<h3>Past Simple</h3>
-<p><strong>Form:</strong> verb + -ed (regular) or irregular form<br><strong>Use:</strong> Completed actions in the past at a specific time</p>
-<div class="example-box"><div class="en">I worked yesterday. She visited London last year. They went to school.</div><div class="tr">Я работал вчера. Она посетила Лондон в прошлом году. Они ходили в школу.</div></div>
-<h3>Past Continuous</h3>
-<p><strong>Form:</strong> was/were + verb-ing<br><strong>Use:</strong> Actions in progress at a specific past moment</p>
-<div class="example-box"><div class="en">I was sleeping at 8 PM. While she was cooking, he was reading.</div><div class="tr">Я спал в 8 вечера. Пока она готовила, он читал.</div></div>
-<h3>Future Simple</h3>
-<p><strong>Form:</strong> will + base verb<br><strong>Use:</strong> Predictions, spontaneous decisions, promises</p>
-<div class="example-box"><div class="en">I will call you tomorrow. It will rain tonight. She will help us.</div><div class="tr">Я позвоню тебе завтра. Сегодня ночью пойдёт дождь. Она нам поможет.</div></div>
-<h3>Signal Words</h3>
-<p>Present Simple: always, usually, often, never, every day | Past Simple: yesterday, ago, last year, in 1990 | Future: tomorrow, next week, soon, in the future</p>
- `,ru:'',uz:''},
- vocab:['tense','verb','past','present','future','simple','continuous','perfect','irregular','auxiliary','participle','gerund']
-},
-{id:'articles',icon:'📝',level:'beginner',
- title:{en:'Articles: A, An, The',ru:'Артикли: A, An, The',uz:'Artiklar: A, An, The'},
- desc:{en:'Understand when to use a, an, the, or no article at all.',ru:'Поймите, когда использовать a, an, the или вообще без артикля.',uz:"Qachon a, an, the yoki umuman artikl ishlatmaslikni tushunib oling."},
- content:{en:`
-<h2>Articles in English</h2>
-<p>Articles are small but incredibly important words in English. Using the wrong article (or forgetting one) is one of the most common mistakes learners make.</p>
-<h3>Indefinite Article: A / AN</h3>
-<p>Use <strong>a</strong> before consonant sounds, <strong>an</strong> before vowel sounds (a, e, i, o, u).</p>
-<div class="example-box"><div class="en">a book, a car, a university (u sounds like 'yu') | an apple, an egg, an hour (h is silent)</div><div class="tr">книга, машина, университет | яблоко, яйцо, час</div></div>
-<p><strong>When to use A/AN:</strong></p>
-<div class="example-box"><div class="en">First mention: "I saw a dog." (next time: "The dog was friendly.") | Profession: "She is a doctor." | Per/each: "twice a week"</div></div>
-<h3>Definite Article: THE</h3>
-<p>Use <strong>the</strong> when both speaker and listener know which specific thing is meant.</p>
-<div class="example-box"><div class="en">The sun, the moon, the Earth (unique things) | "Close the door." (specific door) | "The Nile is in Africa." (rivers, mountain ranges, seas)</div><div class="tr">Солнце, луна, Земля | Закрой дверь | Нил находится в Африке</div></div>
-<h3>No Article (Zero Article)</h3>
-<div class="example-box"><div class="en">Languages: "She speaks English." | Sports: "He plays football." | Meals: "We eat breakfast." | Abstract nouns: "Love is important." | Most countries, cities</div></div>
-<h3>Common Mistakes</h3>
-<div class="example-box"><div class="en">✗ "I go to the school." → ✓ "I go to school." (as a student, it's an institution)</div></div>
-<div class="example-box"><div class="en">✗ "She is teacher." → ✓ "She is a teacher." (must use a/an with singular professions)</div></div>
- `,ru:'',uz:''},
- vocab:['article','definite','indefinite','noun','singular','plural','countable','uncountable','specific','general','vowel','consonant']
-},
-{id:'modal-verbs',icon:'🔧',level:'intermediate',
- title:{en:'Modal Verbs',ru:'Модальные глаголы',uz:'Modal fe\'llar'},
- desc:{en:'Can, could, may, might, must, should, would — master all modals.',ru:'Can, could, may, might, must, should, would — освойте все модальные глаголы.',uz:"Can, could, may, might, must, should, would — barcha modal fe'llarni o'rganing."},
- content:{en:`
-<h2>Modal Verbs — Complete Guide</h2>
-<p>Modal verbs are special auxiliary verbs that express ability, permission, possibility, obligation, and more. They never take -s/-ed endings and are always followed by the base form of the verb.</p>
-<h3>CAN / COULD</h3>
-<p><strong>Can</strong> = present ability, permission (informal), possibility</p>
-<div class="example-box"><div class="en">I can swim. (ability) | Can I use your phone? (permission) | It can get very cold here. (possibility)</div></div>
-<p><strong>Could</strong> = past ability, polite request, conditional possibility</p>
-<div class="example-box"><div class="en">When I was 5, I could read. | Could you help me, please? | It could rain tomorrow.</div></div>
-<h3>MAY / MIGHT</h3>
-<div class="example-box"><div class="en">May I enter? (formal permission) | She may be late. (50% possibility) | He might come tomorrow. (less certain, ~30%)</div></div>
-<h3>MUST / HAVE TO / MUSTN'T</h3>
-<div class="example-box"><div class="en">You must wear a seatbelt. (strong obligation, law) | You must be tired! (logical deduction) | You mustn'tt tell anyone. (prohibition)</div><div class="tr">Вы должны пристегнуть ремень безопасности. | Вы, наверное, устали! | Никому нельзя говорить.</div></div>
-<h3>SHOULD / OUGHT TO</h3>
-<div class="example-box"><div class="en">You should see a doctor. (advice) | You shouldn't eat so much sugar. (advice against) | We ought to call her.</div></div>
-<h3>WOULD</h3>
-<div class="example-box"><div class="en">Would you like some tea? (polite offer) | I would travel the world if I had money. (conditional) | He would always smile. (past habit)</div></div>
-<h3>Key Differences: MUST vs HAVE TO</h3>
-<div class="example-box"><div class="en">MUST = personal obligation / I must study (I decide this) | HAVE TO = external obligation / I have to wear a uniform (rules say so)</div></div>
- `,ru:'',uz:''},
- vocab:['modal','ability','permission','possibility','obligation','prohibition','advice','deduction','auxiliary','conditional','formal','polite']
-},
-{id:'prepositions',icon:'📍',level:'beginner',
- title:{en:'Prepositions',ru:'Предлоги',uz:'Predloglar'},
- desc:{en:'In, on, at, by, with, from — master all English prepositions.',ru:'In, on, at, by, with, from — освойте все предлоги английского языка.',uz:"In, on, at, by, with, from — ingliz tili predloglarini o'rganing."},
- content:{en:`
-<h2>Prepositions in English</h2>
-<p>Prepositions show the relationship between a noun/pronoun and other words in the sentence. They indicate position, time, direction, and more.</p>
-<h3>Prepositions of Place</h3>
-<div class="example-box"><div class="en">IN: inside an enclosed space — "in the box", "in London", "in my bag"</div></div>
-<div class="example-box"><div class="en">ON: on a surface — "on the table", "on the wall", "on the bus/train/plane"</div></div>
-<div class="example-box"><div class="en">AT: specific point/place — "at the door", "at school", "at the top"</div></div>
-<div class="example-box"><div class="en">UNDER/ABOVE/BESIDE/BEHIND/IN FRONT OF/BETWEEN/AMONG</div></div>
-<h3>Prepositions of Time</h3>
-<div class="example-box"><div class="en">IN: months, years, seasons, centuries — "in July", "in 2020", "in summer", "in the morning"</div></div>
-<div class="example-box"><div class="en">ON: days, dates — "on Monday", "on July 4th", "on my birthday"</div></div>
-<div class="example-box"><div class="en">AT: specific times, holidays — "at 3 o'clock", "at noon", "at Christmas", "at midnight"</div></div>
-<h3>Prepositions of Movement</h3>
-<div class="example-box"><div class="en">TO: direction — "go to school" | INTO: entering — "walk into the room" | ONTO: up onto surface — "jump onto the stage" | THROUGH: passing through — "drive through the tunnel"</div></div>
-<h3>Other Common Prepositions</h3>
-<div class="example-box"><div class="en">BY: "a book by Shakespeare" / "come by car" / "finish by Friday" | WITH: "tea with milk" / "cut with scissors" | FOR: "a gift for you" / "wait for an hour" | OF: "a cup of tea" / "afraid of dogs"</div></div>
- `,ru:'',uz:''},
- vocab:['preposition','position','location','direction','movement','relationship','beside','through','across','toward','beneath','opposite']
-},
-{id:'conditionals',icon:'🔀',level:'intermediate',
- title:{en:'Conditionals (If-Clauses)',ru:'Условные предложения',uz:'Shartli gaplar'},
- desc:{en:'Zero, First, Second, Third and Mixed conditionals explained.',ru:'Нулевой, первый, второй, третий и смешанные условные типы.',uz:"Nol, birinchi, ikkinchi, uchinchi va aralash shartli gaplar."},
- content:{en:`
-<h2>Conditionals in English</h2>
-<p>Conditional sentences (if-clauses) express a condition and its result. There are 5 main types in English.</p>
-<h3>Zero Conditional — General Truths</h3>
-<p><strong>Structure:</strong> If + present simple, present simple</p>
-<div class="example-box"><div class="en">If you heat water to 100°C, it boils. | If I eat too much, I feel sick. | If it rains, the ground gets wet.</div><div class="tr">Если нагреть воду до 100°C, она кипит.</div></div>
-<h3>First Conditional — Real Future</h3>
-<p><strong>Structure:</strong> If + present simple, will + base verb</p>
-<div class="example-box"><div class="en">If it rains tomorrow, I will stay home. | If she calls me, I'll tell her the news. | If you study hard, you will pass.</div></div>
-<h3>Second Conditional — Unreal Present/Future</h3>
-<p><strong>Structure:</strong> If + past simple, would + base verb</p>
-<div class="example-box"><div class="en">If I were rich, I would travel the world. | If she knew the answer, she would tell us. | If I had a car, I would drive to work.</div><div class="tr">Если бы я был богат, я бы путешествовал по миру.</div></div>
-<h3>Third Conditional — Unreal Past</h3>
-<p><strong>Structure:</strong> If + past perfect, would have + past participle</p>
-<div class="example-box"><div class="en">If I had studied harder, I would have passed. | If she had taken the medicine, she would have recovered. | If they hadn't been late, they would have caught the train.</div></div>
-<h3>Mixed Conditional — Past → Present Result</h3>
-<div class="example-box"><div class="en">If I had taken that job (past), I would be rich now (present). | If she hadn't been ill (past), she would be here today.</div></div>
- `,ru:'',uz:''},
- vocab:['conditional','clause','result','hypothesis','imaginary','consequence','unless','provided','suppose','although','despite','regardless']
-},
-{id:'passive-voice',icon:'🔄',level:'intermediate',
- title:{en:'Passive Voice',ru:'Пассивный залог',uz:'Passiv nido'},
- desc:{en:'Learn how and when to use passive constructions in English.',ru:'Узнайте, как и когда использовать пассивные конструкции.',uz:"Ingliz tilida passiv konstruksiyalarni qanday va qachon ishlatishni o'rganing."},
- content:{en:`
-<h2>Passive Voice in English</h2>
-<p>In active voice, the subject performs the action. In passive voice, the subject receives the action. We use passive when the action is more important than who does it.</p>
-<h3>How to Form Passive</h3>
-<p><strong>Formula:</strong> Subject + to be (conjugated) + past participle (+ by + agent)</p>
-<div class="example-box"><div class="en">Active: "Shakespeare wrote Hamlet." → Passive: "Hamlet was written by Shakespeare."</div></div>
-<div class="example-box"><div class="en">Active: "They are building a new bridge." → Passive: "A new bridge is being built."</div></div>
-<h3>Passive in Different Tenses</h3>
-<div class="example-box"><div class="en">Present Simple: "Coffee is grown in Colombia." | Past Simple: "The window was broken." | Present Perfect: "The project has been completed." | Future: "The results will be announced tomorrow." | Modal: "The problem can be solved."</div></div>
-<h3>When to Use Passive</h3>
-<div class="example-box"><div class="en">• When the agent is unknown: "My bike was stolen." | • When the agent is obvious: "The suspect was arrested." | • In formal/scientific writing: "The experiment was conducted twice." | • To emphasize the action/result: "Three goals were scored in 10 minutes."</div></div>
-<h3>Common Passive Structures</h3>
-<div class="example-box"><div class="en">It is said that... / It is believed that... / It is reported that... / It is thought that...</div><div class="tr">Говорят, что... / Считается, что... / Сообщается, что... / Думают, что...</div></div>
- `,ru:'',uz:''},
- vocab:['passive','active','subject','object','agent','participle','construction','emphasis','formal','scientific','anonymous','transformation']
-},
-{id:'idioms',icon:'💬',level:'advanced',
- title:{en:'Idioms & Phrasal Verbs',ru:'Идиомы и фразовые глаголы',uz:'Idiomalar va fraza fe\'llari'},
- desc:{en:'Master over 100 common idioms and phrasal verbs used by native speakers.',ru:'Освойте более 100 распространённых идиом и фразовых глаголов.',uz:"100 dan ortiq umumiy idiomalar va fraza fe'llarini o'rganing."},
- content:{en:`
-<h2>Idioms & Phrasal Verbs</h2>
-<p>Idioms are expressions whose meaning cannot be understood from the individual words. Phrasal verbs combine a verb with a preposition or adverb to create a new meaning.</p>
-<h3>Common Idioms — Body Parts</h3>
-<div class="example-box"><div class="en">"Break a leg!" = Good luck! | "Cost an arm and a leg" = very expensive | "Keep an eye on" = watch carefully | "Turn a blind eye" = ignore deliberately | "Get cold feet" = become nervous/scared | "See eye to eye" = agree</div></div>
-<h3>Idioms — Animals</h3>
-<div class="example-box"><div class="en">"Let the cat out of the bag" = reveal a secret | "Kill two birds with one stone" = accomplish two things at once | "The elephant in the room" = obvious problem nobody talks about | "It's raining cats and dogs" = raining heavily</div></div>
-<h3>Essential Phrasal Verbs</h3>
-<div class="example-box"><div class="en">GIVE UP = stop trying | LOOK INTO = investigate | BRING UP = mention OR raise a child | TURN DOWN = refuse OR lower volume | FIGURE OUT = understand/solve | COME UP WITH = invent/produce an idea | CALL OFF = cancel | PUT OFF = postpone | SET UP = arrange/establish | CARRY OUT = execute/perform</div></div>
-<h3>Phrasal Verbs in Context</h3>
-<div class="example-box"><div class="en">"Don't give up! You can do this." | "We need to look into this problem." | "She came up with an excellent solution." | "The meeting was called off due to weather." | "Please turn down the music."</div></div>
-<h3>Tips for Learning Idioms</h3>
-<p>1. Learn idioms in context, not just their definitions. 2. Group related idioms together. 3. Use them in writing before speaking. 4. Native speakers use them constantly in conversation, TV, and books.</p>
- `,ru:'',uz:''},
- vocab:['idiom','phrasal','collocation','expression','figurative','literal','native','informal','metaphor','slang','proverb','saying']
-},
-{id:'business-english',icon:'💼',level:'advanced',
- title:{en:'Business English',ru:'Деловой английский',uz:'Biznes ingliz tili'},
- desc:{en:'Professional vocabulary, emails, meetings, and presentations.',ru:'Профессиональная лексика, письма, встречи и презентации.',uz:"Professional lug'at, xatlar, uchrashuvlar va taqdimotlar."},
- content:{en:`
-<h2>Business English</h2>
-<p>Business English is the specialized vocabulary and communication style used in professional and corporate environments.</p>
-<h3>Professional Email Writing</h3>
-<div class="example-box"><div class="en">Opening: "Dear Mr. Smith," / "To Whom It May Concern," / "I am writing to enquire about..."</div></div>
-<div class="example-box"><div class="en">Body: "I would like to bring to your attention..." / "Please find attached..." / "I am pleased to inform you that..." / "Unfortunately, we regret to inform you..."</div></div>
-<div class="example-box"><div class="en">Closing: "I look forward to hearing from you." / "Please do not hesitate to contact me." / "Kind regards," / "Yours sincerely,"</div></div>
-<h3>Meeting Language</h3>
-<div class="example-box"><div class="en">Opening: "Let's get started." / "Shall we begin?" / "The purpose of today's meeting is..."</div></div>
-<div class="example-box"><div class="en">Agreeing: "That's a good point." / "I couldn't agree more." / "Absolutely."</div></div>
-<div class="example-box"><div class="en">Disagreeing politely: "I see your point, however..." / "With all due respect..." / "I'm not sure that would work because..."</div></div>
-<h3>Presentation Phrases</h3>
-<div class="example-box"><div class="en">"Today I'm going to talk about..." / "As you can see from this chart..." / "To summarize..." / "In conclusion..." / "Any questions?"</div></div>
-<h3>Key Business Vocabulary</h3>
-<p>acquisition, merger, stakeholder, ROI, KPI, quarterly, forecast, revenue, expenditure, benchmark, deadline, negotiate, collaborate, implement, strategy, leverage, synergy, scalable</p>
- `,ru:'',uz:''},
- vocab:['professional','corporate','stakeholder','revenue','acquisition','presentation','negotiate','strategy','deadline','forecast','collaborate','implement']
-},
-{id:'travel',icon:'✈️',level:'beginner',
- title:{en:'Travel & Tourism',ru:'Путешествия и туризм',uz:"Sayohat va turizm"},
- desc:{en:'Everything you need to know for traveling in English-speaking countries.',ru:'Всё, что нужно знать для путешествий в англоязычных странах.',uz:"Ingliz tilida so'zlashuvchi mamlakatlarda sayohat qilish uchun kerak bo'lgan hamma narsa."},
- content:{en:`
-<h2>Travel & Tourism English</h2>
-<p>Knowing travel English is essential for anyone who wants to visit English-speaking countries or communicate internationally.</p>
-<h3>At the Airport</h3>
-<div class="example-box"><div class="en">"I'd like to check in, please." | "Window or aisle seat?" | "Do you have any luggage to check?" | "Your boarding pass, please." | "Gate 14 is boarding now."</div></div>
-<h3>At the Hotel</h3>
-<div class="example-box"><div class="en">"I have a reservation under the name Smith." | "Could I have a room with a view?" | "What time is check-out?" | "Could you call a taxi for me?" | "The WiFi isn't working in my room."</div></div>
-<h3>Getting Around</h3>
-<div class="example-box"><div class="en">"Excuse me, how do I get to the train station?" | "Take the second left, then go straight." | "How long does it take?" | "Is this the right bus for downtown?"</div></div>
-<h3>At a Restaurant</h3>
-<div class="example-box"><div class="en">"A table for two, please." | "What do you recommend?" | "I'm allergic to nuts." | "Could I have the bill, please?" | "Is service included?"</div></div>
-<h3>Emergencies</h3>
-<div class="example-box"><div class="en">"I need help!" | "Call an ambulance!" | "I've lost my passport." | "Where is the nearest hospital?" | "I've been robbed."</div></div>
-<h3>Key Travel Words</h3>
-<p>passport, visa, customs, departure, arrival, boarding, luggage, reservation, accommodation, currency, exchange rate, itinerary, landmark, souvenir, sightseeing</p>
- `,ru:'',uz:''},
- vocab:['passport','visa','customs','boarding','luggage','reservation','accommodation','currency','itinerary','landmark','souvenir','sightseeing']
-}
-];
-
-// =========================================================
-// VOCABULARY DATABASE (400+ words)
-// =========================================================
-const VOCAB_CATEGORIES={
- 'Common Words':[
-  {word:'beautiful',ph:'/ˈbjuːtɪfəl/',ru:'красивый',uz:'chiroyli',ex:'She wore a beautiful dress.'},
-  {word:'important',ph:'/ɪmˈpɔːtənt/',ru:'важный',uz:'muhim',ex:'Education is very important.'},
-  {word:'understand',ph:'/ˌʌndəˈstænd/',ru:'понимать',uz:'tushunmoq',ex:'I understand the problem.'},
-  {word:'different',ph:'/ˈdɪfrənt/',ru:'разный',uz:'boshqacha',ex:'We have different opinions.'},
-  {word:'possible',ph:'/ˈpɒsɪbəl/',ru:'возможный',uz:'mumkin',ex:'Is it possible to leave early?'},
-  {word:'necessary',ph:'/ˈnesəsəri/',ru:'необходимый',uz:'zarur',ex:'It is necessary to study.'},
-  {word:'actually',ph:'/ˈæktʃuəli/',ru:'на самом деле',uz:'aslida',ex:'He actually helped me.'},
-  {word:'probably',ph:'/ˈprɒbəbli/',ru:'вероятно',uz:'ehtimol',ex:'She will probably come.'},
-  {word:'interesting',ph:'/ˈɪntrɪstɪŋ/',ru:'интересный',uz:'qiziqarli',ex:'This is an interesting book.'},
-  {word:'experience',ph:'/ɪkˈspɪəriəns/',ru:'опыт',uz:'tajriba',ex:'I have five years of experience.'},
-  {word:'knowledge',ph:'/ˈnɒlɪdʒ/',ru:'знание',uz:"bilim",ex:'Knowledge is power.'},
-  {word:'communicate',ph:'/kəˈmjuːnɪkeɪt/',ru:'общаться',uz:'muloqot qilmoq',ex:'We communicate by email.'},
- ],
- 'Nature':[
-  {word:'mountain',ph:'/ˈmaʊntɪn/',ru:'гора',uz:'tog\'',ex:'The mountain is very high.'},
-  {word:'forest',ph:'/ˈfɒrɪst/',ru:'лес',uz:"o'rmon",ex:'A bear lives in the forest.'},
-  {word:'ocean',ph:'/ˈəʊʃən/',ru:'океан',uz:'okean',ex:'The ocean covers 70% of Earth.'},
-  {word:'river',ph:'/ˈrɪvər/',ru:'река',uz:"daryo",ex:'The river flows to the sea.'},
-  {word:'earthquake',ph:'/ˈɜːθkweɪk/',ru:'землетрясение',uz:'zilzila',ex:'An earthquake hit the city.'},
-  {word:'hurricane',ph:'/ˈhʌrɪkən/',ru:'ураган',uz:'to\'fon',ex:'The hurricane damaged the coast.'},
-  {word:'volcano',ph:'/vɒlˈkeɪnəʊ/',ru:'вулкан',uz:'vulqon',ex:'The volcano erupted last year.'},
-  {word:'atmosphere',ph:'/ˈætməsfɪər/',ru:'атмосфера',uz:'atmosfera',ex:'The atmosphere protects Earth.'},
-  {word:'biodiversity',ph:'/ˌbaɪəʊdaɪˈvɜːsɪti/',ru:'биоразнообразие',uz:'biologik xilma-xillik',ex:'Rainforests have high biodiversity.'},
-  {word:'ecosystem',ph:'/ˈiːkəʊsɪstəm/',ru:'экосистема',uz:'ekotizim',ex:'Oceans are complex ecosystems.'},
-  {word:'climate',ph:'/ˈklaɪmɪt/',ru:'климат',uz:'iqlim',ex:'Climate change is a global issue.'},
-  {word:'sustainable',ph:'/səˈsteɪnəbəl/',ru:'устойчивый',uz:'barqaror',ex:'We need sustainable energy.'},
- ],
- 'Technology':[
-  {word:'algorithm',ph:'/ˈælɡərɪðəm/',ru:'алгоритм',uz:'algoritm',ex:'Google uses a complex algorithm.'},
-  {word:'artificial',ph:'/ˌɑːtɪˈfɪʃəl/',ru:'искусственный',uz:"sun'iy",ex:'Artificial intelligence is growing.'},
-  {word:'database',ph:'/ˈdeɪtəbeɪs/',ru:'база данных',uz:"ma'lumotlar bazasi",ex:'The database stores user info.'},
-  {word:'software',ph:'/ˈsɒftweər/',ru:'программное обеспечение',uz:'dasturiy ta\'minot',ex:'We need to update the software.'},
-  {word:'hardware',ph:'/ˈhɑːdweər/',ru:'оборудование',uz:'texnik vositalar',ex:'The hardware needs replacing.'},
-  {word:'cybersecurity',ph:'/ˌsaɪbəsɪˈkjʊərɪti/',ru:'кибербезопасность',uz:'kiberxavfsizlik',ex:'Cybersecurity is critical today.'},
-  {word:'bandwidth',ph:'/ˈbændwɪdθ/',ru:'пропускная способность',uz:'o\'tkazuvchanlik',ex:'We need more bandwidth.'},
-  {word:'interface',ph:'/ˈɪntəfeɪs/',ru:'интерфейс',uz:'interfeys',ex:'The user interface is clean.'},
-  {word:'encryption',ph:'/ɪnˈkrɪpʃən/',ru:'шифрование',uz:'shifrlash',ex:'Encryption protects your data.'},
-  {word:'prototype',ph:'/ˈprəʊtətaɪp/',ru:'прототип',uz:'prototip',ex:'They built a prototype in a week.'},
-  {word:'innovation',ph:'/ˌɪnəˈveɪʃən/',ru:'инновация',uz:'innovatsiya',ex:'Innovation drives progress.'},
-  {word:'wireless',ph:'/ˈwaɪərləs/',ru:'беспроводной',uz:'simsiz',ex:'Wireless internet is everywhere.'},
- ],
- 'Emotions':[
-  {word:'anxious',ph:'/ˈæŋkʃəs/',ru:'тревожный',uz:'tashvishli',ex:'She felt anxious before the exam.'},
-  {word:'enthusiastic',ph:'/ɪnˌθjuːziˈæstɪk/',ru:'энтузиастичный',uz:'ishtiyoqli',ex:'He is enthusiastic about learning.'},
-  {word:'overwhelmed',ph:'/ˌəʊvəˈwelmd/',ru:'подавленный',uz:"ezilgan",ex:'I feel overwhelmed with work.'},
-  {word:'grateful',ph:'/ˈɡreɪtfəl/',ru:'благодарный',uz:'minnatdor',ex:'I am grateful for your help.'},
-  {word:'frustrated',ph:'/frʌˈstreɪtɪd/',ru:'расстроенный',uz:'umidsizlangan',ex:'He gets frustrated easily.'},
-  {word:'confident',ph:'/ˈkɒnfɪdənt/',ru:'уверенный',uz:'ishonchli',ex:'She is confident in her skills.'},
-  {word:'melancholy',ph:'/ˈmelənkɒli/',ru:'меланхолия',uz:'melankholiya',ex:'A melancholy tune played softly.'},
-  {word:'ecstatic',ph:'/ɪkˈstætɪk/',ru:'в экстазе',uz:"hayajonda",ex:'She was ecstatic about the news.'},
-  {word:'embarrassed',ph:'/ɪmˈbærəst/',ru:'смущённый',uz:'uyalgan',ex:'He was embarrassed by the mistake.'},
-  {word:'jealous',ph:'/ˈdʒeləs/',ru:'ревнивый',uz:'hasadchi',ex:'She felt jealous of her sister.'},
-  {word:'lonely',ph:'/ˈləʊnli/',ru:'одинокий',uz:'yolg\'iz',ex:'He felt lonely in the new city.'},
-  {word:'proud',ph:'/praʊd/',ru:'гордый',uz:'g\'ururli',ex:'Her parents were proud of her.'},
- ],
- 'Food & Health':[
-  {word:'nutrition',ph:'/njuːˈtrɪʃən/',ru:'питание',uz:'ovqatlanish',ex:'Good nutrition is essential.'},
-  {word:'ingredient',ph:'/ɪnˈɡriːdiənt/',ru:'ингредиент',uz:'ingredient',ex:'What ingredients do we need?'},
-  {word:'cuisine',ph:'/kwɪˈziːn/',ru:'кухня',uz:'oshxona',ex:'Italian cuisine is delicious.'},
-  {word:'appetite',ph:'/ˈæpɪtaɪt/',ru:'аппетит',uz:'ishtaha',ex:'I have no appetite today.'},
-  {word:'diagnosis',ph:'/ˌdaɪəɡˈnəʊsɪs/',ru:'диагноз',uz:'tashxis',ex:'The diagnosis was pneumonia.'},
-  {word:'symptom',ph:'/ˈsɪmptəm/',ru:'симптом',uz:'belgi',ex:'Fever is a common symptom.'},
-  {word:'prescription',ph:'/prɪˈskrɪpʃən/',ru:'рецепт',uz:'retsept',ex:'The doctor gave a prescription.'},
-  {word:'immune',ph:'/ɪˈmjuːn/',ru:'иммунный',uz:'immunitet',ex:'Our immune system fights disease.'},
-  {word:'calories',ph:'/ˈkæləriz/',ru:'калории',uz:'kaloriya',ex:'This meal has 500 calories.'},
-  {word:'metabolism',ph:'/mɪˈtæbəlɪzəm/',ru:'метаболизм',uz:'moddalar almashinuvi',ex:'Exercise boosts metabolism.'},
-  {word:'organic',ph:'/ɔːˈɡænɪk/',ru:'органический',uz:'organik',ex:'I prefer organic vegetables.'},
-  {word:'protein',ph:'/ˈprəʊtiːn/',ru:'белок',uz:'oqsil',ex:'Meat is rich in protein.'},
- ],
- 'Science':[
-  {word:'hypothesis',ph:'/haɪˈpɒθɪsɪs/',ru:'гипотеза',uz:'gipoteza',ex:'Scientists test a hypothesis.'},
-  {word:'experiment',ph:'/ɪkˈsperɪmənt/',ru:'эксперимент',uz:'tajriba',ex:'We conducted an experiment.'},
-  {word:'molecule',ph:'/ˈmɒlɪkjuːl/',ru:'молекула',uz:'molekula',ex:'Water is made of molecules.'},
-  {word:'evolution',ph:'/ˌiːvəˈluːʃən/',ru:'эволюция',uz:'evolyutsiya',ex:'Darwin studied evolution.'},
-  {word:'gravity',ph:'/ˈɡrævɪti/',ru:'гравитация',uz:'tortishish',ex:'Gravity keeps us on Earth.'},
-  {word:'photosynthesis',ph:'/ˌfəʊtəʊˈsɪnθɪsɪs/',ru:'фотосинтез',uz:'fotosintez',ex:'Plants use photosynthesis.'},
-  {word:'chromosome',ph:'/ˈkrəʊməsəʊm/',ru:'хромосома',uz:'xromosoma',ex:'Humans have 46 chromosomes.'},
-  {word:'quantum',ph:'/ˈkwɒntəm/',ru:'квантовый',uz:'kvant',ex:'Quantum physics is complex.'},
-  {word:'nucleus',ph:'/ˈnjuːkliəs/',ru:'ядро',uz:'yadro',ex:'The nucleus controls the cell.'},
-  {word:'frequency',ph:'/ˈfriːkwənsi/',ru:'частота',uz:'chastota',ex:'Sound travels at a frequency.'},
-  {word:'radiation',ph:'/ˌreɪdiˈeɪʃən/',ru:'радиация',uz:'nurlanish',ex:'UV radiation can be harmful.'},
-  {word:'density',ph:'/ˈdensɪti/',ru:'плотность',uz:'zichlik',ex:'Lead has high density.'},
- ],
- 'Arts & Culture':[
-  {word:'sculpture',ph:'/ˈskʌlptʃər/',ru:'скульптура',uz:'haykal',ex:'The sculpture is magnificent.'},
-  {word:'symphony',ph:'/ˈsɪmfəni/',ru:'симфония',uz:'simfoniya',ex:'Beethoven wrote 9 symphonies.'},
-  {word:'perspective',ph:'/pəˈspektɪv/',ru:'перспектива',uz:'istiqbol',ex:'Art gives us a new perspective.'},
-  {word:'aesthetic',ph:'/iːsˈθetɪk/',ru:'эстетика',uz:'estetika',ex:'Japanese aesthetic is minimalist.'},
-  {word:'architecture',ph:'/ˈɑːkɪtektʃər/',ru:'архитектура',uz:'arxitektura',ex:'Paris has stunning architecture.'},
-  {word:'heritage',ph:'/ˈherɪtɪdʒ/',ru:'наследие',uz:'meros',ex:'This is cultural heritage.'},
-  {word:'narrative',ph:'/ˈnærətɪv/',ru:'повествование',uz:'hikoya',ex:'The narrative is compelling.'},
-  {word:'contemporary',ph:'/kənˈtempərəri/',ru:'современный',uz:'zamonaviy',ex:'Contemporary art is abstract.'},
-  {word:'exhibition',ph:'/ˌeksɪˈbɪʃən/',ru:'выставка',uz:'ko\'rgazma',ex:'The exhibition opens tomorrow.'},
-  {word:'masterpiece',ph:'/ˈmɑːstəpiːs/',ru:'шедевр',uz:'shoh asar',ex:'The Mona Lisa is a masterpiece.'},
-  {word:'tradition',ph:'/trəˈdɪʃən/',ru:'традиция',uz:'an\'ana',ex:'This is an old tradition.'},
-  {word:'ceremony',ph:'/ˈserɪməni/',ru:'церемония',uz:'marosim',ex:'The ceremony was beautiful.'},
- ],
- 'Business':[
-  {word:'entrepreneur',ph:'/ˌɒntrəprəˈnɜː/',ru:'предприниматель',uz:'tadbirkor',ex:'He is a successful entrepreneur.'},
-  {word:'investment',ph:'/ɪnˈvestmənt/',ru:'инвестиции',uz:'investitsiya',ex:'This is a good investment.'},
-  {word:'marketing',ph:'/ˈmɑːkɪtɪŋ/',ru:'маркетинг',uz:'marketing',ex:'Marketing is key to success.'},
-  {word:'negotiate',ph:'/nɪˈɡəʊʃieɪt/',ru:'переговоры',uz:'muzokaralar',ex:'We need to negotiate the price.'},
-  {word:'productivity',ph:'/ˌprɒdʌkˈtɪvɪti/',ru:'производительность',uz:'mahsuldorlik',ex:'How can we increase productivity?'},
-  {word:'stakeholder',ph:'/ˈsteɪkhəʊldər/',ru:'заинтересованная сторона',uz:'manfaatdor tomon',ex:'All stakeholders must agree.'},
-  {word:'revenue',ph:'/ˈrevənjuː/',ru:'выручка',uz:'daromad',ex:'Revenue increased by 20%.'},
-  {word:'competition',ph:'/ˌkɒmpɪˈtɪʃən/',ru:'конкуренция',uz:'raqobat',ex:'Market competition is fierce.'},
-  {word:'acquisition',ph:'/ˌækwɪˈzɪʃən/',ru:'поглощение',uz:"sotib olish",ex:'The acquisition was worth $1B.'},
-  {word:'forecast',ph:'/ˈfɔːkɑːst/',ru:'прогноз',uz:"prognoz",ex:"The sales forecast looks positive."},
-  {word:'leverage',ph:'/ˈliːvərɪdʒ/',ru:'рычаг влияния',uz:"ta'sir kuchi",ex:'Use your contacts as leverage.'},
-  {word:'deadline',ph:'/ˈdedlaɪn/',ru:'дедлайн',uz:'muddat',ex:'The deadline is Friday noon.'},
- ],
-};
-
-let currentVocabCat=Object.keys(VOCAB_CATEGORIES)[0];
-let allVocabFiltered=[];
-
-function renderVocab(){
-  const tabs=document.getElementById('vocab-tabs');
-  tabs.innerHTML=Object.keys(VOCAB_CATEGORIES).map(c=>`<div class="vtab${c===currentVocabCat?' active':''}" onclick="setVocabCat('${c}')">${c}</div>`).join('');
-  renderVocabGrid();
-}
-function setVocabCat(c){currentVocabCat=c;renderVocab();}
-function renderVocabGrid(){
-  const words=VOCAB_CATEGORIES[currentVocabCat]||[];
-  const q=(document.getElementById('vocab-search')||{}).value||'';
-  allVocabFiltered=q?words.filter(w=>w.word.includes(q.toLowerCase())||w.ru.includes(q)||w.uz.includes(q)):words;
-  const grid=document.getElementById('vocab-grid');
-  if(!grid)return;
-  grid.innerHTML=allVocabFiltered.map(w=>`
-    <div class="big-vocab-card" onclick="showVocabModal(${JSON.stringify(w).replace(/"/g,'&quot;')})">
-      <span class="category">${currentVocabCat}</span>
-      <div class="word">${w.word}</div>
-      <div class="phonetic">${w.ph}</div>
-      <div class="meaning">${currentLang==='ru'?w.ru:currentLang==='uz'?w.uz:w.ru}</div>
-      <div class="example">${w.ex}</div>
-    </div>
-  `).join('');
-}
-function filterVocab(){renderVocabGrid();}
-function showVocabModal(w){
-  const el=typeof w==='string'?JSON.parse(w):w;
-  document.getElementById('vocab-modal-content').innerHTML=`
-    <div style="font-size:2rem;font-weight:800;color:var(--accent);margin-bottom:6px">${el.word}</div>
-    <div style="color:var(--text3);font-family:'Space Mono',monospace;font-size:.9rem;margin-bottom:14px">${el.ph}</div>
-    <div style="margin-bottom:10px"><span style="color:var(--text3);font-size:.8rem">RU:</span> <span style="color:var(--text);font-weight:600">${el.ru}</span></div>
-    <div style="margin-bottom:10px"><span style="color:var(--text3);font-size:.8rem">UZ:</span> <span style="color:var(--text);font-weight:600">${el.uz}</span></div>
-    <div style="background:rgba(0,212,255,.06);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;font-size:.9rem;color:var(--text2);margin-top:14px">"${el.ex}"</div>
-    <button class="btn btn-primary" style="margin-top:18px" onclick="state.wordsLearned.add('${el.word}');updateHomeStats();saveState();showToast('Word learned! +5 XP','success');addXP(5);closeModal('vocab-modal')">✓ Mark as Learned</button>
-  `;
-  document.getElementById('vocab-modal').classList.add('open');
-}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-
-// =========================================================
-// TOPICS RENDERING
-// =========================================================
-function renderTopics(){
-  const grid=document.getElementById('topics-grid');
-  grid.innerHTML=TOPICS.map(tp=>{
-    const prog=state.topicsDone[tp.id]||0;
-    const lvlClass={'beginner':'level-beginner','intermediate':'level-intermediate','advanced':'level-advanced'}[tp.level];
-    const lvlLabel=t(tp.level+'Level')||tp.level;
-    return `<div class="topic-card" onclick="openTopic('${tp.id}')">
-      <div class="topic-icon">${tp.icon}</div>
-      <h3>${tp.title[currentLang]||tp.title.en}</h3>
-      <p>${tp.desc[currentLang]||tp.desc.en}</p>
-      <div class="topic-meta">
-        <span class="level-tag ${lvlClass}">${lvlLabel}</span>
-        <div class="progress-mini"><div class="progress-mini-fill" style="width:${prog}%"></div></div>
-        <span style="font-size:.72rem;color:var(--text3)">${prog}%</span>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function openTopic(id){
-  const tp=TOPICS.find(t=>t.id===id);
-  if(!tp)return;
-  state.currentTopic=tp;
-  document.getElementById('topics-list-view').style.display='none';
-  document.getElementById('topic-detail-view').style.display='block';
-  document.getElementById('topic-detail-content').innerHTML=`
-    <div class="topic-detail-header">
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
-        <div style="font-size:3rem">${tp.icon}</div>
-        <div>
-          <h2 style="font-size:1.4rem;font-weight:800">${tp.title[currentLang]||tp.title.en}</h2>
-          <p style="color:var(--text2);font-size:.88rem;margin-top:4px">${tp.desc[currentLang]||tp.desc.en}</p>
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="startTopicTest('${tp.id}')">${t('takeTest')} (30 ${t('question')}s)</button>
-      </div>
-    </div>
-    <div class="content-box">${tp.content.en}</div>
-    <div class="content-box">
-      <h2>📚 ${t('vocabulary')}</h2>
-      <div class="vocab-grid">
-        ${(tp.vocab||[]).map(w=>{
-          const allWords=Object.values(VOCAB_CATEGORIES).flat();
-          const wd=allWords.find(x=>x.word===w)||{word:w,ph:'',ru:'',uz:'',ex:''};
-          return `<div class="vocab-card" onclick="showVocabModal(${JSON.stringify(wd).replace(/"/g,'&quot;')})">
-            <div class="vocab-word">${wd.word}</div>
-            <div class="vocab-tr">${currentLang==='uz'?wd.uz:wd.ru}</div>
-            ${wd.ex?`<div class="vocab-ex">${wd.ex}</div>`:''}
-          </div>`;
-        }).join('')}
-      </div>
-    </div>
-  `;
-}
-
-function backToTopics(){
-  document.getElementById('topics-list-view').style.display='block';
-  document.getElementById('topic-detail-view').style.display='none';
-  state.currentTopic=null;
-}
-
-// =========================================================
-// QUIZ SYSTEM — 30 UNIQUE QUESTIONS PER TOPIC
-// =========================================================
-const QUIZ_POOL={
- greetings:[
-  {type:'mc',q:'What is the most formal way to greet someone?',opts:['Hey!','What\'s up?','Good morning, how do you do?','Yo!'],a:2},
-  {type:'mc',q:'Which phrase is used to say goodbye formally?',opts:['See ya!','Farewell, it was a pleasure.','Catch you later!','Peace out!'],a:1},
-  {type:'fill',q:'Complete: "Nice to ____ you!"',a:'meet',hint:'We say this when meeting someone new'},
-  {type:'mc',q:'What does "How do you do?" mean?',opts:['What are you doing?','A formal greeting','Are you busy?','How old are you?'],a:1},
-  {type:'mc',q:'"Long time no see!" means:',opts:['You look different','I haven\'t seen you in a while','Where have you been?','You\'ve changed'],a:1},
-  {type:'fill',q:'Complete: "Good ____, see you tomorrow!"',a:'night',hint:'End of day farewell'},
-  {type:'mc',q:'What is the informal way to say "How are you?"',opts:['How do you do?','Good morning','What\'s up?','Pleased to meet you'],a:2},
-  {type:'mc',q:'When introducing yourself, you say: "My ____ is John."',opts:['surname','name','age','job'],a:1},
-  {type:'mc',q:'"Take care!" is used when:',opts:['Greeting someone','Saying goodbye','Asking a question','Giving advice'],a:1},
-  {type:'fill',q:'Complete: "I\'m ____ to meet you." (formal)',a:'pleased',hint:'Formal way to show happiness'},
-  {type:'mc',q:'Which greeting is used in the evening?',opts:['Good morning','Good afternoon','Good evening','Good night'],a:2},
-  {type:'mc',q:'What does "acquaintance" mean?',opts:['A close friend','Someone you know slightly','A family member','A colleague'],a:1},
-  {type:'fill',q:'Complete: "Where are you ____?" (asking about origin)',a:'from',hint:'Which country/city'},
-  {type:'mc',q:'"How do you do?" is answered with:',opts:['I\'m fine, thanks','How do you do?','Not bad','Pretty good'],a:1},
-  {type:'mc',q:'What does "farewell" mean?',opts:['Hello','Welcome','Goodbye (formal)','Thank you'],a:2},
-  {type:'fill',q:'Complete: "It\'s a ____ to meet you."',a:'pleasure',hint:'A formal expression of happiness'},
-  {type:'mc',q:'Which is NOT a greeting?',opts:['Hi there!','Good morning','How are you?','See you later!'],a:3},
-  {type:'mc',q:'"What do you do?" means:',opts:['What are you doing now?','What is your job?','What is your hobby?','Where do you live?'],a:1},
-  {type:'fill',q:'Complete: "Good ____, how can I help you?"',a:'morning',hint:'First part of the day'},
-  {type:'mc',q:'"To Whom It May Concern" is used in:',opts:['Casual greetings','Formal letters','Text messages','Phone calls'],a:1},
-  {type:'mc',q:'What is a "nickname"?',opts:['Your official name','A shortened or fun name','Your surname','Your title'],a:1},
-  {type:'fill',q:'Complete: "Nice to ____ you again!"',a:'see',hint:'When meeting someone you already know'},
-  {type:'mc',q:'How do you ask someone\'s age politely?',opts:['How old?','What\'s your age?','May I ask how old you are?','You look old!'],a:2},
-  {type:'mc',q:'"My name is" vs "I\'m" — which is more formal?',opts:['I\'m','My name is','Both are same','Neither'],a:1},
-  {type:'fill',q:'Complete: "Have a ____ day!"',a:'good',hint:'A wish for the day'},
-  {type:'mc',q:'What does "I\'m pleased to make your acquaintance" mean?',opts:['I don\'t know you','Nice to meet you (formal)','Can we be friends?','I know you already'],a:1},
-  {type:'mc',q:'"Catch you later" is ____ language.',opts:['Formal','Informal','Business','Academic'],a:1},
-  {type:'fill',q:'Complete: "Hello, my ____ is Dr. Wilson."',a:'name',hint:'How you identify yourself'},
-  {type:'mc',q:'What is the appropriate response to "How are you?"',opts:['I am here.','Fine, thanks! And you?','I don\'t know.','Yes.'],a:1},
-  {type:'mc',q:'Which phrase means "I am doing well"?',opts:['Not too good','I\'m fine, thank you','So-so','Not really'],a:1},
- ],
- tenses:[
-  {type:'mc',q:'Which sentence uses Present Simple correctly?',opts:['She is working yesterday.','He works every day.','They worked now.','I am work here.'],a:1},
-  {type:'mc',q:'"I ____ football every Sunday." Which verb form?',opts:['playing','play','played','am playing'],a:1},
-  {type:'fill',q:'Past simple of "go": "She ____ to school yesterday."',a:'went',hint:'Irregular verb'},
-  {type:'mc',q:'Present Continuous is used for:',opts:['Habits','Actions happening now','Past events','Future plans always'],a:1},
-  {type:'mc',q:'Which is Present Perfect?',opts:['I go to Paris.','I went to Paris.','I have been to Paris.','I will go to Paris.'],a:2},
-  {type:'fill',q:'Complete: "She ____ (work) at Google since 2020."',a:'has worked',hint:'Present Perfect'},
-  {type:'mc',q:'"Will you help me?" is ____ tense.',opts:['Past','Present','Future Simple','Present Perfect'],a:2},
-  {type:'mc',q:'Signal word for Past Simple:',opts:['now','tomorrow','yesterday','already'],a:2},
-  {type:'fill',q:'Complete: "They ____ (study) when I called." (Past Cont.)',a:'were studying',hint:'Past Continuous'},
-  {type:'mc',q:'Future Continuous: "At 8 PM, I ____"',opts:['will sleep','sleep','am sleeping','will be sleeping'],a:3},
-  {type:'mc',q:'"She has lived here for 10 years" — which tense?',opts:['Past Simple','Present Simple','Present Perfect','Future'],a:2},
-  {type:'fill',q:'Complete: "By next year, he ____ (finish) university." (Future Perfect)',a:'will have finished',hint:'Future Perfect'},
-  {type:'mc',q:'Which sentence is WRONG?',opts:['I work here.','She is sleeping.','They have ate lunch.','He will come.'],a:2},
-  {type:'mc',q:'"I ____ (just) have eaten." Correct form:',opts:['have just eaten','just ate','just eat','am just eating'],a:0},
-  {type:'fill',q:'Complete: "Water ____ (boil) at 100°C." (fact)',a:'boils',hint:'Present Simple for facts'},
-  {type:'mc',q:'Stative verbs (know, love, believe) are NOT used in:',opts:['Present Simple','Past Simple','Continuous tenses','Perfect tenses'],a:2},
-  {type:'mc',q:'"How long have you been learning English?" uses:',opts:['Present Perfect','Present Perfect Continuous','Past Simple','Present Simple'],a:1},
-  {type:'fill',q:'Complete: "When I arrived, she ____ (already leave)."',a:'had already left',hint:'Past Perfect'},
-  {type:'mc',q:'Past Perfect structure:',opts:['was/were + verb-ing','had + past participle','have/has + past participle','did + base verb'],a:1},
-  {type:'mc',q:'"She is going to study medicine." This expresses:',opts:['Habit','Future plan (decided)','Past action','Present activity'],a:1},
-  {type:'fill',q:'Complete: "The train ____ (arrive) by the time we got there."',a:'had arrived',hint:'Past Perfect — earlier past action'},
-  {type:'mc',q:'Which uses Present Perfect Continuous?',opts:['I worked for hours.','I have worked for hours.','I have been working for hours.','I work for hours.'],a:2},
-  {type:'mc',q:'"I ____ (never/see) this movie." Correct:',opts:['never saw','have never seen','never see','am never seeing'],a:1},
-  {type:'fill',q:'Complete: "They ____ (build) the bridge since January."',a:'have been building',hint:'Present Perfect Continuous'},
-  {type:'mc',q:'Difference: "I worked" vs "I have worked"',opts:['No difference','Worked = finished at specific time; Have worked = connected to now','Have worked = longer','Worked = more formal'],a:1},
-  {type:'mc',q:'"Used to" expresses:',opts:['Current habit','Future intention','Past habit (no longer true)','Possibility'],a:2},
-  {type:'fill',q:'Complete: "He ____ (use to/swim) every morning but stopped." ',a:'used to swim',hint:'Past habit'},
-  {type:'mc',q:'Which sentence uses Future Perfect?',opts:['I will work tomorrow.','I will have finished by noon.','I am working tomorrow.','I work tomorrow.'],a:1},
-  {type:'mc',q:'"As soon as she arrives, we ____ eat."',opts:['will','would','shall','are going to'],a:0},
-  {type:'fill',q:'Complete: "He ____ (live) in London for 5 years when he moved."',a:'had been living',hint:'Past Perfect Continuous'},
- ],
- articles:[
-  {type:'mc',q:'"She is ___ doctor." Correct article:',opts:['a','an','the','no article'],a:0},
-  {type:'mc',q:'"___ sun rises in the east." Correct article:',opts:['A','An','The','No article'],a:2},
-  {type:'fill',q:'Complete: "I saw ___ elephant at the zoo."',a:'an',hint:'Vowel sound'},
-  {type:'mc',q:'Which uses "the" correctly?',opts:['She speaks the English.','The Thames is a river.','He plays the football.','We eat the breakfast.'],a:1},
-  {type:'mc',q:'No article is used with:',opts:['Rivers','Mountains','Languages','Oceans'],a:2},
-  {type:'fill',q:'Complete: "___ Nile is the longest river."',a:'The',hint:'Unique, specific river'},
-  {type:'mc',q:'"I read ___ interesting article." Which article?',opts:['a','an','the','no article'],a:1},
-  {type:'mc',q:'Second mention rule: "I have a cat. ___ cat is black."',opts:['A','An','The','No article'],a:2},
-  {type:'fill',q:'Complete: "___ Alps are in Europe."',a:'The',hint:'Mountain ranges take "the"'},
-  {type:'mc',q:'"___ university in our city is excellent." (specific)',opts:['A','An','The','No article'],a:2},
-  {type:'mc',q:'Which is WRONG?',opts:['a book','an egg','the Earth','a honest man'],a:3},
-  {type:'fill',q:'Complete: "He is ___ honest man."',a:'an',hint:'"Honest" starts with vowel sound /ɒ/'},
-  {type:'mc',q:'"Play ___ guitar" uses:',opts:['a','an','the','no article'],a:2},
-  {type:'mc',q:'"Go to ___ school" (as student) uses:',opts:['a','an','the','no article'],a:3},
-  {type:'fill',q:'Complete: "She has ___ hour to finish."',a:'an',hint:'"Hour" starts with vowel sound'},
-  {type:'mc',q:'Which correctly uses "a"?',opts:['a university','a hour','a apple','a easy job'],a:0},
-  {type:'mc',q:'"___ Pacific Ocean is the largest." Correct:',opts:['A','An','The','No article'],a:2},
-  {type:'fill',q:'Complete: "It was ___ unique experience."',a:'a',hint:'"Unique" starts with /juː/ consonant sound'},
-  {type:'mc',q:'Zero article: "We eat ___ breakfast at 8."',opts:['a','an','the','no article'],a:3},
-  {type:'mc',q:'"He is ___ best student in class."',opts:['a','an','the','no article'],a:2},
-  {type:'fill',q:'Complete: "___ French Revolution changed history."',a:'The',hint:'Specific historical event'},
-  {type:'mc',q:'"She bought ___ new dress and ___ dress was expensive."',opts:['a/a','a/the','the/a','the/the'],a:1},
-  {type:'mc',q:'Which does NOT use an article?',opts:['The Nile','A dog','Mount Everest','An orange'],a:2},
-  {type:'fill',q:'Complete: "He is ___ European." ("European" starts with /j/)',a:'a',hint:'Consonant sound /j/'},
-  {type:'mc',q:'"___ rich should help the poor." (general class)',opts:['A','An','The','No article'],a:2},
-  {type:'mc',q:'Which sentence is CORRECT?',opts:['I have a umbrella.','She is teacher.','He plays the piano.','They eat the rice daily.'],a:2},
-  {type:'fill',q:'Complete: "___ Amazon is in Brazil."',a:'The',hint:'Rivers take "the"'},
-  {type:'mc',q:'"Turn left at ___ next traffic light."',opts:['a','an','the','no article'],a:2},
-  {type:'mc',q:'"I need ___ advice." (uncountable)',opts:['a','an','the','no article'],a:3},
-  {type:'fill',q:'Complete: "She plays ___ violin beautifully."',a:'the',hint:'Musical instruments take "the"'},
- ],
-};
-
-// Default fallback question generator
-function generateFallbackQuestions(topicId,count){
-  const tp=TOPICS.find(t=>t.id===topicId);
-  if(!tp)return[];
-  const vocab=tp.vocab||[];
-  const allWords=Object.values(VOCAB_CATEGORIES).flat();
-  const qs=[];
-  for(let i=0;i<count;i++){
-    const w=vocab[i%vocab.length]||'English';
-    const wd=allWords.find(x=>x.word===w)||{word:w,ru:'(translation)',uz:'(tarjima)',ex:`Example with ${w}.`};
-    const wrongWords=allWords.filter(x=>x.word!==w).sort(()=>Math.random()-.5).slice(0,3);
-    qs.push({
-      type:'mc',
-      q:`What is the meaning of "${wd.word}"?`,
-      opts:shuffleArr([wd.ru,...wrongWords.map(x=>x.ru)]),
-      a:null, // will be set after shuffle
-      _correct:wd.ru,
-    });
-  }
-  // set correct answer index
-  qs.forEach(q=>{if(q._correct)q.a=q.opts.indexOf(q._correct);});
-  return qs;
-}
-
-function shuffleArr(a){return [...a].sort(()=>Math.random()-.5)}
-
-function getQuizQuestions(topicId){
-  let pool=QUIZ_POOL[topicId]||[];
-  if(pool.length<30){
-    const extra=generateFallbackQuestions(topicId,30-pool.length);
-    pool=[...pool,...extra];
-  }
-  // shuffle and pick 30 unique
-  return shuffleArr(pool).slice(0,30);
-}
-
-function startTopicTest(topicId){
-  const qs=getQuizQuestions(topicId);
-  state.quizState={topicId,qs,current:0,score:0,answers:[]};
-  renderQuiz();
-  document.getElementById('topics-list-view').style.display='none';
-  document.getElementById('topic-detail-view').style.display='block';
-  document.getElementById('topic-detail-content').innerHTML='<div id="quiz-root"></div>';
-  renderQuizQuestion();
-}
-
-function renderQuizQuestion(){
-  const qs=state.quizState;
-  if(qs.current>=qs.qs.length){showQuizResult();return;}
-  const q=qs.qs[qs.current];
-  const prog=Math.round((qs.current/qs.qs.length)*100);
-  const root=document.getElementById('quiz-root');
-  if(!root)return;
-  root.innerHTML=`
-    <div class="quiz-container">
-      <div class="quiz-header">
-        <span style="font-size:.82rem;color:var(--text3)">${t('question')} ${qs.current+1} ${t('of')} ${qs.qs.length}</span>
-        <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${prog}%"></div></div>
-        <span style="font-size:.82rem;color:var(--accent);font-weight:700">✓ ${qs.score}</span>
-      </div>
-      <div class="question-card">
-        <div class="question-type">${q.type==='mc'?'Multiple Choice':q.type==='fill'?'Fill in the Blank':'Question'}</div>
-        <div class="question-text">${q.q}</div>
-        ${q.type==='mc'?`
-          <div class="options">
-            ${q.opts.map((o,i)=>`<div class="option" id="opt-${i}" onclick="selectOption(${i})">${String.fromCharCode(65+i)}. ${o}</div>`).join('')}
+    <!-- HOME -->
+    <div class="page active" id="page-home">
+      <div class="hero card">
+        <h1 data-key="hero_title">SpeakUP English</h1>
+        <p data-key="hero_sub">Master English through fun, games & AI</p>
+        <div class="stats-grid" style="max-width:500px;margin:0 auto;">
+          <div class="stat-card">
+            <div class="stat-num" id="home-xp">0</div>
+            <div class="stat-label" data-key="stat_xp">Total XP</div>
           </div>
-        `:q.type==='fill'?`
-          <input class="fill-input" id="fill-inp" placeholder="Type your answer..." onkeydown="if(event.key==='Enter')checkFill()">
-          ${q.hint?`<div style="color:var(--text3);font-size:.78rem;margin-top:8px">💡 Hint: ${q.hint}</div>`:''}
-          <button class="btn btn-primary" style="margin-top:14px" onclick="checkFill()">${t('checkAnswer')}</button>
-        `:''}
-      </div>
-      <div id="quiz-feedback" style="display:none"></div>
-    </div>`;
-}
-
-function selectOption(i){
-  const qs=state.quizState;
-  const q=qs.qs[qs.current];
-  document.querySelectorAll('.option').forEach(o=>o.classList.add('disabled'));
-  const correct=q.a===i;
-  document.getElementById('opt-'+i).classList.add(correct?'correct':'wrong');
-  if(!correct)document.getElementById('opt-'+q.a).classList.add('correct');
-  if(correct){qs.score++;addXP(10);}
-  document.getElementById('quiz-feedback').style.display='block';
-  document.getElementById('quiz-feedback').innerHTML=`
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-      <span style="font-weight:700;color:${correct?'var(--accent3)':'var(--accent5)'}">${correct?t('correct'):t('wrong')}</span>
-      <button class="btn btn-primary" onclick="nextQuestion()">${qs.current+1<qs.qs.length?t('next'):t('finish')} →</button>
-    </div>`;
-}
-
-function checkFill(){
-  const qs=state.quizState;
-  const q=qs.qs[qs.current];
-  const inp=document.getElementById('fill-inp');
-  const userAns=(inp.value||'').trim().toLowerCase();
-  const correct=userAns===q.a.toLowerCase();
-  inp.disabled=true;
-  inp.style.borderColor=correct?'var(--accent3)':'var(--accent5)';
-  if(correct){qs.score++;addXP(10);}
-  document.getElementById('quiz-feedback').style.display='block';
-  document.getElementById('quiz-feedback').innerHTML=`
-    <div style="background:${correct?'rgba(16,185,129,.1)':'rgba(239,68,68,.1)'};border:1px solid ${correct?'var(--accent3)':'var(--accent5)'};border-radius:10px;padding:12px 16px;margin-bottom:10px">
-      <div style="font-weight:700;color:${correct?'var(--accent3)':'var(--accent5)'};margin-bottom:4px">${correct?t('correct'):t('wrong')}</div>
-      ${!correct?`<div style="font-size:.84rem;color:var(--text2)">Correct answer: <strong style="color:var(--text)">${q.a}</strong></div>`:''}
-    </div>
-    <div style="display:flex;justify-content:flex-end">
-      <button class="btn btn-primary" onclick="nextQuestion()">${qs.current+1<qs.qs.length?t('next'):t('finish')} →</button>
-    </div>`;
-}
-
-function nextQuestion(){
-  state.quizState.current++;
-  renderQuizQuestion();
-}
-
-function showQuizResult(){
-  const qs=state.quizState;
-  const pct=Math.round((qs.score/qs.qs.length)*100);
-  state.scores[qs.topicId]=pct;
-  state.topicsDone[qs.topicId]=pct;
-  saveState();updateHomeStats();
-  const grade=pct>=90?t('excellent'):pct>=65?t('good'):t('keepPracticing');
-  document.getElementById('quiz-root').innerHTML=`
-    <div class="result-card">
-      <div style="font-size:2rem">🎯</div>
-      <div style="font-size:1.1rem;font-weight:700;margin-top:12px">${t('yourScore')}</div>
-      <div class="result-score">${pct}%</div>
-      <div class="result-grade">${grade}</div>
-      <div class="result-msg">${qs.score} / ${qs.qs.length} ${t('correct')}</div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="startTopicTest('${qs.topicId}')">🔄 Retry</button>
-        <button class="btn btn-outline" onclick="backToTopics()">← ${t('backToTopics')}</button>
-      </div>
-    </div>`;
-}
-
-// =========================================================
-// LISTENING DATA
-// =========================================================
-const LISTENING_ITEMS=[
-  {id:'l1',title:'Daily Routine',level:'Beginner',duration:'2:15',
-   transcript:`Good morning! My name is Emma. Let me tell you about my <span class="highlight">daily routine</span>. I wake up at 7 o'clock every morning. First, I brush my teeth and wash my face. Then I make breakfast — usually eggs and toast with orange juice. I leave the house at 8:30 to catch the bus. I work at an office in the city centre. After work, I go to the gym three times a week. I usually cook dinner at home. My favourite meal is pasta. I go to bed at 10:30 PM. On weekends, I like to read books and go for walks in the park. How about your routine?`,
-   questions:[
-     {q:'What time does Emma wake up?',opts:['6:00','7:00','8:00','9:00'],a:1},
-     {q:'What does Emma eat for breakfast?',opts:['Cereal','Pancakes','Eggs and toast','Sandwiches'],a:2},
-     {q:'How does Emma get to work?',opts:['By car','On foot','By bus','By train'],a:2},
-     {q:'How often does Emma go to the gym?',opts:['Every day','Twice a week','Three times a week','Never'],a:2},
-   ]},
-  {id:'l2',title:'At the Restaurant',level:'Beginner',duration:'3:00',
-   transcript:`Waiter: "Good evening! Welcome to La Bella Italia. Do you have a <span class="highlight">reservation</span>?" Customer: "Yes, for two, under the name Johnson." Waiter: "Perfect! Follow me please. Here is your table. Can I get you something to drink first?" Customer: "Yes, could we have still water and two glasses of white wine?" Waiter: "Of course. Are you ready to order your food?" Customer: "I'll have the grilled salmon with vegetables, please." Friend: "And I'd like the mushroom risotto." Waiter: "Excellent choices! Any <span class="highlight">allergies</span> I should know about?" Customer: "I'm lactose intolerant." Waiter: "No problem, I'll make sure the kitchen knows. Your food will be ready in about 20 minutes."`,
-   questions:[
-     {q:'What is the customer\'s name?',opts:['Smith','Brown','Johnson','Wilson'],a:2},
-     {q:'What drinks do they order?',opts:['Juice and beer','Water and white wine','Coke and red wine','Coffee and water'],a:1},
-     {q:'What does the first customer order?',opts:['Pasta','Mushroom risotto','Grilled salmon','Chicken'],a:2},
-     {q:'What dietary restriction does the customer have?',opts:['Vegan','Gluten intolerant','Lactose intolerant','Nut allergy'],a:2},
-   ]},
-  {id:'l3',title:'Job Interview',level:'Intermediate',duration:'4:30',
-   transcript:`Interviewer: "Thank you for coming in today. Please tell me about your <span class="highlight">professional background</span>." Candidate: "Of course! I have five years of experience in software development, primarily working with Python and JavaScript. I graduated from MIT with a degree in Computer Science. In my previous role at TechCorp, I led a team of six developers and successfully delivered three major projects on time and within budget." Interviewer: "What would you say are your greatest strengths?" Candidate: "I'm an excellent communicator and problem-solver. I work well under pressure and I'm highly <span class="highlight">adaptable</span> to new technologies. I'm also a strong team player." Interviewer: "Where do you see yourself in five years?" Candidate: "I hope to advance to a senior engineering position and eventually transition into a leadership role where I can mentor junior developers and contribute to company strategy."`,
-   questions:[
-     {q:'How many years of experience does the candidate have?',opts:['3 years','4 years','5 years','6 years'],a:2},
-     {q:'How many people did the candidate manage?',opts:['Three','Four','Five','Six'],a:3},
-     {q:'What degree does the candidate have?',opts:['Physics','Business','Computer Science','Engineering'],a:2},
-     {q:'What role does the candidate want in 5 years?',opts:['CEO','Senior engineer / leadership','Team member','Consultant'],a:1},
-   ]},
-  {id:'l4',title:'Climate Change Discussion',level:'Advanced',duration:'5:00',
-   transcript:`Host: "Welcome to today's programme. We're discussing <span class="highlight">climate change</span> and its impact on global ecosystems. Dr. Chen, can you explain the current situation?" Dr. Chen: "Certainly. The Earth's average temperature has risen by approximately 1.2 degrees Celsius since pre-industrial times. This seemingly small increase has profound consequences — we're seeing more frequent <span class="highlight">extreme weather events</span>, rising sea levels, and the disruption of biodiversity. The main driver is the accumulation of greenhouse gases, particularly CO2 from fossil fuel combustion." Host: "What solutions are scientists proposing?" Dr. Chen: "The transition to renewable energy is paramount. Solar and wind power are now cheaper than coal in most markets. We also need to reform agriculture, which accounts for around 25% of global emissions, implement carbon capture technologies, and fundamentally rethink our consumption patterns. Individual action matters, but systemic change is absolutely essential."`,
-   questions:[
-     {q:'How much has Earth\'s temperature risen?',opts:['0.8°C','1.0°C','1.2°C','1.5°C'],a:2},
-     {q:'What percentage of emissions does agriculture account for?',opts:['10%','15%','20%','25%'],a:3},
-     {q:'What does Dr. Chen say about renewable energy costs?',opts:['More expensive','Same as coal','Cheaper than coal','Unknown'],a:2},
-     {q:'What does Dr. Chen consider "absolutely essential"?',opts:['Individual action','Systemic change','Nuclear power','Reducing population'],a:1},
-   ]},
-];
-
-let activeAudio={playing:false,item:null,progress:0,synthInterval:null};
-
-function renderListening(){
-  const el=document.getElementById('listening-list');
-  el.innerHTML=LISTENING_ITEMS.map((item,idx)=>`
-    <div class="audio-player">
-      <div class="audio-controls">
-        <button class="play-btn" id="play-${item.id}" onclick="togglePlay('${item.id}',${idx})">${activeAudio.item===item.id&&activeAudio.playing?'⏸':'▶'}</button>
-        <div class="audio-track">
-          <div class="audio-title">${item.title} <span class="tag" style="background:rgba(0,212,255,.1);color:var(--accent)">${item.level}</span></div>
-          <div class="audio-subtitle">Duration: ${item.duration}</div>
+          <div class="stat-card">
+            <div class="stat-num" id="home-streak">0🔥</div>
+            <div class="stat-label" data-key="stat_streak">Day Streak</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="home-done">0%</div>
+            <div class="stat-label" data-key="stat_done">Completed</div>
+          </div>
         </div>
-        <button class="btn btn-outline" onclick="stopAudio()">⏹</button>
       </div>
-      <div class="waveform" id="wave-${item.id}">
-        ${Array(40).fill(0).map((_,i)=>`<div class="waveform-bar" id="bar-${item.id}-${i}" style="height:${8+Math.random()*30}px"></div>`).join('')}
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn-outline" onclick="showTranscript('${item.id}')">${t('showTranscript')}</button>
-        <button class="btn btn-outline" onclick="startListeningQuiz('${item.id}')">📝 Take Quiz</button>
-      </div>
-      <div id="transcript-${item.id}" style="display:none"><div class="transcript-box" style="margin-top:12px">${item.transcript}</div></div>
-      <div id="lquiz-${item.id}" style="display:none;margin-top:14px"></div>
+      <h2 data-key="choose_level">Choose Your Level</h2>
+      <div class="level-grid" id="levelGrid"></div>
     </div>
-  `).join('');
-}
 
-function togglePlay(id,idx){
-  if(activeAudio.item===id&&activeAudio.playing){
-    stopAudio();return;
-  }
-  if(activeAudio.synthInterval)clearInterval(activeAudio.synthInterval);
-  stopAudio();
-  activeAudio={playing:true,item:id,progress:0,synthInterval:null};
-  document.getElementById('play-'+id).textContent='⏸';
-  const item=LISTENING_ITEMS[idx];
-  speakText(item.transcript.replace(/<[^>]+>/g,''));
-  let barI=0;
-  activeAudio.synthInterval=setInterval(()=>{
-    const bars=document.querySelectorAll(`[id^="bar-${id}-"]`);
-    bars.forEach((b,i)=>b.classList.toggle('active',i<=barI%40));
-    barI++;
-  },120);
-}
-
-function stopAudio(){
-  if(window.speechSynthesis)window.speechSynthesis.cancel();
-  if(activeAudio.synthInterval)clearInterval(activeAudio.synthInterval);
-  if(activeAudio.item){
-    const pb=document.getElementById('play-'+activeAudio.item);
-    if(pb)pb.textContent='▶';
-    document.querySelectorAll(`[id^="bar-${activeAudio.item}-"]`).forEach(b=>b.classList.remove('active'));
-  }
-  activeAudio={playing:false,item:null,progress:0,synthInterval:null};
-}
-
-function speakText(text,rate=0.85){
-  if(!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  const utt=new SpeechSynthesisUtterance(text);
-  utt.lang='en-US';utt.rate=rate;
-  const voices=window.speechSynthesis.getVoices();
-  const en=voices.find(v=>v.lang.startsWith('en'));
-  if(en)utt.voice=en;
-  utt.onend=()=>{stopAudio();}; 
-  window.speechSynthesis.speak(utt);
-}
-
-function showTranscript(id){
-  const el=document.getElementById('transcript-'+id);
-  el.style.display=el.style.display==='none'?'block':'none';
-}
-
-function startListeningQuiz(id){
-  const item=LISTENING_ITEMS.find(i=>i.id===id);
-  const root=document.getElementById('lquiz-'+id);
-  let html='<div style="font-weight:700;margin-bottom:12px;color:var(--accent)">📝 Comprehension Questions</div>';
-  html+=item.questions.map((q,qi)=>`
-    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px">
-      <div style="font-weight:600;margin-bottom:10px">${qi+1}. ${q.q}</div>
-      <div style="display:grid;gap:6px">
-        ${q.opts.map((o,oi)=>`<div class="option" id="lq-${id}-${qi}-${oi}" onclick="checkLQ('${id}',${qi},${oi},${q.a})">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}
+    <!-- LESSONS -->
+    <div class="page" id="page-lessons">
+      <div id="lessonMain">
+        <button class="back-btn" onclick="showPage('home')">← <span data-key="back">Back</span></button>
+        <h2 id="lessonLevelTitle">Topics</h2>
+        <div class="topic-list" id="topicList"></div>
+      </div>
+      <div id="lessonView" class="hidden">
+        <button class="back-btn" onclick="backToTopics()">← <span data-key="back_topics">Topics</span></button>
+        <div class="card">
+          <h2 id="lessonTitle"></h2>
+          <div class="lesson-content" id="lessonContent"></div>
+          <div style="margin-top:20px;">
+            <button class="start-test-btn" onclick="startTest()" data-key="start_test">📝 Start Test (30
+              Questions)</button>
+          </div>
+        </div>
+      </div>
+      <div id="testView" class="hidden">
+        <button class="back-btn" onclick="backToLesson()">← <span data-key="back_lesson">Back to Lesson</span></button>
+        <div class="card">
+          <div id="testContent"></div>
+        </div>
       </div>
     </div>
-  `).join('');
-  root.innerHTML=html;
-  root.style.display='block';
-}
 
-function checkLQ(lid,qi,oi,correct){
-  document.querySelectorAll(`[id^="lq-${lid}-${qi}-"]`).forEach(el=>el.classList.add('disabled'));
-  document.getElementById(`lq-${lid}-${qi}-${oi}`).classList.add(oi===correct?'correct':'wrong');
-  if(oi!==correct)document.getElementById(`lq-${lid}-${qi}-${correct}`).classList.add('correct');
-  if(oi===correct)addXP(15);
-}
-
-// =========================================================
-// SPEAKING
-// =========================================================
-const SPEAKING_SCRIPTS=[
-  {id:'intro',title:'Introduce Yourself',icon:'👋',prompts:[
-    "Hello! I'm Alex, your AI English teacher. Let's practice introductions! I'll start: My name is Alex, I'm an AI assistant, and I love helping people learn English. Now it's your turn! Tell me: What is your name?",
-    "Great! And where are you from? Which city or country?",
-    "Wonderful! How old are you? You can say 'I am [number] years old.'",
-    "Perfect! And what do you do? Are you a student, a worker, or something else?",
-    "Excellent! What are your hobbies? What do you enjoy doing in your free time?",
-    "Amazing! You've completed an introduction! You did a great job. Let's practice more!"
-  ]},
-  {id:'weather',title:'Talk About Weather',icon:'🌤️',prompts:[
-    "Let's talk about weather! What is the weather like in your city today? Is it sunny, cloudy, rainy, or something else?",
-    "Interesting! What is your favourite season? Spring, summer, autumn, or winter? Why?",
-    "Nice! What do you usually do when the weather is bad, like rainy or snowy?",
-    "Great! What is the hottest month in your country?",
-    "Perfect! Do you prefer hot weather or cold weather? Tell me why.",
-  ]},
-  {id:'food',title:'Discuss Food',icon:'🍕',prompts:[
-    "Let's talk about food! What is your favourite food? Describe it to me.",
-    "Delicious! Can you cook? What dishes can you prepare?",
-    "Great! Describe the last meal you ate. What was it and how did it taste?",
-    "Interesting! What is a traditional food from your country?",
-    "Wonderful! If you could eat in any country in the world, where would you go and what would you try?",
-  ]},
-  {id:'travel',title:'Travel Plans',icon:'✈️',prompts:[
-    "Hello traveller! Have you ever been abroad? Tell me about a trip you took or a trip you dream about.",
-    "Interesting! What country would you most like to visit and why?",
-    "Great! What do you prefer: beach holidays, city trips, or mountain adventures?",
-    "Tell me — what would you pack in your suitcase for a two-week trip?",
-    "Final question: What English phrases do you think are most important to know when travelling?",
-  ]},
-];
-
-let activeSpeakingScript=null;
-let speakingStepIdx=0;
-let isRecording=false;
-let recognition=null;
-
-function renderSpeaking(){
-  const grid=document.getElementById('speaking-topics-grid');
-  grid.innerHTML=SPEAKING_SCRIPTS.map(s=>`
-    <div class="topic-card" onclick="startSpeakingScript('${s.id}')">
-      <div class="topic-icon">${s.icon}</div>
-      <h3>${s.title}</h3>
-      <p style="color:var(--text2);font-size:.8rem">AI will guide the conversation step by step</p>
+    <!-- VOCAB -->
+    <div class="page" id="page-vocab">
+      <h2 data-key="nav_vocab">📖 Vocabulary</h2>
+      <div class="inner-tabs">
+        <button class="inner-tab active" onclick="showInner('vocab','all')" data-key="vocab_all">All</button>
+        <button class="inner-tab" onclick="showInner('vocab','nouns')" data-key="vocab_nouns">Nouns</button>
+        <button class="inner-tab" onclick="showInner('vocab','verbs')" data-key="vocab_verbs">Verbs</button>
+        <button class="inner-tab" onclick="showInner('vocab','adj')" data-key="vocab_adj">Adjectives</button>
+        <button class="inner-tab" onclick="showInner('vocab','adv')" data-key="vocab_adv">Adverbs</button>
+        <button class="inner-tab" onclick="showInner('vocab','phrases')" data-key="vocab_phrases">Phrases</button>
+        <button class="inner-tab" onclick="showInner('vocab','idioms')" data-key="vocab_idioms">Idioms</button>
+      </div>
+      <input class="search-bar" id="vocabSearch" placeholder="🔍 Search..." oninput="filterVocab()">
+      <div class="inner-page active" id="vocab-all">
+        <div class="vocab-grid" id="vocabGrid"></div>
+      </div>
+      <div class="inner-page" id="vocab-nouns">
+        <div class="vocab-grid" id="vocabNouns"></div>
+      </div>
+      <div class="inner-page" id="vocab-verbs">
+        <div class="vocab-grid" id="vocabVerbs"></div>
+      </div>
+      <div class="inner-page" id="vocab-adj">
+        <div class="vocab-grid" id="vocabAdj"></div>
+      </div>
+      <div class="inner-page" id="vocab-adv">
+        <div class="vocab-grid" id="vocabAdv"></div>
+      </div>
+      <div class="inner-page" id="vocab-phrases">
+        <div class="vocab-grid" id="vocabPhrases"></div>
+      </div>
+      <div class="inner-page" id="vocab-idioms">
+        <div class="vocab-grid" id="vocabIdioms"></div>
+      </div>
     </div>
-  `).join('');
-  // init chat
-  const chatEl=document.getElementById('speaking-chat');
-  if(!chatEl.innerHTML){
-    chatEl.innerHTML=`<div class="ai-message">👋 Hi! I'm Alex, your AI English teacher. Choose a conversation topic below or click the mic to start talking!</div>`;
-  }
-  renderSpeakingSuggestions();
-}
 
-function renderSpeakingSuggestions(){
-  const el=document.getElementById('speaking-suggestions');
-  if(!el)return;
-  const s=[
-    {label:'👋 Greetings',q:"Let's practice greetings"},
-    {label:'🗣️ Free Talk',q:"Let's have a free conversation"},
-    {label:'📝 Correct me',q:"Please correct my English mistakes"},
-  ];
-  el.innerHTML=s.map(x=>`<button class="btn btn-outline" style="font-size:.78rem" onclick="handleSpeechInput('${x.q}')">${x.label}</button>`).join('');
-}
+    <!-- LISTENING -->
+    <div class="page" id="page-listening">
+      <h2 data-key="nav_listening">🎧 Listening Practice</h2>
+      <div class="inner-tabs">
+        <button class="inner-tab active" onclick="showInner('listen','beginner')" data-key="lev_beg">Beginner</button>
+        <button class="inner-tab" onclick="showInner('listen','intermediate')" data-key="lev_int">Intermediate</button>
+        <button class="inner-tab" onclick="showInner('listen','advanced')" data-key="lev_adv">Advanced</button>
+      </div>
+      <div id="listen-beginner" class="inner-page active"></div>
+      <div id="listen-intermediate" class="inner-page"></div>
+      <div id="listen-advanced" class="inner-page"></div>
+    </div>
 
-function startSpeakingScript(id){
-  activeSpeakingScript=SPEAKING_SCRIPTS.find(s=>s.id===id);
-  speakingStepIdx=0;
-  const chatEl=document.getElementById('speaking-chat');
-  chatEl.innerHTML='';
-  addAIMessage(activeSpeakingScript.prompts[0]);
-  speakAI(activeSpeakingScript.prompts[0]);
-  speakingStepIdx=1;
-}
+    <!-- SPEAKING -->
+    <div class="page" id="page-speaking">
+      <h2 data-key="nav_speaking">🎤 Speaking Practice</h2>
+      <div class="card">
+        <div id="speakScenario"></div>
+        <div id="speakDialog"></div>
+        <div class="text-center mt">
+          <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎙️</button>
+          <p id="micStatus" style="color:var(--text2);font-size:.9rem;" data-key="speak_press">Press mic and speak your
+            answer</p>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:10px;justify-content:center;">
+          <button class="btn" onclick="nextSpeakScenario()" data-key="next_scenario">Next Scenario</button>
+          <button class="btn outline" onclick="repeatAI()" data-key="repeat_ai">🔊 Repeat AI</button>
+        </div>
+        <div id="speakFeedback" class="mt" style="display:none;"></div>
+      </div>
+    </div>
 
-function addAIMessage(text){
-  const chatEl=document.getElementById('speaking-chat');
-  const div=document.createElement('div');
-  div.className='ai-message';
-  div.innerHTML=`<div class="ai-label">🤖 Alex</div>${text}`;
-  chatEl.appendChild(div);
-  chatEl.scrollTop=chatEl.scrollHeight;
-}
+    <!-- READING -->
+    <div class="page" id="page-reading">
+      <h2 data-key="nav_reading">📝 Reading</h2>
+      <div class="inner-tabs">
+        <button class="inner-tab active" onclick="showInner('read','beginner')" data-key="lev_beg">Beginner</button>
+        <button class="inner-tab" onclick="showInner('read','intermediate')" data-key="lev_int">Intermediate</button>
+        <button class="inner-tab" onclick="showInner('read','advanced')" data-key="lev_adv">Advanced</button>
+      </div>
+      <div id="read-beginner" class="inner-page active"></div>
+      <div id="read-intermediate" class="inner-page"></div>
+      <div id="read-advanced" class="inner-page"></div>
+    </div>
 
-function addUserMessage(text){
-  const chatEl=document.getElementById('speaking-chat');
-  const div=document.createElement('div');
-  div.className='user-message';
-  div.innerHTML=`<div style="font-size:.7rem;color:var(--accent2);margin-bottom:4px;text-align:right">You</div>${text}`;
-  chatEl.appendChild(div);
-  chatEl.scrollTop=chatEl.scrollHeight;
-}
+    <!-- WRITING -->
+    <div class="page" id="page-writing">
+      <h2 data-key="nav_writing">✍️ Writing Practice</h2>
+      <div class="card">
+        <div id="writingPrompt"></div>
+        <textarea id="writingArea"
+          style="width:100%;min-height:180px;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:14px;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.95rem;resize:vertical;"
+          placeholder="Write here..."></textarea>
+        <div style="display:flex;gap:10px;margin-top:12px;">
+          <button class="btn" onclick="checkWriting()" data-key="check_writing">🤖 Check with AI</button>
+          <button class="btn outline" onclick="newWritingPrompt()" data-key="new_prompt">New Prompt</button>
+        </div>
+        <div id="writingFeedback" class="mt"></div>
+      </div>
+    </div>
 
-function speakAI(text){
-  if(!window.speechSynthesis)return;
-  const utt=new SpeechSynthesisUtterance(text);
-  utt.lang='en-US';utt.rate=0.9;
-  const voices=window.speechSynthesis.getVoices();
-  const en=voices.find(v=>v.lang.startsWith('en-US')&&v.name.includes('Female'))||voices.find(v=>v.lang.startsWith('en'));
-  if(en)utt.voice=en;
-  window.speechSynthesis.speak(utt);
-}
+    <!-- AI TUTOR -->
+    <div class="page" id="page-ai">
+      <h2 data-key="nav_ai">🤖 AI English Tutor</h2>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <p style="color:var(--text2);font-size:.9rem;" data-key="ai_sub">Ask anything about English 24/7</p>
+          <button class="btn outline" onclick="clearChat()" data-key="clear_chat">Clear</button>
+        </div>
+        <div class="chat-area" id="chatArea"></div>
+        <div class="chat-input-row">
+          <input class="chat-input" id="chatInput" placeholder="Ask AI..."
+            onkeydown="if(event.key==='Enter')sendChat()">
+          <button class="btn" onclick="sendChat()">➤</button>
+        </div>
+        <div class="mt" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="tag" onclick="quickAsk('Explain present simple tense')">Present Simple</button>
+          <button class="tag" onclick="quickAsk('What is the difference between since and for?')">since vs for</button>
+          <button class="tag" onclick="quickAsk('Give me 5 common idioms with meanings')">Idioms</button>
+          <button class="tag" onclick="quickAsk('How to use articles a, an, the?')">Articles</button>
+          <button class="tag" onclick="quickAsk('Explain passive voice with examples')">Passive Voice</button>
+          <button class="tag" onclick="quickAsk('What are modal verbs? Give examples')">Modal Verbs</button>
+        </div>
+      </div>
+    </div>
 
-function toggleMic(){
-  if(isRecording){stopRecording();}else{startRecording();}
-}
+    <!-- LEADERBOARD -->
+    <div class="page" id="page-rank">
+      <h2 data-key="nav_rank">🏆 Leaderboard</h2>
+      <div class="card" id="leaderboardList"></div>
+    </div>
 
-function startRecording(){
-  isRecording=true;
-  const btn=document.getElementById('mic-btn');
-  const status=document.getElementById('mic-status');
-  if(btn)btn.classList.add('recording');
-  if(status)status.textContent=t('speakNow');
-  if('SpeechRecognition' in window||'webkitSpeechRecognition' in window){
-    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-    recognition=new SR();
-    recognition.lang='en-US';
-    recognition.continuous=false;
-    recognition.interimResults=false;
-    recognition.onresult=(e)=>{
-      const transcript=e.results[0][0].transcript;
-      stopRecording();
-      handleSpeechInput(transcript);
+    <!-- STATS -->
+    <div class="page" id="page-stats">
+      <h2 data-key="nav_stats">📊 My Statistics</h2>
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="card mt">
+        <h3 data-key="progress_by_level">Progress by Level</h3>
+        <div id="progressBars"></div>
+      </div>
+      <div class="card mt">
+        <h3 data-key="topic_scores">Test Scores by Topic</h3>
+        <div id="topicScores"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // ========================
+    // TRANSLATIONS
+    // ========================
+    const LANGS = {
+      en: {
+        nav_home: "🏠 Home", nav_lessons: "📚 Lessons", nav_vocab: "📖 Vocabulary",
+        nav_listening: "🎧 Listening", nav_speaking: "🎤 Speaking", nav_reading: "📝 Reading",
+        nav_writing: "✍️ Writing", nav_ai: "🤖 AI Tutor", nav_rank: "🏆 Leaderboard", nav_stats: "📊 Stats",
+        hero_title: "LinguaQuest", hero_sub: "Master English through fun, games & AI",
+        stat_xp: "Total XP", stat_streak: "Day Streak", stat_done: "Completed",
+        choose_level: "Choose Your Level", back: "Back", back_topics: "Topics", back_lesson: "Back to Lesson",
+        start_test: "📝 Start Test (30 Questions)", vocab_all: "All", vocab_nouns: "Nouns",
+        vocab_verbs: "Verbs", vocab_adj: "Adjectives", vocab_adv: "Adverbs", vocab_phrases: "Phrases",
+        vocab_idioms: "Idioms", lev_beg: "Beginner", lev_int: "Intermediate", lev_adv: "Advanced",
+        speak_press: "Press mic and speak your answer", next_scenario: "Next Scenario",
+        repeat_ai: "🔊 Repeat AI", check_writing: "🤖 Check with AI", new_prompt: "New Prompt",
+        ai_sub: "Ask anything about English 24/7", clear_chat: "Clear",
+        progress_by_level: "Progress by Level", topic_scores: "Test Scores by Topic",
+        q_label: "Question", of_label: "of", submit_answers: "Submit Answers",
+        correct_label: "Correct", wrong_label: "Wrong", score_label: "Your Score",
+        retry_btn: "Try Again", next_topic_btn: "Next Topic", great: "Excellent! 🌟",
+        good: "Good job! 👍", ok: "Keep practicing! 💪", weak: "Study more! 📖",
+        start_btn: "Start Learning", level_complete: "Level Complete!",
+        your_ans: "Your answer", ai_ans: "AI answer",
+      },
+      ru: {
+        nav_home: "🏠 Главная", nav_lessons: "📚 Уроки", nav_vocab: "📖 Словарь",
+        nav_listening: "🎧 Аудирование", nav_speaking: "🎤 Говорение", nav_reading: "📝 Чтение",
+        nav_writing: "✍️ Письмо", nav_ai: "🤖 ИИ Репетитор", nav_rank: "🏆 Рейтинг", nav_stats: "📊 Статистика",
+        hero_title: "LinguaQuest", hero_sub: "Учи английский через игры и ИИ",
+        stat_xp: "Всего XP", stat_streak: "Дней подряд", stat_done: "Завершено",
+        choose_level: "Выбери уровень", back: "Назад", back_topics: "К темам", back_lesson: "К уроку",
+        start_test: "📝 Начать тест (30 вопросов)", vocab_all: "Все", vocab_nouns: "Существительные",
+        vocab_verbs: "Глаголы", vocab_adj: "Прилагательные", vocab_adv: "Наречия",
+        vocab_phrases: "Фразы", vocab_idioms: "Идиомы", lev_beg: "Начальный",
+        lev_int: "Средний", lev_adv: "Продвинутый",
+        speak_press: "Нажми микрофон и говори", next_scenario: "Следующий сценарий",
+        repeat_ai: "🔊 Повторить ИИ", check_writing: "🤖 Проверить ИИ", new_prompt: "Новое задание",
+        ai_sub: "Спрашивай что угодно об английском 24/7", clear_chat: "Очистить",
+        progress_by_level: "Прогресс по уровням", topic_scores: "Результаты тестов по темам",
+        q_label: "Вопрос", of_label: "из", submit_answers: "Ответить",
+        correct_label: "Правильно", wrong_label: "Неправильно", score_label: "Твой результат",
+        retry_btn: "Попробовать снова", next_topic_btn: "Следующая тема",
+        great: "Отлично! 🌟", good: "Хорошо! 👍", ok: "Продолжай практиковаться! 💪",
+        weak: "Учи больше! 📖", start_btn: "Начать учиться", level_complete: "Уровень завершён!",
+        your_ans: "Твой ответ", ai_ans: "Ответ ИИ",
+      },
+      uz: {
+        nav_home: "🏠 Bosh sahifa", nav_lessons: "📚 Darslar", nav_vocab: "📖 Lug'at",
+        nav_listening: "🎧 Tinglash", nav_speaking: "🎤 Gapirish", nav_reading: "📝 O'qish",
+        nav_writing: "✍️ Yozish", nav_ai: "🤖 AI O'qituvchi", nav_rank: "🏆 Reyting", nav_stats: "📊 Statistika",
+        hero_title: "LinguaQuest", hero_sub: "O'yinlar va AI orqali inglizcha o'rgan",
+        stat_xp: "Jami XP", stat_streak: "Kunlik streak", stat_done: "Bajarildi",
+        choose_level: "Darajangni tanlang", back: "Orqaga", back_topics: "Mavzularga", back_lesson: "Darsga qaytish",
+        start_test: "📝 Testni boshlash (30 savol)", vocab_all: "Hammasi", vocab_nouns: "Otlar",
+        vocab_verbs: "Fe'llar", vocab_adj: "Sifatlar", vocab_adv: "Ravishlar",
+        vocab_phrases: "Iboralar", vocab_idioms: "Idiomalar", lev_beg: "Boshlang'ich",
+        lev_int: "O'rta", lev_adv: "Yuqori",
+        speak_press: "Mikrofon bosib gapiring", next_scenario: "Keyingi stsenariy",
+        repeat_ai: "🔊 AI ni takrorlash", check_writing: "🤖 AI bilan tekshirish", new_prompt: "Yangi topshiriq",
+        ai_sub: "Ingliz tili haqida istalgan narsani so'rang 24/7", clear_chat: "Tozalash",
+        progress_by_level: "Daraja bo'yicha progress", topic_scores: "Mavzu bo'yicha test natijalari",
+        q_label: "Savol", of_label: "dan", submit_answers: "Javob berish",
+        correct_label: "To'g'ri", wrong_label: "Noto'g'ri", score_label: "Natijangiz",
+        retry_btn: "Qayta urinish", next_topic_btn: "Keyingi mavzu",
+        great: "A'lo! 🌟", good: "Yaxshi! 👍", ok: "Mashq qiling! 💪",
+        weak: "Ko'proq o'qing! 📖", start_btn: "O'rganishni boshlash", level_complete: "Daraja tugadi!",
+        your_ans: "Sizning javobingiz", ai_ans: "AI javobi",
+      },
+      tg: {
+        nav_home: "🏠 Хона", nav_lessons: "📚 Дарсҳо", nav_vocab: "📖 Луғат",
+        nav_listening: "🎧 Шунидан", nav_speaking: "🎤 Сухан", nav_reading: "📝 Хондан",
+        nav_writing: "✍️ Навиштан", nav_ai: "🤖 Омӯзгори ИИ", nav_rank: "🏆 Рейтинг", nav_stats: "📊 Омор",
+        hero_title: "LinguaQuest", hero_sub: "Забони англисиро тавассути бозиҳо ва ИИ омӯзед",
+        stat_xp: "Ҳамаи XP", stat_streak: "Рӯзи паи ҳам", stat_done: "Иҷро шуд",
+        choose_level: "Сатҳи худро интихоб кунед", back: "Бозгашт", back_topics: "Мавзуҳо", back_lesson: "Ба дарс бозгашт",
+        start_test: "📝 Санҷишро оғоз кунед (30 савол)", vocab_all: "Ҳама", vocab_nouns: "Исмҳо",
+        vocab_verbs: "Феълҳо", vocab_adj: "Сифатҳо", vocab_adv: "Ҳолҳо",
+        vocab_phrases: "Ибораҳо", vocab_idioms: "Идиомаҳо", lev_beg: "Ибтидоӣ",
+        lev_int: "Миёна", lev_adv: "Пешрафта",
+        speak_press: "Микрофонро пахш кунед ва ҷавоб диҳед", next_scenario: "Сенарияи навбатӣ",
+        repeat_ai: "🔊 Такрори ИИ", check_writing: "🤖 Бо ИИ санҷидан", new_prompt: "Вазифаи нав",
+        ai_sub: "Ҳама чизро дар бораи забони англисӣ 24/7 бипурсед", clear_chat: "Тоза кардан",
+        progress_by_level: "Пешрафт аз рӯи сатҳ", topic_scores: "Натиҷаи санҷиш аз рӯи мавзӯ",
+        q_label: "Савол", of_label: "аз", submit_answers: "Ҷавоб додан",
+        correct_label: "Дуруст", wrong_label: "Нодуруст", score_label: "Натиҷаи шумо",
+        retry_btn: "Дубора кӯшиш", next_topic_btn: "Мавзӯи навбатӣ",
+        great: "Аъло! 🌟", good: "Хуб! 👍", ok: "Машқ кунед! 💪",
+        weak: "Бештар омӯзед! 📖", start_btn: "Омӯзишро оғоз кунед", level_complete: "Сатҳ тамом шуд!",
+        your_ans: "Ҷавоби шумо", ai_ans: "Ҷавоби ИИ",
+      }
     };
-    recognition.onerror=()=>{stopRecording();showToast('Mic not available — type instead','error');};
-    recognition.start();
-  } else {
-    // fallback: type
-    const ans=prompt('Type your answer (mic not supported):');
-    stopRecording();
-    if(ans)handleSpeechInput(ans);
-  }
-}
+    let currentLang = 'en';
+    function t(key) { return (LANGS[currentLang] || LANGS.en)[key] || LANGS.en[key] || key; }
+    function setLang(l) {
+      currentLang = l;
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === l.toUpperCase()));
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const k = el.getAttribute('data-key');
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = t(k);
+        else el.textContent = t(k);
+      });
+      renderLevelGrid();
+      renderVocab();
+      renderListening();
+      renderReading();
+      renderSpeakScenario();
+      renderLeaderboard();
+      renderStats();
+    }
 
-function stopRecording(){
-  isRecording=false;
-  const btn=document.getElementById('mic-btn');
-  const status=document.getElementById('mic-status');
-  if(btn)btn.classList.remove('recording');
-  if(status)status.textContent=t('tapToSpeak');
-  if(recognition){try{recognition.stop();}catch(e){}}
-}
+    // ========================
+    // STATE
+    // ========================
+    let state = {
+      xp: 0, streak: 7, completedTopics: {},
+      testScores: {}, currentLevel: null, currentTopic: null,
+      currentTest: null, usedQuestions: {}
+    };
 
-async function handleSpeechInput(text){
-  addUserMessage(text);
-  addXP(5);
-  // if following a script
-  if(activeSpeakingScript&&speakingStepIdx<activeSpeakingScript.prompts.length){
-    const next=activeSpeakingScript.prompts[speakingStepIdx];
-    speakingStepIdx++;
-    setTimeout(()=>{
-      addAIMessage(next);
-      speakAI(next);
-    },800);
-    return;
-  }
-  // free AI response
-  const thinking=document.createElement('div');
-  thinking.className='ai-message';
-  thinking.innerHTML=`<div class="ai-label">🤖 Alex</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-  document.getElementById('speaking-chat').appendChild(thinking);
-  document.getElementById('speaking-chat').scrollTop=999999;
-  const reply=await callAI(`You are Alex, a friendly English teacher. The student said: "${text}". Respond naturally in English, correct any grammar mistakes gently, and ask a follow-up question. Be encouraging. Keep response under 80 words.`);
-  thinking.remove();
-  addAIMessage(reply);
-  speakAI(reply);
-}
+    // ========================
+    // LEVELS + TOPICS + LESSONS
+    // ========================
+    const LEVELS = [
+      { id: 'a1', name: 'A1 – Beginner', icon: '🌱', color: '#43e97b', topics: ['greetings', 'numbers', 'colors', 'family', 'food', 'body', 'weather', 'days', 'clothes', 'animals'] },
+      { id: 'a2', name: 'A2 – Elementary', icon: '🌿', color: '#00b09b', topics: ['present_simple', 'past_simple', 'future', 'shopping', 'travel', 'hobbies', 'home', 'school', 'health', 'sports'] },
+      { id: 'b1', name: 'B1 – Intermediate', icon: '🌳', color: '#6c63ff', topics: ['present_perfect', 'conditionals', 'modal_verbs', 'passive_voice', 'environment', 'work', 'technology', 'culture', 'relationships', 'science'] },
+      { id: 'b2', name: 'B2 – Upper Int.', icon: '🦅', color: '#f7971e', topics: ['reported_speech', 'relative_clauses', 'mixed_conditionals', 'business', 'politics', 'media', 'psychology', 'economics', 'law', 'history'] },
+      { id: 'c1', name: 'C1 – Advanced', icon: '🚀', color: '#ff6584', topics: ['subjunctive', 'inversion', 'ellipsis', 'literature', 'philosophy', 'medicine', 'engineering', 'artificial_intelligence', 'diplomacy', 'art'] },
+      { id: 'c2', name: 'C2 – Mastery', icon: '👑', color: '#ffd700', topics: ['nuance', 'rhetoric', 'academic', 'idioms_adv', 'collocations', 'register', 'discourse', 'argumentation', 'criticism', 'synthesis'] },
+    ];
 
-// =========================================================
-// READING
-// =========================================================
-const READING_TEXTS=[
-  {id:'r1',title:'The History of the Internet',level:'Intermediate',
-   text:`The Internet is one of humanity's greatest inventions. It began in 1969 as ARPANET, a network created by the U.S. Department of Defense to allow computers to communicate with each other. The network was initially used by universities and government agencies for research purposes.
+    const TOPIC_DATA = {
+      greetings: {
+        icon: '👋', name: 'Greetings & Introductions',
+        lesson: `<h4>Basic Greetings</h4>
+<p>Greetings are the first step in any conversation. In English, there are formal and informal ways to greet people.</p>
+<table><tr><th>Expression</th><th>Usage</th><th>Response</th></tr>
+<tr><td>Hello / Hi</td><td>Informal, everyday</td><td>Hello! / Hi!</td></tr>
+<tr><td>Good morning</td><td>Before noon</td><td>Good morning!</td></tr>
+<tr><td>Good afternoon</td><td>Noon – 6pm</td><td>Good afternoon!</td></tr>
+<tr><td>Good evening</td><td>After 6pm</td><td>Good evening!</td></tr>
+<tr><td>How are you?</td><td>Formal inquiry</td><td>I'm fine, thank you!</td></tr>
+<tr><td>What's up?</td><td>Very informal</td><td>Not much! / All good!</td></tr></table>
+<h4>Introducing Yourself</h4>
+<p>When you meet someone new, you introduce yourself. Common phrases include:</p>
+<div class="example">My name is Sarah. I'm from London. Nice to meet you!</div>
+<div class="example">I'd like to introduce myself. I'm John, the new manager.</div>
+<h4>Asking for Someone's Name</h4>
+<p>There are several ways to ask someone's name:</p>
+<div class="example">What's your name? (informal)</div>
+<div class="example">Could I ask your name? (formal)</div>
+<div class="example">May I know your name? (very formal)</div>
+<h4>Saying Goodbye</h4>
+<table><tr><th>Expression</th><th>Context</th></tr>
+<tr><td>Goodbye / Bye</td><td>General</td></tr>
+<tr><td>See you later / See you soon</td><td>When you'll meet again</td></tr>
+<tr><td>Take care</td><td>Warm farewell</td></tr>
+<tr><td>Good night</td><td>Evening parting</td></tr>
+<tr><td>Farewell</td><td>Long parting, formal</td></tr></table>
+<h4>Polite Expressions</h4>
+<p>Always use these in English to be polite:</p>
+<div class="example">Please, Thank you, You're welcome, Excuse me, I'm sorry, Pardon me</div>
+<h4>Asking About Origin</h4>
+<div class="example">Where are you from? — I'm from Russia/Uzbekistan/England.</div>
+<div class="example">Where do you come from? — I come from a small city in the north.</div>
+<h4>Talking About Your Job</h4>
+<div class="example">What do you do (for a living)? — I'm a teacher / I work as an engineer.</div>
+<h4>Talking About Age</h4>
+<div class="example">How old are you? — I'm twenty-five years old.</div>`,
+        questions: [
+          { q: "What is the correct response to 'How are you?'", opts: ["I'm fine, thank you!", "Yes, I am.", "My name is Tom.", "Good night!"], a: 0 },
+          { q: "Which greeting is used before noon?", opts: ["Good evening", "Good night", "Good morning", "Good afternoon"], a: 2 },
+          { q: "'What's your name?' is ___", opts: ["very formal", "informal", "impolite", "wrong"], a: 1 },
+          { q: "Choose the correct introduction:", opts: ["My name is is Tom", "I am name Tom", "My name is Tom", "Name my Tom is"], a: 2 },
+          { q: "'See you later' means:", opts: ["Goodbye forever", "We'll meet again soon", "Good morning", "Nice to meet you"], a: 1 },
+          { q: "Which is the most formal goodbye?", opts: ["Bye!", "See ya!", "Farewell", "Later!"], a: 2 },
+          { q: "'Where are you from?' asks about your:", opts: ["age", "job", "origin", "name"], a: 2 },
+          { q: "Complete: 'Nice ___ meet you!'", opts: ["to", "for", "at", "in"], a: 0 },
+          { q: "'Good evening' is used:", opts: ["before noon", "in the morning", "after 6pm", "at midnight only"], a: 2 },
+          { q: "Which phrase asks about someone's job?", opts: ["How old are you?", "What do you do?", "Where are you from?", "What's your name?"], a: 1 },
+          { q: "Choose the polite response after 'Thank you':", opts: ["Yes", "No problem / You're welcome", "Goodbye", "Sorry"], a: 1 },
+          { q: "'Excuse me' is used to:", opts: ["say hello", "get attention politely", "say goodbye", "introduce yourself"], a: 1 },
+          { q: "I ___ twenty years old.", opts: ["has", "am", "is", "are"], a: 1 },
+          { q: "Which is NOT a greeting?", opts: ["Hello", "Hi there", "Good morning", "Farewell"], a: 3 },
+          { q: "'Could I ask your name?' is:", opts: ["informal", "rude", "very formal", "wrong"], a: 2 },
+          { q: "'Take care' is said when:", opts: ["you arrive", "you say goodbye", "you eat", "you work"], a: 1 },
+          { q: "What does 'What's up?' mean?", opts: ["Where are you going?", "How are you? (informal)", "What is that?", "Who are you?"], a: 1 },
+          { q: "'I'd like to introduce ___ . I'm Maria.'", opts: ["yourself", "myself", "himself", "themselves"], a: 1 },
+          { q: "Which greeting works all day?", opts: ["Good morning", "Good evening", "Hello", "Good afternoon"], a: 2 },
+          { q: "'I come from Spain.' — What was the question?", opts: ["How old are you?", "What's your job?", "Where are you from?", "Are you happy?"], a: 2 },
+          { q: "Correct sentence: '___'", opts: ["He name is Paul", "His name Paul is", "His name is Paul", "Paul his name is"], a: 2 },
+          { q: "'Pardon me' means:", opts: ["I hate you", "I'm sorry / Excuse me", "You're welcome", "See you later"], a: 1 },
+          { q: "'Nice to meet you' is said when:", opts: ["you say goodbye", "you meet someone new", "you eat", "you sleep"], a: 1 },
+          { q: "Choose the correct question about age:", opts: ["How old have you?", "How old is you?", "How old are you?", "How much old are you?"], a: 2 },
+          { q: "'Good night' is a farewell used:", opts: ["in the morning", "at noon", "in the evening/night", "anytime"], a: 2 },
+          { q: "'I'm a doctor' answers the question:", opts: ["How old are you?", "Where are you from?", "What do you do?", "What's your name?"], a: 2 },
+          { q: "Which is informal?", opts: ["Good morning, sir.", "Could I ask your name?", "Hey! What's up?", "I'd like to introduce myself."], a: 2 },
+          { q: "'___ are you?' — 'I'm from Japan.'", opts: ["How", "What", "Where", "Who"], a: 2 },
+          { q: "Complete: 'Good ___, see you tomorrow!'", opts: ["morning", "night", "afternoon", "evening"], a: 1 },
+          { q: "'I'm pleased to meet you' is:", opts: ["informal", "formal", "slang", "wrong"], a: 1 },
+        ]
+      },
+      numbers: {
+        icon: '🔢', name: 'Numbers & Counting',
+        lesson: `<h4>Cardinal Numbers (1–100)</h4>
+<table><tr><th>Number</th><th>Word</th><th>Number</th><th>Word</th></tr>
+<tr><td>1</td><td>one</td><td>11</td><td>eleven</td></tr>
+<tr><td>2</td><td>two</td><td>12</td><td>twelve</td></tr>
+<tr><td>3</td><td>three</td><td>13</td><td>thirteen</td></tr>
+<tr><td>4</td><td>four</td><td>14</td><td>fourteen</td></tr>
+<tr><td>5</td><td>five</td><td>15</td><td>fifteen</td></tr>
+<tr><td>10</td><td>ten</td><td>20</td><td>twenty</td></tr>
+<tr><td>30</td><td>thirty</td><td>100</td><td>one hundred</td></tr></table>
+<h4>Ordinal Numbers</h4>
+<div class="example">1st – first, 2nd – second, 3rd – third, 4th – fourth ... 20th – twentieth</div>
+<h4>Large Numbers</h4>
+<div class="example">1,000 – one thousand | 1,000,000 – one million | 1,000,000,000 – one billion</div>
+<h4>Fractions & Decimals</h4>
+<div class="example">½ – one half | ¼ – one quarter | ⅓ – one third | 3.5 – three point five</div>
+<h4>Arithmetic Operations</h4>
+<table><tr><th>Symbol</th><th>Word</th><th>Example</th></tr>
+<tr><td>+</td><td>plus / and</td><td>5 + 3 = eight</td></tr>
+<tr><td>-</td><td>minus</td><td>10 - 4 = six</td></tr>
+<tr><td>×</td><td>times / multiplied by</td><td>3 × 4 = twelve</td></tr>
+<tr><td>÷</td><td>divided by</td><td>20 ÷ 5 = four</td></tr>
+<tr><td>=</td><td>equals</td><td>result</td></tr></table>`,
+        questions: [
+          { q: "How do you say 15 in English?", opts: ["fifty", "fiveteen", "fifteen", "fiftee"], a: 2 },
+          { q: "What is 'twenty' in numbers?", opts: ["12", "20", "200", "22"], a: 1 },
+          { q: "How do you say 1,000?", opts: ["one hundred", "one million", "one thousand", "ten hundred"], a: 2 },
+          { q: "What is the ordinal form of '3'?", opts: ["threeth", "thrid", "third", "three"], a: 2 },
+          { q: "3 × 4 = ___", opts: ["seven", "twelve", "ten", "eight"], a: 1 },
+          { q: "'Half' means:", opts: ["1/3", "1/4", "1/2", "1/5"], a: 2 },
+          { q: "How do you say 0.5?", opts: ["zero five", "zero point five", "five percent", "half zero"], a: 1 },
+          { q: "The ordinal of 1 is:", opts: ["oneth", "first", "oned", "firsty"], a: 1 },
+          { q: "50 + 50 = ___", opts: ["one hundred", "ninety", "eighty", "two hundred"], a: 0 },
+          { q: "'Thirteen' is ___", opts: ["30", "3", "13", "33"], a: 2 },
+          { q: "How do you say 2nd?", opts: ["twoth", "secondly", "second", "twoeth"], a: 2 },
+          { q: "What is one million in numbers?", opts: ["1,000", "10,000", "100,000", "1,000,000"], a: 3 },
+          { q: "20 ÷ 4 = ___", opts: ["four", "five", "six", "three"], a: 1 },
+          { q: "'Quarter' means:", opts: ["1/2", "1/3", "1/4", "1/5"], a: 2 },
+          { q: "How do you say 100?", opts: ["ten ten", "hundred", "one hundred", "a hundreds"], a: 2 },
+          { q: "Which number is 'forty-two'?", opts: ["24", "402", "42", "422"], a: 2 },
+          { q: "The ordinal of 20 is:", opts: ["twentith", "twentyth", "twentieth", "twentied"], a: 2 },
+          { q: "100 - 37 = ___", opts: ["sixty-three", "sixty-four", "seventy-three", "sixty-seven"], a: 0 },
+          { q: "'Billion' means:", opts: ["1,000,000", "10,000,000", "100,000,000", "1,000,000,000"], a: 3 },
+          { q: "'3.7' in words is:", opts: ["three comma seven", "three dot seven", "three point seven", "three and seven"], a: 2 },
+          { q: "How do you say 15th?", opts: ["fifteenth", "fifteen", "fiveteenth", "fifteenst"], a: 0 },
+          { q: "Which is correct: 21st or 21th?", opts: ["21th", "21st", "21nd", "21rd"], a: 1 },
+          { q: "'Minus' is the operation of:", opts: ["adding", "subtracting", "multiplying", "dividing"], a: 1 },
+          { q: "How do you say 1/3?", opts: ["one third", "one three", "first three", "one thirds"], a: 0 },
+          { q: "999 in words is:", opts: ["nine nine nine", "nine hundred ninety-nine", "nine hundred and nine", "ninety-nine nine"], a: 1 },
+          { q: "What does 'even number' mean?", opts: ["divisible by 2", "divisible by 3", "any big number", "number with zero"], a: 0 },
+          { q: "'Eleven' is ___", opts: ["10", "11", "12", "21"], a: 1 },
+          { q: "Five times six equals:", opts: ["twenty-five", "thirty", "thirty-five", "twenty"], a: 1 },
+          { q: "The ordinal of 12 is:", opts: ["twelfth", "twelveeth", "twelfty", "twelfieth"], a: 0 },
+          { q: "'Fifty percent' means:", opts: ["1/4", "3/4", "1/2", "1/3"], a: 2 },
+        ]
+      },
+      present_simple: {
+        icon: '⏰', name: 'Present Simple Tense',
+        lesson: `<h4>What is Present Simple?</h4>
+<p>The Present Simple tense is used to describe habits, routines, facts, and general truths. It is one of the most important tenses in English.</p>
+<h4>Structure</h4>
+<table><tr><th>Form</th><th>Structure</th><th>Example</th></tr>
+<tr><td>Positive</td><td>Subject + V1 (add -s/-es for he/she/it)</td><td>She works every day.</td></tr>
+<tr><td>Negative</td><td>Subject + don't/doesn't + V1</td><td>He doesn't like coffee.</td></tr>
+<tr><td>Question</td><td>Do/Does + Subject + V1?</td><td>Do you play tennis?</td></tr></table>
+<h4>When to Use It</h4>
+<div class="example">Habits: I wake up at 7am every day.</div>
+<div class="example">Facts: Water boils at 100°C.</div>
+<div class="example">Schedules: The train leaves at 9am.</div>
+<div class="example">Feelings: She loves music.</div>
+<h4>Third Person Singular Rules (-s / -es)</h4>
+<table><tr><th>Verb ending</th><th>Rule</th><th>Example</th></tr>
+<tr><td>Most verbs</td><td>Add -s</td><td>work → works</td></tr>
+<tr><td>-ch, -sh, -ss, -x, -o</td><td>Add -es</td><td>watch → watches</td></tr>
+<tr><td>consonant + y</td><td>y → ies</td><td>study → studies</td></tr>
+<tr><td>Irregular</td><td>Special forms</td><td>have → has, be → is</td></tr></table>
+<h4>Time Expressions</h4>
+<div class="example">always, usually, often, sometimes, rarely, never, every day/week/year, on Mondays</div>
+<h4>Common Mistakes</h4>
+<div class="example">✗ She work every day. ✓ She works every day.</div>
+<div class="example">✗ He don't like it. ✓ He doesn't like it.</div>
+<div class="example">✗ Does she works? ✓ Does she work?</div>`,
+        questions: [
+          { q: "He ___ football every weekend.", opts: ["play", "playing", "plays", "to play"], a: 2 },
+          { q: "She ___ not like vegetables.", opts: ["do", "is", "does", "have"], a: 2 },
+          { q: "___ they speak English?", opts: ["Does", "Is", "Do", "Are"], a: 2 },
+          { q: "Water ___ at 100°C.", opts: ["boil", "boils", "is boiling", "boiled"], a: 1 },
+          { q: "I ___ to school every day.", opts: ["goes", "go", "going", "went"], a: 1 },
+          { q: "'Study' in 3rd person singular is:", opts: ["studys", "studyes", "studies", "studis"], a: 2 },
+          { q: "She doesn't ___ coffee.", opts: ["drinks", "drinking", "drank", "drink"], a: 3 },
+          { q: "The train ___ at 8am.", opts: ["leave", "leaves", "left", "is leaving"], a: 1 },
+          { q: "Time expression for Present Simple:", opts: ["yesterday", "right now", "every Monday", "last week"], a: 2 },
+          { q: "___ he work in a bank?", opts: ["Do", "Is", "Are", "Does"], a: 3 },
+          { q: "My sister ___ three languages.", opts: ["speak", "speaks", "is speaking", "spoke"], a: 1 },
+          { q: "They ___ usually late.", opts: ["isn't", "doesn't", "aren't", "wasn't"], a: 2 },
+          { q: "'Watch' in 3rd person is:", opts: ["watchs", "watchies", "watches", "watchies"], a: 2 },
+          { q: "I ___ breakfast every morning.", opts: ["have", "has", "haves", "having"], a: 0 },
+          { q: "The sun ___ in the east.", opts: ["rise", "rises", "is rising", "has risen"], a: 1 },
+          { q: "She ___ to music on her way to work.", opts: ["listen", "listens", "is listening", "listened"], a: 1 },
+          { q: "He never ___ vegetables.", opts: ["eat", "eats", "is eating", "eating"], a: 1 },
+          { q: "'Have' in 3rd person singular is:", opts: ["haves", "have", "has", "is having"], a: 2 },
+          { q: "___ you like chocolate?", opts: ["Does", "Do", "Are", "Is"], a: 1 },
+          { q: "We ___ English at school.", opts: ["studies", "study", "is studying", "am studying"], a: 1 },
+          { q: "She always ___ the dishes after dinner.", opts: ["wash", "washes", "washing", "washed"], a: 1 },
+          { q: "Correct negative: 'He ___ swim.'", opts: ["don't", "doesn't", "isn't", "aren't"], a: 1 },
+          { q: "'Go' in 3rd person singular is:", opts: ["gos", "goies", "goes", "go"], a: 2 },
+          { q: "Which sentence is correct?", opts: ["She work hard", "She works hard", "She working hard", "She worked hard"], a: 1 },
+          { q: "I ___ TV every evening.", opts: ["watches", "watch", "am watching", "watched"], a: 1 },
+          { q: "'Usually' is a time expression for:", opts: ["past simple", "future simple", "present simple", "present continuous"], a: 2 },
+          { q: "Does she ___ in London?", opts: ["lives", "lived", "live", "living"], a: 2 },
+          { q: "He ___ at 7 every morning.", opts: ["wake up", "wakes up", "is waking up", "woke up"], a: 1 },
+          { q: "They ___ always on time.", opts: ["is", "am", "are", "be"], a: 2 },
+          { q: "'Fly' in 3rd person is:", opts: ["flys", "flyies", "flies", "fly"], a: 2 },
+        ]
+      },
+      colors: {
+        icon: '🎨', name: 'Colors & Descriptions',
+        lesson: `<h4>Basic Colors</h4>
+<table><tr><th>Color</th><th>Example</th></tr>
+<tr><td>Red</td><td>The apple is red.</td></tr>
+<tr><td>Blue</td><td>The sky is blue.</td></tr>
+<tr><td>Green</td><td>The grass is green.</td></tr>
+<tr><td>Yellow</td><td>The sun is yellow.</td></tr>
+<tr><td>Orange</td><td>The orange is orange.</td></tr>
+<tr><td>Purple/Violet</td><td>The flower is purple.</td></tr>
+<tr><td>Pink</td><td>Her dress is pink.</td></tr>
+<tr><td>Brown</td><td>Chocolate is brown.</td></tr>
+<tr><td>Black</td><td>The night is black.</td></tr>
+<tr><td>White</td><td>Snow is white.</td></tr>
+<tr><td>Grey/Gray</td><td>The clouds are grey.</td></tr></table>
+<h4>Shades and Modifiers</h4>
+<div class="example">Light blue, dark green, bright red, pale yellow, deep purple, navy blue, olive green</div>
+<h4>Describing Objects</h4>
+<div class="example">Order of adjectives: Opinion → Size → Age → Shape → Color → Origin → Material → Purpose + Noun</div>
+<div class="example">Example: "A beautiful small old round red Italian silver coffee table"</div>
+<h4>Common Phrases</h4>
+<div class="example">What color is it? — It's blue.</div>
+<div class="example">What color are they? — They're yellow.</div>`,
+        questions: [
+          { q: "What color is the sky on a clear day?", opts: ["green", "red", "blue", "yellow"], a: 2 },
+          { q: "'Navy' is a shade of:", opts: ["red", "green", "blue", "brown"], a: 2 },
+          { q: "Snow is ___ .", opts: ["black", "white", "grey", "yellow"], a: 1 },
+          { q: "An apple is usually ___ .", opts: ["blue", "red", "purple", "orange"], a: 1 },
+          { q: "'Light' in 'light blue' means:", opts: ["heavy", "dark", "pale", "bright"], a: 2 },
+          { q: "What color is chocolate?", opts: ["pink", "white", "brown", "orange"], a: 2 },
+          { q: "Grass is ___ .", opts: ["green", "yellow", "red", "purple"], a: 0 },
+          { q: "'What color ___ it?' — 'It's pink.'", opts: ["are", "is", "am", "be"], a: 1 },
+          { q: "'Crimson' is a shade of:", opts: ["blue", "green", "red", "yellow"], a: 2 },
+          { q: "The correct order: ___ big red car", opts: ["big red a", "a red big", "a big red", "red a big"], a: 2 },
+          { q: "'Olive' is a shade of:", opts: ["green", "purple", "orange", "pink"], a: 0 },
+          { q: "What color is the sun?", opts: ["white", "blue", "yellow", "green"], a: 2 },
+          { q: "'Dark' is the opposite of:", opts: ["big", "light", "heavy", "small"], a: 1 },
+          { q: "Bananas are ___ .", opts: ["purple", "orange", "yellow", "grey"], a: 2 },
+          { q: "'Turquoise' is between:", opts: ["red and yellow", "blue and green", "pink and purple", "black and white"], a: 1 },
+          { q: "What color is coal?", opts: ["white", "grey", "black", "brown"], a: 2 },
+          { q: "'Scarlet' is a type of:", opts: ["red", "blue", "green", "purple"], a: 0 },
+          { q: "'What color are they?' — Correct response:", opts: ["It is blue", "They're yellow", "She is green", "He blue"], a: 1 },
+          { q: "'Beige' is a pale shade of:", opts: ["blue", "red", "brown/yellow", "green"], a: 2 },
+          { q: "Which is NOT a color?", opts: ["violet", "magenta", "angular", "cyan"], a: 2 },
+          { q: "The fire engine is ___ .", opts: ["blue", "red", "white", "green"], a: 1 },
+          { q: "'Golden' means:", opts: ["dark yellow", "bright yellow/gold", "pale white", "silver"], a: 1 },
+          { q: "The color of grass is a shade of:", opts: ["blue", "yellow", "green", "brown"], a: 2 },
+          { q: "'Lavender' is a shade of:", opts: ["pink", "purple", "blue", "grey"], a: 1 },
+          { q: "Which two colors make orange?", opts: ["red+blue", "yellow+blue", "red+yellow", "green+red"], a: 2 },
+          { q: "Which is a neutral color?", opts: ["red", "yellow", "grey", "green"], a: 2 },
+          { q: "The ocean can be ___ or ___ .", opts: ["red or yellow", "blue or green", "pink or purple", "brown or white"], a: 1 },
+          { q: "'Ivory' is close to:", opts: ["black", "blue", "white/cream", "red"], a: 2 },
+          { q: "'Teal' is a mix of:", opts: ["red and yellow", "blue and green", "pink and purple", "orange and red"], a: 1 },
+          { q: "Correct sentence:", opts: ["She wear a red dress", "She wears red a dress", "She wears a red dress", "She wearing red dress"], a: 2 },
+        ]
+      },
+      past_simple: {
+        icon: '⏪', name: 'Past Simple Tense',
+        lesson: `<h4>What is Past Simple?</h4>
+<p>Used for completed actions in the past, often with a specific time reference.</p>
+<h4>Regular Verbs</h4>
+<table><tr><th>Base</th><th>Past Simple</th><th>Rule</th></tr>
+<tr><td>walk</td><td>walked</td><td>add -ed</td></tr>
+<tr><td>like</td><td>liked</td><td>verb ends in -e: add -d</td></tr>
+<tr><td>study</td><td>studied</td><td>consonant+y → ied</td></tr>
+<tr><td>stop</td><td>stopped</td><td>double final consonant</td></tr></table>
+<h4>Irregular Verbs</h4>
+<table><tr><th>Base</th><th>Past</th><th>Base</th><th>Past</th></tr>
+<tr><td>go</td><td>went</td><td>eat</td><td>ate</td></tr>
+<tr><td>see</td><td>saw</td><td>come</td><td>came</td></tr>
+<tr><td>have</td><td>had</td><td>take</td><td>took</td></tr>
+<tr><td>write</td><td>wrote</td><td>speak</td><td>spoke</td></tr>
+<tr><td>buy</td><td>bought</td><td>think</td><td>thought</td></tr></table>
+<h4>Negative & Questions</h4>
+<div class="example">I didn't go. / She didn't eat.</div>
+<div class="example">Did you see the film? / Where did he go?</div>
+<h4>Time Expressions</h4>
+<div class="example">yesterday, last week/month/year, ago, in 2010, when I was young</div>`,
+        questions: [
+          { q: "The past form of 'go' is:", opts: ["goed", "went", "gone", "goes"], a: 1 },
+          { q: "She ___ TV last night.", opts: ["watch", "watches", "watched", "is watching"], a: 2 },
+          { q: "Past of 'eat' is:", opts: ["eated", "aten", "ate", "eat"], a: 2 },
+          { q: "He ___ not come to the party.", opts: ["do", "did", "does", "was"], a: 1 },
+          { q: "___ you see the film yesterday?", opts: ["Do", "Does", "Did", "Was"], a: 2 },
+          { q: "Past form of 'write':", opts: ["writed", "wrote", "written", "writes"], a: 1 },
+          { q: "They ___ to the beach last summer.", opts: ["go", "goes", "went", "going"], a: 2 },
+          { q: "'Study' in past simple:", opts: ["studyed", "studied", "studed", "studis"], a: 1 },
+          { q: "Past of 'buy':", opts: ["buyed", "boughted", "bought", "buys"], a: 2 },
+          { q: "I ___ my homework an hour ago.", opts: ["finish", "finishes", "finished", "was finishing"], a: 2 },
+          { q: "'Stop' in past simple:", opts: ["stoped", "stopied", "stopped", "stops"], a: 2 },
+          { q: "Past of 'speak':", opts: ["speaked", "spoken", "speaks", "spoke"], a: 3 },
+          { q: "She ___ a letter yesterday.", opts: ["write", "wrote", "written", "writes"], a: 1 },
+          { q: "___ he call you last night?", opts: ["Do", "Does", "Did", "Was"], a: 2 },
+          { q: "Past of 'have':", opts: ["haved", "had", "has", "have"], a: 1 },
+          { q: "I didn't ___ breakfast this morning.", opts: ["had", "eat", "ate", "having"], a: 1 },
+          { q: "They ___ the game 3-1.", opts: ["wins", "win", "won", "winning"], a: 2 },
+          { q: "Time expression for past simple:", opts: ["every day", "right now", "yesterday", "usually"], a: 2 },
+          { q: "Past of 'come':", opts: ["comed", "came", "come", "comes"], a: 1 },
+          { q: "She ___ born in 1995.", opts: ["is", "were", "was", "be"], a: 2 },
+          { q: "Past of 'take':", opts: ["taked", "taken", "took", "takes"], a: 2 },
+          { q: "Did they ___ home early?", opts: ["goes", "went", "go", "gone"], a: 2 },
+          { q: "He ___ the newspaper this morning.", opts: ["reads", "read", "readed", "reading"], a: 1 },
+          { q: "Past of 'see':", opts: ["seed", "seen", "saw", "sees"], a: 2 },
+          { q: "We ___ a great time at the party.", opts: ["have", "has", "had", "having"], a: 2 },
+          { q: "Past of 'think':", opts: ["thinked", "thought", "think", "thinks"], a: 1 },
+          { q: "She didn't ___ the answer.", opts: ["knows", "knew", "know", "knowing"], a: 2 },
+          { q: "'Like' in past simple:", opts: ["liking", "likes", "liked", "liken"], a: 2 },
+          { q: "Past of 'run':", opts: ["runned", "ran", "run", "runs"], a: 1 },
+          { q: "Correct past sentence:", opts: ["He goed home", "He goes home", "He went home", "He going home"], a: 2 },
+        ]
+      },
+      family: {
+        icon: '👨‍👩‍👧‍👦', name: 'Family & Relationships',
+        lesson: `<h4>Family Members</h4>
+<table><tr><th>English</th><th>Relationship</th></tr>
+<tr><td>father / dad</td><td>male parent</td></tr>
+<tr><td>mother / mum/mom</td><td>female parent</td></tr>
+<tr><td>brother</td><td>male sibling</td></tr>
+<tr><td>sister</td><td>female sibling</td></tr>
+<tr><td>grandfather/grandpa</td><td>parent's father</td></tr>
+<tr><td>grandmother/grandma</td><td>parent's mother</td></tr>
+<tr><td>uncle</td><td>parent's brother</td></tr>
+<tr><td>aunt</td><td>parent's sister</td></tr>
+<tr><td>cousin</td><td>uncle/aunt's child</td></tr>
+<tr><td>nephew</td><td>brother/sister's son</td></tr>
+<tr><td>niece</td><td>brother/sister's daughter</td></tr></table>
+<h4>Extended Family</h4>
+<div class="example">in-laws: mother-in-law, father-in-law, sister-in-law, brother-in-law</div>
+<div class="example">step-family: stepmother, stepfather, stepbrother, stepsister</div>
+<h4>Talking About Family</h4>
+<div class="example">I have two siblings – an older brother and a younger sister.</div>
+<div class="example">My parents have been married for 25 years.</div>
+<div class="example">She is an only child (no brothers or sisters).</div>`,
+        questions: [
+          { q: "Your mother's mother is your:", opts: ["aunt", "sister", "grandmother", "niece"], a: 2 },
+          { q: "Your father's brother is your:", opts: ["uncle", "nephew", "cousin", "grandfather"], a: 0 },
+          { q: "A 'sibling' is:", opts: ["your parent", "your friend", "your brother or sister", "your cousin"], a: 2 },
+          { q: "'An only child' means:", opts: ["one sibling", "no siblings", "two siblings", "many siblings"], a: 1 },
+          { q: "Your brother's daughter is your:", opts: ["cousin", "niece", "nephew", "aunt"], a: 1 },
+          { q: "'Mother-in-law' is:", opts: ["your mother", "your wife's/husband's mother", "your aunt", "your grandmother"], a: 1 },
+          { q: "Your aunt's son is your:", opts: ["uncle", "nephew", "brother", "cousin"], a: 3 },
+          { q: "'Siblings' includes:", opts: ["parents", "brothers and sisters", "grandparents", "cousins"], a: 1 },
+          { q: "Your sister's husband is your:", opts: ["uncle", "brother-in-law", "cousin", "nephew"], a: 1 },
+          { q: "'Stepmother' means:", opts: ["your grandmother", "your biological mother", "your father's new wife", "your aunt"], a: 2 },
+          { q: "Your parents' parents are your:", opts: ["cousins", "uncles", "grandparents", "siblings"], a: 2 },
+          { q: "Your father's sister is your:", opts: ["niece", "cousin", "aunt", "grandmother"], a: 2 },
+          { q: "'In-laws' refers to:", opts: ["your own family", "your spouse's family", "your cousins", "your neighbors"], a: 1 },
+          { q: "A 'nephew' is your brother or sister's:", opts: ["daughter", "son", "wife", "husband"], a: 1 },
+          { q: "'Nuclear family' includes:", opts: ["parents + children", "grandparents too", "all relatives", "only siblings"], a: 0 },
+          { q: "Your father's father is your:", opts: ["uncle", "grandfather", "cousin", "brother"], a: 1 },
+          { q: "'Extended family' includes:", opts: ["parents and children only", "grandparents, aunts, uncles, cousins", "friends", "neighbors"], a: 1 },
+          { q: "Your mother's brother is your:", opts: ["cousin", "nephew", "uncle", "grandfather"], a: 2 },
+          { q: "'Parents' means:", opts: ["siblings", "mother and father", "grandparents", "children"], a: 1 },
+          { q: "Your brother's son is your:", opts: ["cousin", "niece", "nephew", "uncle"], a: 2 },
+          { q: "'Twins' are siblings who:", opts: ["look different", "are born at the same time", "are many years apart", "have the same name"], a: 1 },
+          { q: "Which is a female family member?", opts: ["nephew", "uncle", "grandfather", "niece"], a: 3 },
+          { q: "'Adopted' child means:", opts: ["biological child", "child taken legally into a family", "only child", "twin"], a: 1 },
+          { q: "Your spouse's brother is your:", opts: ["cousin", "uncle", "brother-in-law", "stepbrother"], a: 2 },
+          { q: "'Ancestors' are your:", opts: ["children", "future family", "past generations of family", "friends"], a: 2 },
+          { q: "Correct sentence:", opts: ["My brother are tall", "My brother is tall", "My brother am tall", "My brother be tall"], a: 1 },
+          { q: "'Single parent family' has:", opts: ["two parents", "one parent", "grandparents", "no children"], a: 1 },
+          { q: "Your grandmother's son who is not your parent is your:", opts: ["cousin", "uncle", "grandfather", "nephew"], a: 1 },
+          { q: "Which is a plural word for family members?", opts: ["parent", "sibling", "grandparent", "siblings"], a: 3 },
+          { q: "'Relatives' means:", opts: ["friends", "neighbors", "family members", "teachers"], a: 2 },
+        ]
+      },
+      conditionals: {
+        icon: '🔀', name: 'Conditional Sentences',
+        lesson: `<h4>Types of Conditionals</h4>
+<table><tr><th>Type</th><th>Structure</th><th>Meaning</th></tr>
+<tr><td>Zero</td><td>If + present, present</td><td>General truths</td></tr>
+<tr><td>First</td><td>If + present, will + V1</td><td>Real/possible future</td></tr>
+<tr><td>Second</td><td>If + past, would + V1</td><td>Unreal present/future</td></tr>
+<tr><td>Third</td><td>If + past perfect, would have + V3</td><td>Unreal past</td></tr></table>
+<h4>Examples</h4>
+<div class="example">Zero: If you heat water, it boils.</div>
+<div class="example">First: If it rains, I will take an umbrella.</div>
+<div class="example">Second: If I had a million dollars, I would travel the world.</div>
+<div class="example">Third: If she had studied, she would have passed the exam.</div>
+<h4>Mixed Conditionals</h4>
+<div class="example">If I had studied medicine (past), I would be a doctor now (present).</div>
+<h4>Unless = if not</h4>
+<div class="example">Unless you hurry, you will miss the bus. = If you don't hurry, you will miss the bus.</div>`,
+        questions: [
+          { q: "Zero conditional expresses:", opts: ["future possibility", "general truths", "past regrets", "unreal situations"], a: 1 },
+          { q: "'If it rains, I ___ an umbrella.' (1st conditional)", opts: ["would take", "will take", "took", "take"], a: 1 },
+          { q: "Second conditional uses:", opts: ["will", "would", "had", "have"], a: 1 },
+          { q: "'If I ___ rich, I would travel.' (2nd cond.)", opts: ["am", "was/were", "will be", "have been"], a: 1 },
+          { q: "Third conditional expresses:", opts: ["possible future", "general truths", "regrets about the past", "current habits"], a: 2 },
+          { q: "'If she had studied, she ___ passed.' (3rd cond.)", opts: ["will have", "would have", "had", "would"], a: 1 },
+          { q: "'Unless' means:", opts: ["if", "if not", "when", "although"], a: 1 },
+          { q: "'If water reaches 100°C, it ___.' (Zero cond.)", opts: ["will boil", "would boil", "boils", "boiled"], a: 2 },
+          { q: "'If I were you, I ___ accept.' (2nd cond.)", opts: ["will", "would", "should have", "had"], a: 1 },
+          { q: "Which conditional talks about a real future?", opts: ["Zero", "First", "Second", "Third"], a: 1 },
+          { q: "'___ you had left earlier, you wouldn't have been late.' (3rd cond.)", opts: ["Unless", "When", "If", "Although"], a: 2 },
+          { q: "'If I had more time, I ___ learn Russian.'", opts: ["will", "would", "had", "have"], a: 1 },
+          { q: "Mixed conditional: 'If I had studied medicine, I ___ a doctor now.'", opts: ["would be", "will be", "am", "was"], a: 0 },
+          { q: "'If she ___ harder, she would succeed.' (2nd cond.)", opts: ["works", "worked", "will work", "has worked"], a: 1 },
+          { q: "Correct 1st conditional:", opts: ["If it rains, I take umbrella", "If it will rain, I take umbrella", "If it rains, I will take an umbrella", "If it rained, I will take an umbrella"], a: 2 },
+          { q: "'Unless you study, you ___ fail.' = ?", opts: ["will", "would", "had", "have"], a: 0 },
+          { q: "'If I were a bird, I ___ fly.' This is:", opts: ["1st conditional", "Zero conditional", "2nd conditional", "3rd conditional"], a: 2 },
+          { q: "'Had I known, I ___ told you.' (3rd cond.)", opts: ["would have", "will have", "had", "should"], a: 0 },
+          { q: "Which sentence is 3rd conditional?", opts: ["If it rains, we stay", "If it rained, we would stay", "If it had rained, we would have stayed", "If it rains, we will stay"], a: 2 },
+          { q: "'Provided that' can replace:", opts: ["although", "unless", "if", "but"], a: 2 },
+          { q: "'If you ___ me, I'll help you.' (1st cond.)", opts: ["ask", "asked", "will ask", "had asked"], a: 0 },
+          { q: "'If I ___ president, I would change many things.' (2nd cond.)", opts: ["am", "will be", "were", "have been"], a: 2 },
+          { q: "'If she ___ earlier, she would have caught the train.' (3rd cond.)", opts: ["leave", "left", "had left", "will leave"], a: 2 },
+          { q: "'___ you heat metal, it expands.' (Zero cond.)", opts: ["When/If", "Would", "Will", "Might"], a: 0 },
+          { q: "Correct 2nd conditional sentence:", opts: ["If I am rich, I would travel", "If I were rich, I would travel", "If I were rich, I will travel", "If I rich, I would travel"], a: 1 },
+          { q: "'Unless he calls, I ___ go.' = ?", opts: ["won't", "will", "would", "wouldn't"], a: 0 },
+          { q: "'What ___ you do if you won the lottery?' (2nd cond.)", opts: ["will", "would", "do", "did"], a: 1 },
+          { q: "3rd conditional: 'If they ___ earlier, they wouldn't have missed it.'", opts: ["leave", "left", "had left", "will leave"], a: 2 },
+          { q: "'On condition that' is similar to:", opts: ["although", "because", "if", "but"], a: 2 },
+          { q: "'I ___ have helped if you had asked.' (3rd cond.)", opts: ["will", "would", "had", "should have"], a: 1 },
+        ]
+      },
+      modal_verbs: {
+        icon: '🎯', name: 'Modal Verbs',
+        lesson: `<h4>What Are Modal Verbs?</h4>
+<p>Modal verbs express ability, possibility, permission, obligation, and advice. They are followed by the base form of the verb (infinitive without 'to').</p>
+<h4>Main Modal Verbs</h4>
+<table><tr><th>Modal</th><th>Use</th><th>Example</th></tr>
+<tr><td>can</td><td>ability, possibility</td><td>I can swim.</td></tr>
+<tr><td>could</td><td>past ability, polite request</td><td>Could you help me?</td></tr>
+<tr><td>may</td><td>possibility, formal permission</td><td>You may leave now.</td></tr>
+<tr><td>might</td><td>weak possibility</td><td>It might rain.</td></tr>
+<tr><td>must</td><td>obligation, strong deduction</td><td>You must wear a seatbelt.</td></tr>
+<tr><td>should</td><td>advice, recommendation</td><td>You should see a doctor.</td></tr>
+<tr><td>would</td><td>conditional, polite request</td><td>Would you like tea?</td></tr>
+<tr><td>shall</td><td>future (formal), suggestion</td><td>Shall we dance?</td></tr>
+<tr><td>will</td><td>future, prediction</td><td>It will rain tomorrow.</td></tr>
+<tr><td>ought to</td><td>moral obligation/advice</td><td>You ought to apologize.</td></tr></table>
+<h4>Negative Forms</h4>
+<div class="example">can't/cannot – mustn't – shouldn't – wouldn't – couldn't</div>
+<h4>Perfect Modals</h4>
+<div class="example">must have + V3: He must have forgotten. (deduction about past)</div>
+<div class="example">should have + V3: You should have called. (regret/criticism)</div>
+<div class="example">could have + V3: She could have helped. (missed opportunity)</div>`,
+        questions: [
+          { q: "'___ I open the window?' (asking permission formally)", opts: ["Should", "Must", "May", "Will"], a: 2 },
+          { q: "'You ___ not smoke in here.' (prohibition)", opts: ["should", "must", "can", "would"], a: 1 },
+          { q: "'She ___ speak three languages.' (ability)", opts: ["must", "should", "can", "ought"], a: 2 },
+          { q: "'It ___ rain later.' (weak possibility)", opts: ["must", "shall", "might", "would"], a: 2 },
+          { q: "'You ___ see a doctor.' (advice)", opts: ["must", "should", "can", "will"], a: 1 },
+          { q: "'___ you like some coffee?' (polite offer)", opts: ["Should", "Would", "Must", "May"], a: 1 },
+          { q: "'He ___ have taken the keys.' (past deduction)", opts: ["should", "would", "must", "shall"], a: 2 },
+          { q: "'You ___ have studied harder.' (regret/criticism)", opts: ["must", "should", "would", "could"], a: 1 },
+          { q: "'___ we go for a walk?' (suggestion)", opts: ["Must", "Shall", "Would", "Should"], a: 1 },
+          { q: "Modal verbs are followed by:", opts: ["to + verb", "verb + ing", "base verb (infinitive)", "past participle"], a: 2 },
+          { q: "'Could' is the past of:", opts: ["should", "must", "can", "will"], a: 2 },
+          { q: "'She ___ help if she wanted to.' (conditional ability)", opts: ["must", "could", "shall", "ought"], a: 1 },
+          { q: "'You ___ to apologize.' (moral obligation)", opts: ["must", "ought", "shall", "would"], a: 1 },
+          { q: "'It ___ be cold tonight.' (strong deduction)", opts: ["might", "should", "must", "would"], a: 2 },
+          { q: "'___ I use your phone?' (asking permission casually)", opts: ["Must", "Shall", "Can", "Ought"], a: 2 },
+          { q: "Correct modal sentence:", opts: ["She musts go", "She must to go", "She must goes", "She must go"], a: 3 },
+          { q: "'He couldn't ___ the exam.' (past inability)", opts: ["passed", "passing", "pass", "to pass"], a: 2 },
+          { q: "'You ___ drive here; it's a pedestrian zone.'", opts: ["must", "should", "mustn't", "wouldn't"], a: 2 },
+          { q: "'___ you mind closing the door?' (polite request)", opts: ["Must", "Would", "Shall", "Ought"], a: 1 },
+          { q: "'They ___ arrive by 6pm.' (expectation)", opts: ["must", "might", "should", "can"], a: 2 },
+          { q: "'I ___ swim when I was five.' (past ability)", opts: ["can", "could", "might", "should"], a: 1 },
+          { q: "Perfect modal for missed opportunity:", opts: ["should have", "must have", "could have", "would have"], a: 2 },
+          { q: "'May' expresses:", opts: ["obligation", "ability", "possibility/permission", "advice"], a: 2 },
+          { q: "'Shall' is mainly used with:", opts: ["he/she/it", "I and we", "you", "they"], a: 1 },
+          { q: "'You ___ eat less sugar.' (advice)", opts: ["must", "would", "should", "shall"], a: 2 },
+          { q: "'He ___ have forgotten the meeting.' (past deduction – certain)", opts: ["might", "could", "must", "would"], a: 2 },
+          { q: "'Will' expresses:", opts: ["past ability", "present permission", "future prediction", "past obligation"], a: 2 },
+          { q: "Correct negative modal:", opts: ["He don't must go", "He mustn't go", "He mustn't to go", "He not must go"], a: 1 },
+          { q: "'___ you pass me the salt?' (polite request)", opts: ["Shall", "Ought", "Could", "Must"], a: 2 },
+          { q: "'They ___ have won – they played so well!'", opts: ["should", "must", "would", "can"], a: 1 },
+        ]
+      },
+      food: {
+        icon: '🍕', name: 'Food & Eating',
+        lesson: `<h4>Types of Food</h4>
+<table><tr><th>Category</th><th>Examples</th></tr>
+<tr><td>Fruits</td><td>apple, banana, orange, mango, strawberry, grape, watermelon</td></tr>
+<tr><td>Vegetables</td><td>carrot, potato, tomato, onion, broccoli, spinach, cucumber</td></tr>
+<tr><td>Meat</td><td>beef, chicken, pork, lamb, fish, shrimp, turkey</td></tr>
+<tr><td>Dairy</td><td>milk, cheese, butter, yogurt, cream, ice cream</td></tr>
+<tr><td>Grains</td><td>bread, rice, pasta, noodles, oatmeal, cereal</td></tr>
+<tr><td>Drinks</td><td>water, juice, tea, coffee, milk, soda, smoothie</td></tr></table>
+<h4>Meals of the Day</h4>
+<div class="example">Breakfast (morning) – Lunch (midday) – Dinner/Supper (evening) – Snack (any time)</div>
+<h4>Cooking Methods</h4>
+<div class="example">boil, fry, bake, grill, roast, steam, microwave, sauté</div>
+<h4>Useful Phrases at a Restaurant</h4>
+<div class="example">Can I see the menu, please?</div>
+<div class="example">I'd like to order the steak, please.</div>
+<div class="example">Could we have the bill/check, please?</div>
+<div class="example">Is there anything vegetarian on the menu?</div>`,
+        questions: [
+          { q: "A tomato is a:", opts: ["fruit (botanically)", "vegetable", "grain", "dairy"], a: 0 },
+          { q: "'Beef' comes from:", opts: ["pig", "chicken", "cow", "lamb"], a: 2 },
+          { q: "The morning meal is called:", opts: ["lunch", "dinner", "breakfast", "supper"], a: 2 },
+          { q: "'Dairy' products include:", opts: ["bread and rice", "cheese and milk", "apples and oranges", "carrots and peas"], a: 1 },
+          { q: "'To boil' means:", opts: ["cook in hot oil", "cook in hot water", "cook in oven", "cook on grill"], a: 1 },
+          { q: "'Could I see the ___?' (at a restaurant)", opts: ["bill only", "menu", "waiter", "kitchen"], a: 1 },
+          { q: "'Vegetarian' means a person who:", opts: ["eats only fish", "eats no meat", "eats everything", "is a chef"], a: 1 },
+          { q: "'Pork' comes from:", opts: ["cow", "chicken", "pig", "sheep"], a: 2 },
+          { q: "'Bake' means to cook in a/an:", opts: ["pan with oil", "oven", "pot with water", "grill"], a: 1 },
+          { q: "The midday meal is called:", opts: ["breakfast", "dinner", "lunch", "brunch"], a: 2 },
+          { q: "Which is a grain?", opts: ["carrot", "rice", "milk", "banana"], a: 1 },
+          { q: "'Shrimp' is a type of:", opts: ["vegetable", "grain", "seafood", "dairy"], a: 2 },
+          { q: "'Brunch' is a meal between:", opts: ["lunch and dinner", "breakfast and lunch", "dinner and breakfast", "snack and lunch"], a: 1 },
+          { q: "'I'd like to ___.' (ordering in a restaurant)", opts: ["see the bill", "order the salmon", "pay first", "leave now"], a: 1 },
+          { q: "'Steam' means to cook with:", opts: ["oil", "water vapor/steam", "fire", "oven heat"], a: 1 },
+          { q: "Which drink contains caffeine?", opts: ["water", "milk", "juice", "coffee"], a: 3 },
+          { q: "'Lamb' comes from:", opts: ["cow", "pig", "young sheep", "chicken"], a: 2 },
+          { q: "'Grill' means to cook:", opts: ["in water", "in oil", "over direct heat/flame", "in oven"], a: 2 },
+          { q: "'Allergic to' means:", opts: ["loves eating something", "body reacts badly to something", "never cooks", "is a chef"], a: 1 },
+          { q: "Which is a fruit?", opts: ["broccoli", "potato", "mango", "onion"], a: 2 },
+          { q: "'Can I have the ___?' (asking to pay)", opts: ["menu", "bill/check", "waiter", "starter"], a: 1 },
+          { q: "'Sauté' means:", opts: ["cook slowly in water", "cook quickly in a little oil", "bake in oven", "fry in deep oil"], a: 1 },
+          { q: "'Vegan' means a person who:", opts: ["eats only vegetables", "eats no animal products at all", "eats fish only", "is vegetarian"], a: 1 },
+          { q: "'Cereal' is usually eaten at:", opts: ["dinner", "lunch", "breakfast", "supper"], a: 2 },
+          { q: "Which is NOT a cooking method?", opts: ["boil", "freeze", "roast", "fry"], a: 1 },
+          { q: "'Starter' in a restaurant is:", opts: ["the main course", "the dessert", "the first small dish", "the drink"], a: 2 },
+          { q: "'Dairy-free' means:", opts: ["contains dairy", "no dairy products", "only dairy", "more dairy"], a: 1 },
+          { q: "'Recipe' means:", opts: ["a restaurant", "instructions for making food", "a type of food", "a cooking tool"], a: 1 },
+          { q: "'Turkey' is often eaten at:", opts: ["Easter", "Christmas/Thanksgiving", "New Year", "Birthdays"], a: 1 },
+          { q: "'Smoothie' is made with:", opts: ["blended fruits/vegetables", "hot water", "flour and eggs", "boiled milk"], a: 0 },
+        ]
+      },
+      passive_voice: {
+        icon: '🔄', name: 'Passive Voice',
+        lesson: `<h4>What is Passive Voice?</h4>
+<p>In passive voice, the object of an action becomes the subject of the sentence. The focus is on what happens to the subject, not who does the action.</p>
+<h4>Structure: be + past participle (V3)</h4>
+<table><tr><th>Tense</th><th>Active</th><th>Passive</th></tr>
+<tr><td>Present Simple</td><td>They make cars here.</td><td>Cars are made here.</td></tr>
+<tr><td>Past Simple</td><td>She wrote the letter.</td><td>The letter was written.</td></tr>
+<tr><td>Future</td><td>They will build a bridge.</td><td>A bridge will be built.</td></tr>
+<tr><td>Present Perfect</td><td>He has fixed the car.</td><td>The car has been fixed.</td></tr>
+<tr><td>Modal</td><td>You must sign this.</td><td>This must be signed.</td></tr></table>
+<h4>Using "by"</h4>
+<div class="example">The book was written by Tolstoy. ('by' + agent – optional)</div>
+<h4>When to Use Passive</h4>
+<div class="example">When the agent is unknown: My wallet was stolen.</div>
+<div class="example">When agent is obvious: He was arrested. (by police – obvious)</div>
+<div class="example">In formal/scientific writing: The experiment was conducted.</div>`,
+        questions: [
+          { q: "'Cars ___ made in this factory.' (passive, present simple)", opts: ["are", "is", "were", "be"], a: 0 },
+          { q: "Passive voice uses: be + ___", opts: ["infinitive", "gerund", "past participle", "present participle"], a: 2 },
+          { q: "Active: 'She wrote the letter.' → Passive: 'The letter ___ written by her.'", opts: ["is", "was", "were", "has been"], a: 1 },
+          { q: "'The window ___ broken by the ball.' (past passive)", opts: ["is", "was", "were", "has"], a: 1 },
+          { q: "'The bridge will ___ built next year.'", opts: ["be", "been", "is", "are"], a: 0 },
+          { q: "'The car has ___ repaired.' (present perfect passive)", opts: ["be", "been", "is", "was"], a: 1 },
+          { q: "In passive, 'by' introduces the:", opts: ["object", "agent/doer", "verb", "adjective"], a: 1 },
+          { q: "Correct passive: 'English ___ spoken in Australia.'", opts: ["are", "am", "is", "were"], a: 2 },
+          { q: "Active: 'They built this temple in 1900.' → Passive:", opts: ["This temple built in 1900", "This temple was built in 1900", "This temple is built in 1900", "This temple been built in 1900"], a: 1 },
+          { q: "'This must ___ signed immediately.'", opts: ["be", "been", "is", "are"], a: 0 },
+          { q: "'My phone ___ stolen on the train.' (past passive)", opts: ["is", "were", "was", "has"], a: 2 },
+          { q: "Passive is used when the agent is:", opts: ["always known", "unknown or unimportant", "a famous person", "mentioned first"], a: 1 },
+          { q: "'The report is ___ by the manager every week.'", opts: ["write", "written", "wrote", "writing"], a: 1 },
+          { q: "Active: 'He fixes the bike.' → Passive: 'The bike ___ fixed.'", opts: ["is", "are", "was", "were"], a: 0 },
+          { q: "'The results ___ announced tomorrow.' (future passive)", opts: ["will be", "are", "were", "had been"], a: 0 },
+          { q: "'This book was written ___ Shakespeare.'", opts: ["from", "with", "by", "to"], a: 2 },
+          { q: "'The cake ___ being baked right now.' (present continuous passive)", opts: ["is", "are", "was", "were"], a: 0 },
+          { q: "'English ___ taught in this school.' (present simple passive)", opts: ["is", "are", "was", "were"], a: 0 },
+          { q: "Active → Passive: 'They can solve this problem.'", opts: ["This problem can solved", "This problem is solved", "This problem can be solved", "This problem solved"], a: 2 },
+          { q: "'The letter had ___ sent before she arrived.' (past perfect passive)", opts: ["be", "been", "is", "was"], a: 1 },
+          { q: "Which sentence is passive?", opts: ["She reads the book", "The book is read by her", "She is reading", "She has read"], a: 1 },
+          { q: "'The house ___ painted last year.'", opts: ["is", "are", "was", "were"], a: 2 },
+          { q: "'Many trees ___ cut down every year.' (passive, present simple)", opts: ["is", "was", "were", "are"], a: 3 },
+          { q: "Passive voice is common in:", opts: ["casual conversation", "scientific writing", "poetry", "fiction"], a: 1 },
+          { q: "'Three workers ___ injured in the accident.'", opts: ["is", "are", "were", "was"], a: 2 },
+          { q: "'The decision ___ been made.' (present perfect passive)", opts: ["have", "has", "had", "is"], a: 1 },
+          { q: "Active: 'They will announce the results.' → Passive: '___'", opts: ["Results will announce", "Results will be announced", "Results are announced", "Results had been announced"], a: 1 },
+          { q: "'The medicine ___ taken twice a day.' (instruction, passive)", opts: ["must be", "must", "should", "is being"], a: 0 },
+          { q: "'All tickets ___ sold out.' (present perfect passive)", opts: ["has", "have", "had", "was"], a: 1 },
+          { q: "In passive voice, past participle of 'make' is:", opts: ["making", "makes", "made", "make"], a: 2 },
+        ]
+      },
+    };
 
-In 1991, Tim Berners-Lee invented the World Wide Web, which made the Internet accessible to ordinary people. He created HTML (HyperText Markup Language) and HTTP (HyperText Transfer Protocol), which remain the foundation of web pages today.
+    // Fill remaining topics with auto data
+    const AUTO_TOPICS = {
+      body: { icon: '💪', name: 'Body Parts' }, weather: { icon: '🌤️', name: 'Weather' },
+      days: { icon: '📅', name: 'Days & Time' }, clothes: { icon: '👗', name: 'Clothes & Fashion' },
+      animals: { icon: '🐾', name: 'Animals' }, future: { icon: '🔮', name: 'Future Tense' },
+      shopping: { icon: '🛍️', name: 'Shopping' }, travel: { icon: '✈️', name: 'Travel' },
+      hobbies: { icon: '🎸', name: 'Hobbies' }, home: { icon: '🏠', name: 'Home & Living' },
+      school: { icon: '🏫', name: 'School' }, health: { icon: '❤️', name: 'Health' },
+      sports: { icon: '⚽', name: 'Sports' }, present_perfect: { icon: '✅', name: 'Present Perfect' },
+      environment: { icon: '🌿', name: 'Environment' }, work: { icon: '💼', name: 'Work & Career' },
+      technology: { icon: '💻', name: 'Technology' }, culture: { icon: '🎭', name: 'Culture' },
+      relationships: { icon: '❤️', name: 'Relationships' }, science: { icon: '🔬', name: 'Science' },
+      reported_speech: { icon: '💬', name: 'Reported Speech' }, relative_clauses: { icon: '🔗', name: 'Relative Clauses' },
+      mixed_conditionals: { icon: '🔀', name: 'Mixed Conditionals' }, business: { icon: '📈', name: 'Business English' },
+      politics: { icon: '🏛️', name: 'Politics & Society' }, media: { icon: '📺', name: 'Media' },
+      psychology: { icon: '🧠', name: 'Psychology' }, economics: { icon: '💹', name: 'Economics' },
+      law: { icon: '⚖️', name: 'Law & Justice' }, history: { icon: '📜', name: 'History' },
+      subjunctive: { icon: '🌀', name: 'Subjunctive Mood' }, inversion: { icon: '🔄', name: 'Inversion' },
+      ellipsis: { icon: '…', name: 'Ellipsis' }, literature: { icon: '📚', name: 'Literature' },
+      philosophy: { icon: '🤔', name: 'Philosophy' }, medicine: { icon: '🏥', name: 'Medicine' },
+      engineering: { icon: '⚙️', name: 'Engineering' }, artificial_intelligence: { icon: '🤖', name: 'Artificial Intelligence' },
+      diplomacy: { icon: '🌐', name: 'Diplomacy' }, art: { icon: '🎨', name: 'Art & Creativity' },
+      nuance: { icon: '🎯', name: 'Nuance & Register' }, rhetoric: { icon: '🗣️', name: 'Rhetoric' },
+      academic: { icon: '🎓', name: 'Academic Writing' }, idioms_adv: { icon: '💡', name: 'Advanced Idioms' },
+      collocations: { icon: '🔤', name: 'Collocations' }, register: { icon: '📝', name: 'Register & Style' },
+      discourse: { icon: '💭', name: 'Discourse' }, argumentation: { icon: '⚡', name: 'Argumentation' },
+      criticism: { icon: '🔍', name: 'Literary Criticism' }, synthesis: { icon: '🧩', name: 'Synthesis' },
+    };
 
-The 1990s saw an explosion of Internet usage. Companies like Amazon, Google, and eBay were founded during this period, forever changing commerce and information access. By the year 2000, approximately 400 million people were using the Internet worldwide.
+    function getTopicData(id) {
+      if (TOPIC_DATA[id]) return TOPIC_DATA[id];
+      const base = AUTO_TOPICS[id] || { icon: '📖', name: id };
+      return {
+        icon: base.icon, name: base.name,
+        lesson: generateLesson(id, base.name),
+        questions: generateQuestions(id, base.name)
+      };
+    }
 
-Today, over 5 billion people are connected to the Internet, representing more than 60% of the world's population. The Internet has transformed every aspect of human life — communication, education, entertainment, business, and healthcare. Social media platforms like Facebook, Twitter, and Instagram have created entirely new ways for people to connect and share information.
+    function generateLesson(id, name) {
+      const lessons = {
+        body: `<h4>Parts of the Human Body</h4>
+<table><tr><th>Body Part</th><th>Function</th></tr>
+<tr><td>Head</td><td>brain, thinking, senses</td></tr>
+<tr><td>Eyes</td><td>seeing</td></tr>
+<tr><td>Ears</td><td>hearing</td></tr>
+<tr><td>Nose</td><td>smelling, breathing</td></tr>
+<tr><td>Mouth</td><td>eating, speaking</td></tr>
+<tr><td>Neck</td><td>connects head to body</td></tr>
+<tr><td>Shoulders</td><td>arm attachment</td></tr>
+<tr><td>Arms/Hands/Fingers</td><td>reaching, grabbing</td></tr>
+<tr><td>Chest/Back</td><td>protects organs</td></tr>
+<tr><td>Stomach/Abdomen</td><td>digestion</td></tr>
+<tr><td>Legs/Knees/Feet</td><td>walking, running</td></tr></table>
+<h4>Describing Pain</h4>
+<div class="example">My head aches. / I have a headache. / My back hurts. / I feel pain in my knee.</div>`,
+        weather: `<h4>Weather Vocabulary</h4>
+<table><tr><th>Weather</th><th>Description</th></tr>
+<tr><td>Sunny</td><td>bright, warm, clear sky</td></tr>
+<tr><td>Cloudy</td><td>covered by clouds</td></tr>
+<tr><td>Rainy</td><td>precipitation, wet</td></tr>
+<tr><td>Snowy</td><td>snow falling</td></tr>
+<tr><td>Windy</td><td>strong air movement</td></tr>
+<tr><td>Foggy</td><td>low visibility, mist</td></tr>
+<tr><td>Stormy</td><td>thunder, lightning, heavy rain</td></tr>
+<tr><td>Humid</td><td>hot and wet air</td></tr>
+<tr><td>Freezing</td><td>below 0°C</td></tr></table>
+<h4>Talking About Weather</h4>
+<div class="example">What's the weather like today? — It's sunny and warm.</div>
+<div class="example">It's going to rain tomorrow. / The forecast says snow.</div>`,
+        future: `<h4>Future Tense Forms</h4>
+<table><tr><th>Form</th><th>Use</th><th>Example</th></tr>
+<tr><td>will + V1</td><td>predictions, decisions</td><td>I will call you later.</td></tr>
+<tr><td>going to + V1</td><td>plans, evidence-based prediction</td><td>She's going to study.</td></tr>
+<tr><td>Present Continuous</td><td>fixed arrangements</td><td>We're meeting at 6pm.</td></tr>
+<tr><td>Present Simple</td><td>scheduled events</td><td>The train leaves at 8.</td></tr></table>`,
+        shopping: `<h4>Shopping Vocabulary</h4>
+<table><tr><th>Word</th><th>Meaning</th></tr>
+<tr><td>receipt</td><td>proof of purchase</td></tr>
+<tr><td>refund</td><td>money back</td></tr>
+<tr><td>discount</td><td>reduced price</td></tr>
+<tr><td>sale</td><td>items at lower prices</td></tr>
+<tr><td>cashier</td><td>person at checkout</td></tr>
+<tr><td>trolley/cart</td><td>shopping cart</td></tr>
+<tr><td>queue/line</td><td>people waiting</td></tr></table>
+<h4>Useful Phrases</h4>
+<div class="example">How much does this cost? / Can I try this on? / Do you have this in size M? / I'd like to return this.</div>`,
+        travel: `<h4>Travel Vocabulary</h4>
+<table><tr><th>Word</th><th>Meaning</th></tr>
+<tr><td>passport</td><td>travel document</td></tr>
+<tr><td>boarding pass</td><td>plane ticket for boarding</td></tr>
+<tr><td>luggage/baggage</td><td>bags and suitcases</td></tr>
+<tr><td>customs</td><td>border control</td></tr>
+<tr><td>itinerary</td><td>travel plan/schedule</td></tr>
+<tr><td>hostel</td><td>budget accommodation</td></tr>
+<tr><td>jet lag</td><td>tiredness from time zones</td></tr></table>`,
+        technology: `<h4>Technology Vocabulary</h4>
+<table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>software</td><td>programs, apps</td></tr>
+<tr><td>hardware</td><td>physical parts of computer</td></tr>
+<tr><td>bandwidth</td><td>internet speed capacity</td></tr>
+<tr><td>algorithm</td><td>set of instructions</td></tr>
+<tr><td>encryption</td><td>data security coding</td></tr>
+<tr><td>cloud</td><td>internet-based storage</td></tr>
+<tr><td>AI</td><td>artificial intelligence</td></tr>
+<tr><td>interface</td><td>user interaction design</td></tr></table>`,
+        health: `<h4>Health & Medical Vocabulary</h4>
+<table><tr><th>Word</th><th>Meaning</th></tr>
+<tr><td>symptom</td><td>sign of illness</td></tr>
+<tr><td>diagnosis</td><td>identifying the illness</td></tr>
+<tr><td>prescription</td><td>doctor's medicine order</td></tr>
+<tr><td>allergy</td><td>bad reaction to something</td></tr>
+<tr><td>chronic</td><td>long-lasting illness</td></tr>
+<tr><td>vaccine</td><td>preventive injection</td></tr>
+<tr><td>surgery</td><td>medical operation</td></tr></table>`,
+        business: `<h4>Business English Vocabulary</h4>
+<table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>revenue</td><td>total income</td></tr>
+<tr><td>profit</td><td>income minus expenses</td></tr>
+<tr><td>stakeholder</td><td>person with interest in company</td></tr>
+<tr><td>merger</td><td>two companies joining</td></tr>
+<tr><td>acquisition</td><td>buying another company</td></tr>
+<tr><td>quarterly report</td><td>3-month business review</td></tr>
+<tr><td>ROI</td><td>return on investment</td></tr>
+<tr><td>KPI</td><td>key performance indicator</td></tr></table>`,
+      };
+      return lessons[id] || `<h4>${name}</h4>
+<p>This topic covers important aspects of ${name} in English. Study the vocabulary, grammar structures, and examples carefully before taking the test.</p>
+<h4>Key Points</h4>
+<div class="example">Study the vocabulary and phrases related to ${name} to improve your English skills.</div>
+<div class="example">Practice using these words in sentences to become more fluent.</div>
+<h4>Examples and Usage</h4>
+<div class="example">Use context to understand and remember new words more effectively.</div>
+<div class="example">Regular practice is the key to mastering any language topic.</div>`;
+    }
 
-Looking ahead, technologies like 5G, artificial intelligence, and the Internet of Things (IoT) promise to make the Internet even more integrated into our daily lives.`,
-   questions:[
-     {q:'When was ARPANET created?',opts:['1959','1969','1979','1989'],a:1},
-     {q:'Who invented the World Wide Web?',opts:['Steve Jobs','Bill Gates','Tim Berners-Lee','Mark Zuckerberg'],a:2},
-     {q:'How many people use the Internet today?',opts:['1 billion','3 billion','5 billion','7 billion'],a:2},
-     {q:'What does IoT stand for?',opts:['Internet of Technology','Internet of Things','Interface of Technology','Integrated Online Technology'],a:1},
-   ]},
-  {id:'r2',title:'Artificial Intelligence: The Future Is Now',level:'Advanced',
-   text:`Artificial Intelligence (AI) has transitioned from science fiction to everyday reality with remarkable speed. Machine learning algorithms now power the recommendations on Netflix and Spotify, the facial recognition on your smartphone, and the virtual assistants like Siri and Alexa that many people interact with daily.
+    function generateQuestions(id, name) {
+      const qBank = {
+        body: [
+          { q: "Where is your 'elbow'?", opts: ["in your leg", "in your arm", "in your neck", "in your foot"], a: 1 },
+          { q: "'I have a headache.' means:", opts: ["my arm hurts", "my head hurts", "my leg hurts", "my back hurts"], a: 1 },
+          { q: "Which body part is used for hearing?", opts: ["nose", "eyes", "ears", "tongue"], a: 2 },
+          { q: "'Knees' are part of your:", opts: ["arms", "head", "legs", "back"], a: 2 },
+          { q: "'Spine' is another word for:", opts: ["shoulder", "backbone", "chest", "ankle"], a: 1 },
+          { q: "Which is on your face?", opts: ["knee", "elbow", "ankle", "cheek"], a: 3 },
+          { q: "'Lungs' are organs used for:", opts: ["digestion", "hearing", "breathing", "seeing"], a: 2 },
+          { q: "'My back hurts' means:", opts: ["I have pain in my front", "I have pain in my back", "I have pain in my arm", "I feel good"], a: 1 },
+          { q: "'Wrist' connects the hand to the:", opts: ["elbow", "finger", "forearm", "shoulder"], a: 2 },
+          { q: "'Thumb' is a type of:", opts: ["toe", "finger", "palm", "nail"], a: 1 },
+          { q: "Which is at the end of your leg?", opts: ["hand", "foot", "elbow", "wrist"], a: 1 },
+          { q: "'Heart' is located in your:", opts: ["head", "stomach", "chest", "back"], a: 2 },
+          { q: "'Eyebrow' is above your:", opts: ["nose", "mouth", "eye", "ear"], a: 2 },
+          { q: "'Shoulder' connects your arm to your:", opts: ["neck", "hip", "chest/torso", "head"], a: 2 },
+          { q: "'Skin' is the ___ of your body.", opts: ["inside", "bone", "outer covering", "muscle"], a: 2 },
+          { q: "'Ankle' is the joint between foot and:", opts: ["knee", "hip", "lower leg", "thigh"], a: 2 },
+          { q: "'Stomach' is used for:", opts: ["breathing", "thinking", "digesting food", "seeing"], a: 2 },
+          { q: "'Palm' refers to:", opts: ["the back of the hand", "the inner surface of the hand", "a finger", "the wrist"], a: 1 },
+          { q: "Which part of the body thinks?", opts: ["heart", "stomach", "brain", "kidney"], a: 2 },
+          { q: "'Chin' is the lower part of your:", opts: ["nose", "cheek", "jaw/face", "forehead"], a: 2 },
+          { q: "'Throat' is inside your:", opts: ["arm", "chest", "neck", "leg"], a: 2 },
+          { q: "'Rib' is a type of:", opts: ["muscle", "bone", "organ", "skin"], a: 1 },
+          { q: "'Forehead' is above your:", opts: ["eyes", "chin", "nose", "mouth"], a: 0 },
+          { q: "'Hip' is located at the top of your:", opts: ["arm", "leg/pelvis area", "back", "neck"], a: 1 },
+          { q: "'Calf' is the muscle at the back of your:", opts: ["arm", "thigh", "lower leg", "foot"], a: 2 },
+          { q: "'Kidney' is an organ that:", opts: ["pumps blood", "filters blood/urine", "digests food", "helps you breathe"], a: 1 },
+          { q: "'Muscles' help your body to:", opts: ["think", "digest", "move", "breathe"], a: 2 },
+          { q: "'Nail' grows on your:", opts: ["ear", "nose", "finger", "lip"], a: 2 },
+          { q: "'Eardrum' helps you:", opts: ["see", "taste", "hear", "smell"], a: 2 },
+          { q: "'Tongue' helps you to:", opts: ["hear", "taste and speak", "see", "breathe"], a: 1 },
+        ],
+        weather: [
+          { q: "What does 'sunny' mean?", opts: ["full of clouds", "raining", "bright with sunshine", "snowing"], a: 2 },
+          { q: "Temperature is measured in:", opts: ["kilograms", "kilometers", "degrees Celsius or Fahrenheit", "meters"], a: 2 },
+          { q: "'It's foggy.' means:", opts: ["it's very sunny", "visibility is low due to mist", "it's snowing", "there is thunder"], a: 1 },
+          { q: "'Blizzard' is an intense:", opts: ["rainstorm", "snowstorm", "heat wave", "wind"], a: 1 },
+          { q: "What does 'humid' describe?", opts: ["cold and dry", "hot and wet", "freezing", "windy"], a: 1 },
+          { q: "'Forecast' means:", opts: ["current weather", "past weather", "future weather prediction", "rainfall amount"], a: 2 },
+          { q: "A 'tornado' is a:", opts: ["type of rain", "rotating column of air", "earthquake", "tsunami"], a: 1 },
+          { q: "'Overcast' sky means:", opts: ["completely sunny", "partially cloudy", "completely covered with clouds", "stormy"], a: 2 },
+          { q: "'Drizzle' is:", opts: ["heavy rain", "very light rain", "snow", "hail"], a: 1 },
+          { q: "What is 'hail'?", opts: ["rain", "snow", "ice balls falling from sky", "fog"], a: 2 },
+          { q: "'What's the weather like?' asks about:", opts: ["the time", "the weather condition", "your feelings", "your location"], a: 1 },
+          { q: "'Freezing' means temperature is:", opts: ["above 30°C", "around 20°C", "at or below 0°C", "10°C"], a: 2 },
+          { q: "'Lightning' and 'thunder' happen during a:", opts: ["blizzard", "drought", "storm/thunderstorm", "heat wave"], a: 2 },
+          { q: "'Drought' is a period of:", opts: ["heavy rain", "extreme cold", "very little/no rain", "strong wind"], a: 2 },
+          { q: "'Breeze' is:", opts: ["a strong dangerous wind", "a gentle, light wind", "a hurricane", "a tornado"], a: 1 },
+          { q: "'Rainbow' appears after:", opts: ["a snowstorm", "sunshine alone", "rain with sunshine", "a blizzard"], a: 2 },
+          { q: "'Mild' weather is:", opts: ["very hot", "very cold", "pleasantly moderate/not extreme", "stormy"], a: 2 },
+          { q: "A 'hurricane' is:", opts: ["light rain", "gentle breeze", "extremely powerful tropical storm", "small cloud"], a: 2 },
+          { q: "'Sleet' is a mix of:", opts: ["wind and rain", "rain and snow/ice pellets", "snow and hail", "fog and rain"], a: 1 },
+          { q: "'UV index' measures:", opts: ["wind speed", "rainfall", "sun radiation strength", "temperature"], a: 2 },
+          { q: "'It's going to rain.' is a:", opts: ["past statement", "present fact", "future prediction", "question"], a: 2 },
+          { q: "'Meteorologist' studies:", opts: ["oceans", "weather", "mountains", "planets"], a: 1 },
+          { q: "'Below zero' means temperature is:", opts: ["positive", "zero exactly", "negative / below 0°C", "very warm"], a: 2 },
+          { q: "'Gust' of wind means:", opts: ["constant gentle wind", "sudden strong burst of wind", "light breeze", "tornado"], a: 1 },
+          { q: "'Celsius' is a unit of:", opts: ["speed", "distance", "temperature", "pressure"], a: 2 },
+          { q: "'Storm surge' is associated with:", opts: ["blizzards", "earthquakes", "hurricanes/cyclones", "droughts"], a: 2 },
+          { q: "'Humidity' refers to:", opts: ["temperature", "amount of water vapor in air", "wind speed", "air pressure"], a: 1 },
+          { q: "'Partly cloudy' means:", opts: ["no clouds", "all clouds", "some clouds, some sun", "raining"], a: 2 },
+          { q: "'Heat wave' is:", opts: ["cold period", "period of unusually hot weather", "strong wind", "heavy rain"], a: 1 },
+          { q: "'Precipitation' includes rain, snow, hail and:", opts: ["wind", "sunshine", "temperature", "sleet"], a: 3 },
+        ],
+        future: [
+          { q: "'I ___ call you tonight.' (spontaneous decision, will)", opts: ["am going to", "will", "going to", "shall to"], a: 1 },
+          { q: "'She ___ study medicine.' (plan already made)", opts: ["will", "going to is", "is going to", "shall"], a: 2 },
+          { q: "'The train ___ at 9am.' (scheduled, timetable)", opts: ["will leave", "is leaving", "leaves", "going to leave"], a: 2 },
+          { q: "'Look at those clouds! It ___ rain.' (evidence-based prediction)", opts: ["will", "is going to", "shall", "would"], a: 1 },
+          { q: "'___ I help you?' (offer, formal)", opts: ["Will", "Shall", "Going to", "Would"], a: 1 },
+          { q: "'They ___ get married next spring.' (fixed plan)", opts: ["will", "are going to", "shall", "are"], a: 1 },
+          { q: "'I think it ___ be a great day.'", opts: ["going to", "shall", "will", "would"], a: 2 },
+          { q: "Which shows a future arrangement?", opts: ["I study English", "I studied English", "I am meeting her at 6pm", "I have studied"], a: 2 },
+          { q: "'___ you be at the meeting tomorrow?' (yes/no question, will)", opts: ["Shall", "Are", "Will", "Do"], a: 2 },
+          { q: "'Don't worry, I ___ fix it.' (promise)", opts: ["am going to", "shall", "will", "would"], a: 2 },
+          { q: "'She ___ present her project on Friday.' (arrangement)", opts: ["will", "is presenting", "presents", "going to present"], a: 1 },
+          { q: "'I ___ probably take a taxi.' (prediction with uncertainty)", opts: ["shall", "going to", "will", "am"], a: 2 },
+          { q: "'___ I open the window?' (suggestion)", opts: ["Will", "Am going to", "Shall", "Would"], a: 2 },
+          { q: "'By this time next year, I ___ have finished university.'", opts: ["will", "shall", "would", "am going to"], a: 0 },
+          { q: "'The concert ___ start at 8pm.' (timetable)", opts: ["will", "is going to", "starts", "shall"], a: 2 },
+          { q: "'He ___ retire next month.' (decided plan)", opts: ["will", "is going to", "shall", "might"], a: 1 },
+          { q: "'I think robots ___ replace many jobs.' (prediction)", opts: ["are going to", "shall", "will", "would"], a: 2 },
+          { q: "'We ___ having dinner with them on Saturday.' (arrangement)", opts: ["will", "shall", "are", "going to"], a: 2 },
+          { q: "'If you come, I ___ make dinner.' (conditional future)", opts: ["shall", "am going to", "will", "would"], a: 2 },
+          { q: "'It ___ snow this winter.' (prediction)", opts: ["shall", "going to", "will", "is"], a: 2 },
+          { q: "'___ you help me with this?' (polite request)", opts: ["Shall", "Going to", "Will", "Would"], a: 2 },
+          { q: "'I ___ going to the gym later.' (personal plan)", opts: ["will", "am", "shall", "do"], a: 1 },
+          { q: "'The film ___ at 7:30.' (scheduled start time)", opts: ["will start", "going to start", "starts", "shall start"], a: 2 },
+          { q: "'I promise I ___ be late.' (negative promise)", opts: ["going to", "shall", "won't", "wouldn't"], a: 2 },
+          { q: "'This time tomorrow, we ___ flying to Paris.'", opts: ["will", "are going to", "will be", "shall"], a: 2 },
+          { q: "'She ___ call you when she arrives.' (future event + when)", opts: ["will", "is going to", "shall", "would"], a: 0 },
+          { q: "'___ we go out for lunch today?' (suggestion)", opts: ["Will", "Are", "Shall", "Going to"], a: 2 },
+          { q: "'He looks tired. He ___ fall asleep soon.' (evidence)", opts: ["will", "is going to", "shall", "would"], a: 1 },
+          { q: "'I ___ probably see you at the party.' (future with probably)", opts: ["shall", "am going to", "will", "would"], a: 2 },
+          { q: "'They have just announced the match ___ start at 3pm.' (scheduled)", opts: ["will", "going to", "shall", "is going to"], a: 0 },
+        ],
+        present_perfect: [
+          { q: "'I have ___ the film.' (watch)", opts: ["watched", "watch", "watching", "watches"], a: 0 },
+          { q: "Present perfect uses: have/has + ___", opts: ["infinitive", "past simple", "past participle", "gerund"], a: 2 },
+          { q: "'She has ___ lived in Paris.' (never)", opts: ["ever", "already", "since", "never"], a: 3 },
+          { q: "'___ you ever tried sushi?'", opts: ["Did", "Have", "Do", "Was"], a: 1 },
+          { q: "'He has ___ finished.' (just – recently)", opts: ["yet", "since", "just", "already"], a: 2 },
+          { q: "'I haven't seen her ___ Monday.'", opts: ["for", "since", "ago", "already"], a: 1 },
+          { q: "'We've known each other ___ 10 years.'", opts: ["since", "just", "ago", "for"], a: 3 },
+          { q: "'Has she ___ the dishes yet?' (wash)", opts: ["washed", "wash", "washing", "washes"], a: 0 },
+          { q: "'I have ___ to Japan.' (go)", opts: ["gone", "went", "going", "go"], a: 0 },
+          { q: "Past participle of 'eat':", opts: ["eat", "ate", "eating", "eaten"], a: 3 },
+          { q: "'They haven't arrived ___.'", opts: ["already", "just", "since", "yet"], a: 3 },
+          { q: "'It's the best film I ___ seen.'", opts: ["have", "has", "ever have", "ever"], a: 0 },
+          { q: "'She ___ just left.' (present perfect)", opts: ["has", "have", "had", "is"], a: 0 },
+          { q: "'I ___ never eaten snails.'", opts: ["has", "have", "had", "am"], a: 1 },
+          { q: "'___ he ever been to Africa?'", opts: ["Did", "Does", "Has", "Have"], a: 2 },
+          { q: "'We've lived here ___ 2010.'", opts: ["for", "already", "since", "yet"], a: 2 },
+          { q: "Present perfect connects past to:", opts: ["another past event", "future only", "the present now", "distant future"], a: 2 },
+          { q: "'She has ___ three books this year.' (read)", opts: ["read", "reading", "reads", "readed"], a: 0 },
+          { q: "'___ you finished your homework yet?'", opts: ["Did", "Does", "Have", "Has"], a: 2 },
+          { q: "Past participle of 'write':", opts: ["wrote", "writing", "written", "writes"], a: 2 },
+          { q: "'He ___ been to the gym today.'", opts: ["has", "have", "had", "is"], a: 0 },
+          { q: "'I've ___ seen this movie – I know the ending.'", opts: ["just", "yet", "never", "already"], a: 3 },
+          { q: "'They ___ been married for 20 years.'", opts: ["have", "has", "had", "are"], a: 0 },
+          { q: "'___ she called you back yet?'", opts: ["Did", "Does", "Has", "Have"], a: 2 },
+          { q: "Past participle of 'take':", opts: ["took", "taking", "taken", "takes"], a: 2 },
+          { q: "'I haven't done it ___.' (still not done)", opts: ["already", "since", "yet", "for"], a: 2 },
+          { q: "'This is the first time he ___ flown.'", opts: ["have", "has", "had", "is"], a: 1 },
+          { q: "'We've ___ waiting for an hour.' (continuous)", opts: ["been", "be", "are", "is"], a: 0 },
+          { q: "'How long ___ you known her?'", opts: ["did", "do", "have", "has"], a: 2 },
+          { q: "'She ___ won many awards.' (already)", opts: ["have already", "has already", "had already", "is already"], a: 1 },
+        ],
+      };
 
-The field of AI is built on the concept of teaching machines to learn from data rather than being explicitly programmed for every task. Deep learning, a subset of machine learning, uses neural networks inspired by the human brain to process complex patterns in data.
+      if (qBank[id]) return qBank[id];
 
-Recent breakthroughs have been extraordinary. In 2022, OpenAI's ChatGPT demonstrated that AI could engage in sophisticated human-like conversations, write code, analyze documents, and create creative content. Just months later, image generation models like DALL-E and Midjourney showed that AI could produce photorealistic images from text descriptions.
+      // Generic 30 questions for any topic
+      const genericSets = [
+        { q: `Which word is most related to ${name}?`, opts: ["sky", "grammar", "word", "book"], a: 2 },
+        { q: "Choose the correct sentence:", opts: ["She go to school", "She goes to school", "She going to school", "She to school goes"], a: 1 },
+        { q: "What tense is 'I am studying'?", opts: ["Past Simple", "Present Simple", "Present Continuous", "Future Simple"], a: 2 },
+        { q: "'Vocabulary' means:", opts: ["grammar rules", "words in a language", "speaking ability", "sentence structure"], a: 1 },
+        { q: "Which is a noun?", opts: ["quickly", "beautiful", "happiness", "run"], a: 2 },
+        { q: "Which is a verb?", opts: ["table", "happy", "slowly", "think"], a: 3 },
+        { q: "Which is an adjective?", opts: ["run", "table", "beautiful", "quickly"], a: 2 },
+        { q: "'Fluent' means:", opts: ["slow", "able to speak easily and well", "learning", "foreign"], a: 1 },
+        { q: "'Grammar' is the study of:", opts: ["vocabulary", "rules of language structure", "pronunciation", "writing speed"], a: 1 },
+        { q: "'Synonym' means a word with:", opts: ["opposite meaning", "same meaning", "no meaning", "strange meaning"], a: 1 },
+        { q: "'Antonym' means a word with:", opts: ["same meaning", "opposite meaning", "similar sound", "no meaning"], a: 1 },
+        { q: "'Context' helps you understand word:", opts: ["spelling", "pronunciation", "meaning", "origin"], a: 2 },
+        { q: "Which is an adverb?", opts: ["happy", "table", "run", "quickly"], a: 3 },
+        { q: "'Prefix' is added to the ___ of a word.", opts: ["end", "middle", "beginning", "anywhere"], a: 2 },
+        { q: "'Suffix' is added to the ___ of a word.", opts: ["beginning", "middle", "end", "anywhere"], a: 2 },
+        { q: "'Comprehension' means:", opts: ["speaking skill", "writing skill", "understanding", "pronunciation"], a: 2 },
+        { q: "Which word ends in a suffix meaning 'full of'?", opts: ["quickly", "beautiful", "running", "tables"], a: 1 },
+        { q: "'Phrase' is a group of words that:", opts: ["form a complete sentence", "don't form a complete sentence", "have no meaning", "are all verbs"], a: 1 },
+        { q: "A 'clause' contains a:", opts: ["only nouns", "subject and verb", "only adjectives", "single word"], a: 1 },
+        { q: "'Bilingual' means speaking:", opts: ["one language", "two languages", "three languages", "no language"], a: 1 },
+        { q: "'Collocation' is words that:", opts: ["sound similar", "often go together naturally", "are opposites", "are synonyms"], a: 1 },
+        { q: "Which is a preposition?", opts: ["run", "happy", "under", "quickly"], a: 2 },
+        { q: "'Conjunction' connects:", opts: ["nouns only", "sentences, clauses, or words", "verbs only", "only adjectives"], a: 1 },
+        { q: "'Article' includes words like:", opts: ["and, but, or", "a, an, the", "is, are, was", "very, quite, so"], a: 1 },
+        { q: "'Pronunciation' is about how words are:", opts: ["written", "spelled", "spoken aloud", "defined"], a: 2 },
+        { q: "'Idiom' is an expression whose meaning:", opts: ["is literal", "is not literal", "has no words", "is a single word"], a: 1 },
+        { q: "'Tense' in grammar relates to:", opts: ["meaning", "time", "sound", "spelling"], a: 1 },
+        { q: "'Subject' of a sentence is who or what:", opts: ["is described", "receives the action", "performs the action", "is the object"], a: 2 },
+        { q: "'Object' in a sentence receives the:", opts: ["subject", "action", "adjective", "conjunction"], a: 1 },
+        { q: "'Native speaker' is someone who learned a language:", opts: ["in school", "as an adult", "from birth", "from books"], a: 2 },
+      ];
+      return genericSets;
+    }
 
-These advances raise profound questions about the future of work, creativity, and human identity. Will AI replace millions of jobs? Will it help us solve climate change and cure diseases? Or will it pose risks if not properly managed?
+    // ========================
+    // VOCABULARY (500+ words)
+    // ========================
+    const VOCAB = [
+      // Nouns
+      { w: "apple", tr: "яблоко/olma/себ", pos: "noun", ex: "I eat an apple every day.", cat: "nouns" },
+      { w: "book", tr: "книга/kitob/китоб", pos: "noun", ex: "She reads a book every night.", cat: "nouns" },
+      { w: "house", tr: "дом/uy/хона", pos: "noun", ex: "They live in a big house.", cat: "nouns" },
+      { w: "water", tr: "вода/suv/об", pos: "noun", ex: "Drink more water every day.", cat: "nouns" },
+      { w: "time", tr: "время/vaqt/вақт", pos: "noun", ex: "Time flies when you're having fun.", cat: "nouns" },
+      { w: "world", tr: "мир/dunyo/ҷаҳон", pos: "noun", ex: "The world is a big place.", cat: "nouns" },
+      { w: "school", tr: "школа/maktab/мактаб", pos: "noun", ex: "Children go to school every day.", cat: "nouns" },
+      { w: "family", tr: "семья/oila/оила", pos: "noun", ex: "My family is very important to me.", cat: "nouns" },
+      { w: "friend", tr: "друг/do'st/дӯст", pos: "noun", ex: "She is my best friend.", cat: "nouns" },
+      { w: "language", tr: "язык/til/забон", pos: "noun", ex: "English is a global language.", cat: "nouns" },
+      { w: "city", tr: "город/shahar/шаҳр", pos: "noun", ex: "I live in a big city.", cat: "nouns" },
+      { w: "money", tr: "деньги/pul/пул", pos: "noun", ex: "Money cannot buy happiness.", cat: "nouns" },
+      { w: "health", tr: "здоровье/salomatlik/саломатӣ", pos: "noun", ex: "Health is wealth.", cat: "nouns" },
+      { w: "power", tr: "сила/quvvat/қувват", pos: "noun", ex: "Knowledge is power.", cat: "nouns" },
+      { w: "dream", tr: "мечта/orzu/орзу", pos: "noun", ex: "Follow your dreams.", cat: "nouns" },
+      { w: "nature", tr: "природа/tabiat/табиат", pos: "noun", ex: "We must protect nature.", cat: "nouns" },
+      { w: "idea", tr: "идея/g'oya/ғоя", pos: "noun", ex: "That's a great idea!", cat: "nouns" },
+      { w: "problem", tr: "проблема/muammo/мушкил", pos: "noun", ex: "Every problem has a solution.", cat: "nouns" },
+      { w: "question", tr: "вопрос/savol/савол", pos: "noun", ex: "Do you have a question?", cat: "nouns" },
+      { w: "answer", tr: "ответ/javob/ҷавоб", pos: "noun", ex: "I found the answer.", cat: "nouns" },
+      { w: "information", tr: "информация/ma'lumot/маълумот", pos: "noun", ex: "I need more information.", cat: "nouns" },
+      { w: "experience", tr: "опыт/tajriba/таҷриба", pos: "noun", ex: "Experience is the best teacher.", cat: "nouns" },
+      { w: "opportunity", tr: "возможность/imkoniyat/имконият", pos: "noun", ex: "Don't miss this opportunity.", cat: "nouns" },
+      { w: "relationship", tr: "отношения/munosabat/муносибат", pos: "noun", ex: "Good relationships take work.", cat: "nouns" },
+      { w: "government", tr: "правительство/hukumat/ҳукумат", pos: "noun", ex: "The government passed a new law.", cat: "nouns" },
+      { w: "environment", tr: "окружающая среда/muhit/муҳит", pos: "noun", ex: "We must protect the environment.", cat: "nouns" },
+      { w: "technology", tr: "технология/texnologiya/технология", pos: "noun", ex: "Technology changes our lives.", cat: "nouns" },
+      { w: "education", tr: "образование/ta'lim/таълим", pos: "noun", ex: "Education opens all doors.", cat: "nouns" },
+      { w: "culture", tr: "культура/madaniyat/фарҳанг", pos: "noun", ex: "Every country has its own culture.", cat: "nouns" },
+      { w: "society", tr: "общество/jamiyat/ҷомеа", pos: "noun", ex: "We all contribute to society.", cat: "nouns" },
+      // Verbs
+      { w: "run", tr: "бежать/yugurmoq/давидан", pos: "verb", ex: "I run every morning.", cat: "verbs" },
+      { w: "think", tr: "думать/o'ylash/фикр кардан", pos: "verb", ex: "Think before you speak.", cat: "verbs" },
+      { w: "learn", tr: "учиться/o'rganmoq/омӯхтан", pos: "verb", ex: "I want to learn English.", cat: "verbs" },
+      { w: "create", tr: "создавать/yaratmoq/эҷод кардан", pos: "verb", ex: "She creates beautiful art.", cat: "verbs" },
+      { w: "believe", tr: "верить/ishonmoq/боварӣ доштан", pos: "verb", ex: "I believe in you.", cat: "verbs" },
+      { w: "understand", tr: "понимать/tushunmoq/фаҳмидан", pos: "verb", ex: "I don't understand this.", cat: "verbs" },
+      { w: "achieve", tr: "достигать/erishmoq/расидан", pos: "verb", ex: "You can achieve anything.", cat: "verbs" },
+      { w: "improve", tr: "улучшать/yaxshilamoq/беҳтар кардан", pos: "verb", ex: "I want to improve my English.", cat: "verbs" },
+      { w: "communicate", tr: "общаться/muloqot qilmoq/муошират кардан", pos: "verb", ex: "We communicate by email.", cat: "verbs" },
+      { w: "discover", tr: "открывать/kashf etmoq/кашф кардан", pos: "verb", ex: "Scientists discover new things.", cat: "verbs" },
+      { w: "develop", tr: "развивать/rivojlantirmoq/инкишоф додан", pos: "verb", ex: "We need to develop this skill.", cat: "verbs" },
+      { w: "represent", tr: "представлять/ifodalash/намояндагӣ кардан", pos: "verb", ex: "She represents our team.", cat: "verbs" },
+      { w: "establish", tr: "основывать/o'rnatmoq/таъсис додан", pos: "verb", ex: "We want to establish new rules.", cat: "verbs" },
+      { w: "provide", tr: "обеспечивать/ta'minlamoq/таъмин кардан", pos: "verb", ex: "We provide free education.", cat: "verbs" },
+      { w: "require", tr: "требовать/talab qilmoq/талаб кардан", pos: "verb", ex: "This job requires experience.", cat: "verbs" },
+      { w: "consider", tr: "рассматривать/ko'rib chiqmoq/баррасӣ кардан", pos: "verb", ex: "Consider all your options.", cat: "verbs" },
+      { w: "suggest", tr: "предлагать/taklif qilmoq/пешниҳод кардан", pos: "verb", ex: "I suggest we leave early.", cat: "verbs" },
+      { w: "solve", tr: "решать/yechmoq/ҳал кардан", pos: "verb", ex: "Can you solve this problem?", cat: "verbs" },
+      { w: "participate", tr: "участвовать/ishtirok etmoq/иштирок кардан", pos: "verb", ex: "Everyone should participate.", cat: "verbs" },
+      { w: "encourage", tr: "поощрять/rag'batlantirmoq/ҳавасмандонидан", pos: "verb", ex: "Teachers encourage students.", cat: "verbs" },
+      // Adjectives
+      { w: "beautiful", tr: "красивый/chiroyli/зебо", pos: "adj", ex: "She has a beautiful smile.", cat: "adj" },
+      { w: "important", tr: "важный/muhim/муҳим", pos: "adj", ex: "Education is very important.", cat: "adj" },
+      { w: "different", tr: "разный/turli/гуногун", pos: "adj", ex: "We have different opinions.", cat: "adj" },
+      { w: "possible", tr: "возможный/mumkin/имконпазир", pos: "adj", ex: "Anything is possible.", cat: "adj" },
+      { w: "necessary", tr: "необходимый/zarur/зарур", pos: "adj", ex: "Exercise is necessary for health.", cat: "adj" },
+      { w: "successful", tr: "успешный/muvaffaqiyatli/муваффақ", pos: "adj", ex: "She is a successful manager.", cat: "adj" },
+      { w: "confident", tr: "уверенный/ishonchli/боэтимод", pos: "adj", ex: "Be confident in yourself.", cat: "adj" },
+      { w: "creative", tr: "творческий/ijodiy/эҷодӣ", pos: "adj", ex: "He is a creative designer.", cat: "adj" },
+      { w: "efficient", tr: "эффективный/samarali/самаранок", pos: "adj", ex: "This is a very efficient method.", cat: "adj" },
+      { w: "flexible", tr: "гибкий/moslashuvchan/чандир", pos: "adj", ex: "You need to be flexible.", cat: "adj" },
+      { w: "innovative", tr: "инновационный/innovatsion/навовар", pos: "adj", ex: "They have innovative ideas.", cat: "adj" },
+      { w: "reliable", tr: "надёжный/ishonchli/боэтимод", pos: "adj", ex: "He is a reliable worker.", cat: "adj" },
+      { w: "significant", tr: "значительный/muhim/муҳим", pos: "adj", ex: "This is a significant discovery.", cat: "adj" },
+      { w: "traditional", tr: "традиционный/an'anaviy/анъанавӣ", pos: "adj", ex: "They follow traditional customs.", cat: "adj" },
+      { w: "unique", tr: "уникальный/noyob/беназир", pos: "adj", ex: "Every person is unique.", cat: "adj" },
+      // Adverbs
+      { w: "quickly", tr: "быстро/tez/тез", pos: "adv", ex: "She works quickly.", cat: "adv" },
+      { w: "carefully", tr: "осторожно/ehtiyotkorlik bilan/бодиққат", pos: "adv", ex: "Read the instructions carefully.", cat: "adv" },
+      { w: "recently", tr: "недавно/yaqinda/наздикан", pos: "adv", ex: "I recently moved to the city.", cat: "adv" },
+      { w: "completely", tr: "полностью/butunlay/пурра", pos: "adv", ex: "I completely agree with you.", cat: "adv" },
+      { w: "apparently", tr: "видимо/ko'rinishicha/зоҳиран", pos: "adv", ex: "Apparently, she left early.", cat: "adv" },
+      { w: "definitely", tr: "определённо/albatta/қатъан", pos: "adv", ex: "I will definitely come.", cat: "adv" },
+      { w: "extremely", tr: "крайне/juda/хеле", pos: "adv", ex: "It's extremely cold today.", cat: "adv" },
+      { w: "fortunately", tr: "к счастью/baxtga qarshi/хушбахтона", pos: "adv", ex: "Fortunately, no one was hurt.", cat: "adv" },
+      { w: "gradually", tr: "постепенно/asta-sekin/тадриҷан", pos: "adv", ex: "Things will improve gradually.", cat: "adv" },
+      { w: "immediately", tr: "немедленно/darhol/фавран", pos: "adv", ex: "Please respond immediately.", cat: "adv" },
+      // Phrases
+      { w: "as soon as possible", tr: "как можно скорее/imkon qadar tez/ҳар чи зудтар", pos: "phrase", ex: "Please reply as soon as possible.", cat: "phrases" },
+      { w: "in other words", tr: "другими словами/boshqacha aytganda/ба ибораи дигар", pos: "phrase", ex: "In other words, we need more time.", cat: "phrases" },
+      { w: "on the other hand", tr: "с другой стороны/boshqa tomondan/аз тарафи дигар", pos: "phrase", ex: "On the other hand, it could work.", cat: "phrases" },
+      { w: "for example", tr: "например/masalan/масалан", pos: "phrase", ex: "For example, dogs and cats are pets.", cat: "phrases" },
+      { w: "in addition", tr: "кроме того/bundan tashqari/илова бар ин", pos: "phrase", ex: "In addition, we need more staff.", cat: "phrases" },
+      { w: "as a result", tr: "в результате/natijada/дар натиҷа", pos: "phrase", ex: "As a result, profits increased.", cat: "phrases" },
+      { w: "in spite of", tr: "несмотря на/qaramay/сарфи назар аз", pos: "phrase", ex: "In spite of rain, we played.", cat: "phrases" },
+      { w: "due to", tr: "из-за/tufayli/бо сабаби", pos: "phrase", ex: "Due to traffic, I was late.", cat: "phrases" },
+      { w: "according to", tr: "по мнению/ga ko'ra/мувофиқи", pos: "phrase", ex: "According to the report, sales fell.", cat: "phrases" },
+      { w: "with regard to", tr: "в отношении/ga nisbatan/дар бораи", pos: "phrase", ex: "With regard to your question...", cat: "phrases" },
+      // Idioms
+      { w: "break a leg", tr: "удачи/omad/муваффақ бош", pos: "idiom", ex: "Break a leg at your interview!", cat: "idioms" },
+      { w: "hit the nail on the head", tr: "попасть в точку/to'g'ri topmoq/дақиқ гуфтан", pos: "idiom", ex: "You hit the nail on the head!", cat: "idioms" },
+      { w: "under the weather", tr: "не в форме/kasal/бемор ҳис кардан", pos: "idiom", ex: "I feel a bit under the weather today.", cat: "idioms" },
+      { w: "bite the bullet", tr: "стиснуть зубы/bardosh bermoq/истодагарӣ кардан", pos: "idiom", ex: "Just bite the bullet and do it.", cat: "idioms" },
+      { w: "cost an arm and a leg", tr: "стоить очень дорого/juda qimmat/хеле гарон", pos: "idiom", ex: "That car costs an arm and a leg.", cat: "idioms" },
+      { w: "spill the beans", tr: "выдать секрет/sir aytib yubormoq/роз фош кардан", pos: "idiom", ex: "Don't spill the beans about the party!", cat: "idioms" },
+      { w: "kick the bucket", tr: "умереть (сленг)/o'lmoq/мурдан", pos: "idiom", ex: "He kicked the bucket at 90.", cat: "idioms" },
+      { w: "the ball is in your court", tr: "ход за тобой/navbat senda/навбат дар даст", pos: "idiom", ex: "The ball is in your court now.", cat: "idioms" },
+      { w: "once in a blue moon", tr: "крайне редко/juda kamdan-kam/хеле кам", pos: "idiom", ex: "She visits once in a blue moon.", cat: "idioms" },
+      { w: "the tip of the iceberg", tr: "верхушка айсберга/manzaraning bir qismi/нӯги айсберг", pos: "idiom", ex: "That's just the tip of the iceberg.", cat: "idioms" },
+      { w: "beat around the bush", tr: "ходить вокруг да около/gapni cho'zmoq/давр задан", pos: "idiom", ex: "Stop beating around the bush!", cat: "idioms" },
+      { w: "hit the books", tr: "зубрить/o'qishga kirishmoq/хондан", pos: "idiom", ex: "I need to hit the books tonight.", cat: "idioms" },
+      { w: "miss the boat", tr: "упустить шанс/imkoniyatni qo'ldan bermoq/имконият аз даст додан", pos: "idiom", ex: "If you don't act now, you'll miss the boat.", cat: "idioms" },
+      { w: "burn the midnight oil", tr: "работать допоздна/kechgacha ishlash/шаб кор кардан", pos: "idiom", ex: "She was burning the midnight oil.", cat: "idioms" },
+      { w: "the last straw", tr: "последняя капля/oxirgi tomchi/қатраи охирин", pos: "idiom", ex: "That mistake was the last straw.", cat: "idioms" },
+    ];
 
-Most experts agree that AI will be a transformative force comparable to the Industrial Revolution. The key challenge for humanity is ensuring this technology is developed responsibly, equitably, and in service of all people — not just the privileged few.`,
-   questions:[
-     {q:'What powers Netflix recommendations?',opts:['Human editors','Machine learning','Simple algorithms','Random selection'],a:1},
-     {q:'What is deep learning inspired by?',opts:['Computer chips','The human brain','Natural language','Statistical models'],a:1},
-     {q:'When was ChatGPT launched?',opts:['2020','2021','2022','2023'],a:2},
-     {q:'What do experts compare AI\'s impact to?',opts:['The Space Race','The Cold War','The Industrial Revolution','The Digital Revolution'],a:2},
-   ]},
-];
+    // ========================
+    // LISTENING DATA
+    // ========================
+    const LISTENING = {
+      beginner: [
+        { title: "A Day in My Life", text: "Hello! My name is Emma. I wake up at seven o'clock every morning. First, I take a shower and get dressed. Then I eat breakfast – usually eggs and toast. I walk to the bus stop and take the bus to school. My favorite class is English. After school, I play with my friends in the park. In the evening, I do my homework and watch TV. I go to bed at nine thirty. I love my life!", q: "What time does Emma wake up?", opts: ["6:00", "7:00", "8:00", "7:30"], a: 1 },
+        { title: "At the Supermarket", text: "Tom goes to the supermarket on Saturdays. Today, he needs bread, milk, eggs, and some fruit. He takes a shopping cart and walks through the aisles. He picks up a loaf of bread, two liters of milk, and a dozen eggs. In the fruit section, he chooses some apples, bananas, and oranges. At the checkout, the cashier tells him the total is fifteen dollars and fifty cents. Tom pays with his credit card and gets his receipt. He puts everything in his bag and goes home.", q: "How does Tom pay?", opts: ["cash", "debit card", "credit card", "check"], a: 2 },
+        { title: "The Weather Today", text: "Good morning! Here is today's weather report. In the north, it will be mostly cloudy with some rain in the afternoon. Temperatures will reach twelve degrees Celsius. In the south, it will be sunny and warm, with highs of twenty-two degrees. The east will experience strong winds and possible thunderstorms in the evening. The west will enjoy mild weather with light clouds. Remember to take an umbrella if you are traveling north or east today. Have a great day!", q: "What weather is expected in the south?", opts: ["rainy", "cloudy", "thunderstorms", "sunny and warm"], a: 3 },
+        { title: "My Family", text: "Hi, I'm Alex! I'm going to tell you about my family. My father's name is David. He is a doctor and works at the local hospital. My mother's name is Sarah. She is a teacher at a primary school. I have one brother, his name is Mike. He is seventeen and loves football. I also have a sister called Lisa. She is only five years old and loves drawing. My grandparents live with us too. We are a big, happy family!", q: "What does Alex's mother do?", opts: ["doctor", "teacher", "nurse", "engineer"], a: 1 },
+        { title: "My Favorite Hobby", text: "My favorite hobby is photography. I got my first camera when I was twelve years old. Since then, I have taken thousands of photos. I especially love taking pictures of nature – flowers, birds, and landscapes. Every weekend, I go to a different park or forest to find interesting subjects. I also take photos of people and city life. Last month, I entered a photography competition and won second place. I hope to become a professional photographer one day.", q: "What did the speaker win?", opts: ["first place", "second place", "third place", "nothing"], a: 1 },
+      ],
+      intermediate: [
+        { title: "Climate Change Explained", text: "Climate change refers to long-term shifts in global temperatures and weather patterns. While some climate change is natural, since the mid-20th century, human activities have been the main driver of climate change. Burning fossil fuels like coal, oil, and gas releases greenhouse gases such as carbon dioxide and methane into the atmosphere. These gases trap heat from the sun, causing the Earth's temperature to rise. The consequences include rising sea levels, more frequent extreme weather events, and threats to biodiversity. Scientists around the world agree that immediate action is needed to reduce emissions and transition to renewable energy sources.", q: "What is the main driver of climate change since the mid-20th century?", opts: ["natural events", "volcanic eruptions", "human activities", "ocean currents"], a: 2 },
+        { title: "The History of the Internet", text: "The internet began as a military project in the United States in the late 1960s. It was originally called ARPANET and was designed to allow computers to communicate with each other. In the 1980s, the internet was opened to universities and research institutions. The real revolution came in 1991, when Tim Berners-Lee invented the World Wide Web, making information accessible to everyone. By the mid-1990s, the internet was becoming commercial. Today, more than five billion people use the internet worldwide. It has transformed communication, commerce, entertainment, and education in ways that were unimaginable fifty years ago.", q: "Who invented the World Wide Web?", opts: ["Steve Jobs", "Bill Gates", "Tim Berners-Lee", "Elon Musk"], a: 2 },
+        { title: "Job Interview Tips", text: "Preparing for a job interview can feel overwhelming, but with the right approach, you can succeed. First, research the company thoroughly before your interview. Know their products, services, and company culture. Second, practice answering common interview questions such as 'Tell me about yourself' and 'What are your strengths and weaknesses?' Third, dress professionally and arrive early. First impressions matter greatly. During the interview, listen carefully to each question before answering, and give specific examples from your experience. Don't forget to prepare some questions to ask the interviewer. This shows you are genuinely interested in the position. Finally, send a thank-you email after the interview.", q: "What should you send after the interview?", opts: ["a gift", "a phone call", "a thank-you email", "a formal letter"], a: 2 },
+        { title: "Benefits of Exercise", text: "Regular physical exercise offers a wide range of health benefits. Cardiovascular exercise, such as running, swimming, or cycling, strengthens the heart and improves circulation. Strength training builds muscle mass and increases bone density, which is especially important as we age. Exercise also releases endorphins – chemicals in the brain that create feelings of happiness and reduce stress. Studies show that people who exercise regularly sleep better, have stronger immune systems, and live longer. Even thirty minutes of moderate exercise five days a week can make a significant difference. The key is to find an activity you enjoy and make it a regular habit.", q: "What chemicals does exercise release in the brain?", opts: ["adrenaline", "dopamine", "endorphins", "serotonin"], a: 2 },
+        { title: "Cultural Differences in Business", text: "Understanding cultural differences is essential in today's global business environment. For example, punctuality means different things in different cultures. In Germany and Japan, arriving late to a meeting is considered very disrespectful. However, in some Latin American and Middle Eastern countries, meetings often start later than scheduled. Communication styles also vary – people in the United States tend to be direct and explicit, while in many Asian cultures, indirect communication is preferred to maintain harmony. Gift-giving is another area where cultures differ significantly. In China, gifts are often refused at first as a sign of politeness. Being aware of these differences can prevent misunderstandings and build better business relationships.", q: "How do people in the US typically communicate?", opts: ["indirectly", "through gifts", "directly and explicitly", "through intermediaries"], a: 2 },
+      ],
+      advanced: [
+        { title: "Artificial Intelligence and Society", text: "Artificial intelligence is rapidly transforming virtually every sector of society. Machine learning algorithms now diagnose diseases with accuracy surpassing human specialists, generate creative works indistinguishable from human-made content, and make split-second financial decisions worth billions of dollars. However, this technological revolution raises profound ethical questions. As AI systems become more autonomous, concerns about accountability, bias in algorithmic decision-making, and the displacement of human workers are intensifying. Philosophers and technologists debate whether superintelligent AI poses existential risks to humanity. Meanwhile, governments struggle to create regulatory frameworks that encourage innovation while protecting citizens. The decisions made today about AI governance will fundamentally shape the trajectory of human civilization.", q: "What do governments struggle to create?", opts: ["better AI systems", "regulatory frameworks", "more workers", "faster computers"], a: 1 },
+        { title: "The Philosophy of Language", text: "Language is far more than a tool for communication; it shapes the very fabric of our reality. The Sapir-Whorf hypothesis, also known as linguistic relativity, suggests that the language we speak influences how we perceive and think about the world. Evidence for this theory comes from studies showing that speakers of languages with different color terminology perceive colors differently. Furthermore, some languages have concepts for which no equivalent word exists in English, suggesting that certain ideas might be easier to conceptualize in those languages. Wittgenstein famously declared that the limits of language are the limits of one's world, implying that expanding our vocabulary literally expands our capacity for thought.", q: "What is another name for the Sapir-Whorf hypothesis?", opts: ["cognitive linguistics", "linguistic determinism", "linguistic relativity", "language acquisition theory"], a: 2 },
+        { title: "Global Economic Inequality", text: "Despite unprecedented global economic growth over the past century, wealth inequality has reached historically extreme levels. The richest one percent of the world's population now controls more wealth than the remaining ninety-nine percent combined. This disparity has complex causes, including differential access to education and healthcare, globalization's uneven effects on labor markets, the rise of winner-take-all technology markets, and tax policies that favor capital over labor. The consequences extend beyond economics – extreme inequality is correlated with lower social mobility, higher crime rates, poorer health outcomes, and diminished democratic participation. Economists debate whether targeted redistribution, educational investment, or structural changes to market mechanisms represent the most effective interventions.", q: "What percentage of wealth does the richest 1% control?", opts: ["less than 50%", "more than 50%", "exactly 50%", "about 30%"], a: 1 },
+      ]
+    };
 
-function renderReading(){
-  const el=document.getElementById('reading-list');
-  el.innerHTML=READING_TEXTS.map(item=>`
-    <div class="content-box" style="margin-bottom:20px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    // ========================
+    // READING DATA
+    // ========================
+    const READING = {
+      beginner: [
+        {
+          title: "A Perfect Day Off", text: "Last Saturday was my perfect day off. I woke up at nine o'clock, which is late for me. I made a delicious breakfast of pancakes with strawberries and maple syrup. After breakfast, I sat in my garden and read a book for two hours. The weather was lovely – warm and sunny. In the afternoon, I met my friend Anna at the park. We walked around the lake and talked about our lives. Then we had coffee and cake at a café near the park. In the evening, I cooked my favorite pasta dish and watched a film. I went to bed early and slept very well. It was a perfect day!",
+          q: [{ q: "What did the person eat for breakfast?", opts: ["eggs and toast", "pancakes with strawberries", "cereal", "sandwiches"], a: 1 }, { q: "Where did the person meet Anna?", opts: ["at a café", "at home", "at the park", "at school"], a: 2 }]
+        },
+        {
+          title: "My Dog Max", text: "I have a dog named Max. He is three years old and is a golden retriever. Max has beautiful golden fur and big brown eyes. He loves going for walks, chasing balls, and swimming in the river near our house. Every morning, I take Max for a thirty-minute walk before I go to work. In the evenings, we play in the garden. Max is very friendly and loves meeting new people. He always wags his tail when someone comes to visit. Max is not just a pet – he is my best friend. I cannot imagine my life without him.",
+          q: [{ q: "What breed is Max?", opts: ["labrador", "poodle", "golden retriever", "german shepherd"], a: 2 }, { q: "How long does the morning walk last?", opts: ["15 minutes", "45 minutes", "30 minutes", "1 hour"], a: 2 }]
+        },
+      ],
+      intermediate: [
+        {
+          title: "Social Media and Mental Health", text: "The relationship between social media and mental health has become one of the most debated topics of our time. Numerous studies suggest that excessive social media use is linked to increased rates of anxiety, depression, and loneliness, particularly among young people. The constant comparison with idealized images of others' lives can damage self-esteem. Cyberbullying, which occurs primarily on social platforms, affects millions of young people worldwide. However, social media also has positive aspects. It connects people across distances, provides communities for those with rare conditions or minority identities, and has been used effectively to raise awareness about mental health issues. Experts suggest that the key is not elimination of social media, but mindful, intentional use with clear boundaries.",
+          q: [{ q: "What do studies link excessive social media use to?", opts: ["better health", "anxiety and depression", "more sleep", "improved grades"], a: 1 }, { q: "What do experts recommend?", opts: ["stop using social media", "use it mindfully with boundaries", "only use it for work", "delete all accounts"], a: 1 }]
+        },
+        {
+          title: "The Science of Sleep", text: "Sleep is far more complex and important than most people realize. During sleep, the brain doesn't simply rest – it actively processes and consolidates memories, clears toxins, and regulates hormones. Scientists have identified two main types of sleep: REM (rapid eye movement) sleep, during which most dreaming occurs, and non-REM sleep, which includes deeper stages crucial for physical restoration. Adults need between seven and nine hours of sleep per night. Chronic sleep deprivation has been linked to serious health problems including obesity, diabetes, cardiovascular disease, and weakened immune function. Modern lifestyles, with their artificial lighting, screen time, and irregular schedules, significantly disrupt natural sleep cycles. Sleep experts recommend maintaining consistent sleep and wake times, even on weekends.",
+          q: [{ q: "What happens to the brain during sleep?", opts: ["it completely shuts down", "it processes memories and clears toxins", "it stops all activity", "it only generates dreams"], a: 1 }, { q: "How many hours of sleep do adults need?", opts: ["5-6 hours", "7-9 hours", "10-12 hours", "4-5 hours"], a: 1 }]
+        },
+      ],
+      advanced: [
+        {
+          title: "The Nature of Consciousness", text: "Consciousness remains one of the most profound mysteries in science and philosophy. Despite remarkable advances in neuroscience, we still do not understand why and how physical processes in the brain give rise to subjective experience – what philosophers call the 'hard problem of consciousness.' We can map neural correlates of consciousness and describe what happens in the brain during conscious experience, but explaining why there is something it is like to be conscious remains elusive. Some theories, such as Integrated Information Theory, attempt to quantify consciousness mathematically. Others, like Global Workspace Theory, focus on how information is broadcast across the brain. More radical proposals, including panpsychism, suggest that consciousness is a fundamental feature of the universe, present in some form even in simple systems. The question of whether artificial systems could ever be truly conscious has profound implications for AI ethics.",
+          q: [{ q: "What is the 'hard problem of consciousness'?", opts: ["mapping brain activity", "explaining why subjective experience arises from physical processes", "measuring intelligence", "creating artificial consciousness"], a: 1 }, { q: "What does panpsychism suggest?", opts: ["only humans are conscious", "consciousness is a fundamental feature of the universe", "AI can never be conscious", "consciousness is an illusion"], a: 1 }]
+        },
+      ]
+    };
+
+    // ========================
+    // SPEAKING SCENARIOS
+    // ========================
+    const SPEAK_SCENARIOS = [
+      { context: "Meeting someone new at a conference", ai: "Hi there! I don't think we've met. What's your name?", expected: "name, hello, nice to meet" },
+      { context: "At a coffee shop", ai: "Good morning! What would you like to order today?", expected: "coffee, tea, please, would like" },
+      { context: "Asking for directions", ai: "Excuse me, can I help you? You look a little lost.", expected: "looking for, where is, can you tell me" },
+      { context: "Job interview", ai: "Thank you for coming in today. Can you tell me a little about yourself and your experience?", expected: "I am, I have, experience, worked, years" },
+      { context: "Discussing the weather", ai: "It's quite cold today, isn't it? What's your favourite type of weather?", expected: "weather, like, prefer, sunny, cold, warm" },
+      { context: "Talking about hobbies", ai: "So, what do you like to do in your free time?", expected: "enjoy, like, hobby, love, spend time" },
+      { context: "Making plans", ai: "Are you free this weekend? Would you like to do something together?", expected: "free, weekend, would love, sounds great, plans" },
+      { context: "Ordering food at a restaurant", ai: "Welcome! Are you ready to order, or do you need a few more minutes?", expected: "ready, order, would like, menu, please" },
+      { context: "Talking about your hometown", ai: "Where are you from originally? Tell me about your hometown.", expected: "from, city, town, born, live, beautiful" },
+      { context: "Discussing travel", ai: "Have you traveled much? What's the most interesting place you've ever visited?", expected: "traveled, visited, country, city, amazing, beautiful" },
+    ];
+
+    // ========================
+    // WRITING PROMPTS
+    // ========================
+    const WRITING_PROMPTS = [
+      "Write about your best childhood memory. Use at least 100 words.",
+      "Describe your ideal job and why you would enjoy it.",
+      "Write about the advantages and disadvantages of social media.",
+      "Describe a person who has had a great influence on your life.",
+      "Write about an important environmental problem and possible solutions.",
+      "Describe your hometown and what makes it special.",
+      "Write about a book or film that changed your perspective.",
+      "Should all countries adopt English as an official language? Discuss.",
+      "Write about the role of technology in modern education.",
+      "Describe a difficult situation you overcame and what you learned.",
+    ];
+
+    // ========================
+    // LEADERBOARD DATA
+    // ========================
+    const LEADERBOARD = [
+      { name: "Zara K.", xp: 9850, streak: 45, badge: "Champion", flag: "🇺🇿" },
+      { name: "Ahmed N.", xp: 8720, streak: 32, badge: "Expert", flag: "🇺🇿" },
+      { name: "Maria S.", xp: 7600, streak: 28, badge: "Advanced", flag: "🇷🇺" },
+      { name: "Park J.", xp: 6950, streak: 21, badge: "Intermediate", flag: "🇰🇷" },
+      { name: "Emma T.", xp: 6400, streak: 19, badge: "Intermediate", flag: "🇬🇧" },
+      { name: "Carlos M.", xp: 5200, streak: 14, badge: "Elementary", flag: "🇲🇽" },
+      { name: "Priya R.", xp: 4800, streak: 12, badge: "Elementary", flag: "🇮🇳" },
+      { name: "Liu W.", xp: 3900, streak: 9, badge: "Beginner", flag: "🇨🇳" },
+      { name: "You", xp: 0, streak: 0, badge: "Newcomer", flag: "⭐" },
+      { name: "Alex B.", xp: 2100, streak: 5, badge: "Beginner", flag: "🇷🇺" },
+    ];
+
+    // ========================
+    // APP STATE
+    // ========================
+    let currentLevel = null;
+    let currentTopicId = null;
+    let testQuestions = [];
+    let testIndex = 0;
+    let testScore = 0;
+    let testAnswered = false;
+    let usedQIndices = {};
+    let chatHistory = [];
+    let speakIdx = 0;
+    let isRecording = false;
+    let writingPromptIdx = 0;
+    let currentAudio = null;
+    let audioIntervals = {};
+
+    // ========================
+    // NAVIGATION
+    // ========================
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => {
+        if (t.getAttribute('onclick').includes("'" + id + "'")) t.classList.add('active');
+      });
+      if (id === 'vocab') renderVocab();
+      if (id === 'listening') renderListening();
+      if (id === 'reading') renderReading();
+      if (id === 'rank') renderLeaderboard();
+      if (id === 'stats') renderStats();
+      if (id === 'speaking') renderSpeakScenario();
+      if (id === 'writing') newWritingPrompt();
+      if (id === 'home') renderHomeStats();
+    }
+
+    function showInner(group, id) {
+      document.querySelectorAll(`#page-${group === 'vocab' ? 'vocab' : group === 'listen' ? 'listening' : group === 'read' ? 'reading' : group} .inner-page`).forEach(p => p.classList.remove('active'));
+      const pageId = group === 'vocab' ? `vocab-${id}` : group === 'listen' ? `listen-${id}` : `read-${id}`;
+      const el = document.getElementById(pageId);
+      if (el) el.classList.add('active');
+      event.currentTarget.closest('.card, main > .page').querySelectorAll('.inner-tab').forEach(t => t.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
+    // ========================
+    // HOME
+    // ========================
+    function renderHomeStats() {
+      const totalTopics = LEVELS.reduce((s, l) => s + l.topics.length, 0);
+      const done = Object.keys(state.completedTopics).length;
+      document.getElementById('home-xp').textContent = state.xp;
+      document.getElementById('home-streak').textContent = state.streak + '🔥';
+      document.getElementById('home-done').textContent = Math.round(done / totalTopics * 100) + '%';
+      renderLevelGrid();
+    }
+
+    function renderLevelGrid() {
+      const g = document.getElementById('levelGrid');
+      g.innerHTML = LEVELS.map(l => {
+        const done = l.topics.filter(t => state.completedTopics[t]).length;
+        const pct = Math.round(done / l.topics.length * 100);
+        return `<div class="level-card" onclick="openLevel('${l.id}')">
+      <div class="icon">${l.icon}</div>
+      <h3>${l.name}</h3>
+      <p style="color:var(--text2);font-size:.82rem;">${done}/${l.topics.length} ${t('stat_done')}</p>
+      <div class="prog"><div class="prog-bar" style="width:${pct}%;background:${l.color}"></div></div>
+    </div>`;
+      }).join('');
+    }
+
+    function openLevel(id) {
+      currentLevel = LEVELS.find(l => l.id === id);
+      document.getElementById('lessonLevelTitle').textContent = currentLevel.name + ' – Topics';
+      const list = document.getElementById('topicList');
+      list.innerHTML = currentLevel.topics.map(tid => {
+        const td = getTopicData(tid);
+        const done = state.completedTopics[tid];
+        const score = state.testScores[tid];
+        return `<div class="topic-item" onclick="openTopic('${tid}')">
+      <div class="left">
+        <div class="topic-icon">${td.icon}</div>
         <div>
-          <h2 style="margin:0;margin-bottom:6px">${item.title}</h2>
-          <span class="tag level-intermediate">${item.level}</span>
+          <div class="topic-name">${td.name}</div>
+          <div class="topic-desc">${done ? 'Score: ' + score + '%' : 'Not completed yet'}</div>
         </div>
-        <button class="btn btn-primary" onclick="startReadingQuiz('${item.id}')">📝 Quiz</button>
       </div>
-      <div style="color:var(--text2);font-size:.88rem;line-height:1.9;white-space:pre-line">${item.text}</div>
-      <div id="rquiz-${item.id}" style="display:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)"></div>
+      ${done ? `<span class="badge done">✓ ${score}%</span>` : '<span class="badge">Start</span>'}
+    </div>`;
+      }).join('');
+      document.getElementById('lessonMain').classList.remove('hidden');
+      document.getElementById('lessonView').classList.add('hidden');
+      document.getElementById('testView').classList.add('hidden');
+      showPage('lessons');
+    }
+
+    function openTopic(tid) {
+      currentTopicId = tid;
+      const td = getTopicData(tid);
+      document.getElementById('lessonTitle').textContent = td.icon + ' ' + td.name;
+      document.getElementById('lessonContent').innerHTML = td.lesson;
+      document.getElementById('lessonMain').classList.add('hidden');
+      document.getElementById('lessonView').classList.remove('hidden');
+      document.getElementById('testView').classList.add('hidden');
+    }
+
+    function backToTopics() {
+      document.getElementById('lessonMain').classList.remove('hidden');
+      document.getElementById('lessonView').classList.add('hidden');
+      document.getElementById('testView').classList.add('hidden');
+    }
+
+    function backToLesson() {
+      document.getElementById('lessonView').classList.remove('hidden');
+      document.getElementById('testView').classList.add('hidden');
+    }
+
+    // ========================
+    // TEST ENGINE
+    // ========================
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; }
+      return a;
+    }
+
+    function startTest() {
+      const td = getTopicData(currentTopicId);
+      const key = currentTopicId;
+      if (!usedQIndices[key]) usedQIndices[key] = [];
+
+      let pool = td.questions;
+      let available = pool.filter((_, i) => !usedQIndices[key].includes(i));
+
+      // If less than 30 available, reset used
+      if (available.length < 30) {
+        usedQIndices[key] = [];
+        available = pool;
+      }
+
+      // Shuffle and pick 30
+      const shuffled = shuffleArray(available.map((_, i) => i).filter(i => !usedQIndices[key].includes(i)));
+      const picked = shuffled.slice(0, 30);
+      picked.forEach(i => usedQIndices[key].push(i));
+
+      // If pool < 30, generate extra shuffled variants
+      testQuestions = picked.map(i => ({ ...pool[i] }));
+
+      // Ensure we have 30 questions
+      while (testQuestions.length < 30) {
+        const extra = shuffleArray(pool)[0];
+        // Shuffle options for variety
+        testQuestions.push({ ...extra });
+      }
+
+      // Shuffle options for each question
+      testQuestions = testQuestions.map(q => {
+        const opts = q.opts.map((o, i) => ({ o, i }));
+        const shuffledOpts = shuffleArray(opts);
+        const newCorrect = shuffledOpts.findIndex(x => x.i === q.a);
+        return { q: q.q, opts: shuffledOpts.map(x => x.o), a: newCorrect };
+      });
+
+      testIndex = 0;
+      testScore = 0;
+      renderTestQuestion();
+      document.getElementById('lessonView').classList.add('hidden');
+      document.getElementById('testView').classList.remove('hidden');
+    }
+
+    function renderTestQuestion() {
+      const tc = document.getElementById('testContent');
+      if (testIndex >= testQuestions.length) {
+        showTestResult();
+        return;
+      }
+      const q = testQuestions[testIndex];
+      const pct = (testIndex / testQuestions.length * 100).toFixed(0);
+      tc.innerHTML = `
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+      <span style="color:var(--text2);font-size:.9rem;">${t('q_label')} ${testIndex + 1} ${t('of_label')} ${testQuestions.length}</span>
+      <span style="color:var(--accent4);font-weight:700;">✓ ${testScore}</span>
     </div>
-  `).join('');
-}
-
-function startReadingQuiz(id){
-  const item=READING_TEXTS.find(i=>i.id===id);
-  const root=document.getElementById('rquiz-'+id);
-  root.innerHTML='<div style="font-weight:700;margin-bottom:12px;color:var(--accent)">📝 Comprehension Quiz</div>'+
-    item.questions.map((q,qi)=>`
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px">
-        <div style="font-weight:600;margin-bottom:10px">${qi+1}. ${q.q}</div>
-        <div style="display:grid;gap:6px">
-          ${q.opts.map((o,oi)=>`<div class="option" id="rq-${id}-${qi}-${oi}" onclick="checkRQ('${id}',${qi},${oi},${q.a})">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}
-        </div>
-      </div>`).join('');
-  root.style.display='block';
-}
-
-function checkRQ(lid,qi,oi,correct){
-  document.querySelectorAll(`[id^="rq-${lid}-${qi}-"]`).forEach(el=>el.classList.add('disabled'));
-  document.getElementById(`rq-${lid}-${qi}-${oi}`).classList.add(oi===correct?'correct':'wrong');
-  if(oi!==correct)document.getElementById(`rq-${lid}-${qi}-${correct}`).classList.add('correct');
-  if(oi===correct)addXP(20);
-}
-
-// =========================================================
-// WRITING
-// =========================================================
-const WRITING_TASKS=[
-  {id:'w1',title:'Describe Your Morning Routine',prompt:'Write 80-120 words describing what you do every morning from waking up to leaving home. Use Present Simple tense.',tips:'Use: First, Then, After that, Finally. Verbs: wake up, brush, eat, leave'},
-  {id:'w2',title:'A Trip You Dream About',prompt:'Describe a place you would love to visit. Write 100-150 words. Use conditionals: "If I could go...", "I would..."',tips:'Include: location, activities, food, reason for choosing'},
-  {id:'w3',title:'My Opinion on Technology',prompt:'Do you think smartphones help or harm young people? Write 120-160 words expressing your opinion with 2-3 reasons.',tips:'Use: In my opinion, I believe, Firstly, Furthermore, In conclusion'},
-  {id:'w4',title:'Describe a Person You Admire',prompt:'Write 100-130 words about someone you admire (real or fictional). Describe their appearance, character, and what makes them special.',tips:'Adjectives: brave, intelligent, kind, determined, inspiring'},
-];
-
-function renderWriting(){
-  const el=document.getElementById('writing-tasks');
-  el.innerHTML=WRITING_TASKS.map(task=>`
-    <div class="content-box" style="margin-bottom:16px">
-      <h2>${task.title}</h2>
-      <p style="color:var(--text2);margin-bottom:10px">${task.prompt}</p>
-      <div style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:10px 14px;font-size:.8rem;color:var(--accent4);margin-bottom:14px">💡 Tips: ${task.tips}</div>
-      <textarea id="writing-${task.id}" style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px;color:var(--text);font-family:'Sora',sans-serif;font-size:.9rem;min-height:120px;resize:vertical;outline:none" placeholder="Write your answer here..."></textarea>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px">
-        <span id="wcount-${task.id}" style="font-size:.78rem;color:var(--text3)">0 words</span>
-        <button class="btn btn-primary" onclick="submitWriting('${task.id}')">📤 ${t('submitWriting')}</button>
+    <div class="prog-bar-test"><div class="prog-bar-fill" id="testProg" style="width:${pct}%"></div></div>
+    <div class="question-block">
+      <div class="q-text">${q.q}</div>
+      <div class="options">
+        ${q.opts.map((o, i) => `<button class="opt-btn" id="opt${i}" onclick="selectAnswer(${i})">${o}</button>`).join('')}
       </div>
-      <div id="wfeedback-${task.id}" style="display:none;margin-top:14px"></div>
     </div>
-  `).join('');
-  WRITING_TASKS.forEach(task=>{
-    const ta=document.getElementById('writing-'+task.id);
-    if(ta)ta.addEventListener('input',()=>{
-      const wc=ta.value.trim().split(/\s+/).filter(Boolean).length;
-      document.getElementById('wcount-'+task.id).textContent=wc+' words';
-    });
-  });
-}
-
-async function submitWriting(id){
-  const ta=document.getElementById('writing-'+id);
-  const text=ta?ta.value.trim():'';
-  if(!text||text.split(/\s+/).length<10){showToast('Please write at least 10 words!','error');return;}
-  const fb=document.getElementById('wfeedback-'+id);
-  fb.style.display='block';
-  fb.innerHTML=`<div class="loading"><div class="loading-spinner"></div>${t('aiReviewing')}</div>`;
-  const task=WRITING_TASKS.find(t=>t.id===id);
-  const reply=await callAI(`You are an English writing teacher. Review this student's writing:
-
-Task: "${task.prompt}"
-Student's text: "${text}"
-
-Provide feedback in this exact format:
-SCORE: [0-100]
-STRENGTHS: [2-3 positive points]
-CORRECTIONS: [List specific grammar/vocabulary corrections]
-SUGGESTIONS: [2-3 ways to improve]
-IMPROVED VERSION: [Rewrite 1-2 improved sentences]
-
-Be encouraging and specific. Keep total response under 200 words.`);
-  fb.innerHTML=`
-    <div style="background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:12px;padding:18px;font-size:.88rem;line-height:1.7;white-space:pre-wrap">${reply}</div>
   `;
-  addXP(25);
-}
+      testAnswered = false;
+    }
 
-// =========================================================
-// LEADERBOARD
-// =========================================================
-const LEADERBOARD_DATA=[
-  {name:'Anna K.',flag:'🇬🇧',xp:4820,level:'Advanced',badge:'🏅 Master',avatar:'👩'},
-  {name:'Mikhail S.',flag:'🇷🇺',xp:4150,level:'Advanced',badge:'🥈 Expert',avatar:'👨'},
-  {name:'Dilnoza A.',flag:'🇺🇿',xp:3920,level:'Intermediate',badge:'🎖️ Pro',avatar:'👩'},
-  {name:'Carlos M.',flag:'🇪🇸',xp:3640,level:'Intermediate',badge:'🎯 Skilled',avatar:'👨'},
-  {name:'Yuki T.',flag:'🇯🇵',xp:3210,level:'Intermediate',badge:'⭐ Rising',avatar:'👩'},
-  {name:'Omar B.',flag:'🇰🇿',xp:2990,level:'Intermediate',badge:'📚 Learner',avatar:'👨'},
-  {name:'Sofia L.',flag:'🇩🇪',xp:2750,level:'Beginner',badge:'🌟 Active',avatar:'👩'},
-  {name:'James W.',flag:'🇺🇸',xp:2530,level:'Beginner',badge:'🌱 Starter',avatar:'👨'},
-  {name:'Aisha M.',flag:'🇳🇬',xp:2280,level:'Beginner',badge:'📖 Studying',avatar:'👩'},
-  {name:'You',flag:'🏆',xp:state.xp,level:'Learner',badge:'🎮 Player',avatar:'🧑'},
-];
+    function selectAnswer(idx) {
+      if (testAnswered) return;
+      testAnswered = true;
+      const q = testQuestions[testIndex];
+      const btns = document.querySelectorAll('.opt-btn');
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (i === q.a) b.classList.add('correct');
+        else if (i === idx) b.classList.add('wrong');
+      });
+      if (idx === q.a) { testScore++; }
+      setTimeout(() => { testIndex++; renderTestQuestion(); }, 1000);
+    }
 
-function renderLeaderboard(){
-  const sorted=[...LEADERBOARD_DATA].map(d=>d.name==='You'?{...d,xp:state.xp}:d).sort((a,b)=>b.xp-a.xp);
-  document.getElementById('leaderboard-list').innerHTML=sorted.map((p,i)=>`
-    <div class="lb-card" style="${p.name==='You'?'border-color:var(--accent);background:rgba(0,212,255,.04)':''}">
-      <div class="lb-rank ${i===0?'top1':i===1?'top2':i===2?'top3':''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}</div>
-      <div class="lb-avatar" style="background:${['linear-gradient(135deg,#f59e0b,#ef4444)','linear-gradient(135deg,#94a3b8,#64748b)','linear-gradient(135deg,#b45309,#78350f)','linear-gradient(135deg,var(--accent),var(--accent2))'][i%4]}">${p.avatar}</div>
-      <div class="lb-name">${p.flag} ${p.name}</div>
-      <div><div class="lb-xp">⚡ ${p.xp.toLocaleString()}</div><div style="font-size:.72rem;color:var(--text3)">${p.level}</div></div>
-      <span class="lb-badge" style="background:rgba(0,212,255,.1);color:var(--accent)">${p.badge}</span>
+    function showTestResult() {
+      const pct = Math.round(testScore / testQuestions.length * 100);
+      state.completedTopics[currentTopicId] = true;
+      state.testScores[currentTopicId] = pct;
+      state.xp += pct;
+
+      // Update leaderboard
+      const me = LEADERBOARD.find(l => l.name === 'You');
+      if (me) me.xp = state.xp;
+
+      let msg = pct >= 80 ? t('great') : pct >= 60 ? t('good') : pct >= 40 ? t('ok') : t('weak');
+      let emoji = pct >= 80 ? '🌟' : pct >= 60 ? '👍' : pct >= 40 ? '💪' : '📖';
+
+      document.getElementById('testContent').innerHTML = `
+    <div class="result-box">
+      <div class="emoji-big">${emoji}</div>
+      <h2>${t('score_label')}</h2>
+      <div class="result-score">${pct}%</div>
+      <div class="result-msg">${testScore}/${testQuestions.length} correct – ${msg}</div>
+      <div style="background:var(--bg3);border-radius:8px;height:12px;overflow:hidden;margin:16px 0;max-width:300px;margin-left:auto;margin-right:auto;">
+        <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,${pct >= 60 ? 'var(--success)' : 'var(--danger)'},var(--accent));transition:.8s;border-radius:8px;"></div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;">
+        <button class="btn" onclick="startTest()">${t('retry_btn')}</button>
+        <button class="btn outline" onclick="backToTopics()">${t('next_topic_btn')}</button>
+      </div>
+      <p style="color:var(--accent4);margin-top:16px;font-weight:700;">+${pct} XP earned! 🎉</p>
+    </div>
+  `;
+      renderHomeStats();
+    }
+
+    // ========================
+    // VOCABULARY
+    // ========================
+    function renderVocab() {
+      const all = document.getElementById('vocabGrid');
+      const nouns = document.getElementById('vocabNouns');
+      const verbs = document.getElementById('vocabVerbs');
+      const adj = document.getElementById('vocabAdj');
+      const adv = document.getElementById('vocabAdv');
+      const phrases = document.getElementById('vocabPhrases');
+      const idioms = document.getElementById('vocabIdioms');
+
+      const makeCard = w => `<div class="vocab-card">
+    <div class="vocab-word">${w.w}</div>
+    <div class="vocab-pos">${w.pos}</div>
+    <div class="vocab-tr">${w.tr}</div>
+    <div class="vocab-ex">${w.ex}</div>
+  </div>`;
+
+      all.innerHTML = VOCAB.map(makeCard).join('');
+      nouns.innerHTML = VOCAB.filter(w => w.cat === 'nouns').map(makeCard).join('');
+      verbs.innerHTML = VOCAB.filter(w => w.cat === 'verbs').map(makeCard).join('');
+      adj.innerHTML = VOCAB.filter(w => w.cat === 'adj').map(makeCard).join('');
+      adv.innerHTML = VOCAB.filter(w => w.cat === 'adv').map(makeCard).join('');
+      phrases.innerHTML = VOCAB.filter(w => w.cat === 'phrases').map(makeCard).join('');
+      idioms.innerHTML = VOCAB.filter(w => w.cat === 'idioms').map(makeCard).join('');
+    }
+
+    function filterVocab() {
+      const q = document.getElementById('vocabSearch').value.toLowerCase();
+      const cards = document.querySelectorAll('#vocabGrid .vocab-card');
+      cards.forEach(c => {
+        const text = c.textContent.toLowerCase();
+        c.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    // ========================
+    // LISTENING
+    // ========================
+    function renderListening() {
+      ['beginner', 'intermediate', 'advanced'].forEach(level => {
+        const container = document.getElementById('listen-' + level);
+        const items = LISTENING[level] || [];
+        container.innerHTML = items.map((item, idx) => `
+      <div class="card audio-player">
+        <div class="audio-title">🎧 ${item.title}</div>
+        <div class="audio-controls">
+          <button class="play-btn" id="playbtn-${level}-${idx}" onclick="toggleAudio('${level}',${idx})">▶</button>
+          <div class="audio-progress" onclick="seekAudio('${level}',${idx},event)">
+            <div class="audio-prog-fill" id="prog-${level}-${idx}" style="width:0%"></div>
+          </div>
+          <span class="audio-time" id="time-${level}-${idx}">0:00</span>
+        </div>
+        <div class="transcript-box" id="transcript-${level}-${idx}">${item.text}</div>
+        <div style="margin-top:16px;">
+          <div class="question-block">
+            <div class="q-text">❓ ${item.q}</div>
+            <div class="options">
+              ${item.opts.map((o, i) => `<button class="opt-btn" id="lopt-${level}-${idx}-${i}" onclick="checkListeningAns('${level}',${idx},${i})">${o}</button>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('') || '<p style="color:var(--text2);text-align:center;padding:20px;">More content coming soon!</p>';
+      });
+    }
+
+    const audioStates = {};
+
+    function toggleAudio(level, idx) {
+      const key = `${level}-${idx}`;
+      const btn = document.getElementById(`playbtn-${key}`);
+      const item = LISTENING[level][idx];
+
+      if (!audioStates[key]) {
+        audioStates[key] = { playing: false, progress: 0, maxDur: item.text.length / 10 + 20 };
+      }
+
+      const as = audioStates[key];
+
+      if (as.playing) {
+        as.playing = false;
+        btn.textContent = '▶';
+        clearInterval(as.interval);
+        // Also stop TTS if speaking
+        if (window.speechSynthesis) window.speechSynthesis.pause();
+      } else {
+        // Stop all others
+        Object.keys(audioStates).forEach(k => {
+          if (k !== key && audioStates[k].playing) {
+            audioStates[k].playing = false;
+            document.getElementById('playbtn-' + k).textContent = '▶';
+            clearInterval(audioStates[k].interval);
+          }
+        });
+
+        as.playing = true;
+        btn.textContent = '⏸';
+
+        // Use Web Speech API for TTS
+        if (window.speechSynthesis) {
+          const utt = new SpeechSynthesisUtterance(item.text);
+          utt.rate = 0.85;
+          utt.pitch = 1;
+          utt.lang = 'en-US';
+          utt.onend = () => {
+            as.playing = false; btn.textContent = '▶';
+            document.getElementById(`prog-${key}`).style.width = '100%';
+            clearInterval(as.interval);
+          };
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(utt);
+          as.utterance = utt;
+        }
+
+        const dur = as.maxDur;
+        as.interval = setInterval(() => {
+          if (!as.playing) { clearInterval(as.interval); return; }
+          as.progress = Math.min(as.progress + (100 / dur / 10), 100);
+          document.getElementById(`prog-${key}`).style.width = as.progress + '%';
+          const secs = Math.floor(as.progress / 100 * dur);
+          document.getElementById(`time-${key}`).textContent =
+            Math.floor(secs / 60) + ':' + (secs % 60 < 10 ? '0' : '') + secs % 60;
+          if (as.progress >= 100) {
+            as.playing = false; btn.textContent = '▶';
+            clearInterval(as.interval);
+          }
+        }, 100);
+      }
+    }
+
+    function seekAudio(level, idx, e) {
+      const key = `${level}-${idx}`;
+      if (!audioStates[key]) return;
+      const bar = e.currentTarget;
+      const pct = e.offsetX / bar.offsetWidth * 100;
+      audioStates[key].progress = pct;
+      document.getElementById(`prog-${key}`).style.width = pct + '%';
+    }
+
+    function checkListeningAns(level, idx, ansIdx) {
+      const item = LISTENING[level][idx];
+      const btns = document.querySelectorAll(`[id^="lopt-${level}-${idx}-"]`);
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (i === item.a) b.classList.add('correct');
+        else if (i === ansIdx) b.classList.add('wrong');
+      });
+      if (ansIdx === item.a) { state.xp += 10; }
+    }
+
+    // ========================
+    // SPEAKING
+    // ========================
+    function renderSpeakScenario() {
+      const s = SPEAK_SCENARIOS[speakIdx % SPEAK_SCENARIOS.length];
+      document.getElementById('speakScenario').innerHTML = `
+    <div style="background:var(--bg3);border-radius:8px;padding:10px 14px;margin-bottom:12px;border-left:4px solid var(--accent4);">
+      <span style="color:var(--accent4);font-weight:700;">📍 Context:</span> <span style="color:var(--text2);">${s.context}</span>
+    </div>`;
+      document.getElementById('speakDialog').innerHTML = `
+    <div class="speak-bubble ai">
+      <div class="speak-who">🤖 AI</div>
+      <div class="speak-text">${s.ai}</div>
+    </div>`;
+      document.getElementById('speakFeedback').style.display = 'none';
+      // Auto-speak the AI message
+      setTimeout(() => speakText(s.ai), 300);
+    }
+
+    function speakText(text) {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-US'; u.rate = 0.9;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    function repeatAI() {
+      const s = SPEAK_SCENARIOS[speakIdx % SPEAK_SCENARIOS.length];
+      speakText(s.ai);
+    }
+
+    function nextSpeakScenario() {
+      speakIdx++;
+      renderSpeakScenario();
+    }
+
+    function toggleMic() {
+      const btn = document.getElementById('micBtn');
+      const status = document.getElementById('micStatus');
+
+      if (!isRecording) {
+        isRecording = true;
+        btn.classList.add('recording');
+        status.textContent = '🔴 Recording... Speak now!';
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+          const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognition = new SR();
+          recognition.lang = 'en-US';
+          recognition.continuous = false;
+          recognition.interimResults = false;
+          recognition.onresult = e => {
+            const transcript = e.results[0][0].transcript;
+            showSpeakingResult(transcript);
+          };
+          recognition.onerror = () => {
+            showSpeakingResult("Sorry, I couldn't hear you. Please try again.");
+          };
+          recognition.onend = () => {
+            isRecording = false;
+            btn.classList.remove('recording');
+            status.textContent = t('speak_press');
+          };
+          recognition.start();
+        } else {
+          // Fallback – simulate after 2s
+          setTimeout(() => {
+            isRecording = false;
+            btn.classList.remove('recording');
+            status.textContent = t('speak_press');
+            showSpeakingResult("Hello! My name is Alex. Nice to meet you!");
+          }, 2000);
+        }
+      }
+    }
+
+    function showSpeakingResult(transcript) {
+      const dialog = document.getElementById('speakDialog');
+      dialog.innerHTML += `<div class="speak-bubble user">
+    <div class="speak-who">👤 You</div>
+    <div class="speak-text">${transcript}</div>
+  </div>`;
+
+      const s = SPEAK_SCENARIOS[speakIdx % SPEAK_SCENARIOS.length];
+      const score = s.expected.split(',').filter(k => transcript.toLowerCase().includes(k.trim())).length;
+      const maxScore = s.expected.split(',').length;
+      const pct = Math.round(score / maxScore * 100);
+
+      const fb = document.getElementById('speakFeedback');
+      fb.style.display = 'block';
+      fb.innerHTML = `<div class="card" style="background:var(--bg3);">
+    <div style="font-weight:800;margin-bottom:8px;">🤖 AI Feedback</div>
+    <div style="color:${pct >= 60 ? 'var(--success)' : 'var(--accent4)'}">
+      ${pct >= 80 ? 'Excellent response! 🌟' : pct >= 60 ? 'Good attempt! 👍' : 'Try to include more key words. 💪'}
+    </div>
+    <div style="color:var(--text2);font-size:.88rem;margin-top:8px;">
+      Key words used: ${score}/${maxScore} | Score: ${pct}%
+    </div>
+    <div style="margin-top:10px;">
+      <button class="btn" onclick="aiSpeakResponse('${transcript.replace(/'/g, "\\'")}')">Get AI full response</button>
+    </div>
+  </div>`;
+      state.xp += pct / 10 | 0;
+    }
+
+    async function aiSpeakResponse(userText) {
+      const s = SPEAK_SCENARIOS[speakIdx % SPEAK_SCENARIOS.length];
+      const fb = document.getElementById('speakFeedback');
+      fb.innerHTML += '<div class="spinner"></div>';
+
+      try {
+        const response = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "claude-sonnet-4-20250514",
+            max_tokens: 300,
+            messages: [{ role: "user", content: `You are an English speaking tutor. The scenario is: "${s.context}". The AI said: "${s.ai}". The student responded: "${userText}". Give brief, encouraging feedback on their English speaking (grammar, vocabulary, naturalness) and provide a model answer. Keep it under 100 words.` }]
+          })
+        });
+        const data = await response.json();
+        const text = data.content[0].text;
+        fb.querySelector('.spinner')?.remove();
+        fb.innerHTML += `<div class="speak-bubble ai" style="margin-top:10px;"><div class="speak-who">🤖 AI Tutor</div><div class="speak-text">${text}</div></div>`;
+        speakText(text);
+      } catch (e) {
+        fb.querySelector('.spinner')?.remove();
+      }
+    }
+
+    // ========================
+    // READING
+    // ========================
+    function renderReading() {
+      ['beginner', 'intermediate', 'advanced'].forEach(level => {
+        const container = document.getElementById('read-' + level);
+        const items = READING[level] || [];
+        container.innerHTML = items.map((item, idx) => `
+      <div class="card">
+        <h3>📝 ${item.title}</h3>
+        <div class="reading-text">${item.text}</div>
+        ${item.q.map((qa, qi) => `
+          <div class="question-block">
+            <div class="q-text">Q${qi + 1}: ${qa.q}</div>
+            <div class="options">
+              ${qa.opts.map((o, i) => `<button class="opt-btn" id="ropt-${level}-${idx}-${qi}-${i}" onclick="checkReadingAns('${level}',${idx},${qi},${i})">${o}</button>`).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `).join('') || '<p style="color:var(--text2);text-align:center;padding:20px;">More content coming soon!</p>';
+      });
+    }
+
+    function checkReadingAns(level, idx, qi, ansIdx) {
+      const item = READING[level][idx];
+      const qa = item.q[qi];
+      const btns = document.querySelectorAll(`[id^="ropt-${level}-${idx}-${qi}-"]`);
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (i === qa.a) b.classList.add('correct');
+        else if (i === ansIdx) b.classList.add('wrong');
+      });
+      if (ansIdx === qa.a) { state.xp += 5; }
+    }
+
+    // ========================
+    // WRITING
+    // ========================
+    function newWritingPrompt() {
+      writingPromptIdx = Math.floor(Math.random() * WRITING_PROMPTS.length);
+      document.getElementById('writingPrompt').innerHTML = `
+    <div style="background:var(--bg3);border-radius:8px;padding:14px;margin-bottom:14px;border-left:4px solid var(--accent2);">
+      <span style="color:var(--accent2);font-weight:700;">✍️ Prompt:</span>
+      <p style="margin-top:6px;color:var(--text);">${WRITING_PROMPTS[writingPromptIdx]}</p>
+    </div>`;
+      document.getElementById('writingArea').value = '';
+      document.getElementById('writingFeedback').innerHTML = '';
+    }
+
+    async function checkWriting() {
+      const text = document.getElementById('writingArea').value.trim();
+      if (!text) { alert('Please write something first!'); return; }
+      const fb = document.getElementById('writingFeedback');
+      fb.innerHTML = '<div class="spinner"></div>';
+
+      try {
+        const response = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "claude-sonnet-4-20250514",
+            max_tokens: 500,
+            messages: [{ role: "user", content: `You are an English writing teacher. The student was asked: "${WRITING_PROMPTS[writingPromptIdx]}". Their response: "${text}". Provide feedback on: 1) Grammar (score /10), 2) Vocabulary (score /10), 3) Coherence (score /10), 4) Overall score (/30). Give specific corrections and suggestions. Be encouraging but honest. Format clearly.` }]
+          })
+        });
+        const data = await response.json();
+        const result = data.content[0].text;
+        fb.innerHTML = `<div class="card" style="background:var(--bg3);">
+      <h3>🤖 AI Writing Feedback</h3>
+      <div style="color:var(--text2);line-height:1.8;white-space:pre-wrap;">${result}</div>
+    </div>`;
+      } catch (e) {
+        fb.innerHTML = '<p style="color:var(--danger);">Error connecting to AI. Please try again.</p>';
+      }
+    }
+
+    // ========================
+    // AI TUTOR CHAT
+    // ========================
+    function clearChat() {
+      chatHistory = [];
+      document.getElementById('chatArea').innerHTML = '';
+      addAIMsg("Hello! I'm your AI English tutor. I'm here 24/7 to help you with grammar, vocabulary, pronunciation, and any questions about the English language. What would you like to learn today?");
+    }
+
+    function addAIMsg(text) {
+      const area = document.getElementById('chatArea');
+      const div = document.createElement('div');
+      div.className = 'msg ai';
+      div.innerHTML = text.replace(/\n/g, '<br>');
+      area.appendChild(div);
+      area.scrollTop = area.scrollHeight;
+    }
+
+    function addUserMsg(text) {
+      const area = document.getElementById('chatArea');
+      const div = document.createElement('div');
+      div.className = 'msg user';
+      div.textContent = text;
+      area.appendChild(div);
+      area.scrollTop = area.scrollHeight;
+    }
+
+    function addTyping() {
+      const area = document.getElementById('chatArea');
+      const div = document.createElement('div');
+      div.className = 'msg ai typing';
+      div.id = 'typingIndicator';
+      div.innerHTML = '<span>●</span><span style="animation-delay:.2s">●</span><span style="animation-delay:.4s">●</span>';
+      area.appendChild(div);
+      area.scrollTop = area.scrollHeight;
+    }
+
+    function quickAsk(q) {
+      document.getElementById('chatInput').value = q;
+      sendChat();
+    }
+
+    async function sendChat() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      input.value = '';
+
+      addUserMsg(msg);
+      chatHistory.push({ role: "user", content: msg });
+      addTyping();
+
+      try {
+        const response = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "claude-sonnet-4-20250514",
+            max_tokens: 600,
+            system: `You are an expert, friendly English language tutor named Alex. You teach English grammar, vocabulary, pronunciation, idioms, and all aspects of the English language. Always give clear, accurate explanations with examples. Use simple formatting. Current interface language: ${currentLang}. If the student writes in Russian/Uzbek/Tajik, respond in both that language AND English for better learning. Always be encouraging and helpful.`,
+            messages: chatHistory
+          })
+        });
+        const data = await response.json();
+        const text = data.content[0].text;
+        document.getElementById('typingIndicator')?.remove();
+        chatHistory.push({ role: "assistant", content: text });
+        addAIMsg(text);
+      } catch (e) {
+        document.getElementById('typingIndicator')?.remove();
+        addAIMsg("Sorry, I had trouble connecting. Please check your internet and try again.");
+      }
+    }
+
+    // ========================
+    // LEADERBOARD
+    // ========================
+    function renderLeaderboard() {
+      const sorted = [...LEADERBOARD].sort((a, b) => b.xp - a.xp);
+      const lb = document.getElementById('leaderboardList');
+      lb.innerHTML = `<h2>🏆 ${t('nav_rank')}</h2>` + sorted.map((u, i) => `
+    <div class="lb-row" style="${u.name === 'You' ? 'border-color:var(--accent);background:rgba(108,99,255,.1);' : ''}">
+      <div class="lb-rank ${i === 0 ? 'g' : i === 1 ? 's' : i === 2 ? 'b' : ''}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</div>
+      <div style="font-size:1.2rem;">${u.flag}</div>
+      <div class="lb-name">${u.name}${u.name === 'You' ? ' (You)' : ''}</div>
+      <div class="lb-xp">${u.xp.toLocaleString()} XP</div>
+      <div><span class="lb-badge">${u.badge}</span></div>
+      <div style="color:var(--accent4);font-size:.85rem;">🔥${u.streak}</div>
     </div>
   `).join('');
-}
+    }
 
-// =========================================================
-// AI TUTOR CHAT
-// =========================================================
-const AI_KEY='';// handled by proxy
+    // ========================
+    // STATS
+    // ========================
+    function renderStats() {
+      const totalTopics = LEVELS.reduce((s, l) => s + l.topics.length, 0);
+      const done = Object.keys(state.completedTopics).length;
+      const scores = Object.values(state.testScores);
+      const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
 
-async function callAI(prompt,system='You are an expert English teacher. Answer clearly and helpfully. Keep responses concise and educational.'){
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system,
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    const data=await res.json();
-    if(data.content&&data.content[0])return data.content[0].text;
-    if(data.error)return getFallbackResponse(prompt);
-    return getFallbackResponse(prompt);
-  }catch(e){return getFallbackResponse(prompt);}
-}
+      document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${state.xp}</div><div class="stat-label">${t('stat_xp')}</div></div>
+    <div class="stat-card"><div class="stat-num">${state.streak}🔥</div><div class="stat-label">${t('stat_streak')}</div></div>
+    <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-label">Topics Done</div></div>
+    <div class="stat-card"><div class="stat-num">${avg}%</div><div class="stat-label">Avg Score</div></div>
+    <div class="stat-card"><div class="stat-num">${totalTopics}</div><div class="stat-label">Total Topics</div></div>
+    <div class="stat-card"><div class="stat-num">${scores.filter(s => s >= 80).length}</div><div class="stat-label">Excellent Tests</div></div>
+  `;
 
-function getFallbackResponse(prompt){
-  const p=prompt.toLowerCase();
-  if(p.includes('grammar')||p.includes('tense'))
-    return "Great question about grammar! English has 12 tenses. The most important ones for beginners are: Present Simple (I work), Past Simple (I worked), and Future Simple (I will work). Would you like me to explain any specific tense in detail?";
-  if(p.includes('vocabulary')||p.includes('word'))
-    return "Building vocabulary is key to English fluency! Try learning 10 new words daily in context. The most effective method: see the word, learn its pronunciation, understand its meaning, and use it in a sentence. Which topic's vocabulary would you like to explore?";
-  if(p.includes('pronunciation')||p.includes('speak'))
-    return "For better pronunciation, focus on: 1) Word stress (im-POR-tant, not IM-portant), 2) Connected speech (gonna, wanna, gonna), 3) The sounds that don't exist in your language. Listen to native speakers daily and repeat! What specific sounds challenge you?";
-  if(p.includes('hello')||p.includes('hi'))
-    return "Hello! Great to meet you! I'm your AI English tutor. I can help you with grammar, vocabulary, pronunciation, writing, and conversation practice. What would you like to work on today?";
-  return "That's a great question! As your English tutor, I'm here to help you improve. The key to English fluency is consistent practice — even 20 minutes daily makes a huge difference. Try using new words in sentences, watch English movies with subtitles, and don't be afraid to make mistakes. What specific aspect of English shall we work on?";
-}
+      document.getElementById('progressBars').innerHTML = LEVELS.map(l => {
+        const done = l.topics.filter(t => state.completedTopics[t]).length;
+        const pct = Math.round(done / l.topics.length * 100);
+        return `<div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span>${l.icon} ${l.name}</span>
+        <span style="color:var(--accent4);">${pct}%</span>
+      </div>
+      <div style="background:var(--bg3);border-radius:6px;height:8px;overflow:hidden;">
+        <div style="width:${pct}%;height:100%;background:${l.color};border-radius:6px;transition:.5s;"></div>
+      </div>
+    </div>`;
+      }).join('');
 
-function initAI(){
-  const chatEl=document.getElementById('ai-chat-messages');
-  if(!chatEl.innerHTML.trim()){
-    chatEl.innerHTML=`<div class="ai-msg"><div class="ai-label">🤖 AI Tutor</div>Hello! I'm your AI English tutor, available 24/7. I can help you with grammar, vocabulary, pronunciation, writing corrections, and conversation practice. What would you like to learn today?</div>`;
-  }
-  const sugg=document.getElementById('ai-suggestions');
-  const suggestions=[
-    'Explain Present Perfect',
-    'Check my writing',
-    'Give me 5 new words',
-    'How to sound more natural?',
-    'What are common mistakes?',
-    'Teach me phrasal verbs',
-  ];
-  sugg.innerHTML=suggestions.map(s=>`<button class="btn btn-outline" style="font-size:.75rem" onclick="sendAIMessageText('${s}')">${s}</button>`).join('');
-}
+      const scoresHtml = Object.entries(state.testScores).map(([k, v]) => {
+        const td = getTopicData(k);
+        return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <span>${td.icon}</span>
+      <span style="flex:1;">${td.name}</span>
+      <div style="width:120px;background:var(--bg3);border-radius:4px;height:6px;overflow:hidden;">
+        <div style="width:${v}%;height:100%;background:${v >= 80 ? 'var(--success)' : v >= 60 ? 'var(--accent4)' : 'var(--danger)'};border-radius:4px;"></div>
+      </div>
+      <span style="color:${v >= 80 ? 'var(--success)' : v >= 60 ? 'var(--accent4)' : 'var(--danger)'};font-weight:700;width:40px;text-align:right;">${v}%</span>
+    </div>`;
+      }).join('') || '<p style="color:var(--text2);">Complete some tests to see scores here!</p>';
 
-async function sendAIMessage(){
-  const inp=document.getElementById('ai-chat-input');
-  const text=inp.value.trim();
-  if(!text)return;
-  sendAIMessageText(text);
-  inp.value='';
-}
+      document.getElementById('topicScores').innerHTML = scoresHtml;
+    }
 
-async function sendAIMessageText(text){
-  const chatEl=document.getElementById('ai-chat-messages');
-  chatEl.innerHTML+=`<div class="user-msg">${text}</div>`;
-  chatEl.innerHTML+=`<div class="ai-msg" id="ai-typing"><div class="ai-label">🤖 AI Tutor</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
-  chatEl.scrollTop=chatEl.scrollHeight;
-  
-  state.chatHistory.push({role:'user',content:text});
-  const history=state.chatHistory.slice(-10);
-  
-  const reply=await callAI(text,`You are an expert English teacher named Alex. You're encouraging, clear, and professional. Answer in the same language the student uses (English, Russian, or Uzbek), but teach English. Give concrete examples. Be concise but thorough. If the student makes grammar mistakes, gently correct them. Current conversation context: the student is a language learner.`);
-  
-  state.chatHistory.push({role:'assistant',content:reply});
-  const typingEl=document.getElementById('ai-typing');
-  if(typingEl)typingEl.innerHTML=`<div class="ai-label">🤖 AI Tutor</div>${reply.replace(/\n/g,'<br>')}`;
-  chatEl.scrollTop=chatEl.scrollHeight;
-  addXP(3);
-}
+    // ========================
+    // INIT
+    // ========================
+    function init() {
+      renderLevelGrid();
+      renderVocab();
+      renderListening();
+      renderReading();
+      renderLeaderboard();
+      renderStats();
+      renderHomeStats();
+      clearChat();
+      newWritingPrompt();
+      renderSpeakScenario();
+    }
 
-// =========================================================
-// TOAST
-// =========================================================
-function showToast(msg,type='success'){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.className='toast '+type+' show';
-  setTimeout(()=>t.classList.remove('show'),2800);
-}
-
-// =========================================================
-// RENDER ALL
-// =========================================================
-function renderAll(){
-  renderTopics();
-  renderVocab();
-  if(document.getElementById('section-listening').classList.contains('active'))renderListening();
-  if(document.getElementById('section-leaderboard').classList.contains('active'))renderLeaderboard();
-  if(document.getElementById('section-reading').classList.contains('active'))renderReading();
-  if(document.getElementById('section-writing').classList.contains('active'))renderWriting();
-}
-
-// init
-renderTopics();
-document.getElementById('xp-badge').textContent='⚡ '+state.xp+' XP';
-updateHomeStats();
-initAI();
-
-// Mobile: close sidebar on nav click
-document.querySelectorAll('.nav-item').forEach(ni=>{
-  ni.addEventListener('click',()=>{
-    if(window.innerWidth<=900){document.querySelector('.sidebar').style.transform='translateX(-100%)';}
-  });
-});
-</script>
+    init();
+  </script>
 </body>
+
 </html>
