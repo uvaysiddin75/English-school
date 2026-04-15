@@ -2595,7 +2595,7 @@
     <div class="fade-in">
       <button class="btn btn-outline" style="margin-bottom:14px" onclick="renderLessons()">← ${L.back}</button>
       <div class="section-title">${topicName}</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:14px">${qCount} questions available · 30 per quiz</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:14px">${qCount} questions available · 50 per quiz</div>
       <div class="grammar-info">
         <pre>${info}</pre>
       </div>
@@ -2607,8 +2607,8 @@
     }
 
     function beginQuiz(key) {
-      const pool = QUESTIONS[key];
-      const selected = shuffle(pool).slice(0, 30);
+      const pool = QUESTIONS[key] || [];
+      const selected = shuffle(pool).slice(0, 50);
       quizState = { topic: key, questions: selected, idx: 0, score: 0, answered: false, done: false };
       tab = 'lessons';
       renderQuiz();
@@ -2928,20 +2928,28 @@
       getAIFeedback(ans.value.trim(), SPEAKING[speakIdx].prompt);
     }
 
+    function buildSpeakingFeedback(answer) {
+      const words = answer.trim().split(/\s+/).filter(Boolean);
+      const lower = answer.toLowerCase();
+      let improve = [];
+
+      if (words.length < 6) improve.push("Try writing a longer answer (at least 1-2 full sentences).");
+      if (!/[.!?]$/.test(answer.trim())) improve.push("Add punctuation at the end of your sentence.");
+      if (/\bi am\b/.test(lower) && !/\bI am\b/.test(answer)) improve.push("Use capital 'I' in English (I, I'm, I am).");
+      if (/\bgoed\b/.test(lower)) improve.push("Use irregular past forms: 'went' instead of 'goed'.");
+      if (/\bdont\b/.test(lower)) improve.push("Use apostrophes in contractions: don't, can't, isn't.");
+
+      if (!improve.length) improve.push("Excellent structure. Try adding one more detail to sound more natural.");
+      const better = answer.trim().length
+        ? answer.trim().replace(/\s+/g, ' ').replace(/^./, c => c.toUpperCase()) + (/[.!?]$/.test(answer.trim()) ? "" : ".")
+        : "I am learning English every day, and I enjoy practicing speaking.";
+
+      return `✅ **What you did well**\nYour answer is clear and understandable. Great effort!\n\n📝 **What to improve**\n- ${improve.join('\n- ')}\n\n💡 **Better version**\n${better}`;
+    }
+
     async function getAIFeedback(answer, prompt) {
       try {
-        const resp = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
-            system: 'You are a warm, encouraging English language teacher. When a student answers a speaking question, give structured feedback in 3 parts:\n1. ✅ What they did well (1-2 sentences)\n2. 📝 What could be improved (grammar, vocabulary, sentence structure - be specific but kind)\n3. 💡 A better version of their answer\n\nKeep total response under 120 words. Use simple language. Be encouraging and supportive.',
-            messages: [{ role: 'user', content: `Speaking question: "${prompt}"\nStudent's answer: "${answer}"\n\nGive feedback on this English answer.` }]
-          })
-        });
-        const data = await resp.json();
-        const text = data.content?.[0]?.text || 'Great effort! Keep practising!';
+        const text = buildSpeakingFeedback(answer, prompt);
         el('speakFeedback').innerHTML = `
       <div class="card" style="border-color:rgba(16,185,129,0.25)">
         <div style="font-size:12px;color:var(--accent2);font-weight:700;margin-bottom:6px">🤖 AI Feedback</div>
@@ -3062,6 +3070,26 @@
       sendChat();
     }
 
+    function buildLocalTutorReply(message) {
+      const m = message.toLowerCase();
+      if (m.includes("present perfect")) {
+        return "Present Perfect = have/has + past participle.\nExamples:\n1) I have finished my homework.\n2) She has visited London.\n3) They have not seen this film yet.";
+      }
+      if (m.includes("since") && m.includes("for")) {
+        return "'Since' = starting point (since 2020, since Monday).\n'For' = duration (for 2 hours, for 3 years).\nExample: I have lived here since 2022 / for 3 years.";
+      }
+      if (m.includes("make") && m.includes("do")) {
+        return "Use 'make' for creating/producing (make a cake, make a decision).\nUse 'do' for actions/tasks (do homework, do the dishes, do exercise).";
+      }
+      if (m.includes("correct my grammar") || m.includes("correct")) {
+        return "Sure! Send your sentence, and I will correct it with explanation.\nExample: ❌ I goed to store yesterday.\n✅ I went to the store yesterday.";
+      }
+      if (m.includes("used to")) {
+        return "'Used to + verb' describes past habits/states that are not true now.\nExample: I used to play football every day (but now I don't).";
+      }
+      return "Great question! Here is a quick tip: write short, clear sentences, then expand with details. If you send one sentence, I can correct it and explain why. 💡";
+    }
+
     async function sendChat() {
       const inp = el('chatInput');
       if (!inp || !inp.value.trim()) return;
@@ -3081,32 +3109,7 @@
       box.scrollTop = box.scrollHeight;
       chatHistory.push({ role: 'user', content: msg });
       try {
-        const resp = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
-            system: `You are an expert English language tutor for speakers of Russian, Uzbek, and Tajik. You help learners understand English grammar, vocabulary, pronunciation, idioms, and writing.
-
-Your teaching style:
-- Clear, simple explanations with concrete examples
-- Point out common mistakes that Russian/Uzbek/Tajik speakers make
-- Give corrected versions when students make grammar errors
-- Use short sentences and avoid complex jargon
-- Include usage examples in context
-- Be warm, encouraging, and motivating
-- Use emojis occasionally to make it engaging
-
-When correcting text: clearly show the mistake and the correction.
-When explaining grammar: give the rule + 2-3 examples.
-When translating: give the translation + explain any nuances.
-Keep responses concise (under 200 words) unless a longer explanation is truly needed.`,
-            messages: chatHistory.map(m => ({ role: m.role, content: m.content }))
-          })
-        });
-        const data = await resp.json();
-        const reply = data.content?.[0]?.text || 'Sorry, I had trouble answering. Please try again!';
+        const reply = buildLocalTutorReply(msg);
         chatHistory.push({ role: 'assistant', content: reply });
         typingDiv.textContent = reply;
         typingDiv.className = 'chat-msg-ai';
