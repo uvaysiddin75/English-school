@@ -4,14 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SpeakUP English — платформа для изучения английского</title>
-<!--
-  РЕКЛАМА (Google AdSense).
-  1) Зарегистрируйтесь на https://adsense.google.com, привяжите свой опубликованный сайт.
-  2) После одобрения Google даст вам ваш ca-pub-XXXXXXXXXXXXXXXX — замените
-     им ЗНАЧЕНИЕ data-ad-client НИЖЕ и в блоках .ad-slot в теле страницы.
-  3) Пока сайт не одобрен, скрипт ничего не покажет — это нормально.
--->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -326,12 +318,65 @@ button{font-family:inherit;cursor:pointer;}
 }
 .mic-btn.listening{background:var(--teal);box-shadow:0 6px 0 #215c43;animation:soundwave 1s infinite;}
 .mic-btn:active{transform:translateY(4px);}
+.mic-btn:disabled{opacity:.5;cursor:not-allowed;}
 .mic-status{font-size:13px;color:var(--ink-soft);margin-bottom:16px;min-height:18px;}
 .speak-result{background:#fbf9f4;border-radius:12px;padding:14px 16px;margin-top:6px;text-align:left;font-size:13.5px;display:none;}
 .speak-result .said{font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);margin-bottom:6px;}
 .match-bar-track{height:8px;border-radius:99px;background:#eee6d3;overflow:hidden;margin:6px 0;}
-.match-bar-fill{height:100%;background:var(--teal);border-radius:99px;}
+.match-bar-fill{height:100%;background:var(--teal);border-radius:99px;transition:width .3s ease;}
 .unsupported-note{background:#fbebe9;border:1px solid #f0cdc9;color:#7f2b25;border-radius:10px;padding:12px 14px;font-size:13px;margin-bottom:18px;text-align:left;}
+.mic-hear-btn{background:none;border:1.5px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:6px 14px;font-size:12.5px;margin-bottom:14px;}
+
+/* ---------- SPLASH ---------- */
+#screen-splash{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:
+    radial-gradient(1200px 800px at 8% -10%, #16474f 0%, transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, #0c2a2f 0%, transparent 55%),
+    linear-gradient(180deg,var(--petrol) 0%, var(--petrol-2) 100%);
+  transition:opacity .5s ease, visibility .5s ease;
+}
+#screen-splash.fade-out{opacity:0;visibility:hidden;pointer-events:none;}
+.splash-badge{
+  width:84px;height:84px;border-radius:20px;
+  background:var(--marigold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:38px;color:var(--ink);
+  box-shadow:0 8px 0 var(--marigold-dark);
+  animation:splashFloat 2.2s ease-in-out infinite;
+  margin-bottom:22px;
+}
+@keyframes splashFloat{
+  0%,100%{transform:translateY(0) rotate(-4deg);}
+  50%{transform:translateY(-10px) rotate(3deg);}
+}
+.splash-title{
+  font-family:'Fraunces',serif;font-weight:700;font-size:28px;color:var(--paper);
+  margin:0 0 6px;letter-spacing:-0.01em;
+}
+.splash-title span{color:var(--marigold);}
+.splash-sub{color:rgba(244,239,226,0.6);font-size:13px;font-family:'IBM Plex Mono',monospace;margin-bottom:28px;letter-spacing:.03em;}
+.splash-track{width:200px;height:5px;border-radius:99px;background:rgba(244,239,226,0.15);overflow:hidden;}
+.splash-fill{height:100%;width:30%;border-radius:99px;background:var(--marigold);animation:splashLoad 1.4s ease-in-out infinite;}
+@keyframes splashLoad{
+  0%{transform:translateX(-100%);}
+  100%{transform:translateX(400%);}
+}
+
+/* ---------- AUTH TABS / ADMIN ---------- */
+.auth-tabs{display:flex;gap:6px;background:#f0e9d6;border-radius:12px;padding:4px;margin-bottom:22px;}
+.auth-tabs button{flex:1;border:none;background:transparent;padding:10px;border-radius:9px;font-size:13.5px;font-weight:700;color:var(--ink-soft);}
+.auth-tabs button.active{background:var(--ink);color:var(--paper);}
+.field-error{color:var(--coral);font-size:12.5px;margin-top:-8px;margin-bottom:14px;min-height:16px;}
+.pw-row{position:relative;}
+.pw-toggle{position:absolute;right:12px;top:38px;background:none;border:none;color:var(--ink-soft);font-size:12px;text-decoration:underline;padding:2px;}
+.admin-link{color:rgba(244,239,226,0.6);background:none;border:none;font-size:13px;text-decoration:underline;}
+.admin-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.admin-table th{text-align:left;padding:10px 12px;color:var(--ink-soft);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;font-family:'IBM Plex Mono',monospace;border-bottom:1.5px solid var(--line);}
+.admin-table td{padding:11px 12px;border-bottom:1px solid var(--line);color:var(--ink);}
+.admin-table tr:last-child td{border-bottom:none;}
+.admin-you{color:var(--teal);font-weight:700;font-size:11px;margin-left:6px;}
 
 /* toast */
 .toast{
@@ -351,26 +396,76 @@ button{font-family:inherit;cursor:pointer;}
 </head>
 <body>
 
+<!-- ===================== SPLASH ===================== -->
+<div id="screen-splash">
+  <div class="splash-badge">🗣️</div>
+  <h1 class="splash-title">SpeakUP <span>English</span></h1>
+  <div class="splash-sub" id="splash-sub">ЗАГРУЖАЕМ ВАШ КАБИНЕТ…</div>
+  <div class="splash-track"><div class="splash-fill"></div></div>
+</div>
+
 <div class="app-shell">
 
   <!-- ===================== LOGIN ===================== -->
-  <div id="screen-login">
+  <div id="screen-login" class="hidden">
     <div class="login-wrap">
       <div class="card login-card">
         <div class="lang-switch" id="lang-switch-login"></div>
         <div class="passport-cover">🗣️</div>
         <h1>SpeakUP <span style="color:var(--marigold-dark);">English</span></h1>
-        <p class="sub" data-i18n="login_sub">Персональный кабинет для изучения английского. Введите имя — и мы создадим ваш профиль с историей тестов, темами и разбором результатов от ИИ.</p>
-        <div class="field">
-          <label for="login-name" data-i18n="login_name_label">Ваше имя</label>
-          <input id="login-name" type="text" data-i18n-placeholder="login_name_ph" placeholder="Например, Азиз" maxlength="30" autocomplete="off">
+        <p class="sub" data-i18n="login_sub">Персональный кабинет для изучения английского. Создайте аккаунт с логином и паролем — и мы сохраним ваш профиль с историей тестов, темами и разбором результатов от ИИ.</p>
+
+        <div class="auth-tabs">
+          <button id="tab-login" class="active" data-i18n="tab_login">Вход</button>
+          <button id="tab-register" data-i18n="tab_register">Регистрация</button>
         </div>
+
+        <div class="field">
+          <label for="login-name" data-i18n="login_name_label">Имя пользователя</label>
+          <input id="login-name" type="text" data-i18n-placeholder="login_name_ph" placeholder="Например, aziz" maxlength="24" autocomplete="username">
+        </div>
+        <div class="field pw-row">
+          <label for="login-pass" data-i18n="login_pass_label">Пароль</label>
+          <input id="login-pass" type="password" data-i18n-placeholder="login_pass_ph" placeholder="Минимум 4 символа" maxlength="60" autocomplete="current-password">
+          <button type="button" class="pw-toggle" id="pw-toggle" data-i18n="pw_show">показать</button>
+        </div>
+        <div class="field hidden" id="field-pass-confirm">
+          <label for="login-pass2" data-i18n="login_pass2_label">Повторите пароль</label>
+          <input id="login-pass2" type="password" data-i18n-placeholder="login_pass2_ph" placeholder="Ещё раз пароль" maxlength="60" autocomplete="new-password">
+        </div>
+        <div class="field-error" id="login-error"></div>
+
         <button class="btn btn-primary" id="btn-login" data-i18n="login_btn">Войти в кабинет →</button>
         <div class="login-note">
           <span>ℹ️</span>
-          <span data-i18n="login_note">Данные (имя и результаты тестов) сохраняются в вашем личном хранилище и привязаны к вашему аккаунту — при следующем визите кабинет будет там же, где вы его оставили.</span>
+          <span data-i18n="login_note">Логин и пароль сохраняются в защищённом хранилище (пароль хешируется и никогда не хранится открытым текстом). При следующем визите с любого устройства войдите с теми же данными — кабинет будет там же, где вы его оставили.</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ===================== ADMIN ===================== -->
+  <div id="screen-admin" class="hidden">
+    <div class="topbar">
+      <div class="brand"><span class="brand-mark">🎤</span> SpeakUP English</div>
+      <div class="topbar-right">
+        <button class="logout-link" id="btn-admin-back" data-i18n="admin_back">← в кабинет</button>
+        <button class="logout-link" id="btn-admin-logout" data-i18n="logout">выйти</button>
+      </div>
+    </div>
+    <div class="section-title"><h3 data-i18n="admin_title">Пользователи платформы</h3><span id="admin-count">0</span></div>
+    <div class="card" style="padding:10px 20px 20px;overflow-x:auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th data-i18n="admin_col_user">Пользователь</th>
+            <th data-i18n="admin_col_joined">Регистрация</th>
+            <th data-i18n="admin_col_tests">Тестов</th>
+            <th data-i18n="admin_col_avg">Средний балл</th>
+          </tr>
+        </thead>
+        <tbody id="admin-tbody"></tbody>
+      </table>
     </div>
   </div>
 
@@ -381,6 +476,7 @@ button{font-family:inherit;cursor:pointer;}
       <div class="brand"><span class="brand-mark">🎤</span> SpeakUP English</div>
       <div class="topbar-right">
         <div class="lang-switch topbar-variant" id="lang-switch-app"></div>
+        <button class="admin-link hidden" id="btn-open-admin" data-i18n="admin_open">👥 пользователи</button>
         <div class="user-chip"><span class="dot"></span><span id="chip-name">—</span></div>
         <button class="logout-link" id="btn-logout" data-i18n="logout">выйти</button>
       </div>
@@ -408,15 +504,6 @@ button{font-family:inherit;cursor:pointer;}
           </div>
         </div>
       </div>
-
-      <!-- Рекламный блок: замените data-ad-client и data-ad-slot на свои после одобрения AdSense -->
-      <ins class="adsbygoogle ad-slot"
-           style="display:block;margin:18px 0;min-height:90px;"
-           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-           data-ad-slot="0000000000"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
       <div class="section-title"><h3 data-i18n="topics_title">Темы: грамматика и лексика</h3><span id="topics-count-label">10 тем</span></div>
       <div class="topic-grid" id="topic-grid"></div>
@@ -498,15 +585,6 @@ button{font-family:inherit;cursor:pointer;}
 
           <div class="review-list" id="review-list"></div>
 
-          <!-- Рекламный блок: показывается после каждого теста -->
-          <ins class="adsbygoogle ad-slot"
-               style="display:block;margin:16px 0;min-height:90px;"
-               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-               data-ad-slot="0000000000"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-
           <div class="results-actions">
             <button class="btn btn-primary" id="btn-retry-topic" style="width:auto;" data-i18n="retry_btn">🔁 Пройти новый тест по теме</button>
             <button class="btn btn-outline" id="btn-back-dash" style="width:auto;" data-i18n="back_dash_btn">В кабинет</button>
@@ -557,6 +635,8 @@ button{font-family:inherit;cursor:pointer;}
             <div class="ru" id="speak-ru">перевод</div>
             <div class="en" id="speak-en">Phrase to say</div>
           </div>
+          <button class="mic-hear-btn" id="btn-hear-phrase" data-i18n="hear_phrase_btn">🔊 услышать образец</button>
+          <br>
           <button class="mic-btn" id="btn-mic">🎤</button>
           <div class="mic-status" id="mic-status" data-i18n="mic_status_default">Нажмите на микрофон и произнесите фразу</div>
           <div class="speak-result" id="speak-result">
@@ -625,10 +705,22 @@ const LANGS = [
 ];
 const TR = {
   ru:{
-    login_sub:"Персональный кабинет для изучения английского. Введите имя — и мы создадим ваш профиль с историей тестов, темами и разбором результатов от ИИ.",
-    login_name_label:"Ваше имя", login_name_ph:"Например, Азиз", login_btn:"Войти в кабинет →",
-    login_note:"Данные (имя и результаты тестов) сохраняются в вашем личном хранилище и привязаны к вашему аккаунту — при следующем визите кабинет будет там же, где вы его оставили.",
+    login_sub:"Персональный кабинет для изучения английского. Создайте аккаунт с логином и паролем — и мы сохраним ваш профиль с историей тестов, темами и разбором результатов от ИИ.",
+    tab_login:"Вход", tab_register:"Регистрация",
+    login_name_label:"Имя пользователя", login_name_ph:"Например, aziz", login_btn:"Войти в кабинет →",
+    login_pass_label:"Пароль", login_pass_ph:"Минимум 4 символа",
+    login_pass2_label:"Повторите пароль", login_pass2_ph:"Ещё раз пароль",
+    pw_show:"показать", pw_hide:"скрыть",
+    login_note:"Логин и пароль сохраняются в защищённом хранилище (пароль хешируется и никогда не хранится открытым текстом). При следующем визите с любого устройства войдите с теми же данными — кабинет будет там же, где вы его оставили.",
     logout:"выйти",
+    err_name_short:"Имя пользователя — минимум 3 символа (латиница/цифры).",
+    err_pass_short:"Пароль должен быть не короче 4 символов.",
+    err_pass_mismatch:"Пароли не совпадают.",
+    err_user_exists:"Пользователь с таким именем уже зарегистрирован.",
+    err_user_notfound:"Такого пользователя не существует. Нажмите «Регистрация».",
+    err_wrong_pass:"Неверный пароль.",
+    admin_open:"👥 пользователи", admin_title:"Пользователи платформы", admin_back:"← в кабинет",
+    admin_col_user:"Пользователь", admin_col_joined:"Регистрация", admin_col_tests:"Тестов", admin_col_avg:"Средний балл",
     hero_eyebrow:"Языковой профиль", hero_desc:"Каждый тест — новый и уникальный набор из 20 вопросов. Изучайте темы подробно, слушайте диалоги, тренируйте произношение — и получайте разбор результатов от ИИ.",
     stat_tests:"тестов пройдено", stat_avg:"средний результат", stat_topics:"тем затронуто", stat_streak:"дней подряд",
     stamps_title:"Штампы прогресса", stamps_hint:"Каждый завершённый тест — новый штамп", stamps_empty:"Пока пусто — пройдите первый тест!",
@@ -640,8 +732,14 @@ const TR = {
     score_sub:"верных ответов", ai_tag:"Разбор от ИИ-преподавателя", retry_btn:"🔁 Пройти новый тест по теме", back_dash_btn:"В кабинет",
     listening_label:"АУДИРОВАНИЕ", speaking_label:"ГОВОРЕНИЕ",
     replay_btn:"▶ прослушать ещё раз", transcript_btn:"показать текст",
-    speak_unsupported:"Ваш браузер не поддерживает распознавание речи (Web Speech API). Эта функция лучше всего работает в Google Chrome на компьютере или Android. Вы можете продолжить и просто потренировать произношение вслух — но автоматическая проверка будет недоступна.",
+    hear_phrase_btn:"🔊 услышать образец",
+    speak_unsupported:"Ваш браузер не поддерживает распознавание речи (Web Speech API). Эта функция лучше всего работает в последней версии Google Chrome на компьютере или Android, и требует разрешения на использование микрофона. Вы можете продолжить и просто потренировать произношение вслух — но автоматическая проверка будет недоступна.",
     mic_status_default:"Нажмите на микрофон и произнесите фразу", you_said:"Вы сказали:",
+    mic_status_listening:"Слушаю… говорите сейчас",
+    mic_status_denied:"Доступ к микрофону запрещён. Разрешите доступ в настройках браузера и попробуйте снова.",
+    mic_status_noresult:"Речь не распознана. Попробуйте произнести фразу чётче и ближе к микрофону.",
+    mic_status_error:"Ошибка распознавания речи. Проверьте подключение к интернету и попробуйте снова.",
+    mic_status_ready:"Готово! Можете попробовать ещё раз или продолжить",
     start_test_btn:"Пройти тест по теме (20 вопросов) →",
     attempts_short:"попыт.", best_badge:"лучший",
     study_topic_btn:"Изучить тему →",
@@ -649,10 +747,22 @@ const TR = {
     lang_note:"Язык интерфейса", topics_word:"тем", records_word:"записей"
   },
   en:{
-    login_sub:"Your personal English learning dashboard. Enter your name and we'll create your profile with test history, topics and AI feedback.",
-    login_name_label:"Your name", login_name_ph:"e.g. Aziz", login_btn:"Enter my dashboard →",
-    login_note:"Your name and test results are saved to your personal storage, linked to your account — next time you visit, everything will be right where you left it.",
+    login_sub:"Your personal English learning dashboard. Create an account with a username and password and we'll keep your profile, test history, topics and AI feedback.",
+    tab_login:"Log in", tab_register:"Register",
+    login_name_label:"Username", login_name_ph:"e.g. aziz", login_btn:"Enter my dashboard →",
+    login_pass_label:"Password", login_pass_ph:"At least 4 characters",
+    login_pass2_label:"Confirm password", login_pass2_ph:"Type your password again",
+    pw_show:"show", pw_hide:"hide",
+    login_note:"Your username and password are saved in secure storage (the password is hashed and never stored as plain text). Next time, from any device, log in with the same details — your dashboard will be exactly as you left it.",
     logout:"log out",
+    err_name_short:"Username must be at least 3 characters (letters/numbers).",
+    err_pass_short:"Password must be at least 4 characters.",
+    err_pass_mismatch:"Passwords do not match.",
+    err_user_exists:"This username is already taken.",
+    err_user_notfound:"No such user. Tap \"Register\" to create an account.",
+    err_wrong_pass:"Incorrect password.",
+    admin_open:"👥 users", admin_title:"Platform users", admin_back:"← back to dashboard",
+    admin_col_user:"User", admin_col_joined:"Joined", admin_col_tests:"Tests", admin_col_avg:"Avg score",
     hero_eyebrow:"Language profile", hero_desc:"Every test is a brand-new set of 20 questions. Study each topic in detail, listen to dialogues, practice pronunciation — and get AI feedback after every attempt.",
     stat_tests:"tests taken", stat_avg:"average score", stat_topics:"topics tried", stat_streak:"day streak",
     stamps_title:"Progress stamps", stamps_hint:"Every finished test adds a new stamp", stamps_empty:"Nothing yet — complete your first test!",
@@ -664,8 +774,14 @@ const TR = {
     score_sub:"correct answers", ai_tag:"AI teacher feedback", retry_btn:"🔁 Take a new test on this topic", back_dash_btn:"Back to dashboard",
     listening_label:"LISTENING", speaking_label:"SPEAKING",
     replay_btn:"▶ play again", transcript_btn:"show transcript",
-    speak_unsupported:"Your browser doesn't support speech recognition (Web Speech API). This works best in Google Chrome on desktop or Android. You can still practice speaking out loud, but automatic scoring won't be available.",
+    hear_phrase_btn:"🔊 hear the sample",
+    speak_unsupported:"Your browser doesn't support speech recognition (Web Speech API). This works best in the latest Google Chrome on desktop or Android, and requires microphone permission. You can still practice speaking out loud, but automatic scoring won't be available.",
     mic_status_default:"Tap the microphone and say the phrase", you_said:"You said:",
+    mic_status_listening:"Listening… speak now",
+    mic_status_denied:"Microphone access denied. Please allow microphone access in your browser settings and try again.",
+    mic_status_noresult:"Couldn't recognize your speech. Try speaking more clearly, closer to the microphone.",
+    mic_status_error:"Speech recognition error. Check your internet connection and try again.",
+    mic_status_ready:"Done! Try again or move on",
     start_test_btn:"Take the topic test (20 questions) →",
     attempts_short:"tries", best_badge:"best",
     study_topic_btn:"Study this topic →",
@@ -673,9 +789,10 @@ const TR = {
     lang_note:"Interface language", topics_word:"topics", records_word:"records"
   },
   uz:{
-    login_sub:"Ingliz tilini o'rganish uchun shaxsiy kabinet. Ismingizni kiriting — testlar tarixi, mavzular va AI tahlili bilan profilingiz yaratiladi.",
-    login_name_label:"Ismingiz", login_name_ph:"Masalan, Aziz", login_btn:"Kabinetga kirish →",
-    login_note:"Ismingiz va test natijalari sizning shaxsiy xotirangizda saqlanadi va hisobingizga bog'langan — keyingi safar kabinet xuddi shu joyda bo'ladi.",
+    login_sub:"Ingliz tilini o'rganish uchun shaxsiy kabinet. Login va parol bilan hisob yarating — biz profilingizni, testlar tarixini va AI tahlilini saqlaymiz.",
+    login_name_label:"Foydalanuvchi nomi", login_name_ph:"Masalan, aziz", login_btn:"Kabinetga kirish →",
+    login_pass_label:"Parol", login_pass_ph:"Kamida 4 belgi",
+    login_pass2_label:"Parolni takrorlang", login_pass2_ph:"Parolni yana kiriting",
     logout:"chiqish",
     hero_eyebrow:"Til profili", hero_desc:"Har bir test — 20 ta savoldan iborat yangi va o'ziga xos to'plam. Mavzularni batafsil o'rganing, dialoglarni tinglang, talaffuzni mashq qiling — va AI dan natijalar tahlilini oling.",
     stat_tests:"testlar topshirildi", stat_avg:"o'rtacha natija", stat_topics:"mavzular o'rganildi", stat_streak:"kun ketma-ket",
@@ -688,7 +805,7 @@ const TR = {
     score_sub:"to'g'ri javoblar", ai_tag:"AI o'qituvchi tahlili", retry_btn:"🔁 Mavzu bo'yicha yangi test", back_dash_btn:"Kabinetga qaytish",
     listening_label:"TINGLASH", speaking_label:"GAPIRISH",
     replay_btn:"▶ yana tinglash", transcript_btn:"matnni ko'rsatish",
-    speak_unsupported:"Brauzeringiz nutqni tanishni (Web Speech API) qo'llab-quvvatlamaydi. Bu funksiya Google Chrome brauzerida (kompyuter yoki Android) yaxshi ishlaydi. Siz baribir talaffuzni mashq qilishingiz mumkin, lekin avtomatik baholash mavjud bo'lmaydi.",
+    speak_unsupported:"Brauzeringiz nutqni tanishni (Web Speech API) qo'llab-quvvatlamaydi. Bu funksiya Google Chrome brauzerida (kompyuter yoki Android) yaxshi ishlaydi va mikrofonga ruxsat talab qiladi. Siz baribir talaffuzni mashq qilishingiz mumkin, lekin avtomatik baholash mavjud bo'lmaydi.",
     mic_status_default:"Mikrofonni bosing va iborani talaffuz qiling", you_said:"Siz aytdingiz:",
     start_test_btn:"Mavzu bo'yicha testni boshlash (20 savol) →",
     attempts_short:"urinish", best_badge:"eng yaxshi",
@@ -697,9 +814,10 @@ const TR = {
     lang_note:"Interfeys tili", topics_word:"mavzu", records_word:"yozuv"
   },
   tj:{
-    login_sub:"Кабинети шахсӣ барои омӯзиши забони англисӣ. Номи худро ворид кунед — мо профили шуморо бо таърихи тестҳо, мавзӯъҳо ва таҳлили ИИ месозем.",
-    login_name_label:"Номи шумо", login_name_ph:"Масалан, Азиз", login_btn:"Ворид шудан ба кабинет →",
-    login_note:"Ном ва натиҷаҳои тести шумо дар анбори шахсии шумо нигоҳ дошта мешаванд ва ба ҳисоби шумо пайваст мешаванд — дафъаи оянда кабинет дар ҳамон ҷо хоҳад буд.",
+    login_sub:"Кабинети шахсӣ барои омӯзиши забони англисӣ. Ҳисоберо бо логин ва парол созед — мо профил, таърихи тестҳо ва таҳлили ИИ-ро нигоҳ медорем.",
+    login_name_label:"Номи корбар", login_name_ph:"Масалан, aziz", login_btn:"Ворид шудан ба кабинет →",
+    login_pass_label:"Парол", login_pass_ph:"Ҳадди ақал 4 аломат",
+    login_pass2_label:"Паролро такрор кунед", login_pass2_ph:"Боз як бор парол",
     logout:"баромадан",
     hero_eyebrow:"Профили забонӣ", hero_desc:"Ҳар тест — маҷмӯи нав аз 20 савол. Мавзӯъҳоро муфассал омӯзед, диалогҳоро гӯш кунед, талаффузро машқ кунед — ва аз ИИ таҳлили натиҷаҳоро гиред.",
     stat_tests:"тестҳо гузаронида шуд", stat_avg:"натиҷаи миёна", stat_topics:"мавзӯъҳо фаро гирифта шуд", stat_streak:"рӯзи паиҳам",
@@ -712,7 +830,7 @@ const TR = {
     score_sub:"ҷавобҳои дуруст", ai_tag:"Таҳлили муаллими ИИ", retry_btn:"🔁 Тести нав аз рӯи мавзӯъ", back_dash_btn:"Ба кабинет",
     listening_label:"ГӮШ КАРДАН", speaking_label:"ГУФТУГӮ",
     replay_btn:"▶ дубора гӯш кунед", transcript_btn:"матнро нишон диҳед",
-    speak_unsupported:"Браузери шумо шинохти нутқро (Web Speech API) дастгирӣ намекунад. Ин функсия дар Google Chrome (компютер ё Android) беҳтарин кор мекунад. Шумо метавонед талаффузро машқ кунед, аммо санҷиши худкор дастрас нахоҳад буд.",
+    speak_unsupported:"Браузери шумо шинохти нутқро (Web Speech API) дастгирӣ намекунад. Ин функсия дар Google Chrome (компютер ё Android) беҳтарин кор мекунад ва иҷозати микрофонро талаб мекунад. Шумо метавонед талаффузро машқ кунед, аммо санҷиши худкор дастрас нахоҳад буд.",
     mic_status_default:"Микрофонро пахш кунед ва ибораро талаффуз кунед", you_said:"Шумо гуфтед:",
     start_test_btn:"Тестро аз рӯи мавзӯъ сар кунед (20 савол) →",
     attempts_short:"кӯшиш", best_badge:"беҳтарин",
@@ -1666,6 +1784,66 @@ const LISTENING_BANK = [
     q:"Что помогло ей завести друзей?",
     options:["Работа","Спортивный клуб","Онлайн-знакомства","Соседи"],
     correct:"Спортивный клуб"
+  },
+  {
+    text:"The doctor recommended drinking at least eight glasses of water a day and getting a full night of sleep to help the headaches go away.",
+    q:"Что порекомендовал врач?",
+    options:["Больше спать и меньше пить воды","Пить больше воды и высыпаться","Принимать таблетки","Меньше работать"],
+    correct:"Пить больше воды и высыпаться"
+  },
+  {
+    text:"Unfortunately, the elevator is out of order today, so please use the stairs on the left to reach the second and third floors.",
+    q:"Почему нужно пользоваться лестницей?",
+    options:["Лифт слишком медленный","Лифт не работает","Лестница ближе","Лифт только для персонала"],
+    correct:"Лифт не работает"
+  },
+  {
+    text:"The company announced that all employees will be able to work from home two days a week starting next month, following positive feedback from the trial period.",
+    q:"Что изменится у сотрудников со следующего месяца?",
+    options:["Они будут работать из дома два дня в неделю","Их уволят","Они получат прибавку","Они будут работать больше часов"],
+    correct:"Они будут работать из дома два дня в неделю"
+  },
+  {
+    text:"I forgot my umbrella at home this morning, and of course, it started raining heavily right when I left the office.",
+    q:"Что забыл человек дома?",
+    options:["Телефон","Ключи","Зонт","Кошелёк"],
+    correct:"Зонт"
+  },
+  {
+    text:"The new library opens at eight in the morning on weekdays, but on weekends it only opens at eleven and closes earlier, at six in the evening.",
+    q:"Во сколько библиотека открывается по выходным?",
+    options:["В 8 утра","В 9 утра","В 11 утра","В 6 вечера"],
+    correct:"В 11 утра"
+  },
+  {
+    text:"She was so nervous before her driving test that she could barely sleep the night before, but in the end she passed with no mistakes at all.",
+    q:"Как прошёл экзамен по вождению?",
+    options:["Она провалила экзамен","Она сдала без единой ошибки","Экзамен перенесли","Она не пришла на экзамен"],
+    correct:"Она сдала без единой ошибки"
+  },
+  {
+    text:"Please keep your seatbelt fastened while the sign is on, even if the seatbelt sign has been turned off during the flight, for your own safety.",
+    q:"Что советуют делать пассажирам во время полёта?",
+    options:["Снять ремень сразу после взлёта","Держать ремень пристёгнутым для безопасности","Вставать как можно чаще","Отключить телефон"],
+    correct:"Держать ремень пристёгнутым для безопасности"
+  },
+  {
+    text:"After trying several diets that didn't work, she finally found success by simply cooking more meals at home instead of ordering takeout.",
+    q:"Что помогло ей добиться результата?",
+    options:["Дорогая диета","Готовка дома вместо заказа еды","Тренажёрный зал","Таблетки для похудения"],
+    correct:"Готовка дома вместо заказа еды"
+  },
+  {
+    text:"The hotel offers free breakfast every morning from seven to ten, and guests can also use the swimming pool at any time during their stay.",
+    q:"До скольки подаётся завтрак в отеле?",
+    options:["До 9 утра","До 10 утра","До 11 утра","Завтрак не включён"],
+    correct:"До 10 утра"
+  },
+  {
+    text:"He was late for the meeting because his car broke down on the highway, and he had to wait almost an hour for roadside assistance to arrive.",
+    q:"Почему он опоздал на встречу?",
+    options:["Проспал","Машина сломалась","Забыл о встрече","Попал в пробку"],
+    correct:"Машина сломалась"
   }
 ];
 
@@ -1697,24 +1875,71 @@ const SPEAKING_BANK = [
 
 /* ==========================================================================
    ХРАНИЛИЩЕ (window.storage)
+   Логин/пароль хранятся в SHARED-хранилище (единый реестр пользователей),
+   личная история/профиль — тоже в shared, но под ключом с именем пользователя,
+   чтобы вход работал одинаково с любого устройства/браузера по паролю,
+   а не только "автоматически" по аккаунту Claude.
    ========================================================================== */
+async function sha256Hex(text){
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function randomSalt(){
+  const arr = new Uint8Array(16);
+  crypto.getRandomValues(arr);
+  return Array.from(arr).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function normUser(name){ return name.trim().toLowerCase(); }
+
 const Store = {
-  async getProfile(){
-    try{ const r = await window.storage.get('profile', false); return r ? JSON.parse(r.value) : null; }
+  async getUserRecord(username){
+    try{ const r = await window.storage.get('user:'+normUser(username), true); return r ? JSON.parse(r.value) : null; }
     catch(e){ return null; }
   },
-  async setProfile(profile){
-    try{ await window.storage.set('profile', JSON.stringify(profile), false); }catch(e){ console.error(e); }
+  async setUserRecord(username, record){
+    try{ await window.storage.set('user:'+normUser(username), JSON.stringify(record), true); }catch(e){ console.error(e); }
   },
-  async getHistory(){
-    try{ const r = await window.storage.get('history', false); return r ? JSON.parse(r.value) : []; }
+  async addToUserIndex(username){
+    try{
+      const key = 'users_index';
+      let list = [];
+      try{ const r = await window.storage.get(key, true); list = r ? JSON.parse(r.value) : []; }catch(e){ list = []; }
+      const u = normUser(username);
+      if(!list.includes(u)){ list.push(u); await window.storage.set(key, JSON.stringify(list), true); }
+    }catch(e){ console.error(e); }
+  },
+  async getUserIndex(){
+    try{ const r = await window.storage.get('users_index', true); return r ? JSON.parse(r.value) : []; }
     catch(e){ return []; }
   },
-  async addHistory(record){
-    const hist = await this.getHistory();
+  async getProfile(username){
+    try{ const r = await window.storage.get('profile:'+normUser(username), true); return r ? JSON.parse(r.value) : null; }
+    catch(e){ return null; }
+  },
+  async setProfile(username, profile){
+    try{ await window.storage.set('profile:'+normUser(username), JSON.stringify(profile), true); }catch(e){ console.error(e); }
+  },
+  async getHistory(username){
+    try{ const r = await window.storage.get('history:'+normUser(username), true); return r ? JSON.parse(r.value) : []; }
+    catch(e){ return []; }
+  },
+  async addHistory(username, record){
+    const hist = await this.getHistory(username);
     hist.unshift(record);
-    try{ await window.storage.set('history', JSON.stringify(hist.slice(0,300)), false); }catch(e){ console.error(e); }
+    try{ await window.storage.set('history:'+normUser(username), JSON.stringify(hist.slice(0,300)), true); }catch(e){ console.error(e); }
     return hist;
+  },
+  // локальный "запомненный" логин на этом устройстве, чтобы не вводить пароль каждый раз
+  async rememberDevice(username){
+    try{ await window.storage.set('remember_me', username, false); }catch(e){}
+  },
+  async getRememberedUser(){
+    try{ const r = await window.storage.get('remember_me', false); return r ? r.value : null; }
+    catch(e){ return null; }
+  },
+  async forgetDevice(){
+    try{ await window.storage.set('remember_me', '', false); }catch(e){}
   }
 };
 
@@ -1723,14 +1948,17 @@ const Store = {
    ========================================================================== */
 const App = {
   profile:null,
+  username:null,
   history:[],
   lang:'ru',
+  authMode:'login', // 'login' | 'register'
   currentTest:null,       // {topicId, questions, index, correctCount, answers:[]}
   currentListen:null,     // {items, index, correctCount, answered}
   listenRate:0.95,
   currentSpeak:null,      // {items, index}
   speechRecognition:null,
-  recognizing:false
+  recognizing:false,
+  micStream:null
 };
 
 function screen(id){
@@ -1740,50 +1968,178 @@ function screen(id){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-/* ---------------------------- ВХОД / ВЫХОД ------------------------------ */
-document.getElementById('btn-login').addEventListener('click', doLogin);
-document.getElementById('login-name').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+/* ---------------------------- SPLASH ------------------------------------ */
+function hideSplash(){
+  const splash = document.getElementById('screen-splash');
+  splash.classList.add('fade-out');
+  setTimeout(()=>{ splash.style.display='none'; }, 550);
+}
 
-async function doLogin(){
+/* ---------------------------- ВХОД / РЕГИСТРАЦИЯ ------------------------------ */
+document.getElementById('btn-login').addEventListener('click', doAuthSubmit);
+document.getElementById('login-name').addEventListener('keydown', e=>{ if(e.key==='Enter') doAuthSubmit(); });
+document.getElementById('login-pass').addEventListener('keydown', e=>{ if(e.key==='Enter') doAuthSubmit(); });
+document.getElementById('login-pass2').addEventListener('keydown', e=>{ if(e.key==='Enter') doAuthSubmit(); });
+
+document.getElementById('tab-login').addEventListener('click', ()=>setAuthMode('login'));
+document.getElementById('tab-register').addEventListener('click', ()=>setAuthMode('register'));
+function setAuthMode(mode){
+  App.authMode = mode;
+  document.getElementById('tab-login').classList.toggle('active', mode==='login');
+  document.getElementById('tab-register').classList.toggle('active', mode==='register');
+  document.getElementById('field-pass-confirm').classList.toggle('hidden', mode!=='register');
+  document.getElementById('login-btn') && null;
+  document.getElementById('btn-login').textContent = mode==='login' ? t2('login_btn') : (App.lang==='en' ? 'Create account →' : (App.lang==='ru' ? 'Создать аккаунт →' : t2('login_btn')));
+  document.getElementById('login-error').textContent = '';
+}
+
+document.getElementById('pw-toggle').addEventListener('click', ()=>{
+  const p1 = document.getElementById('login-pass');
+  const p2 = document.getElementById('login-pass2');
+  const showing = p1.type === 'text';
+  p1.type = showing ? 'password' : 'text';
+  p2.type = showing ? 'password' : 'text';
+  document.getElementById('pw-toggle').textContent = showing ? t2('pw_show') : t2('pw_hide');
+});
+
+async function doAuthSubmit(){
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = '';
   const nameInput = document.getElementById('login-name');
-  const name = nameInput.value.trim();
-  if(!name){ nameInput.focus(); showToast('Пожалуйста, введите имя'); return; }
-  let profile = await Store.getProfile();
-  if(!profile || profile.name !== name){
-    profile = { name, joined: new Date().toISOString() };
-    await Store.setProfile(profile);
+  const passInput = document.getElementById('login-pass');
+  const pass2Input = document.getElementById('login-pass2');
+  const username = nameInput.value.trim();
+  const pass = passInput.value;
+  const pass2 = pass2Input.value;
+
+  if(username.length < 3 || !/^[a-zA-Z0-9_\-\.]+$/.test(username)){
+    errEl.textContent = t2('err_name_short'); nameInput.focus(); return;
   }
+  if(pass.length < 4){
+    errEl.textContent = t2('err_pass_short'); passInput.focus(); return;
+  }
+
+  const btn = document.getElementById('btn-login');
+  btn.disabled = true;
+  const originalLabel = btn.textContent;
+  btn.textContent = '…';
+
+  try{
+    if(App.authMode === 'register'){
+      if(pass !== pass2){ errEl.textContent = t2('err_pass_mismatch'); pass2Input.focus(); return; }
+      const existing = await Store.getUserRecord(username);
+      if(existing){ errEl.textContent = t2('err_user_exists'); return; }
+      const salt = randomSalt();
+      const hash = await sha256Hex(salt + pass);
+      const joined = new Date().toISOString();
+      await Store.setUserRecord(username, { username, salt, hash, joined });
+      await Store.addToUserIndex(username);
+      await Store.setProfile(username, { name: username, joined });
+      await completeLogin(username);
+    } else {
+      const existing = await Store.getUserRecord(username);
+      if(!existing){ errEl.textContent = t2('err_user_notfound'); return; }
+      const hash = await sha256Hex(existing.salt + pass);
+      if(hash !== existing.hash){ errEl.textContent = t2('err_wrong_pass'); return; }
+      await completeLogin(username);
+    }
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  }
+}
+
+async function completeLogin(username){
+  App.username = normUser(username);
+  let profile = await Store.getProfile(App.username);
+  if(!profile){ profile = { name: username, joined: new Date().toISOString() }; await Store.setProfile(App.username, profile); }
   App.profile = profile;
-  App.history = await Store.getHistory();
+  App.history = await Store.getHistory(App.username);
+  await Store.rememberDevice(App.username);
   document.getElementById('screen-login').classList.add('hidden');
   document.getElementById('screen-app').classList.remove('hidden');
   document.getElementById('chip-name').textContent = profile.name;
+  document.getElementById('btn-open-admin').classList.remove('hidden');
   renderDashboard();
 }
 
-document.getElementById('btn-logout').addEventListener('click', ()=>{
+document.getElementById('btn-logout').addEventListener('click', async ()=>{
+  await Store.forgetDevice();
+  App.profile = null; App.username = null; App.history = [];
   document.getElementById('screen-app').classList.add('hidden');
+  document.getElementById('screen-admin').classList.add('hidden');
   document.getElementById('screen-login').classList.remove('hidden');
   document.getElementById('login-name').value='';
+  document.getElementById('login-pass').value='';
+  document.getElementById('login-pass2').value='';
 });
 
-/* Инициализация: язык интерфейса + автовход, если профиль уже сохранён */
+/* ---------------------------- АДМИН-ПАНЕЛЬ (список пользователей) ------- */
+document.getElementById('btn-open-admin').addEventListener('click', openAdmin);
+document.getElementById('btn-admin-back').addEventListener('click', ()=>{
+  document.getElementById('screen-admin').classList.add('hidden');
+  document.getElementById('screen-app').classList.remove('hidden');
+});
+document.getElementById('btn-admin-logout').addEventListener('click', ()=>{
+  document.getElementById('btn-logout').click();
+});
+async function openAdmin(){
+  document.getElementById('screen-app').classList.add('hidden');
+  document.getElementById('screen-admin').classList.remove('hidden');
+  const tbody = document.getElementById('admin-tbody');
+  tbody.innerHTML = `<tr><td colspan="4">…</td></tr>`;
+  const usernames = await Store.getUserIndex();
+  document.getElementById('admin-count').textContent = usernames.length;
+  const rows = await Promise.all(usernames.map(async u=>{
+    const [rec, hist] = await Promise.all([Store.getUserRecord(u), Store.getHistory(u)]);
+    const total = hist.length;
+    const avg = total ? Math.round(hist.reduce((s,h)=>s+(h.percent||0),0)/total) : null;
+    const joined = rec && rec.joined ? new Date(rec.joined).toLocaleDateString('ru-RU') : '—';
+    const youTag = (u === App.username) ? `<span class="admin-you">(вы)</span>` : '';
+    return `<tr><td>${escapeHtml(u)}${youTag}</td><td>${joined}</td><td>${total}</td><td>${avg===null?'—':avg+'%'}</td></tr>`;
+  }));
+  tbody.innerHTML = rows.length ? rows.join('') : `<tr><td colspan="4">—</td></tr>`;
+}
+
+/* Инициализация: язык интерфейса + сплэш + автовход по "запомненному" устройству */
 (async function init(){
+  const splashStart = Date.now();
   try{
     const langRes = await window.storage.get('lang', false);
     if(langRes && langRes.value && TR[langRes.value]) App.lang = langRes.value;
   }catch(e){ /* нет сохранённого языка — используем ru по умолчанию */ }
   applyI18n();
+  setAuthMode('login');
 
-  const profile = await Store.getProfile();
-  if(profile && profile.name){
-    App.profile = profile;
-    App.history = await Store.getHistory();
-    document.getElementById('screen-login').classList.add('hidden');
-    document.getElementById('screen-app').classList.remove('hidden');
-    document.getElementById('chip-name').textContent = profile.name;
-    renderDashboard();
-  }
+  let autoLoggedIn = false;
+  try{
+    const remembered = await Store.getRememberedUser();
+    if(remembered){
+      const profile = await Store.getProfile(remembered);
+      if(profile){
+        App.username = remembered;
+        App.profile = profile;
+        App.history = await Store.getHistory(remembered);
+        document.getElementById('chip-name').textContent = profile.name;
+        document.getElementById('btn-open-admin').classList.remove('hidden');
+        autoLoggedIn = true;
+      }
+    }
+  }catch(e){ /* ignore */ }
+
+  // не даём сплэшу мигнуть слишком быстро — минимум ~900мс красивой загрузки
+  const elapsed = Date.now() - splashStart;
+  const wait = Math.max(0, 900 - elapsed);
+  setTimeout(()=>{
+    if(autoLoggedIn){
+      document.getElementById('screen-login').classList.add('hidden');
+      document.getElementById('screen-app').classList.remove('hidden');
+      renderDashboard();
+    } else {
+      document.getElementById('screen-login').classList.remove('hidden');
+    }
+    hideSplash();
+  }, wait);
 })();
 
 /* ---------------------------- DASHBOARD ---------------------------------- */
@@ -1962,7 +2318,7 @@ async function finishTest(){
     percent,
     wrongItems: t.answers.filter(a=>!a.isCorrect).slice(0,8)
   };
-  App.history = await Store.addHistory(record);
+  App.history = await Store.addHistory(App.username, record);
   renderResults(record);
   screen('screen-results');
 }
@@ -2007,17 +2363,17 @@ async function fetchAIFeedback(record){
   const langName = FEEDBACK_LANG_NAME[App.lang] || FEEDBACK_LANG_NAME.ru;
   const prompt = `You are an experienced, friendly English teacher. A student just finished a test on the topic "${record.topicTitle}" and answered ${record.correct} out of ${record.total} questions correctly (${record.percent}%). ${wrongList ? 'Examples of mistakes: '+wrongList+'.' : 'There were no mistakes.'} Write short, personal feedback IN THE ${langName.toUpperCase()} LANGUAGE ONLY (3-4 sentences, friendly and motivating tone): mention their strengths, point out any pattern in the mistakes if there is one, and give one concrete tip on what to review next. Do not use markdown formatting, just plain text, and do not mix in other languages.`;
   try{
-    // Запрос идёт на СВОЙ backend (/api/feedback), а не напрямую в Anthropic —
-    // ключ API хранится на сервере и никогда не попадает в браузер пользователя.
-    // Код самой serverless-функции: /api/feedback.js (см. отдельный файл).
-    const response = await fetch("/api/feedback", {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
       method:"POST",
       headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({ prompt })
+      body: JSON.stringify({
+        model:"claude-sonnet-4-6",
+        max_tokens:1000,
+        messages:[{ role:"user", content: prompt }]
+      })
     });
-    if(!response.ok) throw new Error('backend error');
     const data = await response.json();
-    const text = (data.text || '').trim();
+    const text = (data.content||[]).map(b=>b.text||'').join('\n').trim();
     el.textContent = text || fallbackFeedback(record);
   }catch(e){
     el.textContent = fallbackFeedback(record);
@@ -2062,7 +2418,7 @@ function fallbackFeedback(record){
    ========================================================================== */
 document.getElementById('btn-start-listening').addEventListener('click', startListening);
 function startListening(){
-  const items = pickN(LISTENING_BANK, 12);
+  const items = pickN(LISTENING_BANK, 15);
   App.currentListen = { items, index:0, correctCount:0, answered:false };
   screen('screen-listening');
   renderSpeedRow();
@@ -2091,25 +2447,39 @@ function renderListenItem(){
   document.getElementById('listen-transcript').textContent = item.text;
   const optsWrap = document.getElementById('listen-options');
   const letters = ['A','B','C','D'];
-  const shuffledOptions = shuffle(item.options);
-  optsWrap.innerHTML = shuffledOptions.map((opt,i)=>`<button class="opt-btn" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${escapeHtml(opt)}</span></button>`).join('');
+  optsWrap.innerHTML = item.options.map((opt,i)=>`<button class="opt-btn" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${escapeHtml(opt)}</span></button>`).join('');
   document.getElementById('btn-next-listen').classList.add('hidden');
   Array.from(optsWrap.querySelectorAll('.opt-btn')).forEach(btn=>{
     btn.addEventListener('click', ()=>onAnswerListen(btn, item));
   });
   playListeningAudio(item.text);
 }
-function playListeningAudio(text){
+let listenVoicesReady = false;
+function ensureVoicesLoaded(){
+  return new Promise(resolve=>{
+    if(!('speechSynthesis' in window)){ resolve(); return; }
+    const voices = window.speechSynthesis.getVoices();
+    if(voices && voices.length){ listenVoicesReady = true; resolve(); return; }
+    window.speechSynthesis.onvoiceschanged = ()=>{ listenVoicesReady = true; resolve(); };
+    setTimeout(resolve, 800); // защита от браузеров, не поддерживающих onvoiceschanged
+  });
+}
+async function playListeningAudio(text){
   if(!('speechSynthesis' in window)) { showToast('Синтез речи не поддерживается в этом браузере'); return; }
+  await ensureVoicesLoaded();
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'en-US';
   u.rate = App.listenRate || 0.95;
+  const voices = window.speechSynthesis.getVoices();
+  const enVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('en'));
+  if(enVoice) u.voice = enVoice;
   const btn = document.getElementById('btn-play-audio');
   btn.classList.add('speaking');
   u.onend = ()=>btn.classList.remove('speaking');
   u.onerror = ()=>btn.classList.remove('speaking');
-  window.speechSynthesis.speak(u);
+  // небольшой таймаут перед запуском — надёжнее в некоторых браузерах после cancel()
+  setTimeout(()=>{ try{ window.speechSynthesis.speak(u); }catch(e){ btn.classList.remove('speaking'); } }, 60);
 }
 document.getElementById('btn-play-audio').addEventListener('click', ()=>{
   const st = App.currentListen;
@@ -2148,7 +2518,7 @@ document.getElementById('btn-next-listen').addEventListener('click', async ()=>{
       date:new Date().toISOString(), kind:'listening', topicId:'listening', topicTitle:'Listening — аудирование',
       correct: st.correctCount, total: st.items.length, percent, wrongItems:[]
     };
-    App.history = await Store.addHistory(record);
+    App.history = await Store.addHistory(App.username, record);
     renderResults(record);
     document.getElementById('btn-retry-topic').onclick = ()=>{ startListening(); };
     screen('screen-results');
@@ -2167,13 +2537,16 @@ document.getElementById('btn-exit-listening').addEventListener('click', ()=>{
    SPEAKING
    ========================================================================== */
 const SpeechRecCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+const isSecureCtx = window.isSecureContext !== false; // https или localhost
 
 document.getElementById('btn-start-speaking').addEventListener('click', startSpeaking);
 function startSpeaking(){
   const items = pickN(SPEAKING_BANK, 12);
   App.currentSpeak = { items, index:0, scores:[] };
   screen('screen-speaking');
-  document.getElementById('speak-unsupported').classList.toggle('hidden', !!SpeechRecCtor);
+  const supported = !!SpeechRecCtor && isSecureCtx;
+  document.getElementById('speak-unsupported').classList.toggle('hidden', supported);
+  document.getElementById('btn-mic').disabled = !supported;
   renderSpeakItem();
 }
 function renderSpeakItem(){
@@ -2184,10 +2557,15 @@ function renderSpeakItem(){
   document.getElementById('speak-ru').textContent = item.ru;
   document.getElementById('speak-en').textContent = item.en;
   document.getElementById('speak-result').style.display = 'none';
-  document.getElementById('mic-status').textContent = 'Нажмите на микрофон и произнесите фразу';
+  document.getElementById('mic-status').textContent = t2('mic_status_default');
   document.getElementById('btn-next-speak').classList.add('hidden');
   document.getElementById('btn-mic').classList.remove('listening');
 }
+document.getElementById('btn-hear-phrase').addEventListener('click', ()=>{
+  const st = App.currentSpeak;
+  if(!st) return;
+  playListeningAudio(st.items[st.index].en);
+});
 function wordOverlapScore(target, said){
   const norm = s => s.toLowerCase().replace(/[^a-z\s']/g,'').split(/\s+/).filter(Boolean);
   const t = norm(target), sSaid = norm(said);
@@ -2200,29 +2578,76 @@ function wordOverlapScore(target, said){
   });
   return Math.round((matched/t.length)*100);
 }
-document.getElementById('btn-mic').addEventListener('click', ()=>{
-  if(!SpeechRecCtor){ showToast('Распознавание речи недоступно в этом браузере'); return; }
+async function requestMicPermission(){
+  // Явный запрос доступа к микрофону — многие браузеры молча "виснут" на
+  // распознавании речи, если разрешение ещё не выдано или было отклонено.
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    return true; // нет способа проверить заранее — пробуем через SpeechRecognition напрямую
+  }
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
+    stream.getTracks().forEach(tr=>tr.stop());
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+document.getElementById('btn-mic').addEventListener('click', async ()=>{
+  if(!SpeechRecCtor){ showToast(t2('speak_unsupported')); return; }
+  if(!isSecureCtx){ showToast(t2('mic_status_denied')); return; }
   if(App.recognizing){ App.speechRecognition && App.speechRecognition.stop(); return; }
+
+  const micBtn = document.getElementById('btn-mic');
+  document.getElementById('mic-status').textContent = '…';
+  micBtn.disabled = true;
+  const granted = await requestMicPermission();
+  micBtn.disabled = false;
+  if(!granted){
+    document.getElementById('mic-status').textContent = t2('mic_status_denied');
+    return;
+  }
+
   const rec = new SpeechRecCtor();
   rec.lang = 'en-US';
+  rec.continuous = false;
   rec.interimResults = false;
   rec.maxAlternatives = 1;
   App.speechRecognition = rec;
   App.recognizing = true;
-  document.getElementById('btn-mic').classList.add('listening');
-  document.getElementById('mic-status').textContent = 'Слушаю… говорите сейчас';
+  micBtn.classList.add('listening');
+  document.getElementById('mic-status').textContent = t2('mic_status_listening');
+
+  let gotResult = false;
+  const safetyTimeout = setTimeout(()=>{
+    if(App.recognizing){ try{ rec.stop(); }catch(e){} }
+  }, 9000);
+
   rec.onresult = (e)=>{
+    gotResult = true;
     const said = e.results[0][0].transcript;
     handleSpeechResult(said);
   };
   rec.onerror = (e)=>{
-    document.getElementById('mic-status').textContent = 'Не удалось распознать речь. Попробуйте снова.';
+    let msg = t2('mic_status_error');
+    if(e.error === 'not-allowed' || e.error === 'permission-denied') msg = t2('mic_status_denied');
+    else if(e.error === 'no-speech') msg = t2('mic_status_noresult');
+    document.getElementById('mic-status').textContent = msg;
   };
   rec.onend = ()=>{
+    clearTimeout(safetyTimeout);
     App.recognizing = false;
-    document.getElementById('btn-mic').classList.remove('listening');
+    micBtn.classList.remove('listening');
+    if(!gotResult && document.getElementById('mic-status').textContent === t2('mic_status_listening')){
+      document.getElementById('mic-status').textContent = t2('mic_status_noresult');
+    }
   };
-  try{ rec.start(); }catch(e){ App.recognizing=false; }
+  try{
+    rec.start();
+  }catch(e){
+    App.recognizing = false;
+    micBtn.classList.remove('listening');
+    document.getElementById('mic-status').textContent = t2('mic_status_error');
+  }
 });
 function handleSpeechResult(said){
   const st = App.currentSpeak;
@@ -2233,8 +2658,15 @@ function handleSpeechResult(said){
   document.getElementById('speak-said').textContent = said;
   document.getElementById('speak-match-fill').style.width = score+'%';
   document.getElementById('speak-match-fill').style.background = score>=75 ? 'var(--teal)' : (score>=45 ? 'var(--marigold)' : 'var(--coral)');
-  document.getElementById('speak-match-text').textContent = score>=75 ? 'Отличное совпадение!' : (score>=45 ? 'Неплохо, но есть расхождения' : 'Попробуйте произнести фразу ещё раз, чётче');
-  document.getElementById('mic-status').textContent = 'Готово! Можете попробовать ещё раз или продолжить';
+  const matchMsgs = {
+    ru:{great:'Отличное совпадение!', mid:'Неплохо, но есть расхождения', low:'Попробуйте произнести фразу ещё раз, чётче'},
+    en:{great:'Excellent match!', mid:'Not bad, some differences', low:'Try saying the phrase again, more clearly'},
+    uz:{great:"Ajoyib mos keldi!", mid:"Yomon emas, farqlar bor", low:"Iborani yana aniqroq talaffuz qiling"},
+    tj:{great:'Мутобиқати аъло!', mid:'Бад не, фарқият ҳаст', low:'Ибораро дубора возеҳтар гӯед'}
+  };
+  const m = matchMsgs[App.lang] || matchMsgs.ru;
+  document.getElementById('speak-match-text').textContent = score>=75 ? m.great : (score>=45 ? m.mid : m.low);
+  document.getElementById('mic-status').textContent = t2('mic_status_ready');
   document.getElementById('btn-next-speak').classList.remove('hidden');
 }
 document.getElementById('btn-next-speak').addEventListener('click', async ()=>{
@@ -2246,7 +2678,7 @@ document.getElementById('btn-next-speak').addEventListener('click', async ()=>{
       date:new Date().toISOString(), kind:'speaking', topicId:'speaking', topicTitle:'Speaking — говорение',
       correct: Math.round(avg/100*st.items.length), total: st.items.length, percent: avg, wrongItems:[]
     };
-    App.history = await Store.addHistory(record);
+    App.history = await Store.addHistory(App.username, record);
     renderResults(record);
     document.getElementById('btn-retry-topic').onclick = ()=>{ startSpeaking(); };
     screen('screen-results');
