@@ -1,8285 +1,2266 @@
-<html lang="en" class="h-full">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SpeakUP English</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --primary: #4f46e5;
-        --primary-light: #818cf8;
-        --primary-dark: #3730a3;
-        --accent: #f59e0b;
-        --accent2: #10b981;
-        --danger: #ef4444;
-        --bg: #0a0a14;
-        --bg2: #111120;
-        --bg3: #1a1a2e;
-        --surface: #1e1e38;
-        --surface2: #252548;
-        --border: rgba(255, 255, 255, 0.07);
-        --text: #f0f0ff;
-        --text2: #9090b8;
-        --text3: #5050a0;
-        --radius: 16px;
-        --radius-sm: 10px;
-        --glow: 0 0 24px rgba(79, 70, 229, 0.35);
-        --glow2: 0 0 40px rgba(79, 70, 229, 0.15);
-      }
-
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      html,
-      body {
-        height: 100%;
-        overflow: hidden;
-        font-family: "Sora", sans-serif;
-        background: var(--bg);
-        color: var(--text);
-      }
-
-      ::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: var(--surface2);
-        border-radius: 99px;
-      }
-
-      #app {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background:
-          radial-gradient(
-            ellipse at 20% 0%,
-            rgba(79, 70, 229, 0.08) 0%,
-            transparent 60%
-          ),
-          radial-gradient(
-            ellipse at 80% 100%,
-            rgba(129, 140, 248, 0.05) 0%,
-            transparent 60%
-          ),
-          var(--bg);
-      }
-
-      /* HEADER */
-      header {
-        background: rgba(17, 17, 32, 0.9);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border);
-        padding: 10px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-shrink: 0;
-        z-index: 10;
-        position: relative;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .logo-icon {
-        width: 34px;
-        height: 34px;
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-light)
-        );
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 17px;
-        box-shadow: var(--glow);
-      }
-
-      .logo-text {
-        font-size: 17px;
-        font-weight: 800;
-        letter-spacing: -0.5px;
-        background: linear-gradient(135deg, #fff 30%, var(--primary-light));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .logo-text span {
-        background: linear-gradient(
-          135deg,
-          var(--primary-light),
-          var(--accent)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .header-right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .xp-badge {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        background: rgba(245, 158, 11, 0.12);
-        border: 1px solid rgba(245, 158, 11, 0.25);
-        border-radius: 99px;
-        padding: 5px 11px;
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--accent);
-      }
-
-      .streak-badge {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        background: rgba(239, 68, 68, 0.1);
-        border: 1px solid rgba(239, 68, 68, 0.2);
-        border-radius: 99px;
-        padding: 5px 9px;
-        font-size: 12px;
-        font-weight: 700;
-        color: #fc8181;
-      }
-
-      select.lang-sel {
-        background: var(--surface);
-        color: var(--text);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 5px 8px;
-        font-size: 11px;
-        font-family: "Sora", sans-serif;
-        cursor: pointer;
-        outline: none;
-      }
-
-      /* NAV */
-      nav {
-        background: rgba(17, 17, 32, 0.8);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        gap: 2px;
-        padding: 6px 8px;
-        overflow-x: auto;
-        flex-shrink: 0;
-      }
-
-      nav::-webkit-scrollbar {
-        height: 0;
-      }
-
-      .nav-btn {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        padding: 6px 12px;
-        border-radius: 8px;
-        border: none;
-        background: transparent;
-        color: var(--text2);
-        font-family: "Sora", sans-serif;
-        font-size: 11px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-        white-space: nowrap;
-      }
-
-      .nav-btn:hover {
-        background: var(--surface);
-        color: var(--text);
-      }
-
-      .nav-btn.active {
-        background: var(--primary);
-        color: #fff;
-        box-shadow: var(--glow);
-      }
-
-      /* MAIN */
-      main {
-        flex: 1;
-        overflow-y: auto;
-        padding: 16px;
-      }
-
-      /* CARDS */
-      .card {
-        background: var(--bg2);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 18px;
-        transition: border-color 0.2s;
-      }
-
-      .card:hover {
-        border-color: rgba(79, 70, 229, 0.25);
-      }
-
-      .card-sm {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 13px 15px;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .card-sm:hover {
-        background: var(--surface2);
-        border-color: rgba(79, 70, 229, 0.35);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-
-      .grid-3 {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-      }
-
-      @media (max-width: 600px) {
-        .grid-2,
-        .grid-3 {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .section-title {
-        font-size: 20px;
-        font-weight: 800;
-        margin-bottom: 5px;
-        letter-spacing: -0.5px;
-      }
-
-      .section-sub {
-        color: var(--text2);
-        font-size: 12px;
-        margin-bottom: 16px;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 3px;
-        padding: 3px 9px;
-        border-radius: 99px;
-        font-size: 10px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-
-      .pill-purple {
-        background: rgba(79, 70, 229, 0.18);
-        color: var(--primary-light);
-      }
-
-      .pill-green {
-        background: rgba(16, 185, 129, 0.18);
-        color: #34d399;
-      }
-
-      .pill-amber {
-        background: rgba(245, 158, 11, 0.18);
-        color: var(--accent);
-      }
-
-      .pill-red {
-        background: rgba(239, 68, 68, 0.18);
-        color: #fc8181;
-      }
-
-      .pill-blue {
-        background: rgba(59, 130, 246, 0.18);
-        color: #60a5fa;
-      }
-
-      /* BUTTONS */
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        padding: 9px 18px;
-        border-radius: var(--radius-sm);
-        border: none;
-        font-family: "Sora", sans-serif;
-        font-weight: 700;
-        font-size: 13px;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .btn-primary {
-        background: var(--primary);
-        color: #fff;
-        box-shadow: var(--glow);
-      }
-
-      .btn-primary:hover {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-      }
-
-      .btn-outline {
-        background: transparent;
-        color: var(--text2);
-        border: 1px solid var(--border);
-      }
-
-      .btn-outline:hover {
-        background: var(--surface);
-        color: var(--text);
-      }
-
-      .btn-accent {
-        background: var(--accent);
-        color: #1a1000;
-      }
-
-      .btn-success {
-        background: var(--accent2);
-        color: #fff;
-      }
-
-      .btn-danger {
-        background: var(--danger);
-        color: #fff;
-      }
-
-      .btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-
-      /* QUIZ */
-      .quiz-opt {
-        width: 100%;
-        text-align: left;
-        padding: 13px 16px;
-        background: var(--surface);
-        border: 1.5px solid var(--border);
-        border-radius: var(--radius-sm);
-        color: var(--text);
-        font-family: "Sora", sans-serif;
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.15s;
-        margin-bottom: 7px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .quiz-opt:hover:not(.disabled) {
-        background: var(--surface2);
-        border-color: var(--primary-light);
-        transform: translateX(3px);
-      }
-
-      .quiz-opt.correct {
-        background: rgba(16, 185, 129, 0.15) !important;
-        border-color: var(--accent2) !important;
-        color: #34d399 !important;
-      }
-
-      .quiz-opt.wrong {
-        background: rgba(239, 68, 68, 0.12) !important;
-        border-color: var(--danger) !important;
-        color: #fc8181 !important;
-      }
-
-      .quiz-opt.disabled {
-        pointer-events: none;
-      }
-
-      .opt-letter {
-        font-family: "Space Mono", monospace;
-        font-size: 11px;
-        color: var(--text3);
-        background: var(--bg);
-        border-radius: 4px;
-        padding: 1px 5px;
-        flex-shrink: 0;
-      }
-
-      /* PROGRESS */
-      .progress-track {
-        height: 5px;
-        background: var(--surface);
-        border-radius: 99px;
-        overflow: hidden;
-      }
-
-      .progress-fill {
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          var(--primary),
-          var(--primary-light)
-        );
-        border-radius: 99px;
-        transition: width 0.5s ease;
-      }
-
-      /* CHAT */
-      .chat-wrap {
-        display: flex;
-        flex-direction: column;
-        height: calc(100vh - 155px);
-      }
-
-      .chat-msgs {
-        flex: 1;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding-bottom: 10px;
-      }
-
-      .chat-msg-ai,
-      .chat-msg-user {
-        max-width: 82%;
-        padding: 11px 15px;
-        border-radius: 14px;
-        font-size: 13px;
-        line-height: 1.65;
-        animation: msgIn 0.3s ease;
-      }
-
-      .chat-msg-ai {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-bottom-left-radius: 4px;
-        align-self: flex-start;
-      }
-
-      .chat-msg-user {
-        background: var(--primary);
-        border-bottom-right-radius: 4px;
-        align-self: flex-end;
-      }
-
-      .chat-input-row {
-        display: flex;
-        gap: 8px;
-        margin-top: 10px;
-      }
-
-      .chat-input {
-        flex: 1;
-        background: var(--surface);
-        border: 1.5px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 11px 14px;
-        color: var(--text);
-        font-family: "Sora", sans-serif;
-        font-size: 13px;
-        outline: none;
-        transition: border-color 0.2s;
-      }
-
-      .chat-input:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-      }
-
-      /* VOCAB */
-      .vocab-card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 13px;
-        transition: all 0.2s;
-        cursor: pointer;
-      }
-
-      .vocab-card:hover {
-        border-color: rgba(79, 70, 229, 0.35);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      }
-
-      .vocab-en {
-        font-size: 15px;
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 3px;
-      }
-
-      .vocab-tr {
-        font-size: 11px;
-        color: var(--text2);
-        margin-top: 2px;
-      }
-
-      .vocab-cat {
-        font-size: 9px;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-top: 5px;
-      }
-
-      /* SCORE */
-      .score-big {
-        font-size: 68px;
-        font-weight: 800;
-        font-family: "Space Mono", monospace;
-        background: linear-gradient(
-          135deg,
-          var(--primary-light),
-          var(--accent)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 1;
-      }
-
-      .stat-card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 18px;
-        text-align: center;
-      }
-
-      .stat-num {
-        font-size: 32px;
-        font-weight: 800;
-        font-family: "Space Mono", monospace;
-        color: var(--primary-light);
-      }
-
-      .stat-label {
-        font-size: 11px;
-        color: var(--text2);
-        margin-top: 3px;
-      }
-
-      /* TYPING */
-      .typing-dot {
-        display: inline-block;
-        width: 5px;
-        height: 5px;
-        background: var(--primary-light);
-        border-radius: 50%;
-        animation: typingBounce 1s infinite;
-        margin: 0 2px;
-      }
-
-      .typing-dot:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-
-      .typing-dot:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-
-      @keyframes typingBounce {
-        0%,
-        80%,
-        100% {
-          transform: translateY(0);
-        }
-
-        40% {
-          transform: translateY(-5px);
-        }
-      }
-
-      @keyframes msgIn {
-        from {
-          opacity: 0;
-          transform: translateY(7px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .fade-in {
-        animation: fadeIn 0.3s ease forwards;
-      }
-
-      /* TOPIC CARD */
-      .topic-card {
-        background: var(--bg2);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 16px;
-        cursor: pointer;
-        transition: all 0.2s;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .topic-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(
-          90deg,
-          var(--primary),
-          var(--primary-light)
-        );
-        opacity: 0;
-        transition: opacity 0.2s;
-      }
-
-      .topic-card:hover::before {
-        opacity: 1;
-      }
-
-      .topic-card:hover {
-        border-color: rgba(79, 70, 229, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-      }
-
-      .topic-num {
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        color: var(--text3);
-        margin-bottom: 6px;
-      }
-
-      .topic-name {
-        font-size: 14px;
-        font-weight: 700;
-        margin-bottom: 5px;
-      }
-
-      .topic-bar {
-        margin-top: 8px;
-      }
-
-      .level-chip {
-        display: inline-block;
-        padding: 2px 7px;
-        border-radius: 99px;
-        font-size: 9px;
-        font-weight: 700;
-      }
-
-      .level-0 {
-        background: rgba(16, 185, 129, 0.18);
-        color: #34d399;
-      }
-
-      .level-1 {
-        background: rgba(59, 130, 246, 0.18);
-        color: #60a5fa;
-      }
-
-      .level-2 {
-        background: rgba(245, 158, 11, 0.18);
-        color: #fbbf24;
-      }
-
-      .level-3 {
-        background: rgba(239, 68, 68, 0.18);
-        color: #f87171;
-      }
-
-      .level-4 {
-        background: rgba(168, 85, 247, 0.18);
-        color: #c084fc;
-      }
-
-      /* RESULT ITEM */
-      .result-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 11px 14px;
-        background: var(--surface);
-        border-radius: var(--radius-sm);
-        border: 1px solid var(--border);
-        margin-bottom: 7px;
-        font-size: 12px;
-      }
-
-      /* READING */
-      .reading-text {
-        background: var(--surface);
-        border-left: 3px solid var(--primary);
-        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-        padding: 15px 18px;
-        font-size: 13px;
-        line-height: 1.85;
-        color: var(--text2);
-        margin-bottom: 18px;
-      }
-
-      /* SEARCH */
-      .search-input {
-        width: 100%;
-        background: var(--surface);
-        border: 1.5px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 10px 14px;
-        color: var(--text);
-        font-family: "Sora", sans-serif;
-        font-size: 13px;
-        outline: none;
-        transition: border-color 0.2s;
-        margin-bottom: 12px;
-      }
-
-      .search-input:focus {
-        border-color: var(--primary);
-      }
-
-      /* SPEAK */
-      .speak-prompt-box {
-        background: linear-gradient(
-          135deg,
-          rgba(79, 70, 229, 0.12),
-          rgba(129, 140, 248, 0.06)
-        );
-        border: 1px solid rgba(79, 70, 229, 0.25);
-        border-radius: var(--radius);
-        padding: 22px;
-        text-align: center;
-        margin-bottom: 18px;
-      }
-
-      .speak-prompt-text {
-        font-size: 19px;
-        font-weight: 700;
-        margin-bottom: 7px;
-      }
-
-      .speak-hint {
-        font-size: 12px;
-        color: var(--text2);
-      }
-
-      /* LB */
-      .lb-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 11px 14px;
-        background: var(--surface);
-        border-radius: var(--radius-sm);
-        border: 1px solid var(--border);
-        margin-bottom: 7px;
-      }
-
-      .lb-rank {
-        font-family: "Space Mono", monospace;
-        font-size: 13px;
-        font-weight: 700;
-        width: 26px;
-        text-align: center;
-      }
-
-      .lb-name {
-        flex: 1;
-        font-weight: 600;
-        font-size: 13px;
-      }
-
-      .lb-score {
-        font-family: "Space Mono", monospace;
-        font-size: 12px;
-        color: var(--primary-light);
-      }
-
-      /* QUICK TIPS CHIPS */
-      .tip-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 6px 12px;
-        font-size: 12px;
-        cursor: pointer;
-        transition: all 0.2s;
-        margin: 3px;
-      }
-
-      .tip-chip:hover {
-        background: var(--surface2);
-        border-color: rgba(79, 70, 229, 0.35);
-        color: var(--primary-light);
-      }
-
-      /* AI SUGGESTIONS */
-      .ai-suggest {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-        margin-bottom: 12px;
-      }
-
-      /* DAILY WORD */
-      .daily-word-card {
-        background: linear-gradient(
-          135deg,
-          rgba(79, 70, 229, 0.18),
-          rgba(245, 158, 11, 0.1)
-        );
-        border: 1px solid rgba(79, 70, 229, 0.3);
-        border-radius: var(--radius);
-        padding: 20px;
-        margin-bottom: 16px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .daily-word-card::after {
-        content: "✨";
-        position: absolute;
-        right: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 32px;
-        opacity: 0.3;
-      }
-
-      /* EMPTY STATE */
-      .empty-state {
-        text-align: center;
-        padding: 50px 20px;
-        color: var(--text3);
-      }
-
-      .empty-state .icon {
-        font-size: 44px;
-        margin-bottom: 10px;
-      }
-
-      /* GRAMMAR PANEL */
-      .grammar-info {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 16px;
-        margin-bottom: 16px;
-      }
-
-      .grammar-info pre {
-        white-space: pre-wrap;
-        font-family: "Sora", sans-serif;
-        font-size: 13px;
-        line-height: 1.85;
-        color: var(--text2);
-      }
-
-      /* BADGE POPUP */
-      @keyframes badgePop {
-        0% {
-          transform: scale(0.5) translateY(20px);
-          opacity: 0;
-        }
-
-        70% {
-          transform: scale(1.1);
-        }
-
-        100% {
-          transform: scale(1) translateY(0);
-          opacity: 1;
-        }
-      }
-
-      .badge-popup {
-        position: fixed;
-        top: 80px;
-        right: 16px;
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-light)
-        );
-        color: #fff;
-        border-radius: 12px;
-        padding: 12px 18px;
-        font-size: 13px;
-        font-weight: 700;
-        z-index: 999;
-        animation: badgePop 0.5s ease forwards;
-        box-shadow: var(--glow);
-      }
-
-      /* TABS INDICATOR */
-      .tab-count {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 99px;
-        padding: 1px 5px;
-        font-size: 9px;
-        margin-left: 3px;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div id="app">
-      <header>
-        <div class="logo">
-          <div class="logo-icon">🗣️</div>
-          <div class="logo-text">SpeakUP <span>English</span></div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpeakUP English — платформа для изучения английского</title>
+<!--
+  РЕКЛАМА (Google AdSense).
+  1) Зарегистрируйтесь на https://adsense.google.com, привяжите свой опубликованный сайт.
+  2) После одобрения Google даст вам ваш ca-pub-XXXXXXXXXXXXXXXX — замените
+     им ЗНАЧЕНИЕ data-ad-client НИЖЕ и в блоках .ad-slot в теле страницы.
+  3) Пока сайт не одобрен, скрипт ничего не покажет — это нормально.
+-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#182234;
+  --ink-soft:#3a4457;
+  --petrol:#0f3238;
+  --petrol-2:#134048;
+  --paper:#f4efe2;
+  --paper-2:#ffffff;
+  --marigold:#e8a33d;
+  --marigold-dark:#c07f22;
+  --teal:#3f8f6f;
+  --coral:#c1443b;
+  --line:rgba(24,34,52,0.12);
+  --shadow:0 18px 40px -18px rgba(15,50,56,0.45);
+  --radius:18px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Inter',sans-serif;
+  background:
+    radial-gradient(1200px 800px at 8% -10%, #16474f 0%, transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, #0c2a2f 0%, transparent 55%),
+    linear-gradient(180deg,var(--petrol) 0%, var(--petrol-2) 100%);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.hidden{display:none !important;}
+h1,h2,h3,.display{
+  font-family:'Fraunces',serif;
+  letter-spacing:-0.01em;
+}
+.mono{font-family:'IBM Plex Mono',monospace;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--marigold);color:var(--ink);}
+
+/* ---------- shell ---------- */
+.app-shell{
+  max-width:1180px;
+  margin:0 auto;
+  padding:28px 20px 80px;
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:var(--paper);
+  margin-bottom:22px;
+  padding:0 4px;
+}
+.brand{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-size:22px;
+  color:var(--paper);
+}
+.brand-mark{
+  width:34px;height:34px;border-radius:8px;
+  background:var(--marigold);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink);font-weight:800;font-size:15px;
+  box-shadow:0 4px 0 var(--marigold-dark);
+  transform:rotate(-4deg);
+}
+.topbar-right{display:flex;align-items:center;gap:14px;font-size:13px;color:rgba(244,239,226,0.75);}
+.user-chip{
+  background:rgba(244,239,226,0.1);
+  border:1px solid rgba(244,239,226,0.2);
+  padding:6px 12px;border-radius:999px;
+  display:flex;align-items:center;gap:8px;
+}
+.user-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);}
+.logout-link{color:rgba(244,239,226,0.6);text-decoration:underline;background:none;border:none;font-size:13px;}
+
+/* ---------- card base ---------- */
+.card{
+  background:var(--paper-2);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:1px solid rgba(24,34,52,0.06);
+}
+
+/* ---------- LOGIN ---------- */
+.login-wrap{
+  min-height:78vh;
+  display:flex;align-items:center;justify-content:center;
+}
+.login-card{
+  width:100%;max-width:460px;
+  padding:44px 38px 36px;
+  position:relative;
+  overflow:hidden;
+}
+.login-card::before{
+  content:"";
+  position:absolute;top:-60px;right:-60px;
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,163,61,0.35),transparent 70%);
+}
+.passport-cover{
+  width:56px;height:56px;border-radius:12px;
+  background:linear-gradient(160deg,var(--petrol),var(--petrol-2));
+  display:flex;align-items:center;justify-content:center;
+  color:var(--marigold);font-size:26px;margin-bottom:18px;
+  box-shadow:0 6px 0 rgba(15,50,56,0.3);
+}
+.login-card h1{font-size:30px;margin:0 0 6px;color:var(--ink);}
+.login-card p.sub{margin:0 0 26px;color:var(--ink-soft);font-size:14.5px;line-height:1.5;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;font-weight:600;}
+.field input{
+  width:100%;padding:13px 14px;border-radius:10px;
+  border:1.5px solid var(--line);font-size:15px;
+  background:#fbf9f4;color:var(--ink);
+}
+.field input:focus{outline:2px solid var(--marigold);outline-offset:1px;border-color:var(--marigold);}
+.btn{
+  border:none;border-radius:11px;
+  padding:13px 22px;font-size:15px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.btn:active{transform:translateY(2px);}
+.btn-primary{
+  background:var(--marigold);color:var(--ink);
+  box-shadow:0 5px 0 var(--marigold-dark);
+  width:100%;
+}
+.btn-primary:hover{filter:brightness(1.03);}
+.btn-primary:active{box-shadow:0 2px 0 var(--marigold-dark);}
+.btn-ghost{
+  background:transparent;color:var(--paper);
+  border:1.5px solid rgba(244,239,226,0.35);
+}
+.btn-dark{
+  background:var(--ink);color:var(--paper);
+  box-shadow:0 5px 0 #000;
+}
+.btn-outline{
+  background:transparent;border:1.5px solid var(--line);color:var(--ink);
+}
+.btn:focus-visible{outline:3px solid var(--marigold);outline-offset:2px;}
+.login-note{margin-top:18px;font-size:12.5px;color:var(--ink-soft);display:flex;gap:8px;align-items:flex-start;line-height:1.5;}
+.lang-switch{position:absolute;top:18px;right:18px;display:flex;gap:4px;background:#f0e9d6;border-radius:999px;padding:3px;z-index:2;}
+.lang-switch button{
+  border:none;background:transparent;padding:6px 10px;border-radius:999px;
+  font-size:11.5px;font-weight:700;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;letter-spacing:.02em;
+}
+.lang-switch button.active{background:var(--ink);color:var(--paper);}
+.lang-switch.topbar-variant{background:rgba(244,239,226,0.12);}
+.lang-switch.topbar-variant button{color:rgba(244,239,226,0.7);}
+.lang-switch.topbar-variant button.active{background:var(--marigold);color:var(--ink);}
+
+/* ---------- DASHBOARD ---------- */
+.dash-header{
+  display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:22px;
+}
+@media(max-width:820px){.dash-header{grid-template-columns:1fr;}}
+.passport-hero{
+  padding:30px 32px;position:relative;overflow:hidden;color:var(--paper);
+  background:linear-gradient(135deg,#0f3238 0%,#1a5560 100%);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+}
+.passport-hero::after{
+  content:"";position:absolute;right:-40px;bottom:-60px;width:220px;height:220px;
+  border:2px dashed rgba(244,239,226,0.18);border-radius:50%;
+}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--marigold);margin-bottom:10px;}
+.passport-hero h2{font-size:28px;margin:0 0 6px;color:var(--paper);}
+.passport-hero p{margin:0 0 20px;color:rgba(244,239,226,0.8);font-size:14.5px;max-width:46ch;}
+.stat-row{display:flex;gap:22px;flex-wrap:wrap;}
+.stat{min-width:90px;}
+.stat .num{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--marigold);line-height:1;}
+.stat .label{font-size:12px;color:rgba(244,239,226,0.65);margin-top:4px;}
+
+.stamps-card{padding:24px 26px;display:flex;flex-direction:column;}
+.stamps-card h3{margin:0 0 4px;font-size:16px;color:var(--ink);}
+.stamps-card .hint{font-size:12.5px;color:var(--ink-soft);margin:0 0 14px;}
+.stamps-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;flex:1;align-items:center;min-height:78px;}
+.stamp{
+  flex:0 0 auto;width:74px;height:74px;border-radius:50%;
+  border:2.5px dashed var(--coral);color:var(--coral);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transform:rotate(-6deg);font-family:'IBM Plex Mono',monospace;
+  font-size:10px;text-align:center;line-height:1.25;padding:4px;
+  opacity:0.85;
+}
+.stamp:nth-child(3n+1){transform:rotate(5deg);border-color:var(--teal);color:var(--teal);}
+.stamp:nth-child(3n+2){transform:rotate(-9deg);border-color:var(--marigold-dark);color:var(--marigold-dark);}
+.stamp b{font-size:14px;display:block;}
+.stamps-empty{color:var(--ink-soft);font-size:13px;font-style:italic;}
+
+.section-title{color:var(--paper);display:flex;align-items:baseline;justify-content:space-between;margin:34px 0 14px;}
+.section-title h3{font-size:20px;margin:0;color:var(--paper);}
+.section-title span{font-size:12.5px;color:rgba(244,239,226,0.55);font-family:'IBM Plex Mono',monospace;}
+
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;}
+.topic-card{
+  padding:20px 20px 18px;display:flex;flex-direction:column;gap:10px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.topic-card:hover{transform:translateY(-3px);}
+.topic-card .icon{
+  width:42px;height:42px;border-radius:10px;
+  background:#f0e9d6;display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.topic-card h4{margin:0;font-size:16.5px;color:var(--ink);}
+.topic-card p{margin:0;font-size:12.8px;color:var(--ink-soft);line-height:1.45;flex:1;}
+.topic-meta{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+.best-badge{background:#eef6f0;color:var(--teal);padding:2px 8px;border-radius:999px;font-weight:600;}
+.topic-card .btn{margin-top:6px;padding:10px 16px;font-size:13.5px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:820px){.two-col{grid-template-columns:1fr;}}
+.feature-card{padding:24px;display:flex;flex-direction:column;gap:10px;}
+.feature-card .icon-lg{font-size:30px;}
+.feature-card h4{margin:0;font-size:19px;color:var(--ink);}
+.feature-card p{margin:0;color:var(--ink-soft);font-size:13.5px;line-height:1.5;}
+
+/* ---------- TEST SCREEN ---------- */
+.test-wrap{max-width:720px;margin:0 auto;}
+.progress-track{height:8px;border-radius:99px;background:rgba(244,239,226,0.18);overflow:hidden;margin-bottom:18px;}
+.progress-fill{height:100%;background:var(--marigold);border-radius:99px;transition:width .3s ease;}
+.progress-info{display:flex;justify-content:space-between;color:rgba(244,239,226,0.75);font-size:12.5px;font-family:'IBM Plex Mono',monospace;margin-bottom:10px;}
+.question-card{padding:32px 30px;}
+.q-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--marigold-dark);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+.q-text{font-size:21px;line-height:1.5;margin:0 0 22px;color:var(--ink);font-weight:500;}
+.q-text b{color:var(--petrol-2);font-family:'IBM Plex Mono',monospace;background:#f0e9d6;padding:1px 6px;border-radius:5px;}
+.options{display:grid;gap:10px;}
+.opt-btn{
+  text-align:left;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);
+  background:#fbf9f4;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:10px;
+}
+.opt-btn .letter{
+  width:26px;height:26px;border-radius:7px;background:#eee6d3;color:var(--ink-soft);
+  display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex:0 0 auto;
+  font-family:'IBM Plex Mono',monospace;
+}
+.opt-btn:hover{border-color:var(--marigold);}
+.opt-btn.correct{background:#eaf6ee;border-color:var(--teal);color:#215c43;}
+.opt-btn.correct .letter{background:var(--teal);color:#fff;}
+.opt-btn.wrong{background:#fbebe9;border-color:var(--coral);color:#7f2b25;}
+.opt-btn.wrong .letter{background:var(--coral);color:#fff;}
+.opt-btn:disabled{cursor:default;}
+.test-footer{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
+.exit-link{color:rgba(244,239,226,0.65);background:none;border:none;font-size:13px;text-decoration:underline;}
+
+/* ---------- RESULTS ---------- */
+.results-wrap{max-width:720px;margin:0 auto;}
+.score-card{padding:36px 32px;text-align:center;position:relative;overflow:hidden;}
+.score-ring{
+  width:130px;height:130px;border-radius:50%;margin:0 auto 18px;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:conic-gradient(var(--teal) calc(var(--pct)*1%), #eee6d3 0);
+  position:relative;
+}
+.score-ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--paper-2);}
+.score-ring .val{position:relative;font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--ink);}
+.score-ring .sub{position:relative;font-size:11px;color:var(--ink-soft);}
+.score-title{font-size:20px;margin:0 0 4px;}
+.score-topic{color:var(--ink-soft);font-size:13.5px;margin:0 0 22px;}
+.ai-feedback{
+  text-align:left;background:#f7f2e5;border:1px solid #eadfc2;border-radius:14px;
+  padding:18px 20px;margin:20px 0;font-size:14.5px;line-height:1.6;color:var(--ink);
+}
+.ai-feedback .ai-tag{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--marigold-dark);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-weight:600;}
+.ai-dot{width:7px;height:7px;border-radius:50%;background:var(--marigold);animation:pulse 1.4s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.review-list{text-align:left;margin-top:22px;}
+.review-item{padding:12px 14px;border-radius:10px;background:#fbf9f4;border:1px solid var(--line);margin-bottom:8px;font-size:13.5px;}
+.review-item .q{color:var(--ink-soft);margin-bottom:4px;}
+.review-item .a-wrong{color:var(--coral);text-decoration:line-through;margin-right:8px;}
+.review-item .a-right{color:var(--teal);font-weight:600;}
+.results-actions{display:flex;gap:12px;margin-top:24px;justify-content:center;flex-wrap:wrap;}
+
+/* ---------- LISTENING ---------- */
+.listen-card{padding:34px 30px;text-align:center;}
+.speed-row{display:flex;gap:6px;justify-content:center;margin-bottom:14px;}
+.speed-row button{border:1.5px solid var(--line);background:#fbf9f4;color:var(--ink-soft);padding:5px 12px;border-radius:999px;font-size:12px;font-family:'IBM Plex Mono',monospace;font-weight:600;}
+.speed-row button.active{background:var(--petrol);color:var(--marigold);border-color:var(--petrol);}
+.level-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;background:#f0e9d6;color:var(--ink-soft);padding:3px 9px;border-radius:999px;margin-bottom:14px;}
+.example-line{background:#fbf9f4;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;}
+.example-line .en-ex{font-family:'Fraunces',serif;color:var(--ink);}
+.example-line .tr-ex{color:var(--ink-soft);font-size:12.5px;margin-top:3px;}
+.audio-btn{
+  width:88px;height:88px;border-radius:50%;border:none;
+  background:var(--petrol);color:var(--marigold);font-size:32px;
+  box-shadow:0 6px 0 #06181b;margin:6px auto 18px;
+  display:flex;align-items:center;justify-content:center;
+}
+.audio-btn:active{box-shadow:0 2px 0 #06181b;transform:translateY(4px);}
+.audio-btn.speaking{animation:soundwave 1s infinite;}
+@keyframes soundwave{0%,100%{box-shadow:0 6px 0 #06181b, 0 0 0 0 rgba(232,163,61,0.5);}50%{box-shadow:0 6px 0 #06181b, 0 0 0 14px rgba(232,163,61,0);}}
+.replay-row{display:flex;gap:10px;justify-content:center;margin-bottom:22px;}
+.small-link{background:none;border:none;color:var(--ink-soft);font-size:12.5px;text-decoration:underline;}
+.transcript-box{background:#f0e9d6;border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--ink-soft);margin-bottom:18px;font-family:'IBM Plex Mono',monospace;text-align:left;display:none;}
+
+/* ---------- SPEAKING ---------- */
+.speak-card{padding:34px 30px;text-align:center;}
+.phrase-box{background:#f7f2e5;border:1px solid #eadfc2;border-radius:14px;padding:20px 22px;margin-bottom:22px;}
+.phrase-box .ru{color:var(--ink-soft);font-size:12.5px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em;}
+.phrase-box .en{font-size:22px;font-family:'Fraunces',serif;color:var(--ink);}
+.mic-btn{
+  width:88px;height:88px;border-radius:50%;border:none;
+  background:var(--coral);color:#fff;font-size:30px;
+  box-shadow:0 6px 0 #7f2b25;margin:6px auto 16px;
+  display:flex;align-items:center;justify-content:center;
+}
+.mic-btn.listening{background:var(--teal);box-shadow:0 6px 0 #215c43;animation:soundwave 1s infinite;}
+.mic-btn:active{transform:translateY(4px);}
+.mic-status{font-size:13px;color:var(--ink-soft);margin-bottom:16px;min-height:18px;}
+.speak-result{background:#fbf9f4;border-radius:12px;padding:14px 16px;margin-top:6px;text-align:left;font-size:13.5px;display:none;}
+.speak-result .said{font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);margin-bottom:6px;}
+.match-bar-track{height:8px;border-radius:99px;background:#eee6d3;overflow:hidden;margin:6px 0;}
+.match-bar-fill{height:100%;background:var(--teal);border-radius:99px;}
+.unsupported-note{background:#fbebe9;border:1px solid #f0cdc9;color:#7f2b25;border-radius:10px;padding:12px 14px;font-size:13px;margin-bottom:18px;text-align:left;}
+
+/* toast */
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:10px;
+  font-size:13.5px;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:50;
+  opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+
+@media(max-width:600px){
+  .q-text{font-size:18px;}
+  .app-shell{padding:20px 14px 60px;}
+  .login-card{padding:32px 22px 28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ===================== LOGIN ===================== -->
+  <div id="screen-login">
+    <div class="login-wrap">
+      <div class="card login-card">
+        <div class="lang-switch" id="lang-switch-login"></div>
+        <div class="passport-cover">🗣️</div>
+        <h1>SpeakUP <span style="color:var(--marigold-dark);">English</span></h1>
+        <p class="sub" data-i18n="login_sub">Персональный кабинет для изучения английского. Введите имя — и мы создадим ваш профиль с историей тестов, темами и разбором результатов от ИИ.</p>
+        <div class="field">
+          <label for="login-name" data-i18n="login_name_label">Ваше имя</label>
+          <input id="login-name" type="text" data-i18n-placeholder="login_name_ph" placeholder="Например, Азиз" maxlength="30" autocomplete="off">
         </div>
-        <div class="header-right">
-          <div class="xp-badge">⚡ <span id="xpCount">0</span> XP</div>
-          <div class="streak-badge">🔥 <span id="streakCount">0</span></div>
-          <select
-            class="lang-sel"
-            id="langSel"
-            onchange="changeLang(this.value)"
-          >
-            <option value="en">🇬🇧 EN</option>
-            <option value="ru">🇷🇺 RU</option>
-            <option value="uz">🇺🇿 UZ</option>
-            <option value="tj">🇹🇯 TJ</option>
-          </select>
+        <button class="btn btn-primary" id="btn-login" data-i18n="login_btn">Войти в кабинет →</button>
+        <div class="login-note">
+          <span>ℹ️</span>
+          <span data-i18n="login_note">Данные (имя и результаты тестов) сохраняются в вашем личном хранилище и привязаны к вашему аккаунту — при следующем визите кабинет будет там же, где вы его оставили.</span>
         </div>
-      </header>
-      <nav id="navBar"></nav>
-      <main id="mainContent"></main>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== APP (после входа) ===================== -->
+  <div id="screen-app" class="hidden">
+
+    <div class="topbar">
+      <div class="brand"><span class="brand-mark">🎤</span> SpeakUP English</div>
+      <div class="topbar-right">
+        <div class="lang-switch topbar-variant" id="lang-switch-app"></div>
+        <div class="user-chip"><span class="dot"></span><span id="chip-name">—</span></div>
+        <button class="logout-link" id="btn-logout" data-i18n="logout">выйти</button>
+      </div>
     </div>
 
-    <script>
-      // ============================================================
-      // TRANSLATIONS
-      // ============================================================
-      const LANGS = {
-        en: {
-          tabs: [
-            "Home",
-            "Lessons",
-            "Listening",
-            "Reading",
-            "Speaking",
-            "Vocabulary",
-            "AI Tutor",
-            "Stats",
-          ],
-          tabIcons: ["🏠", "📖", "🎧", "📰", "🎤", "📚", "🤖", "📊"],
-          start: "Start Quiz",
-          back: "Back",
-          next: "Next",
-          submit: "Submit",
-          question: "Question",
-          of: "of",
-          correct: "Correct!",
-          wrong: "Wrong!",
-          yourScore: "Your Score",
-          tryAgain: "Try Again",
-          listenAgain: "Listen Again",
-          play: "Play Audio",
-          record: "Answer",
-          vocabSearch: "Search words...",
-          aiPlaceholder: "Ask me anything about English...",
-          aiSend: "Send",
-          aiWelcome:
-            "Hi! I'm your English AI tutor powered by Claude. Ask me about grammar, vocabulary, pronunciation, writing tips, or get your text corrected! 🎓",
-          statsTitle: "Your Progress",
-          noStats: "No results yet. Complete some quizzes!",
-          totalTests: "Tests Done",
-          avgScore: "Avg Score",
-          bestScore: "Best Score",
-          lessonSelect: "Choose a grammar topic:",
-          readingSelect: "Choose a reading passage:",
-          listenSelect: "Choose a listening exercise:",
-          speakTitle: "Speaking Practice",
-          speakInstr:
-            "Listen to the question, write your answer, get AI feedback.",
-          levels: [
-            "Beginner",
-            "Elementary",
-            "Intermediate",
-            "Upper-Int",
-            "Advanced",
-          ],
-          topics: [
-            "Present Simple",
-            "Past Simple",
-            "Future Simple",
-            "Present Continuous",
-            "Past Continuous",
-            "Present Perfect",
-            "Modal Verbs",
-            "Conditionals",
-            "Passive Voice",
-            "Articles",
-            "Comparatives",
-            "Prepositions",
-            "Reported Speech",
-            "Relative Clauses",
-            "Phrasal Verbs",
-            "Past Perfect",
-            "Future Continuous",
-            "Gerunds & Infinitives",
-            "Question Tags",
-            "Wish & If Only",
-          ],
-          noResults: "No results",
-          dailyWord: "Word of the Day",
-          quickPractice: "Quick Practice",
-          continueLesson: "Continue",
-          startJourney: "Your Learning Journey",
-          totalWords: "Words",
-          tipTitle: "Grammar Tip",
-        },
-        ru: {
-          tabs: [
-            "Главная",
-            "Уроки",
-            "Аудирование",
-            "Чтение",
-            "Говорение",
-            "Словарь",
-            "ИИ Репетитор",
-            "Статистика",
-          ],
-          tabIcons: ["🏠", "📖", "🎧", "📰", "🎤", "📚", "🤖", "📊"],
-          start: "Начать тест",
-          back: "Назад",
-          next: "Далее",
-          submit: "Отправить",
-          question: "Вопрос",
-          of: "из",
-          correct: "Правильно!",
-          wrong: "Неправильно!",
-          yourScore: "Ваш балл",
-          tryAgain: "Ещё раз",
-          listenAgain: "Слушать снова",
-          play: "Воспроизвести",
-          record: "Ответить",
-          vocabSearch: "Поиск слов...",
-          aiPlaceholder: "Спросите об английском языке...",
-          aiSend: "Отправить",
-          aiWelcome:
-            "Привет! Я ваш ИИ-репетитор по английскому. Спросите о грамматике, словах, произношении или получите исправление текста! 🎓",
-          statsTitle: "Ваш прогресс",
-          noStats: "Пока нет результатов. Пройдите тесты!",
-          totalTests: "Тестов",
-          avgScore: "Средний балл",
-          bestScore: "Лучший балл",
-          lessonSelect: "Выберите тему грамматики:",
-          readingSelect: "Выберите текст:",
-          listenSelect: "Выберите упражнение:",
-          speakTitle: "Практика речи",
-          speakInstr:
-            "Прослушайте вопрос, напишите ответ, получите обратную связь от ИИ.",
-          levels: [
-            "Начальный",
-            "Элементарный",
-            "Средний",
-            "Выше среднего",
-            "Продвинутый",
-          ],
-          topics: [
-            "Настоящее простое",
-            "Прошедшее простое",
-            "Будущее простое",
-            "Наст. длительное",
-            "Прош. длительное",
-            "Наст. совершённое",
-            "Модальные глаголы",
-            "Условные предложения",
-            "Страдательный залог",
-            "Артикли",
-            "Сравнительные степени",
-            "Предлоги",
-            "Косвенная речь",
-            "Придаточные предложения",
-            "Фразовые глаголы",
-            "Прошедшее совершённое",
-            "Буд. длительное",
-            "Герундий и инфинитив",
-            "Разделительные вопросы",
-            "Wish и If Only",
-          ],
-          noResults: "Нет результатов",
-          dailyWord: "Слово дня",
-          quickPractice: "Быстрая практика",
-          continueLesson: "Продолжить",
-          startJourney: "Ваш путь обучения",
-          totalWords: "Слова",
-          tipTitle: "Совет по грамматике",
-        },
-        uz: {
-          tabs: [
-            "Bosh sahifa",
-            "Darslar",
-            "Tinglash",
-            "O'qish",
-            "Gapirish",
-            "Lug'at",
-            "AI Muallim",
-            "Statistika",
-          ],
-          tabIcons: ["🏠", "📖", "🎧", "📰", "🎤", "📚", "🤖", "📊"],
-          start: "Testni boshlash",
-          back: "Orqaga",
-          next: "Keyingi",
-          submit: "Yuborish",
-          question: "Savol",
-          of: "dan",
-          correct: "To'g'ri!",
-          wrong: "Noto'g'ri!",
-          yourScore: "Natijangiz",
-          tryAgain: "Qayta urinish",
-          listenAgain: "Qayta tinglash",
-          play: "Ijro etish",
-          record: "Javob berish",
-          vocabSearch: "So'z qidirish...",
-          aiPlaceholder: "Ingliz tili haqida so'rang...",
-          aiSend: "Yuborish",
-          aiWelcome:
-            "Salom! Men AI-muallim bo'lib, ingliz tilini o'rganishga yordam beraman. Grammatika, so'zlar, talaffuz haqida so'rang! 🎓",
-          statsTitle: "Sizning natijangiz",
-          noStats: "Hali natijalar yo'q. Testlarni bajaring!",
-          totalTests: "Testlar",
-          avgScore: "O'rtacha ball",
-          bestScore: "Eng yaxshi ball",
-          lessonSelect: "Grammatika mavzusini tanlang:",
-          readingSelect: "Matnni tanlang:",
-          listenSelect: "Mashqni tanlang:",
-          speakTitle: "Gapirish mashqi",
-          speakInstr:
-            "Savolni tinglang, javobingizni yozing, AI fikrlarini oling.",
-          levels: [
-            "Boshlang'ich",
-            "Elementar",
-            "O'rta",
-            "Yuqori o'rta",
-            "Ilg'or",
-          ],
-          topics: [
-            "Present Simple",
-            "Past Simple",
-            "Future Simple",
-            "Present Continuous",
-            "Past Continuous",
-            "Present Perfect",
-            "Modal fe'llar",
-            "Shartli gaplar",
-            "Passiv nisbat",
-            "Artikllar",
-            "Qiyoslash darajalari",
-            "Predloglar",
-            "Egri nutq",
-            "Nisbiy gaplar",
-            "Frazeologik fe'llar",
-            "Past Perfect",
-            "Future Continuous",
-            "Gerundiy va infinitiv",
-            "Ajratuvchi savollar",
-            "Wish va If Only",
-          ],
-          noResults: "Natijalar yo'q",
-          dailyWord: "Kunlik so'z",
-          quickPractice: "Tezkor mashq",
-          continueLesson: "Davom etish",
-          startJourney: "Sizning o'quv yo'lingiz",
-          totalWords: "So'zlar",
-          tipTitle: "Grammatika maslahati",
-        },
-        tj: {
-          tabs: [
-            "Хона",
-            "Дарсҳо",
-            "Гӯш кардан",
-            "Хондан",
-            "Гуфтугӯ",
-            "Луғат",
-            "ИИ Муаллим",
-            "Омор",
-          ],
-          tabIcons: ["🏠", "📖", "🎧", "📰", "🎤", "📚", "🤖", "📊"],
-          start: "Санҷишро оғоз кунед",
-          back: "Бозгашт",
-          next: "Навбатӣ",
-          submit: "Фиристодан",
-          question: "Савол",
-          of: "аз",
-          correct: "Дуруст!",
-          wrong: "Нодуруст!",
-          yourScore: "Натиҷаи шумо",
-          tryAgain: "Аз нав кӯшиш кунед",
-          listenAgain: "Аз нав гӯш кунед",
-          play: "Пахш кунед",
-          record: "Ҷавоб диҳед",
-          vocabSearch: "Ҷустуҷӯи калима...",
-          aiPlaceholder: "Дар бораи забони англисӣ пурсед...",
-          aiSend: "Фиристодан",
-          aiWelcome:
-            "Салом! Ман ёрдамчии ИИ шумо барои омӯзиши забони англисӣ ҳастам. Дар бораи грамматика, луғат ва талаффуз пурсед! 🎓",
-          statsTitle: "Пешрафти шумо",
-          noStats: "Ҳоло натиҷаҳо нест. Санҷишҳоро гузаред!",
-          totalTests: "Санҷишҳо",
-          avgScore: "Бали миёна",
-          bestScore: "Беҳтарин балл",
-          lessonSelect: "Мавзӯи грамматикаро интихоб кунед:",
-          readingSelect: "Матнро интихоб кунед:",
-          listenSelect: "Машқро интихоб кунед:",
-          speakTitle: "Машқи гуфтугӯ",
-          speakInstr: "Саволро гӯш кунед, ҷавоб нависед, баҳои ИИ гиред.",
-          levels: ["Ибтидоӣ", "Элементарӣ", "Миёна", "Болои миёна", "Пешрафта"],
-          topics: [
-            "Present Simple",
-            "Past Simple",
-            "Future Simple",
-            "Present Continuous",
-            "Past Continuous",
-            "Present Perfect",
-            "Феълҳои модалӣ",
-            "Ҷумлаҳои шартӣ",
-            "Нидои маҷҳул",
-            "Артиклҳо",
-            "Дараҷаҳои муқоиса",
-            "Пешоянд",
-            "Нутқи ғайримустақим",
-            "Ҷумлаҳои нисбӣ",
-            "Феълҳои фразеологӣ",
-            "Past Perfect",
-            "Future Continuous",
-            "Герундий ва инфинитив",
-            "Саволҳои тасдиқӣ",
-            "Wish ва If Only",
-          ],
-          noResults: "Натиҷаҳо нест",
-          dailyWord: "Калимаи рӯз",
-          quickPractice: "Машқи зуд",
-          continueLesson: "Идома додан",
-          startJourney: "Роҳи омӯзиши шумо",
-          totalWords: "Калимаҳо",
-          tipTitle: "Маслиҳати грамматикӣ",
-        },
-      };
-
-      // ============================================================
-      // GRAMMAR QUESTIONS — 50 per topic (20 topics)
-      // ============================================================
-      const QUESTIONS = {
-        "Present Simple": [
-          {
-            q: "She ___ to school every day.",
-            o: ["go", "goes", "going", "gone"],
-            a: 1,
-          },
-          {
-            q: "They ___ football on Sundays.",
-            o: ["plays", "play", "playing", "played"],
-            a: 1,
-          },
-          {
-            q: "He ___ not like coffee.",
-            o: ["do", "does", "is", "are"],
-            a: 1,
-          },
-          { q: "___ you speak English?", o: ["Do", "Does", "Are", "Is"], a: 0 },
-          {
-            q: "The sun ___ in the east.",
-            o: ["rise", "rises", "rising", "rose"],
-            a: 1,
-          },
-          {
-            q: "My mother ___ breakfast every morning.",
-            o: ["cook", "cooks", "cooked", "cooking"],
-            a: 1,
-          },
-          {
-            q: "Water ___ at 100°C.",
-            o: ["boil", "boils", "boiled", "boiling"],
-            a: 1,
-          },
-          {
-            q: "I ___ to music every evening.",
-            o: ["listen", "listens", "listening", "listened"],
-            a: 0,
-          },
-          {
-            q: "She ___ three languages fluently.",
-            o: ["speak", "speaks", "spoke", "speaking"],
-            a: 1,
-          },
-          {
-            q: "The train ___ at 9 AM.",
-            o: ["leave", "leaves", "leaving", "left"],
-            a: 1,
-          },
-          {
-            q: "Dogs ___ faithful animals.",
-            o: ["is", "am", "are", "be"],
-            a: 2,
-          },
-          {
-            q: "He always ___ his homework.",
-            o: ["do", "does", "did", "done"],
-            a: 1,
-          },
-          {
-            q: "We ___ in a big city.",
-            o: ["live", "lives", "lived", "living"],
-            a: 0,
-          },
-          {
-            q: "She ___ TV every evening.",
-            o: ["watch", "watches", "watched", "watching"],
-            a: 1,
-          },
-          {
-            q: "It often ___ in London.",
-            o: ["rain", "rains", "rained", "raining"],
-            a: 1,
-          },
-          {
-            q: "I ___ tea in the mornings.",
-            o: ["drink", "drinks", "drank", "drinking"],
-            a: 0,
-          },
-          {
-            q: "Birds ___ in the sky.",
-            o: ["fly", "flies", "flew", "flying"],
-            a: 0,
-          },
-          {
-            q: "He never ___ late.",
-            o: ["arrive", "arrives", "arrived", "arriving"],
-            a: 1,
-          },
-          { q: "___ she work here?", o: ["Do", "Does", "Is", "Are"], a: 1 },
-          {
-            q: "The Earth ___ around the Sun.",
-            o: ["rotate", "rotates", "rotating", "rotated"],
-            a: 1,
-          },
-          {
-            q: "My father ___ a car.",
-            o: ["drive", "drives", "drove", "driving"],
-            a: 1,
-          },
-          {
-            q: "Cats ___ milk.",
-            o: ["like", "likes", "liked", "liking"],
-            a: 1,
-          },
-          {
-            q: "She ___ her teeth twice a day.",
-            o: ["brush", "brushes", "brushed", "brushing"],
-            a: 1,
-          },
-          {
-            q: "We ___ English at school.",
-            o: ["study", "studies", "studied", "studying"],
-            a: 0,
-          },
-          {
-            q: "He ___ very fast.",
-            o: ["run", "runs", "running", "ran"],
-            a: 1,
-          },
-          {
-            q: "The shop ___ at 9 AM.",
-            o: ["open", "opens", "opening", "opened"],
-            a: 1,
-          },
-          { q: "I ___ a student.", o: ["is", "am", "are", "be"], a: 1 },
-          {
-            q: "They ___ dinner at 7 PM.",
-            o: ["has", "have", "having", "had"],
-            a: 1,
-          },
-          {
-            q: "She ___ beautiful songs.",
-            o: ["sing", "sings", "sang", "singing"],
-            a: 1,
-          },
-          {
-            q: "It ___ cold in winter.",
-            o: ["get", "gets", "got", "getting"],
-            a: 1,
-          },
-          {
-            q: "He ___ books every week.",
-            o: ["read", "reads", "reading", "red"],
-            a: 1,
-          },
-          {
-            q: "We ___ to the gym on Mondays.",
-            o: ["go", "goes", "going", "went"],
-            a: 0,
-          },
-          {
-            q: "The baby ___ a lot.",
-            o: ["cry", "cries", "cried", "crying"],
-            a: 1,
-          },
-          {
-            q: "I ___ my friends on weekends.",
-            o: ["meet", "meets", "met", "meeting"],
-            a: 0,
-          },
-          {
-            q: "She ___ hard every day.",
-            o: ["work", "works", "worked", "working"],
-            a: 1,
-          },
-          {
-            q: "The doctor ___ patients every morning.",
-            o: ["see", "sees", "seeing", "saw"],
-            a: 1,
-          },
-          {
-            q: "My dog ___ very loudly.",
-            o: ["bark", "barks", "barking", "barked"],
-            a: 1,
-          },
-          {
-            q: "They ___ a bus to work.",
-            o: ["take", "takes", "taking", "took"],
-            a: 0,
-          },
-          {
-            q: "He ___ chess very well.",
-            o: ["play", "plays", "played", "playing"],
-            a: 1,
-          },
-          {
-            q: "The bank ___ at 10 AM.",
-            o: ["open", "opens", "opened", "opening"],
-            a: 1,
-          },
-          {
-            q: "She ___ in the school library.",
-            o: ["study", "studies", "studied", "studying"],
-            a: 1,
-          },
-          {
-            q: "I always ___ breakfast before leaving.",
-            o: ["eat", "eats", "ate", "eating"],
-            a: 0,
-          },
-          {
-            q: "My sister ___ yoga every morning.",
-            o: ["do", "does", "did", "doing"],
-            a: 1,
-          },
-          {
-            q: "___ your parents speak French?",
-            o: ["Do", "Does", "Are", "Is"],
-            a: 0,
-          },
-          {
-            q: "He ___ to classical music.",
-            o: ["listen", "listens", "listened", "listening"],
-            a: 1,
-          },
-          {
-            q: "Plants ___ water to survive.",
-            o: ["need", "needs", "needed", "needing"],
-            a: 0,
-          },
-          {
-            q: "She ___ letters to her grandmother.",
-            o: ["write", "writes", "wrote", "writing"],
-            a: 1,
-          },
-          {
-            q: "The bus ___ every 15 minutes.",
-            o: ["come", "comes", "came", "coming"],
-            a: 1,
-          },
-          {
-            q: "I ___ my bike to school.",
-            o: ["ride", "rides", "rode", "riding"],
-            a: 0,
-          },
-          {
-            q: "He ___ his phone everywhere.",
-            o: ["bring", "brings", "brought", "bringing"],
-            a: 1,
-          },
-        ],
-        "Past Simple": [
-          {
-            q: "I ___ to the store yesterday.",
-            o: ["go", "went", "gone", "going"],
-            a: 1,
-          },
-          {
-            q: "She ___ a letter last night.",
-            o: ["write", "wrote", "written", "writing"],
-            a: 1,
-          },
-          {
-            q: "They ___ football last Sunday.",
-            o: ["play", "played", "playing", "plays"],
-            a: 1,
-          },
-          {
-            q: "He ___ the book in two days.",
-            o: ["read", "reads", "reading", "red"],
-            a: 0,
-          },
-          {
-            q: "We ___ a great movie last week.",
-            o: ["see", "saw", "seen", "seeing"],
-            a: 1,
-          },
-          {
-            q: "She ___ dinner for everyone.",
-            o: ["cook", "cooked", "cooking", "cooks"],
-            a: 1,
-          },
-          {
-            q: "The children ___ to the park.",
-            o: ["run", "ran", "running", "runs"],
-            a: 1,
-          },
-          {
-            q: "I ___ my keys this morning.",
-            o: ["lose", "lost", "losing", "loses"],
-            a: 1,
-          },
-          {
-            q: "He ___ to London last year.",
-            o: ["travel", "travelled", "travelling", "travels"],
-            a: 1,
-          },
-          {
-            q: "They ___ the test easily.",
-            o: ["pass", "passed", "passing", "passes"],
-            a: 1,
-          },
-          {
-            q: "She ___ the door quietly.",
-            o: ["close", "closed", "closing", "closes"],
-            a: 1,
-          },
-          {
-            q: "We ___ breakfast at 7 AM.",
-            o: ["have", "had", "having", "has"],
-            a: 1,
-          },
-          {
-            q: "He ___ the answer immediately.",
-            o: ["know", "knew", "known", "knowing"],
-            a: 1,
-          },
-          {
-            q: "I ___ English for 5 years.",
-            o: ["study", "studied", "studying", "studies"],
-            a: 1,
-          },
-          {
-            q: "She ___ a beautiful dress.",
-            o: ["wear", "wore", "worn", "wearing"],
-            a: 1,
-          },
-          {
-            q: "They ___ a house last month.",
-            o: ["buy", "bought", "buying", "buys"],
-            a: 1,
-          },
-          {
-            q: "He ___ me the truth.",
-            o: ["tell", "told", "telling", "tells"],
-            a: 1,
-          },
-          {
-            q: "We ___ at the hotel.",
-            o: ["stay", "stayed", "staying", "stays"],
-            a: 1,
-          },
-          {
-            q: "She ___ the window.",
-            o: ["break", "broke", "broken", "breaking"],
-            a: 1,
-          },
-          {
-            q: "I ___ a taxi to work.",
-            o: ["take", "took", "taken", "taking"],
-            a: 1,
-          },
-          {
-            q: "The baby ___ all night.",
-            o: ["cry", "cried", "crying", "cries"],
-            a: 1,
-          },
-          {
-            q: "He ___ his bike to school.",
-            o: ["ride", "rode", "ridden", "riding"],
-            a: 1,
-          },
-          {
-            q: "We ___ goodbye at the airport.",
-            o: ["say", "said", "saying", "says"],
-            a: 1,
-          },
-          {
-            q: "She ___ the piano beautifully.",
-            o: ["play", "played", "playing", "plays"],
-            a: 1,
-          },
-          {
-            q: "They ___ home at midnight.",
-            o: ["come", "came", "coming", "comes"],
-            a: 1,
-          },
-          {
-            q: "I ___ tired after the race.",
-            o: ["feel", "felt", "feeling", "feels"],
-            a: 1,
-          },
-          {
-            q: "He ___ the ball very far.",
-            o: ["throw", "threw", "thrown", "throwing"],
-            a: 1,
-          },
-          {
-            q: "We ___ in the lake.",
-            o: ["swim", "swam", "swimming", "swims"],
-            a: 1,
-          },
-          {
-            q: "She ___ all her exams.",
-            o: ["pass", "passed", "passing", "passes"],
-            a: 1,
-          },
-          {
-            q: "The teacher ___ us homework.",
-            o: ["give", "gave", "giving", "gives"],
-            a: 1,
-          },
-          {
-            q: "I ___ a strange noise.",
-            o: ["hear", "heard", "hearing", "hears"],
-            a: 1,
-          },
-          {
-            q: "He ___ asleep quickly.",
-            o: ["fall", "fell", "fallen", "falling"],
-            a: 1,
-          },
-          {
-            q: "We ___ many photos.",
-            o: ["take", "took", "taken", "taking"],
-            a: 1,
-          },
-          {
-            q: "She ___ very happy.",
-            o: ["seem", "seemed", "seeming", "seems"],
-            a: 1,
-          },
-          {
-            q: "They ___ the project on time.",
-            o: ["finish", "finished", "finishing", "finishes"],
-            a: 1,
-          },
-          {
-            q: "I ___ him at the supermarket.",
-            o: ["see", "saw", "seen", "seeing"],
-            a: 1,
-          },
-          {
-            q: "She ___ a letter to the manager.",
-            o: ["send", "sent", "sending", "sends"],
-            a: 1,
-          },
-          {
-            q: "We ___ the wrong bus.",
-            o: ["catch", "caught", "catching", "catches"],
-            a: 1,
-          },
-          {
-            q: "He ___ his phone at home.",
-            o: ["leave", "left", "leaving", "leaves"],
-            a: 1,
-          },
-          {
-            q: "The lesson ___ at 9 AM.",
-            o: ["begin", "began", "begun", "beginning"],
-            a: 1,
-          },
-          {
-            q: "She ___ a new language last year.",
-            o: ["learn", "learnt", "learning", "learns"],
-            a: 1,
-          },
-          {
-            q: "We ___ the match 2-0.",
-            o: ["win", "won", "winning", "wins"],
-            a: 1,
-          },
-          {
-            q: "He ___ the chair and sat down.",
-            o: ["pull", "pulled", "pulling", "pulls"],
-            a: 1,
-          },
-          {
-            q: "I ___ a great book last summer.",
-            o: ["find", "found", "finding", "finds"],
-            a: 1,
-          },
-          {
-            q: "She ___ about the problem.",
-            o: ["think", "thought", "thinking", "thinks"],
-            a: 1,
-          },
-          {
-            q: "They ___ the same school as children.",
-            o: ["attend", "attended", "attending", "attends"],
-            a: 1,
-          },
-          {
-            q: "He ___ his hand during the game.",
-            o: ["hurt", "hurt", "hurting", "hurts"],
-            a: 1,
-          },
-          {
-            q: "We ___ the entire pizza.",
-            o: ["eat", "ate", "eating", "eats"],
-            a: 1,
-          },
-          {
-            q: "She ___ a wonderful speech.",
-            o: ["give", "gave", "given", "giving"],
-            a: 1,
-          },
-          {
-            q: "I ___ ten hours last night.",
-            o: ["sleep", "slept", "sleeping", "sleeps"],
-            a: 1,
-          },
-        ],
-        "Future Simple": [
-          {
-            q: "I ___ call you tomorrow.",
-            o: ["will", "would", "shall", "am going"],
-            a: 0,
-          },
-          {
-            q: "She ___ be 18 next month.",
-            o: ["will", "would", "shall", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ travel to Paris next summer.",
-            o: ["will", "would", "shall", "are"],
-            a: 0,
-          },
-          {
-            q: "He ___ pass the exam, I'm sure.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "We ___ buy a new car soon.",
-            o: ["will", "would", "shall", "are"],
-            a: 0,
-          },
-          {
-            q: "It ___ rain tomorrow.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "I ___ help you with that.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "She ___ be a doctor one day.",
-            o: ["will", "would", "shall", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ arrive at 5 PM.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "We ___ not forget this day.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "He ___ finish work by Friday.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "I think it ___ snow tonight.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "She ___ cook dinner for us.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "The movie ___ start at 8.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "We ___ see each other next week.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "I ___ study harder next semester.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "He ___ probably be late.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "They ___ build a new school here.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "She ___ send the email soon.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "___ you come to the party?",
-            o: ["Will", "Would", "Shall", "Do"],
-            a: 0,
-          },
-          {
-            q: "I ___ not tell anyone.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "The price ___ increase next year.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "We ___ miss you a lot.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "He ___ get better soon.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "I ___ always remember this.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "She ___ graduate next June.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "They ___ open a new shop.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "The weather ___ be nice tomorrow.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "I ___ let you know the result.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "We ___ celebrate together.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "He ___ understand eventually.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "She ___ wait for you.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          { q: "I ___ do my best.", o: ["will", "would", "shall", "do"], a: 0 },
-          {
-            q: "They ___ never forget this.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "It ___ take about an hour.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "The concert ___ start at 7 PM.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "She ___ join us for dinner.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "I think they ___ agree with us.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "He ___ be surprised by the news.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "___ she come to the meeting?",
-            o: ["Will", "Would", "Shall", "Does"],
-            a: 0,
-          },
-          {
-            q: "We ___ need more time.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "The shop ___ close at 9 PM.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "I ___ write to you every week.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "They ___ arrive before midnight.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "She ___ definitely like this gift.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "He ___ not be at the office tomorrow.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "We ___ visit our grandparents this weekend.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "It ___ be a long journey.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-          {
-            q: "I ___ never give up.",
-            o: ["will", "would", "shall", "do"],
-            a: 0,
-          },
-          {
-            q: "She ___ become a great musician.",
-            o: ["will", "would", "shall", "does"],
-            a: 0,
-          },
-        ],
-        "Present Continuous": [
-          {
-            q: "I ___ reading a book now.",
-            o: ["am", "is", "are", "be"],
-            a: 0,
-          },
-          { q: "She ___ cooking dinner.", o: ["am", "is", "are", "be"], a: 1 },
-          {
-            q: "They ___ playing outside.",
-            o: ["am", "is", "are", "be"],
-            a: 2,
-          },
-          {
-            q: "He ___ watching TV at the moment.",
-            o: ["am", "is", "are", "be"],
-            a: 1,
-          },
-          {
-            q: "We ___ preparing for the exam.",
-            o: ["am", "is", "are", "be"],
-            a: 2,
-          },
-          {
-            q: "Look! The baby ___ walking!",
-            o: ["am", "is", "are", "be"],
-            a: 1,
-          },
-          {
-            q: "I ___ not sleeping, I am awake.",
-            o: ["am", "is", "are", "be"],
-            a: 0,
-          },
-          {
-            q: "She ___ wearing a red dress today.",
-            o: ["am", "is", "are", "be"],
-            a: 1,
-          },
-          {
-            q: "They ___ building a new house.",
-            o: ["am", "is", "are", "be"],
-            a: 2,
-          },
-          {
-            q: "He ___ running in the park.",
-            o: ["am", "is", "are", "be"],
-            a: 1,
-          },
-          { q: "What ___ you doing?", o: ["am", "is", "are", "do"], a: 2 },
-          { q: "The phone ___ ringing.", o: ["am", "is", "are", "do"], a: 1 },
-          {
-            q: "We ___ waiting for the bus.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          {
-            q: "She ___ learning to drive.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          { q: "I ___ writing an email.", o: ["am", "is", "are", "do"], a: 0 },
-          {
-            q: "The children ___ sleeping now.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          {
-            q: "He ___ talking on the phone.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          { q: "It ___ raining outside.", o: ["am", "is", "are", "do"], a: 1 },
-          { q: "We ___ having lunch.", o: ["am", "is", "are", "do"], a: 2 },
-          {
-            q: "She ___ listening to music.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          { q: "I ___ trying my best.", o: ["am", "is", "are", "do"], a: 0 },
-          {
-            q: "They ___ dancing at the party.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          { q: "He ___ fixing the car.", o: ["am", "is", "are", "do"], a: 1 },
-          {
-            q: "The cat ___ sitting on the roof.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          {
-            q: "We ___ moving to a new city.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          {
-            q: "She ___ painting a picture.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          {
-            q: "I ___ feeling much better now.",
-            o: ["am", "is", "are", "do"],
-            a: 0,
-          },
-          {
-            q: "They ___ working on a project.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          { q: "He ___ having breakfast.", o: ["am", "is", "are", "do"], a: 1 },
-          { q: "Look! She ___ crying.", o: ["am", "is", "are", "do"], a: 1 },
-          {
-            q: "We ___ planning a holiday.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          {
-            q: "The dog ___ barking loudly.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          { q: "I ___ thinking about it.", o: ["am", "is", "are", "do"], a: 0 },
-          {
-            q: "They ___ getting ready for the show.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          { q: "She ___ smiling at me.", o: ["am", "is", "are", "do"], a: 1 },
-          {
-            q: "He ___ studying for his exam.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          {
-            q: "The students ___ taking notes.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          {
-            q: "I ___ not watching TV right now.",
-            o: ["am", "is", "are", "do"],
-            a: 0,
-          },
-          {
-            q: "She ___ shopping with her friends.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          {
-            q: "We ___ travelling to Spain this summer.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          { q: "He ___ making a cake.", o: ["am", "is", "are", "do"], a: 1 },
-          {
-            q: "They ___ competing in the tournament.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          {
-            q: "The mechanic ___ repairing the engine.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          {
-            q: "I ___ using your pen. Is that OK?",
-            o: ["am", "is", "are", "do"],
-            a: 0,
-          },
-          {
-            q: "She ___ not coming to the party.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          {
-            q: "We ___ learning a new song.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          {
-            q: "He ___ jogging in the park.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-          {
-            q: "The workers ___ installing new windows.",
-            o: ["am", "is", "are", "do"],
-            a: 2,
-          },
-          {
-            q: "I ___ looking for my glasses.",
-            o: ["am", "is", "are", "do"],
-            a: 0,
-          },
-          {
-            q: "She ___ presenting her project today.",
-            o: ["am", "is", "are", "do"],
-            a: 1,
-          },
-        ],
-        "Past Continuous": [
-          {
-            q: "I ___ sleeping when you called.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ playing when it started to rain.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "She ___ reading at 8 PM.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "We ___ watching a movie.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "He ___ driving to work.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "The children ___ running in the garden.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "I ___ cooking when the phone rang.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "She ___ singing beautifully.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ studying all night.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "He ___ waiting for the bus.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "We ___ having dinner at 7.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "The dog ___ barking all morning.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "I ___ working when she arrived.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ dancing at the party.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "She ___ wearing a blue coat.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "He ___ cleaning his room.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "We ___ talking about you.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "The baby ___ crying loudly.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "I ___ thinking about the problem.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ walking to school.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "She ___ looking out the window.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "He ___ writing a letter.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "We ___ sitting in the park.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "The sun ___ shining brightly.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "I ___ having lunch at noon.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ arguing about something.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "She ___ teaching in the classroom.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "He ___ swimming in the pool.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "We ___ listening to the radio.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "When I woke up, it ___ snowing.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "I ___ dreaming about vacation.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ laughing at the joke.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "She ___ drawing a picture.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "He ___ fixing the fence.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "We ___ enjoying the concert.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "The students ___ taking an exam at 3 PM.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "He ___ not paying attention in class.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "She ___ cooking when her husband came home.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "I ___ jogging when it started to rain.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ discussing the project all evening.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "He ___ sleeping when the alarm went off.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "We ___ travelling when the train broke down.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "She ___ reading her book while he watched TV.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "The birds ___ singing early this morning.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "I ___ trying to sleep, but it was too loud.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "They ___ planning their trip at the cafe.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "He ___ talking on the phone for an hour.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "We ___ buying groceries when we met Tom.",
-            o: ["was", "were", "am", "is"],
-            a: 1,
-          },
-          {
-            q: "She ___ not listening to the teacher.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-          {
-            q: "The team ___ practising when the coach arrived.",
-            o: ["was", "were", "am", "is"],
-            a: 0,
-          },
-        ],
-        "Present Perfect": [
-          {
-            q: "I ___ just finished my homework.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "She ___ visited Paris twice.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "They ___ never seen snow.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ lived here for 10 years.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "We ___ already had lunch.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "She ___ written three books.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "I ___ known him since childhood.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "They ___ moved to a new city.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ broken his arm.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "We ___ been to Japan.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "She ___ lost her keys.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "I ___ not seen this film yet.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "They ___ passed the exam.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ already cooked dinner.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "We ___ learned a lot today.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          { q: "She ___ just arrived.", o: ["have", "has", "is", "was"], a: 1 },
-          {
-            q: "I ___ bought a new phone.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "They ___ cleaned the house.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ studied English for years.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "___ you ever been to London?",
-            o: ["Have", "Has", "Are", "Were"],
-            a: 0,
-          },
-          {
-            q: "She ___ taught here since 2010.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          { q: "I ___ met him before.", o: ["have", "has", "am", "was"], a: 0 },
-          {
-            q: "They ___ completed the project.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ grown much taller.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "We ___ heard the news.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "She ___ taken her medicine.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "I ___ forgotten his name.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "They ___ opened a new shop.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ chosen the blue one.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "We ___ spent all our money.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "She ___ sung this song before.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "I ___ driven this car before.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "They ___ found the answer.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ won the competition.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "We ___ told them everything.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "She ___ never tried sushi.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "I ___ already watched this film.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "They ___ recently started a new project.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ just left the building.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "We ___ worked together for years.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "She ___ not replied to my message.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "I ___ known this since last week.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "They ___ been very busy lately.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ read all of Shakespeare's plays.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "___ she ever lived abroad?",
-            o: ["Have", "Has", "Is", "Was"],
-            a: 1,
-          },
-          {
-            q: "We ___ just received the package.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "She ___ achieved a lot in her career.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-          {
-            q: "I ___ always loved this city.",
-            o: ["have", "has", "am", "was"],
-            a: 0,
-          },
-          {
-            q: "They ___ made great progress.",
-            o: ["have", "has", "are", "were"],
-            a: 0,
-          },
-          {
-            q: "He ___ not explained the problem clearly.",
-            o: ["have", "has", "is", "was"],
-            a: 1,
-          },
-        ],
-        "Modal Verbs": [
-          {
-            q: "You ___ wear a seatbelt in the car.",
-            o: ["must", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ speak three languages.",
-            o: ["can", "must", "will", "should"],
-            a: 0,
-          },
-          {
-            q: "I ___ help you if you want.",
-            o: ["can", "must", "need", "should"],
-            a: 0,
-          },
-          {
-            q: "He ___ be at home. I'm not sure.",
-            o: ["might", "must", "can", "need"],
-            a: 0,
-          },
-          {
-            q: "You ___ not park here.",
-            o: ["must", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "___ I borrow your pen?",
-            o: ["Can", "Must", "Need", "Should"],
-            a: 0,
-          },
-          {
-            q: "We ___ study hard to pass.",
-            o: ["should", "can", "might", "may"],
-            a: 0,
-          },
-          {
-            q: "She ___ swim when she was five.",
-            o: ["could", "can", "must", "should"],
-            a: 0,
-          },
-          {
-            q: "You ___ see a doctor.",
-            o: ["should", "can", "might", "may"],
-            a: 0,
-          },
-          {
-            q: "He ___ come late tonight.",
-            o: ["might", "must", "can", "may"],
-            a: 0,
-          },
-          {
-            q: "Students ___ not cheat on exams.",
-            o: ["must", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "___ you pass the salt, please?",
-            o: ["Could", "Must", "Need", "Should"],
-            a: 0,
-          },
-          {
-            q: "I ___ like some water, please.",
-            o: ["would", "must", "should", "can"],
-            a: 0,
-          },
-          {
-            q: "She ___ be tired after the long trip.",
-            o: ["must", "might", "will", "can"],
-            a: 0,
-          },
-          {
-            q: "We ___ go to the beach tomorrow.",
-            o: ["could", "must", "need", "can"],
-            a: 0,
-          },
-          {
-            q: "You ___ eat more vegetables.",
-            o: ["should", "can", "might", "may"],
-            a: 0,
-          },
-          {
-            q: "He ___ play the guitar very well.",
-            o: ["can", "must", "will", "should"],
-            a: 0,
-          },
-          {
-            q: "___ I open the window?",
-            o: ["Can", "Must", "Need", "Will"],
-            a: 0,
-          },
-          {
-            q: "They ___ have left already.",
-            o: ["might", "may", "must", "will"],
-            a: 0,
-          },
-          {
-            q: "You ___ not touch that!",
-            o: ["must", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ dance beautifully.",
-            o: ["can", "must", "will", "should"],
-            a: 0,
-          },
-          {
-            q: "We ___ leave now or we'll be late.",
-            o: ["must", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "He ___ come to the party. I'll invite him.",
-            o: ["might", "must", "need", "should"],
-            a: 0,
-          },
-          {
-            q: "You ___ always tell the truth.",
-            o: ["should", "can", "might", "may"],
-            a: 0,
-          },
-          {
-            q: "I ___ run faster when I was young.",
-            o: ["could", "can", "must", "should"],
-            a: 0,
-          },
-          {
-            q: "She ___ not need to work tomorrow.",
-            o: ["may", "must", "can", "might"],
-            a: 0,
-          },
-          {
-            q: "___ you help me carry this?",
-            o: ["Could", "Must", "Need", "Should"],
-            a: 0,
-          },
-          {
-            q: "He ___ be the new teacher.",
-            o: ["must", "can", "should", "will"],
-            a: 0,
-          },
-          {
-            q: "We ___ try the new restaurant.",
-            o: ["should", "must", "need", "can"],
-            a: 0,
-          },
-          {
-            q: "They ___ have forgotten the meeting.",
-            o: ["might", "must", "can", "need"],
-            a: 0,
-          },
-          {
-            q: "You ___ not worry about it.",
-            o: ["need", "should", "can", "might"],
-            a: 0,
-          },
-          {
-            q: "She ___ read before she was four.",
-            o: ["could", "can", "must", "might"],
-            a: 0,
-          },
-          {
-            q: "I ___ be going now. Bye!",
-            o: ["must", "can", "would", "might"],
-            a: 0,
-          },
-          {
-            q: "___ we begin the lesson?",
-            o: ["Shall", "Should", "Need", "Would"],
-            a: 0,
-          },
-          {
-            q: "He ___ have lifted 100 kg.",
-            o: ["could", "must", "would", "will"],
-            a: 0,
-          },
-          {
-            q: "Passengers ___ fasten their seatbelts.",
-            o: ["must", "can", "might", "shall"],
-            a: 0,
-          },
-          {
-            q: "You ___ take an umbrella. It might rain.",
-            o: ["should", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ have been at the party last night.",
-            o: ["might", "must", "can", "will"],
-            a: 0,
-          },
-          {
-            q: "___ I speak to the manager?",
-            o: ["Could", "Shall", "Need", "Will"],
-            a: 0,
-          },
-          {
-            q: "He ___ not have arrived yet.",
-            o: ["may", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "We ___ respect the elderly.",
-            o: ["should", "must", "can", "will"],
-            a: 0,
-          },
-          {
-            q: "She ___ cook when she was young.",
-            o: ["could", "should", "must", "will"],
-            a: 0,
-          },
-          {
-            q: "You ___ not eat in the library.",
-            o: ["must", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "I ___ definitely help you tomorrow.",
-            o: ["will", "would", "should", "can"],
-            a: 0,
-          },
-          {
-            q: "___ you like to have some tea?",
-            o: ["Would", "Will", "Shall", "Can"],
-            a: 0,
-          },
-          {
-            q: "They ___ have arrived hours ago.",
-            o: ["should", "must", "can", "will"],
-            a: 0,
-          },
-          {
-            q: "She ___ be your new colleague.",
-            o: ["must", "might", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "I ___ hear you. Please speak up.",
-            o: ["can't", "don't", "won't", "mustn't"],
-            a: 0,
-          },
-          {
-            q: "He ___ not have told her the secret.",
-            o: ["should", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "We ___ to be more careful next time.",
-            o: ["ought", "must", "need", "shall"],
-            a: 0,
-          },
-        ],
-        Conditionals: [
-          {
-            q: "If it rains, I ___ stay at home.",
-            o: ["will", "would", "was", "is"],
-            a: 0,
-          },
-          {
-            q: "If I ___ you, I would apologize.",
-            o: ["were", "am", "be", "was"],
-            a: 0,
-          },
-          {
-            q: "If she studies, she ___ pass the exam.",
-            o: ["will", "would", "could", "might"],
-            a: 0,
-          },
-          {
-            q: "If I had known, I ___ have helped.",
-            o: ["would", "will", "can", "might"],
-            a: 0,
-          },
-          {
-            q: "If you heat water, it ___.",
-            o: ["boils", "would boil", "boiled", "will boil"],
-            a: 0,
-          },
-          {
-            q: "If I ___ rich, I would travel the world.",
-            o: ["were", "am", "would be", "was"],
-            a: 0,
-          },
-          {
-            q: "If he comes, we ___ start the meeting.",
-            o: ["will", "would", "was", "shall"],
-            a: 0,
-          },
-          {
-            q: "If they worked harder, they ___ succeed.",
-            o: ["would", "will", "can", "do"],
-            a: 0,
-          },
-          {
-            q: "If I had studied, I ___ have passed.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "If you mix red and blue, you ___ get purple.",
-            o: ["get", "would get", "got", "will get"],
-            a: 0,
-          },
-          {
-            q: "I ___ call you if I have time.",
-            o: ["will", "would", "shall", "can"],
-            a: 0,
-          },
-          {
-            q: "If she had come earlier, she ___ have been late.",
-            o: ["would not", "will not", "shall not", "does not"],
-            a: 0,
-          },
-          {
-            q: "If we ___ the lottery, we would be rich.",
-            o: ["won", "win", "had won", "wins"],
-            a: 0,
-          },
-          {
-            q: "If you press this button, the light ___ on.",
-            o: ["turns", "would turn", "turned", "will turn"],
-            a: 0,
-          },
-          {
-            q: "If I were taller, I ___ play basketball.",
-            o: ["would", "will", "can", "do"],
-            a: 0,
-          },
-          {
-            q: "If it snows, the children ___ be happy.",
-            o: ["will", "would", "could", "had"],
-            a: 0,
-          },
-          {
-            q: "If he ___ me, I would have answered.",
-            o: ["had called", "calls", "will call", "called"],
-            a: 0,
-          },
-          {
-            q: "If you eat too much, you ___ feel sick.",
-            o: ["will", "would", "could", "shall"],
-            a: 0,
-          },
-          {
-            q: "If I ___ you, I would take that job.",
-            o: ["were", "am", "would be", "was"],
-            a: 0,
-          },
-          {
-            q: "She ___ be happy if she heard this news.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "If we leave now, we ___ arrive on time.",
-            o: ["will", "would", "could", "should"],
-            a: 0,
-          },
-          {
-            q: "If I had a car, I ___ drive to work.",
-            o: ["would", "will", "can", "do"],
-            a: 0,
-          },
-          {
-            q: "If they invite us, we ___ go.",
-            o: ["will", "would", "could", "shall"],
-            a: 0,
-          },
-          {
-            q: "If you ___ water them, plants die.",
-            o: ["don't", "didn't", "won't", "wouldn't"],
-            a: 0,
-          },
-          {
-            q: "If he had studied medicine, he ___ be a doctor.",
-            o: ["would", "will", "can", "does"],
-            a: 0,
-          },
-          {
-            q: "If I see her, I ___ say hello.",
-            o: ["will", "would", "could", "shall"],
-            a: 0,
-          },
-          {
-            q: "If she ___ free, she would come.",
-            o: ["were", "is", "will be", "was"],
-            a: 0,
-          },
-          {
-            q: "If you run fast, you ___ catch the bus.",
-            o: ["will", "would", "could", "shall"],
-            a: 0,
-          },
-          {
-            q: "If I ___ the answer, I would tell you.",
-            o: ["knew", "know", "had known", "knows"],
-            a: 0,
-          },
-          {
-            q: "If the weather ___ sunny, we will go.",
-            o: ["is", "was", "will be", "would be"],
-            a: 0,
-          },
-          {
-            q: "If he saves money, he ___ buy a car.",
-            o: ["will", "would", "could", "shall"],
-            a: 0,
-          },
-          {
-            q: "If I had wings, I ___ fly.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "If she exercised more, she ___ better results.",
-            o: ["would get", "will get", "can get", "does get"],
-            a: 0,
-          },
-          {
-            q: "If you touch fire, you ___ get burned.",
-            o: ["will", "would", "could", "shall"],
-            a: 0,
-          },
-          {
-            q: "If we had hurried, we ___ caught the train.",
-            o: ["would have", "will have", "can have", "do have"],
-            a: 0,
-          },
-          {
-            q: "If I ___ harder, I would have passed.",
-            o: ["had worked", "worked", "work", "will work"],
-            a: 0,
-          },
-          {
-            q: "She would feel better if she ___ some rest.",
-            o: ["got", "gets", "will get", "has got"],
-            a: 0,
-          },
-          {
-            q: "If dogs ___ fly, the world would be different.",
-            o: ["could", "can", "would", "will"],
-            a: 0,
-          },
-          {
-            q: "I ___ buy a house if I had more money.",
-            o: ["would", "will", "could", "shall"],
-            a: 0,
-          },
-          {
-            q: "If it ___ freezing, water turns to ice.",
-            o: ["is", "was", "will be", "would be"],
-            a: 0,
-          },
-          {
-            q: "If they ___ harder, they would succeed.",
-            o: ["tried", "try", "will try", "have tried"],
-            a: 0,
-          },
-          {
-            q: "She would visit us more often if she ___ nearby.",
-            o: ["lived", "lives", "will live", "has lived"],
-            a: 0,
-          },
-          {
-            q: "If I ___ to bed earlier, I would not be tired.",
-            o: ["went", "go", "will go", "have gone"],
-            a: 0,
-          },
-          {
-            q: "If we had more time, we ___ the project.",
-            o: ["would finish", "will finish", "finish", "finishing"],
-            a: 0,
-          },
-          {
-            q: "You will regret it if you ___.",
-            o: ["don't study", "didn't study", "won't study", "not study"],
-            a: 0,
-          },
-          {
-            q: "If she ___ her keys, she cannot enter.",
-            o: ["loses", "lost", "will lose", "would lose"],
-            a: 0,
-          },
-          {
-            q: "We could go hiking if the weather ___.",
-            o: [
-              "were better",
-              "is better",
-              "will be better",
-              "had been better",
-            ],
-            a: 0,
-          },
-          {
-            q: "If he ___ more attention, he would understand.",
-            o: ["paid", "pays", "will pay", "has paid"],
-            a: 0,
-          },
-          {
-            q: "If I ___ him, I would explain everything.",
-            o: ["see", "saw", "had seen", "will see"],
-            a: 0,
-          },
-          {
-            q: "They would have been on time if they ___ left earlier.",
-            o: ["had", "have", "will have", "did"],
-            a: 0,
-          },
-        ],
-        "Passive Voice": [
-          {
-            q: "The cake ___ baked by my mother.",
-            o: ["was", "is being", "has", "did"],
-            a: 0,
-          },
-          {
-            q: "English ___ spoken all over the world.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The letter ___ written yesterday.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The homework ___ done.",
-            o: ["has been", "is", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "The window ___ broken by a ball.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "Cars ___ produced in factories.",
-            o: ["are", "is", "was", "has"],
-            a: 0,
-          },
-          {
-            q: "The book ___ published in 2020.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The food ___ being cooked right now.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The test ___ taken by all students.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The house ___ painted blue.",
-            o: ["was", "is being", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The report ___ be finished by Friday.",
-            o: ["will", "is", "was", "has"],
-            a: 0,
-          },
-          {
-            q: "These shoes ___ made in Italy.",
-            o: ["are", "is", "was", "has"],
-            a: 0,
-          },
-          {
-            q: "The thief ___ caught by the police.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The song ___ sung by the choir.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The building ___ being constructed.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "Rice ___ grown in Asia.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The invitations ___ sent yesterday.",
-            o: ["were", "are", "do", "did"],
-            a: 0,
-          },
-          {
-            q: "The meeting ___ cancelled.",
-            o: ["was", "is", "did", "do"],
-            a: 0,
-          },
-          {
-            q: "The road ___ repaired last month.",
-            o: ["was", "is", "does", "do"],
-            a: 0,
-          },
-          {
-            q: "Coffee ___ served every morning.",
-            o: ["is", "was", "does", "do"],
-            a: 0,
-          },
-          {
-            q: "The film ___ seen by millions.",
-            o: ["was", "is", "does", "do"],
-            a: 0,
-          },
-          {
-            q: "The trees ___ planted by volunteers.",
-            o: ["were", "was", "is", "does"],
-            a: 0,
-          },
-          {
-            q: "The door ___ locked at night.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The prize ___ won by our team.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "Bread ___ baked fresh daily.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The news ___ announced on TV.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "Homework ___ given every day.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The game ___ played on Saturday.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "Animals ___ protected by law.",
-            o: ["are", "is", "was", "has"],
-            a: 0,
-          },
-          {
-            q: "The exam ___ postponed.",
-            o: ["has been", "is", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "The car ___ washed yesterday.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "Dinner ___ served at 7 PM.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The bridge ___ built in 1990.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The letters ___ delivered by the postman.",
-            o: ["are", "is", "was", "has"],
-            a: 0,
-          },
-          {
-            q: "The project ___ be completed soon.",
-            o: ["will", "is", "was", "has"],
-            a: 0,
-          },
-          {
-            q: "The emails ___ answered every day.",
-            o: ["are", "is", "was", "does"],
-            a: 0,
-          },
-          {
-            q: "The new law ___ passed last month.",
-            o: ["was", "is", "has", "did"],
-            a: 0,
-          },
-          {
-            q: "A new hospital ___ being built in the city.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The documents ___ signed by the director.",
-            o: ["were", "was", "are", "have"],
-            a: 0,
-          },
-          {
-            q: "This glass ___ made of recycled material.",
-            o: ["is", "was", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The stolen car ___ found near the lake.",
-            o: ["was", "is", "has", "does"],
-            a: 0,
-          },
-          {
-            q: "The windows ___ cleaned every week.",
-            o: ["are", "is", "was", "does"],
-            a: 0,
-          },
-          {
-            q: "The concert ___ cancelled due to bad weather.",
-            o: ["was", "is", "has", "did"],
-            a: 0,
-          },
-          {
-            q: "All passengers ___ asked to board.",
-            o: ["were", "was", "are", "have"],
-            a: 0,
-          },
-          {
-            q: "The new product ___ launched yesterday.",
-            o: ["was", "is", "has", "did"],
-            a: 0,
-          },
-          {
-            q: "My bag ___ stolen on the train.",
-            o: ["was", "is", "has", "did"],
-            a: 0,
-          },
-          {
-            q: "The village ___ destroyed by the flood.",
-            o: ["was", "is", "has", "did"],
-            a: 0,
-          },
-          {
-            q: "These photos ___ taken in 1990.",
-            o: ["were", "was", "are", "have"],
-            a: 0,
-          },
-          {
-            q: "The repairs ___ not finished yet.",
-            o: ["have been", "are", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "This novel ___ translated into 40 languages.",
-            o: ["has been", "is", "was", "did"],
-            a: 0,
-          },
-        ],
-        Articles: [
-          {
-            q: "I saw ___ elephant at the zoo.",
-            o: ["an", "a", "the", "—"],
-            a: 0,
-          },
-          {
-            q: "She is ___ best student in the class.",
-            o: ["the", "a", "an", "—"],
-            a: 0,
-          },
-          { q: "He wants ___ apple.", o: ["an", "a", "the", "—"], a: 0 },
-          { q: "___ sun rises in the east.", o: ["The", "A", "An", "—"], a: 0 },
-          { q: "She is ___ doctor.", o: ["a", "an", "the", "—"], a: 0 },
-          { q: "I need ___ hour to finish.", o: ["an", "a", "the", "—"], a: 0 },
-          {
-            q: "___ water is essential for life.",
-            o: ["—", "A", "An", "The"],
-            a: 0,
-          },
-          { q: "He plays ___ guitar.", o: ["the", "a", "an", "—"], a: 0 },
-          { q: "I bought ___ new book.", o: ["a", "an", "the", "—"], a: 0 },
-          {
-            q: "___ moon is beautiful tonight.",
-            o: ["The", "A", "An", "—"],
-            a: 0,
-          },
-          { q: "She is ___ honest person.", o: ["an", "a", "the", "—"], a: 0 },
-          {
-            q: "I have ___ cat and ___ dog.",
-            o: ["a, a", "an, a", "the, the", "a, an"],
-            a: 0,
-          },
-          { q: "He went to ___ hospital.", o: ["the", "a", "an", "—"], a: 0 },
-          {
-            q: "___ children love chocolate.",
-            o: ["—", "A", "An", "The"],
-            a: 0,
-          },
-          { q: "She gave me ___ umbrella.", o: ["an", "a", "the", "—"], a: 0 },
-          {
-            q: "I watched ___ film last night.",
-            o: ["a", "an", "the", "—"],
-            a: 0,
-          },
-          { q: "He is ___ engineer.", o: ["an", "a", "the", "—"], a: 0 },
-          {
-            q: "___ Atlantic Ocean is very deep.",
-            o: ["The", "A", "An", "—"],
-            a: 0,
-          },
-          { q: "She wants ___ cup of tea.", o: ["a", "an", "the", "—"], a: 0 },
-          { q: "I need ___ information.", o: ["—", "a", "an", "the"], a: 0 },
-          {
-            q: "He is ___ university student.",
-            o: ["a", "an", "the", "—"],
-            a: 0,
-          },
-          {
-            q: "She played ___ piano at the concert.",
-            o: ["the", "a", "an", "—"],
-            a: 0,
-          },
-          { q: "I want ___ orange juice.", o: ["—", "a", "an", "the"], a: 0 },
-          {
-            q: "He is ___ tallest boy in class.",
-            o: ["the", "a", "an", "—"],
-            a: 0,
-          },
-          {
-            q: "We went to ___ park yesterday.",
-            o: ["the", "a", "an", "—"],
-            a: 0,
-          },
-          { q: "___ gold is expensive.", o: ["—", "A", "An", "The"], a: 0 },
-          { q: "She works at ___ airport.", o: ["an", "a", "the", "—"], a: 0 },
-          {
-            q: "I watched ___ interesting film.",
-            o: ["an", "a", "the", "—"],
-            a: 0,
-          },
-          { q: "He needs ___ advice.", o: ["—", "a", "an", "the"], a: 0 },
-          { q: "___ Pacific Ocean is huge.", o: ["The", "A", "An", "—"], a: 0 },
-          { q: "I have ___ idea!", o: ["an", "a", "the", "—"], a: 0 },
-          { q: "She is ___ only child.", o: ["the", "a", "an", "—"], a: 0 },
-          { q: "He is ___ European.", o: ["a", "an", "the", "—"], a: 0 },
-          {
-            q: "She speaks ___ English very well.",
-            o: ["—", "a", "an", "the"],
-            a: 0,
-          },
-          {
-            q: "I saw ___ accident on ___ way home.",
-            o: ["an, the", "a, the", "the, a", "an, a"],
-            a: 0,
-          },
-          {
-            q: "Mount Everest is ___ highest mountain.",
-            o: ["the", "a", "an", "—"],
-            a: 0,
-          },
-          { q: "He is ___ honest man.", o: ["an", "a", "the", "—"], a: 0 },
-          {
-            q: "She drives ___ hour every day.",
-            o: ["an", "a", "the", "—"],
-            a: 0,
-          },
-          {
-            q: "They visited ___ Eiffel Tower.",
-            o: ["the", "a", "an", "—"],
-            a: 0,
-          },
-          {
-            q: "___ love is a wonderful feeling.",
-            o: ["—", "A", "An", "The"],
-            a: 0,
-          },
-          {
-            q: "He bought ___ laptop last week.",
-            o: ["a", "an", "the", "—"],
-            a: 0,
-          },
-          {
-            q: "I met ___ old friend of mine.",
-            o: ["an", "a", "the", "—"],
-            a: 0,
-          },
-          {
-            q: "She is studying at ___ university.",
-            o: ["a", "an", "the", "—"],
-            a: 0,
-          },
-          {
-            q: "___ Sahara is the largest desert.",
-            o: ["The", "A", "An", "—"],
-            a: 0,
-          },
-          {
-            q: "He went to ___ doctor yesterday.",
-            o: ["the", "a", "an", "—"],
-            a: 0,
-          },
-          {
-            q: "She gave me ___ useful piece of advice.",
-            o: ["a", "an", "the", "—"],
-            a: 0,
-          },
-          { q: "I am going to ___ library.", o: ["the", "a", "an", "—"], a: 0 },
-          {
-            q: "___ English is a global language.",
-            o: ["—", "A", "An", "The"],
-            a: 0,
-          },
-          {
-            q: "We saw ___ elephant at the circus.",
-            o: ["an", "a", "the", "—"],
-            a: 0,
-          },
-          {
-            q: "He is ___ best player on the team.",
-            o: ["the", "a", "an", "—"],
-            a: 0,
-          },
-        ],
-        Comparatives: [
-          {
-            q: "She is ___ than her sister.",
-            o: ["taller", "tallest", "more tall", "most tall"],
-            a: 0,
-          },
-          {
-            q: "This is the ___ book I have ever read.",
-            o: ["best", "better", "gooder", "more good"],
-            a: 0,
-          },
-          {
-            q: "He runs ___ than me.",
-            o: ["faster", "fastest", "more fast", "most fast"],
-            a: 0,
-          },
-          {
-            q: "This test is ___ than the last one.",
-            o: ["harder", "hardest", "more hard", "most hard"],
-            a: 0,
-          },
-          {
-            q: "He is ___ than his brother.",
-            o: ["smarter", "smartest", "more smart", "most smart"],
-            a: 0,
-          },
-          {
-            q: "This is the ___ car here.",
-            o: [
-              "most expensive",
-              "more expensive",
-              "expensivest",
-              "very expensive",
-            ],
-            a: 0,
-          },
-          {
-            q: "My house is ___ than yours.",
-            o: ["bigger", "biggest", "more big", "most big"],
-            a: 0,
-          },
-          {
-            q: "Today is ___ than yesterday.",
-            o: ["colder", "coldest", "more cold", "most cold"],
-            a: 0,
-          },
-          {
-            q: "He is ___ than his father.",
-            o: ["younger", "youngest", "more young", "most young"],
-            a: 0,
-          },
-          {
-            q: "This is the ___ film in history.",
-            o: ["worst", "worse", "more bad", "most bad"],
-            a: 0,
-          },
-          {
-            q: "She sings ___ of all.",
-            o: ["best", "better", "more good", "most good"],
-            a: 0,
-          },
-          {
-            q: "This road is ___ than that one.",
-            o: ["longer", "longest", "more long", "most long"],
-            a: 0,
-          },
-          {
-            q: "He is the ___ runner on the team.",
-            o: ["fastest", "faster", "more fast", "most fast"],
-            a: 0,
-          },
-          {
-            q: "English is ___ for me than math.",
-            o: ["easier", "easiest", "more easy", "most easy"],
-            a: 0,
-          },
-          {
-            q: "She is ___ than in the photo.",
-            o: [
-              "more beautiful",
-              "most beautiful",
-              "beautifuler",
-              "beautifully",
-            ],
-            a: 0,
-          },
-          {
-            q: "He is the ___ person I know.",
-            o: ["kindest", "kinder", "more kind", "most kind"],
-            a: 0,
-          },
-          {
-            q: "This chair is ___ than that one.",
-            o: [
-              "more comfortable",
-              "most comfortable",
-              "comfortabler",
-              "comfortably",
-            ],
-            a: 0,
-          },
-          {
-            q: "She works ___ than anyone else.",
-            o: ["harder", "hardest", "more hard", "most hard"],
-            a: 0,
-          },
-          {
-            q: "This is the ___ day of my life.",
-            o: ["happiest", "happier", "more happy", "most happy"],
-            a: 0,
-          },
-          {
-            q: "He is ___ than his brother.",
-            o: ["more careful", "most careful", "carefuller", "carefully"],
-            a: 0,
-          },
-          {
-            q: "This cake is ___ than the pie.",
-            o: ["sweeter", "sweetest", "more sweet", "most sweet"],
-            a: 0,
-          },
-          {
-            q: "My bag is ___ than yours.",
-            o: ["heavier", "heaviest", "more heavy", "most heavy"],
-            a: 0,
-          },
-          {
-            q: "This puzzle is ___ than that one.",
-            o: [
-              "more difficult",
-              "most difficult",
-              "difficulter",
-              "difficultly",
-            ],
-            a: 0,
-          },
-          {
-            q: "He is the ___ man in the room.",
-            o: ["oldest", "older", "more old", "most old"],
-            a: 0,
-          },
-          {
-            q: "Summer is ___ than spring.",
-            o: ["hotter", "hottest", "more hot", "most hot"],
-            a: 0,
-          },
-          {
-            q: "This is the ___ story.",
-            o: [
-              "most interesting",
-              "more interesting",
-              "interestingest",
-              "interestingly",
-            ],
-            a: 0,
-          },
-          {
-            q: "She is ___ than she looks.",
-            o: ["stronger", "strongest", "more strong", "most strong"],
-            a: 0,
-          },
-          {
-            q: "This is the ___ room in the house.",
-            o: ["smallest", "smaller", "more small", "most small"],
-            a: 0,
-          },
-          {
-            q: "He drives ___ than his wife.",
-            o: ["faster", "fastest", "more fast", "most fast"],
-            a: 0,
-          },
-          {
-            q: "This restaurant is ___ than that one.",
-            o: ["more popular", "most popular", "popularer", "popularly"],
-            a: 0,
-          },
-          {
-            q: "The journey was ___ than expected.",
-            o: ["longer", "longest", "more long", "most long"],
-            a: 0,
-          },
-          {
-            q: "She is ___ at maths than her friend.",
-            o: ["better", "best", "more good", "most good"],
-            a: 0,
-          },
-          {
-            q: "This hotel is ___ than the one we stayed in.",
-            o: [
-              "more luxurious",
-              "most luxurious",
-              "luxuriouser",
-              "very luxurious",
-            ],
-            a: 0,
-          },
-          {
-            q: "He felt ___ after taking medicine.",
-            o: ["better", "best", "more good", "gooder"],
-            a: 0,
-          },
-          {
-            q: "The second test was ___ than the first.",
-            o: ["easier", "easiest", "more easy", "most easy"],
-            a: 0,
-          },
-          {
-            q: "She arrived ___ than I expected.",
-            o: ["earlier", "earliest", "more early", "most early"],
-            a: 0,
-          },
-          {
-            q: "This film is ___ than his last one.",
-            o: ["worse", "worst", "more bad", "most bad"],
-            a: 0,
-          },
-          {
-            q: "The weather today is ___ than yesterday.",
-            o: ["worse", "worst", "more bad", "most bad"],
-            a: 0,
-          },
-          {
-            q: "Her voice is ___ than a whisper.",
-            o: ["softer", "softest", "more soft", "most soft"],
-            a: 0,
-          },
-          {
-            q: "He is ___ now than he was last year.",
-            o: ["taller", "tallest", "more tall", "most tall"],
-            a: 0,
-          },
-          {
-            q: "This bag is ___ than the one in the shop.",
-            o: ["cheaper", "cheapest", "more cheap", "most cheap"],
-            a: 0,
-          },
-          {
-            q: "She speaks English ___ than her sister.",
-            o: [
-              "more fluently",
-              "most fluently",
-              "fluentlier",
-              "very fluently",
-            ],
-            a: 0,
-          },
-          {
-            q: "This is the ___ news I've heard all day.",
-            o: ["best", "better", "more good", "most good"],
-            a: 0,
-          },
-          {
-            q: "His new phone is ___ than his old one.",
-            o: ["faster", "fastest", "more fast", "most fast"],
-            a: 0,
-          },
-          {
-            q: "The library is ___ than the café.",
-            o: ["quieter", "quietest", "more quiet", "most quiet"],
-            a: 0,
-          },
-          {
-            q: "She is ___ student in the class.",
-            o: [
-              "the most talented",
-              "a most talented",
-              "most talented",
-              "more talented",
-            ],
-            a: 0,
-          },
-          {
-            q: "The new bridge is ___ than the old one.",
-            o: ["stronger", "strongest", "more strong", "most strong"],
-            a: 0,
-          },
-          {
-            q: "Today's lecture was ___ than yesterday's.",
-            o: [
-              "more interesting",
-              "most interesting",
-              "interestinger",
-              "very interesting",
-            ],
-            a: 0,
-          },
-          {
-            q: "He is ___ about safety than his colleague.",
-            o: ["more careful", "most careful", "carefuller", "more carefully"],
-            a: 0,
-          },
-          {
-            q: "This exam was the ___ I have ever taken.",
-            o: ["hardest", "harder", "most hard", "more hard"],
-            a: 0,
-          },
-        ],
-        Prepositions: [
-          { q: "The cat is ___ the table.", o: ["on", "in", "at", "to"], a: 0 },
-          { q: "I live ___ New York.", o: ["in", "on", "at", "to"], a: 0 },
-          { q: "She arrived ___ Monday.", o: ["on", "in", "at", "to"], a: 0 },
-          { q: "The meeting is ___ 3 PM.", o: ["at", "in", "on", "to"], a: 0 },
-          { q: "He was born ___ 1995.", o: ["in", "on", "at", "to"], a: 0 },
-          {
-            q: "The book is ___ the shelf.",
-            o: ["on", "in", "at", "to"],
-            a: 0,
-          },
-          { q: "We went ___ the park.", o: ["to", "in", "on", "at"], a: 0 },
-          {
-            q: "She is interested ___ music.",
-            o: ["in", "on", "at", "to"],
-            a: 0,
-          },
-          { q: "He is good ___ math.", o: ["at", "in", "on", "to"], a: 0 },
-          {
-            q: "The shop is ___ the corner.",
-            o: ["on", "in", "at", "to"],
-            a: 0,
-          },
-          { q: "See you ___ Friday.", o: ["on", "in", "at", "to"], a: 0 },
-          {
-            q: "She lives ___ the second floor.",
-            o: ["on", "in", "at", "to"],
-            a: 0,
-          },
-          {
-            q: "He depends ___ his parents.",
-            o: ["on", "in", "at", "to"],
-            a: 0,
-          },
-          {
-            q: "We arrived ___ the airport.",
-            o: ["at", "in", "on", "to"],
-            a: 0,
-          },
-          {
-            q: "The picture is ___ the wall.",
-            o: ["on", "in", "at", "to"],
-            a: 0,
-          },
-          {
-            q: "I am afraid ___ spiders.",
-            o: ["of", "from", "to", "at"],
-            a: 0,
-          },
-          {
-            q: "She is waiting ___ the bus.",
-            o: ["for", "to", "on", "in"],
-            a: 0,
-          },
-          {
-            q: "He apologized ___ being late.",
-            o: ["for", "to", "about", "from"],
-            a: 0,
-          },
-          {
-            q: "The bird is flying ___ the house.",
-            o: ["over", "on", "in", "at"],
-            a: 0,
-          },
-          {
-            q: "She walked ___ the room.",
-            o: ["across", "on", "in", "at"],
-            a: 0,
-          },
-          {
-            q: "He sat ___ me and Tom.",
-            o: ["between", "among", "in", "on"],
-            a: 0,
-          },
-          { q: "She hid ___ the bed.", o: ["under", "on", "in", "at"], a: 0 },
-          {
-            q: "He is proud ___ his son.",
-            o: ["of", "about", "for", "in"],
-            a: 0,
-          },
-          {
-            q: "We drove ___ the tunnel.",
-            o: ["through", "on", "in", "at"],
-            a: 0,
-          },
-          {
-            q: "She is married ___ a doctor.",
-            o: ["to", "with", "for", "at"],
-            a: 0,
-          },
-          { q: "I agree ___ you.", o: ["with", "to", "for", "on"], a: 0 },
-          {
-            q: "He suffers ___ headaches.",
-            o: ["from", "of", "with", "at"],
-            a: 0,
-          },
-          {
-            q: "The cat jumped ___ the wall.",
-            o: ["over", "on", "in", "at"],
-            a: 0,
-          },
-          {
-            q: "She is responsible ___ the project.",
-            o: ["for", "of", "about", "to"],
-            a: 0,
-          },
-          {
-            q: "He succeeded ___ business.",
-            o: ["in", "on", "at", "to"],
-            a: 0,
-          },
-          {
-            q: "She has been here ___ 2018.",
-            o: ["since", "for", "from", "in"],
-            a: 0,
-          },
-          {
-            q: "I waited ___ two hours.",
-            o: ["for", "since", "from", "in"],
-            a: 0,
-          },
-          {
-            q: "The school is ___ the library.",
-            o: ["next to", "close", "near to", "in"],
-            a: 0,
-          },
-          {
-            q: "He is interested ___ photography.",
-            o: ["in", "on", "at", "for"],
-            a: 0,
-          },
-          {
-            q: "I will meet you ___ the entrance.",
-            o: ["at", "in", "on", "for"],
-            a: 0,
-          },
-          {
-            q: "She is tired ___ studying.",
-            o: ["of", "from", "with", "for"],
-            a: 0,
-          },
-          {
-            q: "He is different ___ his brother.",
-            o: ["from", "to", "of", "with"],
-            a: 0,
-          },
-          {
-            q: "We went out ___ despite the rain.",
-            o: ["—", "in", "on", "at"],
-            a: 0,
-          },
-          {
-            q: "She complained ___ the noise.",
-            o: ["about", "of", "from", "to"],
-            a: 0,
-          },
-          {
-            q: "The stadium is ___ the city centre.",
-            o: ["outside", "out", "away", "far"],
-            a: 0,
-          },
-          {
-            q: "He is very good ___ playing chess.",
-            o: ["at", "in", "on", "for"],
-            a: 0,
-          },
-          {
-            q: "I got a message ___ my teacher.",
-            o: ["from", "of", "with", "by"],
-            a: 0,
-          },
-          {
-            q: "She went to Paris ___ the first time.",
-            o: ["for", "in", "on", "at"],
-            a: 0,
-          },
-          {
-            q: "The children ran ___ the garden.",
-            o: ["around", "on", "in", "at"],
-            a: 0,
-          },
-          {
-            q: "He jumped ___ the swimming pool.",
-            o: ["into", "in", "on", "at"],
-            a: 0,
-          },
-          {
-            q: "She translated the text ___ English.",
-            o: ["into", "in", "on", "to"],
-            a: 0,
-          },
-          {
-            q: "The film is based ___ a true story.",
-            o: ["on", "in", "at", "for"],
-            a: 0,
-          },
-          {
-            q: "I am looking forward ___ seeing you.",
-            o: ["to", "for", "at", "in"],
-            a: 0,
-          },
-          {
-            q: "The plane arrived ___ time.",
-            o: ["on", "in", "at", "by"],
-            a: 0,
-          },
-          {
-            q: "She is not aware ___ the problem.",
-            o: ["of", "about", "with", "for"],
-            a: 0,
-          },
-        ],
-        "Reported Speech": [
-          {
-            q: "She said that she ___ tired.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "He told me that he ___ help.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "They said that they ___ leaving.",
-            o: ["were", "are", "will be", "have been"],
-            a: 0,
-          },
-          {
-            q: "She said that she ___ finished.",
-            o: ["had", "has", "will have", "is"],
-            a: 0,
-          },
-          {
-            q: "He said he ___ the book.",
-            o: ["had read", "reads", "will read", "is reading"],
-            a: 0,
-          },
-          {
-            q: "She asked if I ___ English.",
-            o: ["spoke", "speak", "will speak", "am speaking"],
-            a: 0,
-          },
-          {
-            q: "He said that he ___ go tomorrow.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "They told us that they ___ happy.",
-            o: ["were", "are", "will be", "have been"],
-            a: 0,
-          },
-          {
-            q: "She said that she ___ a new job.",
-            o: ["had found", "finds", "will find", "is finding"],
-            a: 0,
-          },
-          {
-            q: "He asked where I ___.",
-            o: ["lived", "live", "will live", "am living"],
-            a: 0,
-          },
-          {
-            q: "She told me that she ___ cooking.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "He said that he ___ the film.",
-            o: ["had seen", "has seen", "will see", "is seeing"],
-            a: 0,
-          },
-          {
-            q: "They asked if we ___ come.",
-            o: ["could", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "She said that she ___ to the shop.",
-            o: ["had gone", "goes", "will go", "is going"],
-            a: 0,
-          },
-          {
-            q: "He said that he ___ busy.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "She asked what I ___ doing.",
-            o: ["was", "am", "will be", "have been"],
-            a: 0,
-          },
-          {
-            q: "He said that the weather ___ good.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "They told us that they ___ arrived.",
-            o: ["had", "have", "will have", "are"],
-            a: 0,
-          },
-          {
-            q: "She said that she ___ call later.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "He asked if she ___ come.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "She said that she ___ the answer.",
-            o: ["knew", "knows", "will know", "is knowing"],
-            a: 0,
-          },
-          {
-            q: "He told me that he ___ study more.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "They said that they ___ not understand.",
-            o: ["could", "can", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "She asked when we ___ leave.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "He said that he ___ never been there.",
-            o: ["had", "has", "will have", "is"],
-            a: 0,
-          },
-          {
-            q: "She told me that she ___ a teacher.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "He said that he ___ his keys.",
-            o: ["had lost", "has lost", "will lose", "is losing"],
-            a: 0,
-          },
-          {
-            q: "They asked if I ___ free.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "She said that the food ___ delicious.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "He told me that he ___ try harder.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "She said that she ___ waiting.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "He asked why I ___ late.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "They said that they ___ help us.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "She told me that she ___ heard the news.",
-            o: ["had", "has", "will have", "is"],
-            a: 0,
-          },
-          {
-            q: "He said that he ___ feeling well.",
-            o: ["was", "is", "will be", "has been"],
-            a: 0,
-          },
-          {
-            q: "The teacher said we ___ submit the work by Friday.",
-            o: ["had to", "have to", "must", "should"],
-            a: 0,
-          },
-          {
-            q: 'He said "I am happy" → He said that he ___ happy.',
-            o: ["was", "is", "were", "had been"],
-            a: 0,
-          },
-          {
-            q: 'She said "I will come" → She said that she ___ come.',
-            o: ["would", "will", "shall", "could"],
-            a: 0,
-          },
-          {
-            q: 'He said "I have finished" → He said that he ___ finished.',
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: 'They said "We can help" → They said that they ___ help.',
-            o: ["could", "can", "shall", "would"],
-            a: 0,
-          },
-          {
-            q: "He told me he ___ the exam the next day.",
-            o: ["was taking", "is taking", "will take", "takes"],
-            a: 0,
-          },
-          {
-            q: "She asked me what I ___ for dinner.",
-            o: ["wanted", "want", "will want", "am wanting"],
-            a: 0,
-          },
-          {
-            q: "They told us they ___ on holiday.",
-            o: ["were going", "are going", "will go", "go"],
-            a: 0,
-          },
-          {
-            q: "He said he ___ his homework.",
-            o: ["had done", "has done", "does", "did"],
-            a: 0,
-          },
-          {
-            q: "She asked if I ___ seen the news.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "He told her that he ___ her a gift.",
-            o: ["had brought", "has brought", "brings", "brought"],
-            a: 0,
-          },
-          {
-            q: "They said the meeting ___ been postponed.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She told me she ___ move to Paris.",
-            o: ["might", "may", "will", "shall"],
-            a: 0,
-          },
-          {
-            q: "He said his brother ___ a new job.",
-            o: ["had got", "has got", "gets", "got"],
-            a: 0,
-          },
-          {
-            q: "She said that the shop ___ at 9.",
-            o: ["opened", "opens", "will open", "is opening"],
-            a: 0,
-          },
-        ],
-        "Relative Clauses": [
-          {
-            q: "The man ___ lives next door is a doctor.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The book ___ I read was amazing.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The girl ___ bag was stolen was crying.",
-            o: ["whose", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The city ___ we visited was beautiful.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The teacher ___ taught us is retired.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The house ___ roof is red is mine.",
-            o: ["whose", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The film ___ we watched was funny.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The woman ___ called you is my aunt.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The car ___ he bought is expensive.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The boy ___ father is a pilot is my friend.",
-            o: ["whose", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The restaurant ___ we ate was excellent.",
-            o: ["where", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The students ___ passed the exam celebrated.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The dog ___ bit me was black.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The artist ___ paintings are famous died young.",
-            o: ["whose", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The place ___ we met is special.",
-            o: ["where", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The day ___ she arrived was rainy.",
-            o: ["when", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The reason ___ he left is unknown.",
-            o: ["why", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The people ___ work here are friendly.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The country ___ I was born is small.",
-            o: ["where", "which", "who", "whom"],
-            a: 0,
-          },
-          {
-            q: "The woman ___ I met was kind.",
-            o: ["whom", "who", "which", "where"],
-            a: 0,
-          },
-          {
-            q: "The hotel ___ we stayed was good.",
-            o: ["where", "which", "who", "whom"],
-            a: 0,
-          },
-          {
-            q: "The children ___ parents came were happy.",
-            o: ["whose", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The phone ___ is ringing is mine.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The doctor ___ treated me was gentle.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The song ___ she sang was popular.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The friend ___ helped me is loyal.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The year ___ he graduated was 2020.",
-            o: ["when", "which", "who", "whose"],
-            a: 0,
-          },
-          {
-            q: "The company ___ I work for is growing.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The person ___ opinion I trust is you.",
-            o: ["whose", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The park ___ we play is nearby.",
-            o: ["where", "who", "whose", "which"],
-            a: 0,
-          },
-          {
-            q: "The neighbour ___ dog barks is annoying.",
-            o: ["whose", "who", "which", "whom"],
-            a: 0,
-          },
-          {
-            q: "The letter ___ arrived today is important.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The city ___ I grew up is quiet.",
-            o: ["where", "who", "whose", "which"],
-            a: 0,
-          },
-          {
-            q: "The student ___ won the prize is my friend.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The building ___ they work in is very modern.",
-            o: ["which", "who", "whose", "where"],
-            a: 0,
-          },
-          {
-            q: "The summer ___ we met was very hot.",
-            o: ["when", "which", "who", "whose"],
-            a: 0,
-          },
-          {
-            q: "The team ___ won the match is from Spain.",
-            o: ["which", "who", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The language ___ I find hardest is Chinese.",
-            o: ["which", "who", "whose", "where"],
-            a: 0,
-          },
-          {
-            q: "The professor ___ taught us retired last year.",
-            o: ["who", "which", "whose", "whom"],
-            a: 0,
-          },
-          {
-            q: "The town ___ she grew up has changed a lot.",
-            o: ["where", "when", "which", "who"],
-            a: 0,
-          },
-          {
-            q: "The reason ___ she was late is unclear.",
-            o: ["why", "which", "when", "where"],
-            a: 0,
-          },
-          {
-            q: "That is the man ___ I told you about.",
-            o: ["whom", "who", "which", "whose"],
-            a: 0,
-          },
-          {
-            q: "She is the teacher ___ class I love.",
-            o: ["whose", "who", "which", "where"],
-            a: 0,
-          },
-          {
-            q: "The day ___ I passed my exam was unforgettable.",
-            o: ["when", "which", "who", "where"],
-            a: 0,
-          },
-          {
-            q: "The laptop ___ I bought last month is broken.",
-            o: ["which", "who", "whose", "where"],
-            a: 0,
-          },
-          {
-            q: "Is that the restaurant ___ opened last week?",
-            o: ["which", "who", "whose", "where"],
-            a: 0,
-          },
-          {
-            q: "The man ___ wife is a scientist works here.",
-            o: ["whose", "who", "which", "where"],
-            a: 0,
-          },
-          {
-            q: "The village ___ they grew up no longer exists.",
-            o: ["where", "which", "who", "when"],
-            a: 0,
-          },
-          {
-            q: "That is the film ___ won three Oscars.",
-            o: ["which", "who", "whose", "where"],
-            a: 0,
-          },
-          {
-            q: "She is the nurse ___ looked after my grandfather.",
-            o: ["who", "which", "whose", "where"],
-            a: 0,
-          },
-        ],
-        "Phrasal Verbs": [
-          {
-            q: "Please ___ your shoes before entering.",
-            o: ["take off", "put on", "pick up", "let in"],
-            a: 0,
-          },
-          {
-            q: "I need to ___ this word in the dictionary.",
-            o: ["look up", "look after", "search for", "look into"],
-            a: 0,
-          },
-          {
-            q: "She ___ a great idea.",
-            o: ["came up with", "came down", "came in", "came through"],
-            a: 0,
-          },
-          {
-            q: "He ___ smoking last year.",
-            o: ["gave up", "gave in", "gave out", "gave away"],
-            a: 0,
-          },
-          {
-            q: "We ___ early for the trip.",
-            o: ["set off", "set up", "set in", "set out"],
-            a: 0,
-          },
-          {
-            q: "Can you ___ the children while I'm away?",
-            o: ["look after", "look up", "search for", "look into"],
-            a: 0,
-          },
-          {
-            q: "The plane ___ on time.",
-            o: ["took off", "took on", "took in", "took up"],
-            a: 0,
-          },
-          {
-            q: "She ___ well with her colleagues.",
-            o: ["gets along", "gets up", "gets over", "gets out"],
-            a: 0,
-          },
-          {
-            q: "He ___ the project alone.",
-            o: ["carried out", "carried on", "carried away", "carried off"],
-            a: 0,
-          },
-          {
-            q: "Don't ___! Keep trying!",
-            o: ["give up", "give in", "give away", "give out"],
-            a: 0,
-          },
-          {
-            q: "She ___ early every morning.",
-            o: ["gets up", "gets in", "gets off", "gets along"],
-            a: 0,
-          },
-          {
-            q: "We need to ___ this problem.",
-            o: ["figure out", "figure in", "work on", "sort out"],
-            a: 0,
-          },
-          {
-            q: "He ___ his cold.",
-            o: ["got over", "got into", "got off", "got up"],
-            a: 0,
-          },
-          {
-            q: "She ___ the form carefully.",
-            o: ["filled in", "filled out", "filled up", "filled off"],
-            a: 0,
-          },
-          {
-            q: "They ___ the meeting until Friday.",
-            o: ["put off", "put on", "put up", "put in"],
-            a: 0,
-          },
-          {
-            q: "I can't ___ this noise anymore.",
-            o: ["put up with", "put on", "put off", "put in"],
-            a: 0,
-          },
-          {
-            q: "She ___ a new hobby.",
-            o: ["took up", "took off", "took on", "took in"],
-            a: 0,
-          },
-          {
-            q: "He ___ his father in many ways.",
-            o: ["takes after", "takes on", "takes off", "takes in"],
-            a: 0,
-          },
-          {
-            q: "We ___ of milk. Please buy some.",
-            o: ["ran out", "ran away", "ran off", "ran into"],
-            a: 0,
-          },
-          {
-            q: "She ___ the invitation.",
-            o: ["turned down", "turned on", "turned off", "turned up"],
-            a: 0,
-          },
-          {
-            q: "Please ___ the light when you leave.",
-            o: ["turn off", "turn on", "turn up", "turn down"],
-            a: 0,
-          },
-          {
-            q: "She ___ the truth eventually.",
-            o: ["found out", "found on", "found off", "found in"],
-            a: 0,
-          },
-          {
-            q: "He ___ with the flu.",
-            o: ["came down", "came up", "turned off", "turned on"],
-            a: 0,
-          },
-          {
-            q: "We need to ___ a solution.",
-            o: ["come up with", "come down with", "turn on", "go in"],
-            a: 0,
-          },
-          {
-            q: "He ___ his jacket because it was hot.",
-            o: ["took off", "took on", "took up", "took in"],
-            a: 0,
-          },
-          {
-            q: "We should ___ expenses this month.",
-            o: ["cut down on", "cut off", "cut in", "turn on"],
-            a: 0,
-          },
-          {
-            q: "She ___ a story for the children.",
-            o: ["made up", "made on", "made off", "made in"],
-            a: 0,
-          },
-          {
-            q: "We ___ for dinner at 7.",
-            o: ["went out", "went in", "went up", "went off"],
-            a: 0,
-          },
-          {
-            q: "She quickly ___ the mess.",
-            o: ["cleaned up", "cleaned out", "cleaned in", "cleaned off"],
-            a: 0,
-          },
-          {
-            q: "He ___ to be a good cook.",
-            o: ["turned out", "turned on", "turned off", "turned up"],
-            a: 0,
-          },
-          {
-            q: "We ___ our holiday plans.",
-            o: ["sorted out", "sorted on", "sorted off", "sorted in"],
-            a: 0,
-          },
-          {
-            q: "She ___ a brilliant idea at the meeting.",
-            o: ["brought up", "brought in", "brought on", "brought over"],
-            a: 0,
-          },
-          {
-            q: "He couldn't ___ the long flight.",
-            o: ["put up with", "put off", "put out", "put on"],
-            a: 0,
-          },
-          {
-            q: "I need to ___ my essay before I hand it in.",
-            o: ["go over", "go on", "go up", "go off"],
-            a: 0,
-          },
-          {
-            q: "The alarm ___ at 6 AM.",
-            o: ["went off", "went on", "went up", "went out"],
-            a: 0,
-          },
-          {
-            q: "She ___ learning Japanese after a month.",
-            o: ["gave up", "gave in", "gave out", "gave away"],
-            a: 0,
-          },
-          {
-            q: "He ___ a lot of weight last year.",
-            o: ["put on", "put off", "put up", "put out"],
-            a: 0,
-          },
-          {
-            q: "They ___ their differences and became friends.",
-            o: ["got over", "got on", "got up", "got off"],
-            a: 0,
-          },
-          {
-            q: "The manager ___ a new employee last week.",
-            o: ["took on", "took off", "took up", "took in"],
-            a: 0,
-          },
-          {
-            q: "She always ___ her friends when they need help.",
-            o: ["stands by", "stands up", "stands off", "stands out"],
-            a: 0,
-          },
-          {
-            q: "He ___ the presentation very well.",
-            o: ["pulled off", "pulled up", "pulled in", "pulled on"],
-            a: 0,
-          },
-          {
-            q: "They ___ the fire quickly.",
-            o: ["put out", "put off", "put on", "put up"],
-            a: 0,
-          },
-          {
-            q: "She ___ her application before the deadline.",
-            o: ["handed in", "handed out", "handed off", "handed up"],
-            a: 0,
-          },
-          {
-            q: "He ___ several articles for the magazine.",
-            o: ["turned in", "turned up", "turned out", "turned off"],
-            a: 0,
-          },
-          {
-            q: "I ___ my old teacher in the supermarket.",
-            o: ["ran into", "ran away", "ran off", "ran out"],
-            a: 0,
-          },
-          {
-            q: "She ___ learning piano as a child.",
-            o: ["took up", "took off", "took in", "took on"],
-            a: 0,
-          },
-          {
-            q: "They needed to ___ where to go.",
-            o: ["work out", "work on", "work in", "work off"],
-            a: 0,
-          },
-          {
-            q: "He ___ the job offer because the salary was low.",
-            o: ["turned down", "turned off", "turned up", "turned out"],
-            a: 0,
-          },
-          {
-            q: "The concert ___ to be a great success.",
-            o: ["turned out", "turned off", "turned on", "turned up"],
-            a: 0,
-          },
-          {
-            q: "She ___ the children during the school holiday.",
-            o: ["looked after", "looked up", "looked into", "looked out"],
-            a: 0,
-          },
-        ],
-        "Past Perfect": [
-          {
-            q: "By the time I arrived, she ___ already left.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "He was tired because he ___ worked all day.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "They ___ finished dinner before the guests arrived.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "She ___ never seen snow before that winter.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "I realised I ___ forgotten my wallet.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "He told me he ___ studied in London.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "By 2010, they ___ sold over a million books.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "She was upset because she ___ lost the match.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "When I woke up, the rain ___.",
-            o: ["had stopped", "stopped", "has stopped", "did stop"],
-            a: 0,
-          },
-          {
-            q: "He couldn't enter because he ___ forgotten the code.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "We ___ not eaten anything since morning.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "She remembered that she ___ met him before.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "By the time we arrived, the film ___.",
-            o: ["had started", "started", "has started", "starts"],
-            a: 0,
-          },
-          {
-            q: "He looked tired because he ___ slept well.",
-            o: ["hadn't", "hasn't", "wasn't", "didn't"],
-            a: 0,
-          },
-          {
-            q: "I was happy because I ___ passed my exam.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She ___ just finished cooking when he came home.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "They knew each other because they ___ worked together.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "He couldn't answer because he ___ not studied.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "By last year she ___ been teaching for 20 years.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "I found the letter that I ___ been looking for.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "After he ___ finished the report, he sent it.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She was nervous because she ___ never flown before.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "They left before we ___ a chance to speak.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "He admitted that he ___ made a mistake.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "When the police arrived, the thief ___.",
-            o: ["had escaped", "escaped", "has escaped", "escapes"],
-            a: 0,
-          },
-          {
-            q: "I ___ never tried sushi before that trip.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She told us she ___ visited the museum before.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "He was angry because they ___ lied to him.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "Once she ___ graduated, she started working.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "They ___ saved enough money before buying the house.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "She realised she ___ left the keys at home.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "He felt proud because he ___ worked hard.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "By the time she called, I ___ fallen asleep.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "We were surprised because nobody ___ warned us.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She denied that she ___ taken the money.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "He was the best player they ___ ever seen.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "I returned the book because I ___ read it.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She explained that she ___ missed the bus.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "They couldn't find the document because someone ___ moved it.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "After we ___ eaten, we went for a walk.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "He was relieved when he found out she ___.",
-            o: ["had arrived", "arrived", "has arrived", "arrives"],
-            a: 0,
-          },
-          {
-            q: "She thanked him for what he ___ done.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "The guests ___ already left when we called.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "I knew I ___ met her somewhere before.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "By midnight he ___ written ten pages.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She was sad because she ___ lost her cat.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "After they ___ spoken, they felt much better.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "He discovered that someone ___ broken in.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "Before the match, they ___ trained for months.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "She apologised because she ___ forgotten his name.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-        ],
-        "Future Continuous": [
-          {
-            q: "At 8 PM tomorrow, I ___ watching the match.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ working all day tomorrow.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "They ___ travelling at this time next week.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "He ___ sleeping when you call.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "We ___ having lunch at noon.",
-            o: ["will be", "would be", "are", "shall"],
-            a: 0,
-          },
-          {
-            q: "I ___ thinking about you.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ not working this time tomorrow.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "They ___ studying for their exams all week.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "He ___ driving at midnight.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "___ you using the car tomorrow?",
-            o: ["Will you be", "Would you be", "Are you", "Shall you"],
-            a: 0,
-          },
-          {
-            q: "By 6 PM, she ___ still working.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "At this time tomorrow, I ___ flying to Spain.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "They ___ waiting for us when we arrive.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "He ___ practising guitar all evening.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "We ___ celebrating our anniversary next week.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "I ___ not using the laptop all day.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ cooking when you arrive.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "___ he working next Monday?",
-            o: ["Will he be", "Would he be", "Is he", "Shall he"],
-            a: 0,
-          },
-          {
-            q: "By this evening, they ___ finishing the report.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "I ___ waiting for you outside.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ teaching the advanced class tomorrow.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "At midnight, he ___ still working.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "We ___ attending the conference all week.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "They ___ competing in the race.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "I ___ reading in the garden tomorrow afternoon.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ presenting her findings at noon.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "___ they playing when we arrive?",
-            o: ["Will they be", "Would they be", "Are they", "Shall they"],
-            a: 0,
-          },
-          {
-            q: "He ___ not sleeping at this time tonight.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "By 9 AM, she ___ running in the park.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "We ___ watching the news at 7.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "I ___ working from home tomorrow.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ attending the conference next week.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "They ___ moving into the new apartment.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "He ___ speaking at the event.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "___ she joining us for dinner?",
-            o: ["Will she be", "Would she be", "Is she", "Shall she"],
-            a: 0,
-          },
-          {
-            q: "At 10 tomorrow, I ___ meeting the director.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "He ___ coaching the junior team next season.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "We ___ renovating the kitchen all month.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "She ___ interviewing candidates all morning.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "They ___ sailing around the coast next summer.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "I ___ revising for my exams all weekend.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-          {
-            q: "He ___ visiting relatives during the holidays.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "She ___ running the marathon next month.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "By 3 PM, they ___ finishing the construction.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "___ I disturbing you if I call at 8?",
-            o: ["Will I be", "Would I be", "Am I", "Shall I"],
-            a: 0,
-          },
-          {
-            q: "She ___ taking the train at this time.",
-            o: ["will be", "would be", "is", "shall be"],
-            a: 0,
-          },
-          {
-            q: "We ___ enjoying the concert this evening.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "He ___ not coming to school tomorrow.",
-            o: ["will be", "would be", "is", "shall"],
-            a: 0,
-          },
-          {
-            q: "They ___ discussing the plan at the meeting.",
-            o: ["will be", "would be", "are", "shall be"],
-            a: 0,
-          },
-          {
-            q: "I ___ arriving at the airport at noon.",
-            o: ["will be", "would be", "am", "shall"],
-            a: 0,
-          },
-        ],
-        "Gerunds & Infinitives": [
-          {
-            q: "I enjoy ___ books.",
-            o: ["reading", "to read", "read", "readed"],
-            a: 0,
-          },
-          {
-            q: "She wants ___ a doctor.",
-            o: ["to be", "being", "be", "been"],
-            a: 0,
-          },
-          {
-            q: "He avoided ___ the question.",
-            o: ["answering", "to answer", "answer", "answered"],
-            a: 0,
-          },
-          {
-            q: "We decided ___ to the beach.",
-            o: ["to go", "going", "go", "gone"],
-            a: 0,
-          },
-          {
-            q: "They finished ___ the report.",
-            o: ["writing", "to write", "write", "written"],
-            a: 0,
-          },
-          {
-            q: "She hopes ___ abroad next year.",
-            o: ["to study", "studying", "study", "studied"],
-            a: 0,
-          },
-          {
-            q: "He admitted ___ the money.",
-            o: ["taking", "to take", "take", "taken"],
-            a: 0,
-          },
-          {
-            q: "I can't stand ___ late.",
-            o: ["waiting", "to wait", "wait", "waited"],
-            a: 0,
-          },
-          { q: "She agreed ___ help us.", o: ["to", "—", "for", "at"], a: 0 },
-          {
-            q: "He suggested ___ to the cinema.",
-            o: ["going", "to go", "go", "gone"],
-            a: 0,
-          },
-          {
-            q: "I promise ___ you soon.",
-            o: ["to call", "calling", "call", "called"],
-            a: 0,
-          },
-          {
-            q: "She keeps ___ the same mistakes.",
-            o: ["making", "to make", "make", "made"],
-            a: 0,
-          },
-          {
-            q: "He refused ___ his homework.",
-            o: ["to do", "doing", "do", "done"],
-            a: 0,
-          },
-          {
-            q: "I love ___ in the morning.",
-            o: ["running", "to run", "run", "ran"],
-            a: 0,
-          },
-          {
-            q: "She managed ___ the exam.",
-            o: ["to pass", "passing", "pass", "passed"],
-            a: 0,
-          },
-          {
-            q: "He denied ___ there.",
-            o: ["being", "to be", "be", "been"],
-            a: 0,
-          },
-          {
-            q: "They plan ___ a new company.",
-            o: ["to start", "starting", "start", "started"],
-            a: 0,
-          },
-          {
-            q: "I miss ___ with my old friends.",
-            o: ["spending time", "to spend time", "spend time", "spent time"],
-            a: 0,
-          },
-          {
-            q: "She learnt ___ at age four.",
-            o: ["to read", "reading", "read", "readed"],
-            a: 0,
-          },
-          {
-            q: "He couldn't help ___ at the joke.",
-            o: ["laughing", "to laugh", "laugh", "laughed"],
-            a: 0,
-          },
-          {
-            q: "I need ___ you something important.",
-            o: ["to tell", "telling", "tell", "told"],
-            a: 0,
-          },
-          {
-            q: "She practises ___ every day.",
-            o: ["singing", "to sing", "sing", "sang"],
-            a: 0,
-          },
-          {
-            q: "He pretended ___ asleep.",
-            o: ["to be", "being", "be", "been"],
-            a: 0,
-          },
-          {
-            q: "I enjoy ___ to jazz music.",
-            o: ["listening", "to listen", "listen", "listened"],
-            a: 0,
-          },
-          {
-            q: "They expect ___ on Friday.",
-            o: ["to arrive", "arriving", "arrive", "arrived"],
-            a: 0,
-          },
-          {
-            q: "She stopped ___ last year.",
-            o: ["smoking", "to smoke", "smoke", "smoked"],
-            a: 0,
-          },
-          {
-            q: "He is considering ___ abroad.",
-            o: ["studying", "to study", "study", "studied"],
-            a: 0,
-          },
-          {
-            q: "I would like ___ you again.",
-            o: ["to see", "seeing", "see", "seen"],
-            a: 0,
-          },
-          {
-            q: "She dislikes ___ early.",
-            o: ["waking up", "to wake up", "wake up", "woke up"],
-            a: 0,
-          },
-          {
-            q: "He aims ___ the top prize.",
-            o: ["to win", "winning", "win", "won"],
-            a: 0,
-          },
-          {
-            q: "They reported ___ the crime.",
-            o: ["having seen", "to see", "see", "seen"],
-            a: 0,
-          },
-          {
-            q: "I suggest ___ a taxi instead.",
-            o: ["taking", "to take", "take", "taken"],
-            a: 0,
-          },
-          {
-            q: "She tends ___ overthink things.",
-            o: ["to", "—", "for", "at"],
-            a: 0,
-          },
-          {
-            q: "He is looking forward to ___ you.",
-            o: ["meeting", "to meet", "meet", "met"],
-            a: 0,
-          },
-          {
-            q: "I regret ___ that I can't help.",
-            o: ["to say", "saying", "say", "said"],
-            a: 0,
-          },
-          {
-            q: "She began ___ when she heard the news.",
-            o: ["crying", "to cry", "cry", "cried"],
-            a: 0,
-          },
-          {
-            q: "He is used to ___ up early.",
-            o: ["getting", "to get", "get", "got"],
-            a: 0,
-          },
-          {
-            q: "They prefer ___ at home.",
-            o: ["staying", "to stay", "stay", "stayed"],
-            a: 0,
-          },
-          {
-            q: "I forgot ___ the door.",
-            o: ["to lock", "locking", "lock", "locked"],
-            a: 0,
-          },
-          {
-            q: "She loves ___ Italian food.",
-            o: ["eating", "to eat", "eat", "ate"],
-            a: 0,
-          },
-          {
-            q: "He agreed ___ the contract.",
-            o: ["to sign", "signing", "sign", "signed"],
-            a: 0,
-          },
-          {
-            q: "They postponed ___ the meeting.",
-            o: ["holding", "to hold", "hold", "held"],
-            a: 0,
-          },
-          {
-            q: "I attempted ___ the mountain.",
-            o: ["to climb", "climbing", "climb", "climbed"],
-            a: 0,
-          },
-          {
-            q: "She keeps ___ to play that song.",
-            o: ["asking me", "ask me", "to ask me", "asked me"],
-            a: 0,
-          },
-          {
-            q: "He managed ___ the problem.",
-            o: ["to solve", "solving", "solve", "solved"],
-            a: 0,
-          },
-          {
-            q: "They decided against ___ the house.",
-            o: ["selling", "to sell", "sell", "sold"],
-            a: 0,
-          },
-          {
-            q: "I remember ___ the letter.",
-            o: ["posting", "to post", "post", "posted"],
-            a: 0,
-          },
-          {
-            q: "She threatened ___ the police.",
-            o: ["to call", "calling", "call", "called"],
-            a: 0,
-          },
-          {
-            q: "He avoided ___ the new road.",
-            o: ["using", "to use", "use", "used"],
-            a: 0,
-          },
-          {
-            q: "We are committed to ___ quality.",
-            o: ["delivering", "to deliver", "deliver", "delivered"],
-            a: 0,
-          },
-        ],
-        "Question Tags": [
-          {
-            q: "It's a nice day, ___?",
-            o: ["isn't it", "is it", "wasn't it", "was it"],
-            a: 0,
-          },
-          {
-            q: "You are coming, ___?",
-            o: ["aren't you", "are you", "don't you", "won't you"],
-            a: 0,
-          },
-          {
-            q: "She can swim, ___?",
-            o: ["can't she", "isn't she", "doesn't she", "can she"],
-            a: 0,
-          },
-          {
-            q: "They have finished, ___?",
-            o: ["haven't they", "didn't they", "aren't they", "don't they"],
-            a: 0,
-          },
-          {
-            q: "He doesn't know, ___?",
-            o: ["does he", "doesn't he", "isn't he", "wasn't he"],
-            a: 0,
-          },
-          {
-            q: "You weren't listening, ___?",
-            o: ["were you", "weren't you", "did you", "didn't you"],
-            a: 0,
-          },
-          {
-            q: "She won't be late, ___?",
-            o: ["will she", "won't she", "is she", "isn't she"],
-            a: 0,
-          },
-          {
-            q: "We should leave now, ___?",
-            o: ["shouldn't we", "should we", "don't we", "aren't we"],
-            a: 0,
-          },
-          {
-            q: "He has been here before, ___?",
-            o: ["hasn't he", "has he", "didn't he", "isn't he"],
-            a: 0,
-          },
-          {
-            q: "You haven't seen this film, ___?",
-            o: ["have you", "haven't you", "did you", "didn't you"],
-            a: 0,
-          },
-          {
-            q: "Let's go to the cinema, ___?",
-            o: ["shall we", "will we", "don't we", "won't we"],
-            a: 0,
-          },
-          {
-            q: "They didn't arrive on time, ___?",
-            o: ["did they", "didn't they", "were they", "aren't they"],
-            a: 0,
-          },
-          {
-            q: "She would help us, ___?",
-            o: ["wouldn't she", "would she", "will she", "won't she"],
-            a: 0,
-          },
-          {
-            q: "You could speak Russian once, ___?",
-            o: ["couldn't you", "could you", "weren't you", "didn't you"],
-            a: 0,
-          },
-          {
-            q: "There are enough chairs, ___?",
-            o: ["aren't there", "are there", "isn't there", "is there"],
-            a: 0,
-          },
-          {
-            q: "I'm doing well, ___?",
-            o: ["aren't I", "am I", "isn't it", "don't I"],
-            a: 0,
-          },
-          {
-            q: "He used to live here, ___?",
-            o: ["didn't he", "used he", "wasn't he", "hasn't he"],
-            a: 0,
-          },
-          {
-            q: "Nothing went wrong, ___?",
-            o: ["did it", "didn't it", "was it", "weren't they"],
-            a: 0,
-          },
-          {
-            q: "You will help me, ___?",
-            o: ["won't you", "will you", "don't you", "wouldn't you"],
-            a: 0,
-          },
-          {
-            q: "She hasn't eaten yet, ___?",
-            o: ["has she", "hasn't she", "is she", "did she"],
-            a: 0,
-          },
-          {
-            q: "We were right, ___?",
-            o: ["weren't we", "were we", "didn't we", "aren't we"],
-            a: 0,
-          },
-          {
-            q: "He didn't call you, ___?",
-            o: ["did he", "didn't he", "has he", "was he"],
-            a: 0,
-          },
-          {
-            q: "They can finish on time, ___?",
-            o: ["can't they", "can they", "don't they", "won't they"],
-            a: 0,
-          },
-          {
-            q: "You've met my sister, ___?",
-            o: ["haven't you", "have you", "weren't you", "didn't you"],
-            a: 0,
-          },
-          {
-            q: "She was disappointed, ___?",
-            o: ["wasn't she", "was she", "isn't she", "didn't she"],
-            a: 0,
-          },
-          {
-            q: "He must be tired, ___?",
-            o: ["mustn't he", "must he", "isn't he", "was he"],
-            a: 0,
-          },
-          {
-            q: "We needn't worry, ___?",
-            o: ["need we", "do we", "should we", "must we"],
-            a: 0,
-          },
-          {
-            q: "Open the window, ___?",
-            o: ["will you", "shall we", "won't we", "aren't you"],
-            a: 0,
-          },
-          {
-            q: "Everybody came, ___?",
-            o: ["didn't they", "did they", "weren't they", "were they"],
-            a: 0,
-          },
-          {
-            q: "This is your bag, ___?",
-            o: ["isn't it", "is it", "wasn't it", "wasn't this"],
-            a: 0,
-          },
-          {
-            q: "You speak English, ___?",
-            o: ["don't you", "do you", "are you", "aren't you"],
-            a: 0,
-          },
-          {
-            q: "She sang beautifully, ___?",
-            o: ["didn't she", "did she", "wasn't she", "was she"],
-            a: 0,
-          },
-          {
-            q: "We haven't been introduced, ___?",
-            o: ["have we", "haven't we", "were we", "weren't we"],
-            a: 0,
-          },
-          {
-            q: "He could have been there, ___?",
-            o: ["couldn't he", "could he", "wasn't he", "was he"],
-            a: 0,
-          },
-          {
-            q: "They won't tell anyone, ___?",
-            o: ["will they", "won't they", "do they", "don't they"],
-            a: 0,
-          },
-          {
-            q: "You'd rather stay home, ___?",
-            o: ["wouldn't you", "would you", "hadn't you", "hadn't you"],
-            a: 0,
-          },
-          {
-            q: "She should apologise, ___?",
-            o: ["shouldn't she", "should she", "wasn't she", "didn't she"],
-            a: 0,
-          },
-          {
-            q: "Nobody phoned, ___?",
-            o: ["did they", "didn't they", "was there", "wasn't there"],
-            a: 0,
-          },
-          {
-            q: "The match is on Saturday, ___?",
-            o: ["isn't it", "is it", "wasn't it", "was it"],
-            a: 0,
-          },
-          {
-            q: "You had never met her before, ___?",
-            o: ["had you", "hadn't you", "did you", "didn't you"],
-            a: 0,
-          },
-          {
-            q: "They might come, ___?",
-            o: ["mightn't they", "might they", "won't they", "will they"],
-            a: 0,
-          },
-          {
-            q: "We ought to leave early, ___?",
-            o: ["oughtn't we", "ought we", "shouldn't we", "should we"],
-            a: 0,
-          },
-          {
-            q: "It wasn't raining, ___?",
-            o: ["was it", "wasn't it", "did it", "didn't it"],
-            a: 0,
-          },
-          {
-            q: "She hasn't called, ___?",
-            o: ["has she", "hasn't she", "did she", "didn't she"],
-            a: 0,
-          },
-          {
-            q: "They were at school, ___?",
-            o: ["weren't they", "were they", "didn't they", "aren't they"],
-            a: 0,
-          },
-          {
-            q: "He used to eat here, ___?",
-            o: ["didn't he", "did he", "hasn't he", "had he"],
-            a: 0,
-          },
-          {
-            q: "You don't mind, ___?",
-            o: ["do you", "don't you", "are you", "aren't you"],
-            a: 0,
-          },
-          {
-            q: "It had been a long day, ___?",
-            o: ["hadn't it", "had it", "wasn't it", "was it"],
-            a: 0,
-          },
-          {
-            q: "We must leave now, ___?",
-            o: ["mustn't we", "must we", "shouldn't we", "should we"],
-            a: 0,
-          },
-          {
-            q: "She would prefer tea, ___?",
-            o: ["wouldn't she", "would she", "will she", "won't she"],
-            a: 0,
-          },
-        ],
-        "Wish & If Only": [
-          {
-            q: "I wish I ___ taller.",
-            o: ["were", "am", "will be", "would be"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ more time.",
-            o: ["had", "has", "would have", "will have"],
-            a: 0,
-          },
-          {
-            q: "If only he ___ harder.",
-            o: ["worked", "works", "will work", "would work"],
-            a: 0,
-          },
-          {
-            q: "I wish I ___ to the party.",
-            o: ["had gone", "went", "have gone", "go"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ the mistake.",
-            o: ["hadn't made", "didn't make", "hasn't made", "won't make"],
-            a: 0,
-          },
-          {
-            q: "If only it ___ raining.",
-            o: ["would stop", "stops", "stopped", "has stopped"],
-            a: 0,
-          },
-          {
-            q: "He wishes he ___ drive.",
-            o: ["could", "can", "would", "will"],
-            a: 0,
-          },
-          {
-            q: "I wish you ___ make so much noise.",
-            o: ["wouldn't", "won't", "don't", "didn't"],
-            a: 0,
-          },
-          {
-            q: "If only I ___ the answer.",
-            o: ["knew", "know", "would know", "will know"],
-            a: 0,
-          },
-          {
-            q: "She wishes things ___ different.",
-            o: ["were", "are", "will be", "would be"],
-            a: 0,
-          },
-          {
-            q: "I wish I ___ spoken to him.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "He wishes he ___ so rude.",
-            o: ["hadn't been", "wasn't", "hasn't been", "won't be"],
-            a: 0,
-          },
-          {
-            q: "If only she ___ here now.",
-            o: ["were", "is", "would be", "will be"],
-            a: 0,
-          },
-          {
-            q: "I wish I ___ remember his name.",
-            o: ["could", "can", "would", "will"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ in Paris.",
-            o: ["lived", "lives", "would live", "will live"],
-            a: 0,
-          },
-          {
-            q: "If only we ___ more money.",
-            o: ["had", "have", "would have", "will have"],
-            a: 0,
-          },
-          {
-            q: "He wishes he ___ the race.",
-            o: ["had won", "won", "has won", "wins"],
-            a: 0,
-          },
-          {
-            q: "I wish the weather ___ better.",
-            o: ["were", "is", "would be", "will be"],
-            a: 0,
-          },
-          {
-            q: "If only I ___ earlier.",
-            o: ["had left", "left", "have left", "leave"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ play the piano.",
-            o: ["could", "can", "would", "will"],
-            a: 0,
-          },
-          {
-            q: "I wish he ___ stop interrupting.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "If only they ___ us the truth.",
-            o: ["had told", "told", "have told", "tell"],
-            a: 0,
-          },
-          {
-            q: "He wishes he ___ taken the job.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "I wish I ___ so busy.",
-            o: ["weren't", "am not", "won't be", "wouldn't be"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ the exam.",
-            o: ["had passed", "passed", "has passed", "passes"],
-            a: 0,
-          },
-          {
-            q: "If only we ___ more careful.",
-            o: ["had been", "were", "have been", "are"],
-            a: 0,
-          },
-          {
-            q: "I wish I ___ fly.",
-            o: ["could", "can", "would", "will"],
-            a: 0,
-          },
-          {
-            q: "He wishes he ___ a doctor.",
-            o: ["were", "is", "would be", "will be"],
-            a: 0,
-          },
-          {
-            q: "If only she ___ called me.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "I wish I ___ spent more time with them.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ live abroad.",
-            o: ["could", "can", "would", "will"],
-            a: 0,
-          },
-          {
-            q: "If only he ___ so stubborn.",
-            o: ["weren't", "isn't", "won't be", "wouldn't be"],
-            a: 0,
-          },
-          {
-            q: "I wish the concert ___ cancelled.",
-            o: ["hadn't been", "wasn't", "hasn't been", "won't be"],
-            a: 0,
-          },
-          {
-            q: "She wishes her parents ___ understood her better.",
-            o: ["had", "have", "were", "did"],
-            a: 0,
-          },
-          {
-            q: "If only I ___ what to say.",
-            o: ["knew", "know", "would know", "will know"],
-            a: 0,
-          },
-          {
-            q: "He wishes he ___ made a different choice.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "I wish you ___ here with me.",
-            o: ["were", "are", "would be", "will be"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ bought that house.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "If only we ___ away for the weekend.",
-            o: ["could go", "can go", "will go", "shall go"],
-            a: 0,
-          },
-          {
-            q: "I wish it ___ stop raining.",
-            o: ["would", "will", "can", "shall"],
-            a: 0,
-          },
-          {
-            q: "He wishes he ___ to that school.",
-            o: ["had gone", "went", "has gone", "goes"],
-            a: 0,
-          },
-          {
-            q: "If only she ___ her phone today.",
-            o: ["hadn't left", "didn't leave", "hasn't left", "won't leave"],
-            a: 0,
-          },
-          {
-            q: "I wish I ___ the right thing.",
-            o: ["had done", "did", "have done", "do"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ listened to her parents.",
-            o: ["had", "has", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "If only they ___ a better plan.",
-            o: ["had had", "had", "have", "would have"],
-            a: 0,
-          },
-          {
-            q: "I wish this moment ___ last forever.",
-            o: ["could", "can", "would", "will"],
-            a: 0,
-          },
-          {
-            q: "He wishes his sister ___ nearby.",
-            o: ["lived", "lives", "would live", "will live"],
-            a: 0,
-          },
-          {
-            q: "If only I ___ worked harder at school.",
-            o: ["had", "have", "was", "did"],
-            a: 0,
-          },
-          {
-            q: "She wishes she ___ so shy.",
-            o: ["weren't", "isn't", "won't be", "wouldn't be"],
-            a: 0,
-          },
-          {
-            q: "I wish I ___ that last piece of cake.",
-            o: ["hadn't eaten", "didn't eat", "haven't eaten", "won't eat"],
-            a: 0,
-          },
-        ],
-      };
-
-      // ============================================================
-      // VOCABULARY
-      // ============================================================
-      const VOCAB = [
-        {
-          en: "hello",
-          ru: "привет",
-          uz: "salom",
-          tj: "салом",
-          cat: "greeting",
-        },
-        {
-          en: "goodbye",
-          ru: "до свидания",
-          uz: "xayr",
-          tj: "хайр",
-          cat: "greeting",
-        },
-        {
-          en: "thank you",
-          ru: "спасибо",
-          uz: "rahmat",
-          tj: "ташаккур",
-          cat: "greeting",
-        },
-        {
-          en: "please",
-          ru: "пожалуйста",
-          uz: "iltimos",
-          tj: "лутфан",
-          cat: "greeting",
-        },
-        {
-          en: "sorry",
-          ru: "извините",
-          uz: "kechirasiz",
-          tj: "бубахшед",
-          cat: "greeting",
-        },
-        { en: "yes", ru: "да", uz: "ha", tj: "ҳа", cat: "basic" },
-        { en: "no", ru: "нет", uz: "yo'q", tj: "не", cat: "basic" },
-        { en: "water", ru: "вода", uz: "suv", tj: "об", cat: "food" },
-        { en: "bread", ru: "хлеб", uz: "non", tj: "нон", cat: "food" },
-        { en: "milk", ru: "молоко", uz: "sut", tj: "шир", cat: "food" },
-        { en: "apple", ru: "яблоко", uz: "olma", tj: "себ", cat: "food" },
-        { en: "coffee", ru: "кофе", uz: "qahva", tj: "қаҳва", cat: "food" },
-        { en: "tea", ru: "чай", uz: "choy", tj: "чой", cat: "food" },
-        { en: "rice", ru: "рис", uz: "guruch", tj: "биринҷ", cat: "food" },
-        { en: "meat", ru: "мясо", uz: "go'sht", tj: "гӯшт", cat: "food" },
-        { en: "house", ru: "дом", uz: "uy", tj: "хона", cat: "place" },
-        { en: "school", ru: "школа", uz: "maktab", tj: "мактаб", cat: "place" },
-        {
-          en: "hospital",
-          ru: "больница",
-          uz: "kasalxona",
-          tj: "беморхона",
-          cat: "place",
-        },
-        { en: "office", ru: "офис", uz: "ofis", tj: "офис", cat: "place" },
-        {
-          en: "airport",
-          ru: "аэропорт",
-          uz: "aeroporti",
-          tj: "фурудгоҳ",
-          cat: "place",
-        },
-        { en: "book", ru: "книга", uz: "kitob", tj: "китоб", cat: "education" },
-        {
-          en: "teacher",
-          ru: "учитель",
-          uz: "o'qituvchi",
-          tj: "муаллим",
-          cat: "education",
-        },
-        {
-          en: "student",
-          ru: "студент",
-          uz: "talaba",
-          tj: "донишҷӯ",
-          cat: "education",
-        },
-        {
-          en: "homework",
-          ru: "домашнее задание",
-          uz: "uy ishi",
-          tj: "вазифаи хона",
-          cat: "education",
-        },
-        {
-          en: "exam",
-          ru: "экзамен",
-          uz: "imtihon",
-          tj: "имтиҳон",
-          cat: "education",
-        },
-        {
-          en: "dictionary",
-          ru: "словарь",
-          uz: "lug'at",
-          tj: "луғат",
-          cat: "education",
-        },
-        { en: "mother", ru: "мать", uz: "ona", tj: "модар", cat: "family" },
-        { en: "father", ru: "отец", uz: "ota", tj: "падар", cat: "family" },
-        { en: "brother", ru: "брат", uz: "aka", tj: "бародар", cat: "family" },
-        { en: "sister", ru: "сестра", uz: "opa", tj: "хоҳар", cat: "family" },
-        { en: "daughter", ru: "дочь", uz: "qiz", tj: "духтар", cat: "family" },
-        { en: "son", ru: "сын", uz: "o'g'il", tj: "писар", cat: "family" },
-        {
-          en: "grandfather",
-          ru: "дедушка",
-          uz: "bobo",
-          tj: "бобо",
-          cat: "family",
-        },
-        {
-          en: "grandmother",
-          ru: "бабушка",
-          uz: "buvi",
-          tj: "момо",
-          cat: "family",
-        },
-        { en: "friend", ru: "друг", uz: "do'st", tj: "дӯст", cat: "people" },
-        { en: "child", ru: "ребёнок", uz: "bola", tj: "кӯдак", cat: "people" },
-        { en: "man", ru: "мужчина", uz: "erkak", tj: "мард", cat: "people" },
-        { en: "woman", ru: "женщина", uz: "ayol", tj: "зан", cat: "people" },
-        {
-          en: "boss",
-          ru: "начальник",
-          uz: "boshliq",
-          tj: "раис",
-          cat: "people",
-        },
-        {
-          en: "neighbour",
-          ru: "сосед",
-          uz: "qo'shni",
-          tj: "ҳамсоя",
-          cat: "people",
-        },
-        { en: "day", ru: "день", uz: "kun", tj: "рӯз", cat: "time" },
-        { en: "night", ru: "ночь", uz: "tun", tj: "шаб", cat: "time" },
-        { en: "morning", ru: "утро", uz: "ertalab", tj: "субҳ", cat: "time" },
-        {
-          en: "evening",
-          ru: "вечер",
-          uz: "kechqurun",
-          tj: "бегоҳ",
-          cat: "time",
-        },
-        { en: "today", ru: "сегодня", uz: "bugun", tj: "имрӯз", cat: "time" },
-        {
-          en: "tomorrow",
-          ru: "завтра",
-          uz: "ertaga",
-          tj: "фардо",
-          cat: "time",
-        },
-        { en: "yesterday", ru: "вчера", uz: "kecha", tj: "дирӯз", cat: "time" },
-        { en: "week", ru: "неделя", uz: "hafta", tj: "ҳафта", cat: "time" },
-        { en: "month", ru: "месяц", uz: "oy", tj: "моҳ", cat: "time" },
-        { en: "year", ru: "год", uz: "yil", tj: "сол", cat: "time" },
-        {
-          en: "big",
-          ru: "большой",
-          uz: "katta",
-          tj: "калон",
-          cat: "adjective",
-        },
-        {
-          en: "small",
-          ru: "маленький",
-          uz: "kichik",
-          tj: "хурд",
-          cat: "adjective",
-        },
-        {
-          en: "good",
-          ru: "хороший",
-          uz: "yaxshi",
-          tj: "хуб",
-          cat: "adjective",
-        },
-        { en: "bad", ru: "плохой", uz: "yomon", tj: "бад", cat: "adjective" },
-        {
-          en: "beautiful",
-          ru: "красивый",
-          uz: "chiroyli",
-          tj: "зебо",
-          cat: "adjective",
-        },
-        {
-          en: "happy",
-          ru: "счастливый",
-          uz: "baxtli",
-          tj: "хушбахт",
-          cat: "adjective",
-        },
-        {
-          en: "sad",
-          ru: "грустный",
-          uz: "g'amgin",
-          tj: "ғамгин",
-          cat: "adjective",
-        },
-        { en: "hot", ru: "горячий", uz: "issiq", tj: "гарм", cat: "adjective" },
-        {
-          en: "cold",
-          ru: "холодный",
-          uz: "sovuq",
-          tj: "хунук",
-          cat: "adjective",
-        },
-        {
-          en: "tired",
-          ru: "уставший",
-          uz: "charchagan",
-          tj: "хаста",
-          cat: "adjective",
-        },
-        { en: "eat", ru: "есть", uz: "yemoq", tj: "хӯрдан", cat: "verb" },
-        { en: "drink", ru: "пить", uz: "ichmoq", tj: "нӯшидан", cat: "verb" },
-        { en: "sleep", ru: "спать", uz: "uxlamoq", tj: "хобидан", cat: "verb" },
-        {
-          en: "walk",
-          ru: "ходить",
-          uz: "yurmoq",
-          tj: "роҳ рафтан",
-          cat: "verb",
-        },
-        { en: "run", ru: "бежать", uz: "yugurmoq", tj: "давидан", cat: "verb" },
-        { en: "read", ru: "читать", uz: "o'qimoq", tj: "хондан", cat: "verb" },
-        {
-          en: "write",
-          ru: "писать",
-          uz: "yozmoq",
-          tj: "навиштан",
-          cat: "verb",
-        },
-        {
-          en: "speak",
-          ru: "говорить",
-          uz: "gapirmoq",
-          tj: "гап задан",
-          cat: "verb",
-        },
-        {
-          en: "listen",
-          ru: "слушать",
-          uz: "tinglamoq",
-          tj: "гӯш кардан",
-          cat: "verb",
-        },
-        {
-          en: "work",
-          ru: "работать",
-          uz: "ishlamoq",
-          tj: "кор кардан",
-          cat: "verb",
-        },
-        {
-          en: "study",
-          ru: "учиться",
-          uz: "o'qimoq",
-          tj: "хондан",
-          cat: "verb",
-        },
-        {
-          en: "understand",
-          ru: "понимать",
-          uz: "tushunmoq",
-          tj: "фаҳмидан",
-          cat: "verb",
-        },
-        {
-          en: "remember",
-          ru: "помнить",
-          uz: "eslamoq",
-          tj: "дар ёд доштан",
-          cat: "verb",
-        },
-        {
-          en: "forget",
-          ru: "забывать",
-          uz: "unutmoq",
-          tj: "фаромӯш кардан",
-          cat: "verb",
-        },
-        {
-          en: "car",
-          ru: "машина",
-          uz: "mashina",
-          tj: "мошин",
-          cat: "transport",
-        },
-        {
-          en: "bus",
-          ru: "автобус",
-          uz: "avtobus",
-          tj: "автобус",
-          cat: "transport",
-        },
-        {
-          en: "train",
-          ru: "поезд",
-          uz: "poyezd",
-          tj: "поезд",
-          cat: "transport",
-        },
-        {
-          en: "airplane",
-          ru: "самолёт",
-          uz: "samolyot",
-          tj: "ҳавопаймо",
-          cat: "transport",
-        },
-        {
-          en: "bicycle",
-          ru: "велосипед",
-          uz: "velosiped",
-          tj: "дучарха",
-          cat: "transport",
-        },
-        { en: "dog", ru: "собака", uz: "it", tj: "саг", cat: "animal" },
-        { en: "cat", ru: "кошка", uz: "mushuk", tj: "гурба", cat: "animal" },
-        { en: "bird", ru: "птица", uz: "qush", tj: "парранда", cat: "animal" },
-        { en: "fish", ru: "рыба", uz: "baliq", tj: "моҳӣ", cat: "animal" },
-        { en: "horse", ru: "лошадь", uz: "ot", tj: "асп", cat: "animal" },
-        { en: "lion", ru: "лев", uz: "sher", tj: "шер", cat: "animal" },
-        { en: "red", ru: "красный", uz: "qizil", tj: "сурх", cat: "color" },
-        { en: "blue", ru: "синий", uz: "ko'k", tj: "кабуд", cat: "color" },
-        { en: "green", ru: "зелёный", uz: "yashil", tj: "сабз", cat: "color" },
-        { en: "white", ru: "белый", uz: "oq", tj: "сафед", cat: "color" },
-        { en: "black", ru: "чёрный", uz: "qora", tj: "сиёҳ", cat: "color" },
-        { en: "yellow", ru: "жёлтый", uz: "sariq", tj: "зард", cat: "color" },
-        { en: "sun", ru: "солнце", uz: "quyosh", tj: "офтоб", cat: "nature" },
-        { en: "moon", ru: "луна", uz: "oy", tj: "моҳ", cat: "nature" },
-        { en: "rain", ru: "дождь", uz: "yomg'ir", tj: "борон", cat: "nature" },
-        { en: "snow", ru: "снег", uz: "qor", tj: "барф", cat: "nature" },
-        { en: "wind", ru: "ветер", uz: "shamol", tj: "шамол", cat: "nature" },
-        { en: "tree", ru: "дерево", uz: "daraxt", tj: "дарахт", cat: "nature" },
-        { en: "flower", ru: "цветок", uz: "gul", tj: "гул", cat: "nature" },
-        { en: "mountain", ru: "гора", uz: "tog'", tj: "кӯҳ", cat: "nature" },
-        { en: "river", ru: "река", uz: "daryo", tj: "дарё", cat: "nature" },
-        { en: "sea", ru: "море", uz: "dengiz", tj: "баҳр", cat: "nature" },
-        {
-          en: "ambitious",
-          ru: "амбициозный",
-          uz: "maqsadli",
-          tj: "баландпарвоз",
-          cat: "advanced",
-        },
-        {
-          en: "accomplish",
-          ru: "достигать",
-          uz: "erishmoq",
-          tj: "ноил шудан",
-          cat: "advanced",
-        },
-        {
-          en: "consequently",
-          ru: "следовательно",
-          uz: "natijada",
-          tj: "аз ин рӯ",
-          cat: "advanced",
-        },
-        {
-          en: "nevertheless",
-          ru: "тем не менее",
-          uz: "shunga qaramay",
-          tj: "бо вуҷуди ин",
-          cat: "advanced",
-        },
-        {
-          en: "approximately",
-          ru: "приблизительно",
-          uz: "taxminan",
-          tj: "тахминан",
-          cat: "advanced",
-        },
-        {
-          en: "negotiate",
-          ru: "переговоры вести",
-          uz: "muzokaralar olib bormoq",
-          tj: "гуфтушунид кардан",
-          cat: "advanced",
-        },
-        {
-          en: "efficient",
-          ru: "эффективный",
-          uz: "samarali",
-          tj: "самаранок",
-          cat: "advanced",
-        },
-        {
-          en: "crucial",
-          ru: "ключевой",
-          uz: "muhim",
-          tj: "муҳим",
-          cat: "advanced",
-        },
-        {
-          en: "perspective",
-          ru: "перспектива",
-          uz: "nuqtai nazar",
-          tj: "дидгоҳ",
-          cat: "advanced",
-        },
-        {
-          en: "sustainable",
-          ru: "устойчивый",
-          uz: "barqaror",
-          tj: "устувор",
-          cat: "advanced",
-        },
-      ];
-
-      // ============================================================
-      // READING PASSAGES
-      // ============================================================
-      const READING = [
-        {
-          title: "A Day in the Park",
-          text: "Sara woke up early on Saturday morning. The sun was shining brightly, and she decided to go to the park. She took a sandwich, an apple, and a bottle of water in her bag. At the park, she sat under a large oak tree and read her favourite book. Children were playing on the swings and slides. A small dog was running across the grass, chasing a red ball. Sara felt calm and happy. She stayed in the park until the sun began to set, painting the sky in beautiful shades of orange and pink. It was a perfect day.",
-          qs: [
-            {
-              q: "When did Sara wake up?",
-              o: [
-                "Saturday morning",
-                "Sunday morning",
-                "Friday evening",
-                "Monday morning",
-              ],
-              a: 0,
-            },
-            {
-              q: "What did Sara bring?",
-              o: [
-                "Sandwich, apple, water",
-                "Pizza, juice, chips",
-                "Rice, chicken, soda",
-                "Bread, cheese, milk",
-              ],
-              a: 0,
-            },
-            {
-              q: "Where did she sit?",
-              o: [
-                "Under an oak tree",
-                "On a bench",
-                "By a lake",
-                "On the grass",
-              ],
-              a: 0,
-            },
-            {
-              q: "What was the dog chasing?",
-              o: ["A red ball", "A cat", "A bird", "A stick"],
-              a: 0,
-            },
-            {
-              q: "How did Sara feel?",
-              o: [
-                "Calm and happy",
-                "Tired and bored",
-                "Sad and lonely",
-                "Angry and upset",
-              ],
-              a: 0,
-            },
-          ],
-        },
-        {
-          title: "The New Student",
-          text: "On his first day at the new school, Tom was nervous. He walked through the big gates and looked around. The building was much bigger than his old school. A friendly boy named Alex came up to him and said, 'Hi! Are you new? I can show you around.' Tom smiled and felt relieved. Alex showed him the classrooms, the library, the canteen, and the sports field. By lunchtime, Tom had already made three new friends. He realized that starting at a new school was not as scary as he had thought. Sometimes changes can be wonderful.",
-          qs: [
-            {
-              q: "How did Tom feel on his first day?",
-              o: ["Nervous", "Excited", "Angry", "Bored"],
-              a: 0,
-            },
-            { q: "Who helped Tom?", o: ["Alex", "Sam", "Mike", "John"], a: 0 },
-            {
-              q: "What did Alex show Tom?",
-              o: [
-                "Classrooms, library, canteen, sports field",
-                "Only the classroom",
-                "The car park",
-                "The staff room",
-              ],
-              a: 0,
-            },
-            {
-              q: "How many friends did Tom make by lunch?",
-              o: ["Three", "Two", "Five", "One"],
-              a: 0,
-            },
-            {
-              q: "What did Tom realise?",
-              o: [
-                "Changes can be wonderful",
-                "School is boring",
-                "He wanted to go home",
-                "He missed his old friends",
-              ],
-              a: 0,
-            },
-          ],
-        },
-        {
-          title: "The Lost Cat",
-          text: "On Tuesday evening, Mrs Johnson noticed that her cat, Whiskers, was missing. She searched the whole house — under the beds, behind the curtains, in the wardrobes — but Whiskers was nowhere to be found. She put up posters around the neighbourhood with a photo of Whiskers and her phone number. Three days later, a little girl named Emma called. She had found Whiskers hiding in her garden shed. Mrs Johnson was overjoyed. She thanked Emma by giving her a large box of chocolates. Whiskers seemed happy to be home and immediately curled up on his favourite spot on the sofa.",
-          qs: [
-            {
-              q: "When did Mrs Johnson notice Whiskers was missing?",
-              o: [
-                "Tuesday evening",
-                "Monday morning",
-                "Wednesday afternoon",
-                "Friday night",
-              ],
-              a: 0,
-            },
-            {
-              q: "What did she put up?",
-              o: ["Posters", "Reward signs", "Nothing", "Flyers only"],
-              a: 0,
-            },
-            {
-              q: "Who found Whiskers?",
-              o: ["Emma", "Tom", "Alex", "Sara"],
-              a: 0,
-            },
-            {
-              q: "Where was Whiskers found?",
-              o: [
-                "In a garden shed",
-                "In the park",
-                "At school",
-                "Under a car",
-              ],
-              a: 0,
-            },
-            {
-              q: "What did Mrs Johnson give Emma?",
-              o: ["Chocolates", "Money", "Flowers", "A book"],
-              a: 0,
-            },
-          ],
-        },
-        {
-          title: "A Letter to a Friend",
-          text: "Dear Maria, I am writing to tell you about my new life in Edinburgh. The city is absolutely stunning — full of old castles, cobbled streets, and friendly people. I have started studying at the university here and I am enjoying my course very much. The weather is quite different from home: it rains almost every day and it gets dark early in winter! However, I have bought a warm coat and a good umbrella, so I manage fine. I have made some wonderful friends from different countries. We often explore the city together at weekends. I hope you can visit me soon! Best wishes, Sophie.",
-          qs: [
-            {
-              q: "Where does Sophie live now?",
-              o: ["Edinburgh", "London", "Paris", "Glasgow"],
-              a: 0,
-            },
-            {
-              q: "What is the weather like?",
-              o: [
-                "Rainy and dark in winter",
-                "Hot and sunny",
-                "Dry and cold",
-                "Warm and mild",
-              ],
-              a: 0,
-            },
-            {
-              q: "What has Sophie started?",
-              o: [
-                "University studies",
-                "A new job",
-                "A business",
-                "Learning to drive",
-              ],
-              a: 0,
-            },
-            {
-              q: "How does Sophie spend her weekends?",
-              o: [
-                "Exploring the city with friends",
-                "Studying alone",
-                "Visiting family",
-                "Working part-time",
-              ],
-              a: 0,
-            },
-            {
-              q: "What did Sophie buy because of the weather?",
-              o: [
-                "A coat and umbrella",
-                "A scarf and gloves",
-                "A raincoat only",
-                "Boots and a hat",
-              ],
-              a: 0,
-            },
-          ],
-        },
-        {
-          title: "The History of Coffee",
-          text: "Coffee is one of the most popular drinks in the world, but its origins are quite fascinating. According to legend, coffee was discovered in Ethiopia around 850 AD when a goat herder named Kaldi noticed his goats were very energetic after eating berries from a certain tree. He tried the berries himself and felt the same effect. Word spread, and monks in nearby monasteries began making a drink from the berries to help them stay awake during long prayers. By the 15th century, coffee had reached the Arabian Peninsula and was being traded widely. Coffeehouses, known as 'qahveh khaneh', became popular social places. Coffee then spread to Europe in the 17th century, where it replaced beer and wine as a breakfast drink, making workers much more alert and productive.",
-          qs: [
-            {
-              q: "Where did coffee originate?",
-              o: ["Ethiopia", "Arabia", "Europe", "Brazil"],
-              a: 0,
-            },
-            {
-              q: "Who is said to have discovered coffee?",
-              o: ["Kaldi", "Mohammed", "Marco", "Hassan"],
-              a: 0,
-            },
-            {
-              q: "What did monks use coffee for?",
-              o: [
-                "Staying awake during prayers",
-                "Cooking food",
-                "Trading with merchants",
-                "Healing the sick",
-              ],
-              a: 0,
-            },
-            {
-              q: "What were coffeehouses in Arabia called?",
-              o: ["Qahveh khaneh", "Café noir", "Koffie huis", "Tea rooms"],
-              a: 0,
-            },
-            {
-              q: "What did coffee replace in Europe?",
-              o: [
-                "Beer and wine",
-                "Water and juice",
-                "Tea and herbs",
-                "Soup and broth",
-              ],
-              a: 0,
-            },
-          ],
-        },
-      ];
-
-      // ============================================================
-      // LISTENING
-      // ============================================================
-      const LISTENING = [
-        {
-          title: "Self Introduction",
-          text: "Hello! My name is John. I am twenty-five years old. I am from London, England. I work as a software engineer at a technology company. In my free time, I enjoy reading books, playing football, and cooking. I have one brother and one sister. My favourite food is pasta, and I love travelling to new countries. Nice to meet you!",
-          qs: [
-            {
-              q: "What is the speaker's name?",
-              o: ["John", "James", "Jack", "Jake"],
-              a: 0,
-            },
-            { q: "How old is the speaker?", o: ["25", "30", "20", "35"], a: 0 },
-            {
-              q: "Where is the speaker from?",
-              o: ["London", "Paris", "New York", "Tokyo"],
-              a: 0,
-            },
-            {
-              q: "What is the speaker's job?",
-              o: ["Software engineer", "Teacher", "Doctor", "Chef"],
-              a: 0,
-            },
-            {
-              q: "What is the speaker's favourite food?",
-              o: ["Pasta", "Pizza", "Sushi", "Burger"],
-              a: 0,
-            },
-          ],
-        },
-        {
-          title: "At the Restaurant",
-          text: "Good evening! Welcome to The Golden Spoon restaurant. My name is Maria and I will be your server tonight. Today's specials are grilled salmon with vegetables for fifteen dollars, and chicken pasta for twelve dollars. We also have a wonderful chocolate cake for dessert. Would you like to start with something to drink? We have fresh orange juice, lemonade, and various teas. Please take your time with the menu and I will be back shortly to take your order.",
-          qs: [
-            {
-              q: "What is the restaurant called?",
-              o: [
-                "The Golden Spoon",
-                "The Silver Fork",
-                "The Red Plate",
-                "The Blue Cup",
-              ],
-              a: 0,
-            },
-            {
-              q: "What is the server's name?",
-              o: ["Maria", "Anna", "Lisa", "Emma"],
-              a: 0,
-            },
-            {
-              q: "How much is the grilled salmon?",
-              o: ["$15", "$12", "$20", "$10"],
-              a: 0,
-            },
-            {
-              q: "What is the dessert?",
-              o: ["Chocolate cake", "Ice cream", "Fruit salad", "Cheesecake"],
-              a: 0,
-            },
-            {
-              q: "How much is the chicken pasta?",
-              o: ["$12", "$15", "$10", "$20"],
-              a: 0,
-            },
-          ],
-        },
-        {
-          title: "Weather Forecast",
-          text: "Good morning everyone! Here is your weather forecast for today. It will be sunny in the morning, with temperatures reaching twenty-three degrees Celsius. However, clouds will move in during the afternoon, and there is a sixty percent chance of rain by the evening. Temperatures will drop to about fifteen degrees at night. We recommend taking an umbrella if you are going out this afternoon. Tomorrow will be mostly cloudy with occasional showers. Have a great day!",
-          qs: [
-            {
-              q: "What will the morning be like?",
-              o: ["Sunny", "Rainy", "Cloudy", "Snowy"],
-              a: 0,
-            },
-            {
-              q: "What is the morning temperature?",
-              o: ["23°C", "25°C", "20°C", "30°C"],
-              a: 0,
-            },
-            {
-              q: "What is the chance of rain?",
-              o: ["60%", "40%", "80%", "50%"],
-              a: 0,
-            },
-            {
-              q: "What should people take?",
-              o: ["An umbrella", "A jacket", "Sunglasses", "A hat"],
-              a: 0,
-            },
-            {
-              q: "What will tomorrow be like?",
-              o: ["Mostly cloudy with showers", "Sunny", "Very hot", "Snowy"],
-              a: 0,
-            },
-          ],
-        },
-        {
-          title: "Doctor's Appointment",
-          text: "Good morning! I have an appointment with Doctor Henderson at ten thirty. My name is Sarah Williams. Oh, I see — the doctor is running about fifteen minutes late today. Would you like to take a seat in the waiting area? There are some magazines and a water dispenser. Also, could you fill in this form with your symptoms? We need to know when they started and how severe they are. The doctor will see you as soon as possible. If you feel unwell while waiting, please tell one of the nurses immediately.",
-          qs: [
-            {
-              q: "Who is the appointment with?",
-              o: [
-                "Doctor Henderson",
-                "Doctor Williams",
-                "Doctor Smith",
-                "Doctor Brown",
-              ],
-              a: 0,
-            },
-            {
-              q: "What time is the appointment?",
-              o: ["10:30", "9:30", "11:00", "10:00"],
-              a: 0,
-            },
-            {
-              q: "How late is the doctor?",
-              o: ["15 minutes", "30 minutes", "10 minutes", "5 minutes"],
-              a: 0,
-            },
-            {
-              q: "What does the patient need to fill in?",
-              o: [
-                "A form about symptoms",
-                "A personal information form",
-                "A prescription",
-                "An insurance form",
-              ],
-              a: 0,
-            },
-            {
-              q: "Who should patients tell if they feel unwell?",
-              o: [
-                "A nurse",
-                "The receptionist",
-                "The doctor",
-                "Another patient",
-              ],
-              a: 0,
-            },
-          ],
-        },
-      ];
-
-      // ============================================================
-      // SPEAKING PROMPTS
-      // ============================================================
-      const SPEAKING = [
-        {
-          prompt: "What is your name?",
-          hint: "My name is...",
-          example: "My name is Alex. Nice to meet you!",
-        },
-        {
-          prompt: "How old are you?",
-          hint: "I am ... years old.",
-          example: "I am twenty years old.",
-        },
-        {
-          prompt: "Where are you from?",
-          hint: "I am from...",
-          example: "I am from Uzbekistan, a beautiful country in Central Asia.",
-        },
-        {
-          prompt: "What do you do?",
-          hint: "I am a... / I work as...",
-          example: "I am a student. I study English at university.",
-        },
-        {
-          prompt: "What is your favourite food?",
-          hint: "My favourite food is...",
-          example: "My favourite food is pizza. I love it with extra cheese!",
-        },
-        {
-          prompt: "Do you have any hobbies?",
-          hint: "Yes, I enjoy...",
-          example:
-            "Yes, I enjoy reading and playing football. I also like cooking.",
-        },
-        {
-          prompt: "What time do you wake up?",
-          hint: "I wake up at...",
-          example: "I usually wake up at seven o'clock in the morning.",
-        },
-        {
-          prompt: "Tell me about your family.",
-          hint: "I have... My mum...",
-          example:
-            "I have a wonderful family. My mother is a teacher and my father works in finance.",
-        },
-        {
-          prompt: "What did you do yesterday?",
-          hint: "Yesterday I...",
-          example:
-            "Yesterday I went to the park with my friends and we played basketball.",
-        },
-        {
-          prompt: "What are your plans for tomorrow?",
-          hint: "Tomorrow I will...",
-          example:
-            "Tomorrow I will study English and then visit my grandmother.",
-        },
-        {
-          prompt: "Describe your best friend.",
-          hint: "My best friend...",
-          example:
-            "My best friend is very kind and funny. We have known each other for ten years.",
-        },
-        {
-          prompt: "What is the weather like today?",
-          hint: "Today the weather is...",
-          example:
-            "Today it is warm and sunny. It is a perfect day to go outside!",
-        },
-        {
-          prompt: "What do you want to be in the future?",
-          hint: "I want to be...",
-          example:
-            "I want to be a doctor so that I can help people in my community.",
-        },
-        {
-          prompt: "Tell me about your city.",
-          hint: "My city...",
-          example:
-            "My city is Tashkent. It is the capital of Uzbekistan and is a very modern city.",
-        },
-        {
-          prompt: "What languages do you speak?",
-          hint: "I speak...",
-          example:
-            "I speak Uzbek and Russian fluently, and I am currently learning English.",
-        },
-        {
-          prompt: "Describe your typical morning routine.",
-          hint: "Every morning I...",
-          example:
-            "Every morning I wake up at 7, have breakfast, and then prepare for school or work.",
-        },
-        {
-          prompt: "What kind of music do you like?",
-          hint: "I like... music because...",
-          example:
-            "I like pop and classical music. They help me relax and study.",
-        },
-        {
-          prompt: "Tell me about your school or workplace.",
-          hint: "My school/work...",
-          example:
-            "I study at a university in the city centre. The campus is very large and modern.",
-        },
-      ];
-
-      // ============================================================
-      // GRAMMAR LESSON INFO
-      // ============================================================
-      const LESSON_INFO = {
-        "Present Simple":
-          "Used for habits, routines, general truths and permanent situations.\n\nForm: Subject + base verb (-s/-es for he/she/it)\n\n✓ I work every day.\n✓ She plays tennis.\n✓ Water boils at 100°C.\n✓ The sun rises in the east.\n\nNegative: Subject + do/does + not + verb\nQuestion: Do/Does + subject + verb?\n\nTime expressions: always, usually, often, sometimes, never, every day/week",
-        "Past Simple":
-          "Used for completed actions at a specific time in the past.\n\nForm: Subject + past form of verb\nRegular: add -ed (work→worked, play→played)\nIrregular: change form (go→went, eat→ate, see→saw)\n\n✓ I visited Paris last year.\n✓ She wrote a letter yesterday.\n✓ We won the match.\n\nNegative: Subject + did not + base verb\nQuestion: Did + subject + base verb?\n\nTime expressions: yesterday, last week/year, ago, in 2020",
-        "Future Simple":
-          "Used for predictions, promises, decisions made at the moment of speaking.\n\nForm: Subject + will + base verb\n\n✓ I will call you tomorrow.\n✓ It will rain tonight.\n✓ She will be a great leader.\n\nNegative: Subject + will not (won't) + verb\nQuestion: Will + subject + verb?\n\nTime expressions: tomorrow, next week/year, soon, in the future",
-        "Present Continuous":
-          "Used for actions happening NOW or around the current time, and future arrangements.\n\nForm: Subject + am/is/are + verb-ing\n\n✓ I am reading right now.\n✓ She is cooking dinner.\n✓ We are moving to London next month.\n\nNegative: am/is/are + not + verb-ing\nQuestion: Am/Is/Are + subject + verb-ing?",
-        "Past Continuous":
-          "Used for actions in progress at a specific time in the past, often interrupted.\n\nForm: Subject + was/were + verb-ing\n\n✓ I was sleeping when you called.\n✓ They were playing while it rained.\n✓ She was studying at 9 PM.\n\nNegative: was/were + not + verb-ing\nKey pattern: was/were + -ing WHILE/WHEN simple past",
-        "Present Perfect":
-          "Used for past actions that are connected to the present. No specific time given.\n\nForm: Subject + have/has + past participle\n\n✓ I have just finished.\n✓ She has visited Paris twice.\n✓ They have never seen snow.\n✓ We have known each other for years.\n\nKey words: just, already, yet, never, ever, for, since, recently",
-        "Modal Verbs":
-          "Modals express ability, permission, obligation, advice, or possibility.\n\n• can/could – ability, permission, request\n• must/have to – strong obligation\n• should/ought to – advice\n• might/may – possibility\n• would – conditional, polite requests\n• shall – suggestions (formal)\n\n✓ You must wear a seatbelt.\n✓ She can speak French.\n✓ Could you help me?\n✓ You should see a doctor.\n\nForm: modal + base verb (no 's', no 'to'!)",
-        Conditionals:
-          "Conditional sentences describe situations and their results.\n\n0 – General truth: If water boils, it evaporates.\n1 – Real/Possible: If it rains, I will stay home.\n2 – Unreal present: If I were rich, I would travel.\n3 – Unreal past: If I had studied, I would have passed.\n\nKey structures:\n• If + present → will\n• If + past → would\n• If + past perfect → would have + past participle",
-        "Passive Voice":
-          "Used when the action is more important than who does it, or the agent is unknown.\n\nForm: Subject + to be + past participle\n\n✓ The cake was baked by my mother.\n✓ English is spoken worldwide.\n✓ The bridge will be completed next year.\n✓ The car has been repaired.\n\nTenses in passive: is/are + pp, was/were + pp, has been + pp, will be + pp",
-        Articles:
-          "Three articles: a, an, the, and no article (—)\n\na – singular countable, first mention, consonant sound\nan – singular countable, first mention, vowel sound\nthe – specific, known to both parties\n— – plural/uncountable in general\n\n✓ I saw a dog (first mention).\n✓ The dog was barking (known).\n✓ I drink tea every morning (general).\n✓ She plays the piano.\n\nTip: an before vowel SOUNDS: an hour, an umbrella, an honest man",
-        Comparatives:
-          "Comparing 2 things: comparative adjective\nComparing 3+ things: superlative adjective\n\nShort adj (1 syllable):\n• tall → taller → tallest\n• big → bigger → biggest (double consonant)\n\nLong adj (2+ syllables):\n• beautiful → more beautiful → most beautiful\n\nIrregular:\n• good → better → best\n• bad → worse → worst\n• far → farther → farthest\n\nthan after comparatives: She is taller than me.",
-        Prepositions:
-          "Time: on (days/dates), in (months/years/periods), at (clock times/specific places)\n• on Monday, in March, at 3 PM, at Christmas\n\nPlace: on (surface), in (enclosed space), at (point/location)\n• on the table, in the box, at the station\n\nOther useful prepositions:\n• for (duration), since (starting point), by (deadline)\n• with, without, about, of, from, to, through, over, under, between, among",
-        "Reported Speech":
-          "Reporting what someone said — tenses shift back.\n\nDirect: She said, 'I am tired.'\nReported: She said that she was tired.\n\nTense shifts:\nam/is → was | are → were | will → would\ncan → could | have/has → had | simple past → past perfect\n\nTime shifts: now → then | today → that day\ntomorrow → the next day | here → there",
-        "Relative Clauses":
-          "Relative clauses give additional information about a noun.\n\nwho – for people: The woman who called is my aunt.\nwhich – for things: The car which I bought is fast.\nthat – people or things (defining): The book that I read was great.\nwhose – possession: The boy whose bag is red is Tom.\nwhere – places: The city where I live is beautiful.\nwhen – time: The year when she was born was 1995.",
-        "Phrasal Verbs":
-          "Phrasal verbs = verb + particle (preposition/adverb)\nThey often have idiomatic meanings — memorise as chunks!\n\ngive up = stop trying\nlook after = take care of\nput off = postpone\ntake off = remove / (plane) depart\nfigure out = solve / understand\nrun out of = have nothing left\ncame up with = think of (an idea)\nturn down = refuse / lower\nget over = recover from\ngive away = reveal (a secret)",
-        "Past Perfect":
-          "Used for an action that happened BEFORE another past action.\n\nForm: had + past participle\n\n✓ By the time I arrived, she had already left.\n✓ He was tired because he had worked all day.\n✓ I couldn't enter — I had forgotten the key.\n\nKey words: by the time, before, after, already, just, never, when (in narrative)\n\nTimeline: Past Perfect → Past Simple → NOW",
-        "Future Continuous":
-          "Used for actions IN PROGRESS at a specific time in the future.\n\nForm: will be + verb-ing\n\n✓ At 8 PM tonight, I will be watching the match.\n✓ She will be working all day tomorrow.\n✓ This time next week, we will be travelling.\n\nQuestion: Will + subject + be + verb-ing?\n\nAlso used to ask politely about plans: Will you be using the car?",
-        "Gerunds & Infinitives":
-          "Gerund (verb-ing) as noun: subject, after certain verbs\nInfinitive (to + verb): after certain verbs, to show purpose\n\nVerbs + gerund: enjoy, finish, avoid, keep, suggest, admit, deny, consider, practise, can't stand, miss, give up\n\nVerbs + infinitive: want, decide, agree, promise, hope, manage, refuse, plan, learn, afford, expect\n\nVerbs + both (meaning may change):\nstop smoking (quit) vs stop to smoke (pause and smoke)\nremember posting (did it) vs remember to post (must do it)",
-        "Question Tags":
-          "Question tags are added to the end of statements to ask for confirmation.\n\nPositive statement → negative tag\nNegative statement → positive tag\n\n✓ It's a nice day, isn't it?\n✓ She can swim, can't she?\n✓ You haven't met him, have you?\n✓ They were late, weren't they?\n✓ Let's go, shall we?\n✓ I'm right, aren't I? (special case)\n\nTip: the verb in the tag matches the auxiliary in the main clause.",
-        "Wish & If Only":
-          "Used to express regrets or wishes about present/past situations.\n\nWish/If only + past simple → present unreal\n• I wish I had more money. (I don't have it now)\n• If only I were taller! (I'm not tall)\n\nWish/If only + past perfect → past regret\n• I wish I had studied harder. (I didn't)\n• If only we had left earlier! (we didn't)\n\nWish/If only + would → complaining about behaviour\n• I wish you would stop talking!\n• If only it would stop raining!",
-      };
-
-      // DAILY WORDS for Home screen
-      const DAILY_WORDS = [
-        {
-          en: "Perseverance",
-          ru: "Настойчивость",
-          uz: "Qat'iyat",
-          tj: "Матонат",
-          example: "Perseverance is the key to success.",
-        },
-        {
-          en: "Eloquent",
-          ru: "Красноречивый",
-          uz: "Notiq",
-          tj: "Забон овар",
-          example: "She gave an eloquent speech.",
-        },
-        {
-          en: "Meticulous",
-          ru: "Скрупулёзный",
-          uz: "Aniq",
-          tj: "Дақиқ",
-          example: "He is meticulous about his work.",
-        },
-        {
-          en: "Ambiguous",
-          ru: "Двусмысленный",
-          uz: "Noaniq",
-          tj: "Ду маъно",
-          example: "The instruction was ambiguous.",
-        },
-        {
-          en: "Resilient",
-          ru: "Жизнестойкий",
-          uz: "Chidamli",
-          tj: "Устувор",
-          example: "Children are very resilient.",
-        },
-        {
-          en: "Endeavour",
-          ru: "Усилие",
-          uz: "Harakat",
-          tj: "Кӯшиш",
-          example: "She made every endeavour to succeed.",
-        },
-        {
-          en: "Eloquence",
-          ru: "Красноречие",
-          uz: "Notiqlik",
-          tj: "Зебогӯӣ",
-          example: "His eloquence impressed the audience.",
-        },
-      ];
-
-      const GRAMMAR_TIPS = [
-        "Use 'a' before consonant sounds and 'an' before vowel sounds. Remember: 'an hour' (silent h!) ⏰",
-        "Present Perfect uses 'have/has + past participle' for actions connected to now. NOT for specific past times! 📚",
-        "'Could' is the past of 'can', but also used for polite requests: 'Could you help me?' 🎩",
-        "Comparatives for short adjectives: add '-er'. For long: use 'more'. Irregular: good→better, bad→worse 📊",
-        "Passive voice: 'to be + past participle'. Use it when the agent (who did it) is unknown or unimportant! 🔄",
-        "In reported speech, present tense shifts to past: 'I am tired' → 'He said he was tired' ✍️",
-        "Phrasal verbs are idiomatic! 'Give up' ≠ give + up. Learn them as complete phrases 💪",
-        "'Who' is for people, 'which' for things, 'whose' for possession in relative clauses 🔗",
-      ];
-
-      // ============================================================
-      // STATE
-      // ============================================================
-      let lang = "en";
-      let tab = "home";
-      let xp = 0;
-      let streak = 0;
-      let results = [];
-      let quizState = null;
-      let chatHistory = [];
-
-      const TABS = [
-        "home",
-        "lessons",
-        "listening",
-        "reading",
-        "speaking",
-        "vocabulary",
-        "ai",
-        "stats",
-      ];
-
-      // ============================================================
-      // UTILS
-      // ============================================================
-      function t() {
-        return LANGS[lang];
-      }
-      function shuffle(arr) {
-        const a = [...arr];
-        for (let i = a.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
-      }
-      function speak(text) {
-        if (!window.speechSynthesis) return;
-        speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = "en-US";
-        u.rate = 0.85;
-        speechSynthesis.speak(u);
-      }
-      function addXP(n) {
-        xp += n;
-        document.getElementById("xpCount").textContent = xp;
-        showBadge("+" + n + " XP");
-      }
-      function el(id) {
-        return document.getElementById(id);
-      }
-      function html(id, content) {
-        const e = el(id);
-        if (e) e.innerHTML = content;
-      }
-      let badgeTimer = null;
-      function showBadge(msg) {
-        if (badgeTimer) clearTimeout(badgeTimer);
-        const old = document.querySelector(".badge-popup");
-        if (old) old.remove();
-        const d = document.createElement("div");
-        d.className = "badge-popup";
-        d.textContent = msg;
-        document.body.appendChild(d);
-        badgeTimer = setTimeout(() => d.remove(), 2000);
-      }
-
-      // ============================================================
-      // LANGUAGE
-      // ============================================================
-      function changeLang(l) {
-        lang = l;
-        renderAll();
-      }
-
-      // ============================================================
-      // NAV
-      // ============================================================
-      function renderNav() {
-        const L = t();
-        el("navBar").innerHTML = TABS.map(
-          (id, i) => `
-    <button class="nav-btn ${tab === id ? "active" : ""}" onclick="setTab('${id}')">
-      <span>${L.tabIcons[i]}</span>${L.tabs[i]}
-    </button>
-  `,
-        ).join("");
-      }
-      function setTab(id) {
-        tab = id;
-        quizState = null;
-        renderAll();
-      }
-
-      // ============================================================
-      // RENDER ALL
-      // ============================================================
-      function renderAll() {
-        renderNav();
-        const c = el("mainContent");
-        c.className = "flex-1 overflow-y-auto padding-16 fade-in";
-        c.style.padding = "16px";
-        switch (tab) {
-          case "home":
-            renderHome();
-            break;
-          case "lessons":
-            renderLessons();
-            break;
-          case "listening":
-            renderListening();
-            break;
-          case "reading":
-            renderReading();
-            break;
-          case "speaking":
-            renderSpeaking();
-            break;
-          case "vocabulary":
-            renderVocab();
-            break;
-          case "ai":
-            renderAI();
-            break;
-          case "stats":
-            renderStats();
-            break;
-        }
-      }
-
-      // ============================================================
-      // HOME
-      // ============================================================
-      function renderHome() {
-        const L = t();
-        const TOPIC_KEYS = Object.keys(QUESTIONS);
-        const dayWord = DAILY_WORDS[new Date().getDay() % DAILY_WORDS.length];
-        const tip =
-          GRAMMAR_TIPS[Math.floor(Math.random() * GRAMMAR_TIPS.length)];
-        const completed = results.length;
-        const totalQ = TOPIC_KEYS.reduce((s, k) => s + QUESTIONS[k].length, 0);
-        const recentTopic = results.length
-          ? results[results.length - 1].topic
-          : null;
-        const recentTopicName = recentTopic
-          ? L.topics[TOPIC_KEYS.indexOf(recentTopic)] || recentTopic
-          : null;
-
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <div style="margin-bottom:18px">
-        <div class="section-title">👋 ${L.startJourney}</div>
-        <div class="section-sub">${completed} tests completed · ${xp} XP earned</div>
-      </div>
-      
-      <!-- DAILY WORD -->
-      <div class="daily-word-card">
-        <div style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">✨ ${L.dailyWord}</div>
-        <div style="font-size:22px;font-weight:800;margin-bottom:4px">${dayWord.en}</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:10px">
-          🇷🇺 ${dayWord.ru} · 🇺🇿 ${dayWord.uz} · 🇹🇯 ${dayWord.tj}
-        </div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.55);font-style:italic">"${dayWord.example}"</div>
-        <button class="btn btn-outline" style="margin-top:10px;font-size:11px;padding:5px 12px;border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)" onclick="speak('${dayWord.en}. ${dayWord.example}')">🔊 Listen</button>
-      </div>
-
-      <!-- GRAMMAR TIP -->
-      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px 16px;margin-bottom:16px">
-        <div style="font-size:11px;color:#34d399;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">💡 ${L.tipTitle}</div>
-        <div style="font-size:13px;color:var(--text2);line-height:1.6">${tip}</div>
-      </div>
-
-      <!-- STATS ROW -->
-      <div class="grid-3" style="margin-bottom:18px">
-        <div class="stat-card">
-          <div class="stat-num">${completed}</div>
-          <div class="stat-label">${L.totalTests}</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">${streak}🔥</div>
-          <div class="stat-label">Streak</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">${VOCAB.length}</div>
-          <div class="stat-label">${L.totalWords}</div>
-        </div>
-      </div>
-
-      ${
-        recentTopicName
-          ? `
-      <div style="margin-bottom:16px">
-        <button class="btn btn-primary" style="width:100%;padding:13px;font-size:14px" onclick="setTab('lessons')">
-          ▶ ${L.continueLesson}: ${recentTopicName}
-        </button>
-      </div>`
-          : ""
-      }
-
-      <!-- QUICK PRACTICE -->
-      <div style="font-weight:700;font-size:14px;margin-bottom:10px">⚡ ${L.quickPractice}</div>
-      <div style="display:flex;flex-wrap:wrap;gap:0;margin-bottom:18px">
-        ${TOPIC_KEYS.slice(0, 8)
-          .map(
-            (k, i) => `
-          <button class="tip-chip" onclick="beginQuiz('${k}');setTab('lessons')">
-            ${L.topics[i] || k}
-          </button>
-        `,
-          )
-          .join("")}
-      </div>
-
-      <!-- RECENT RESULTS -->
-      ${
-        results.length
-          ? `
-      <div style="font-weight:700;font-size:14px;margin-bottom:10px">📋 Recent Results</div>
-      ${results
-        .slice()
-        .reverse()
-        .slice(0, 3)
-        .map(
-          (r) => `
-        <div class="result-item">
-          <div>
-            <div style="font-weight:600;font-size:12px">${r.topic}</div>
-            <div style="font-size:10px;color:var(--text3)">${r.date}</div>
+    <!-- ---------- DASHBOARD ---------- -->
+    <div id="screen-dashboard">
+      <div class="dash-header">
+        <div class="passport-hero">
+          <div class="eyebrow" data-i18n="hero_eyebrow">Языковой профиль</div>
+          <h2 id="hero-greeting">Добро пожаловать!</h2>
+          <p data-i18n="hero_desc">Каждый тест — новый и уникальный набор из 20 вопросов. Изучайте темы подробно, слушайте диалоги, тренируйте произношение — и получайте разбор результатов от ИИ.</p>
+          <div class="stat-row">
+            <div class="stat"><div class="num" id="stat-tests">0</div><div class="label" data-i18n="stat_tests">тестов пройдено</div></div>
+            <div class="stat"><div class="num" id="stat-avg">—</div><div class="label" data-i18n="stat_avg">средний результат</div></div>
+            <div class="stat"><div class="num" id="stat-topics">0</div><div class="label" data-i18n="stat_topics">тем затронуто</div></div>
+            <div class="stat"><div class="num" id="stat-streak">0</div><div class="label" data-i18n="stat_streak">дней подряд</div></div>
           </div>
-          <div class="pill ${r.pct >= 70 ? "pill-green" : "pill-red"}">${r.pct}%</div>
         </div>
-      `,
-        )
-        .join("")}`
-          : ""
-      }
-    </div>
-  `,
-        );
-      }
-
-      // ============================================================
-      // LESSONS
-      // ============================================================
-      const TOPIC_KEYS = Object.keys(QUESTIONS);
-      const LEVEL_MAP = [
-        0, 0, 0, 1, 1, 2, 2, 3, 3, 3, 4, 4, 3, 4, 4, 2, 2, 3, 3, 4,
-      ];
-
-      function renderLessons() {
-        if (quizState) {
-          renderQuiz();
-          return;
-        }
-        const L = t();
-        const topicNames = L.topics;
-        let h = `<div class="section-title">📖 ${L.tabs[1]}</div>
-    <div class="section-sub">${L.lessonSelect}</div>
-    <div class="grid-2">`;
-        TOPIC_KEYS.forEach((key, i) => {
-          const lvl = LEVEL_MAP[i] || 0;
-          const done = results.filter((r) => r.topic === key);
-          const best = done.length ? Math.max(...done.map((r) => r.pct)) : null;
-          const progress = best !== null ? best : 0;
-          h += `<div class="topic-card" onclick="startLesson('${key}')">
-      <div class="topic-num">${String(i + 1).padStart(2, "0")} / ${TOPIC_KEYS.length}</div>
-      <div class="topic-name">${topicNames[i] || key}</div>
-      <div class="level-chip level-${lvl}">${L.levels[lvl]}</div>
-      <div class="topic-bar">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
-          <span style="font-size:10px;color:var(--text3)">${best !== null ? best + "%" : "—"}</span>
-          <span style="font-size:10px;color:var(--text3)">${done.length} tests</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" style="width:${progress}%"></div>
+        <div class="card stamps-card">
+          <h3 data-i18n="stamps_title">Штампы прогресса</h3>
+          <p class="hint" data-i18n="stamps_hint">Каждый завершённый тест — новый штамп</p>
+          <div class="stamps-scroll" id="stamps-scroll">
+            <div class="stamps-empty" data-i18n="stamps_empty">Пока пусто — пройдите первый тест!</div>
+          </div>
         </div>
       </div>
+
+      <!-- Рекламный блок: замените data-ad-client и data-ad-slot на свои после одобрения AdSense -->
+      <ins class="adsbygoogle ad-slot"
+           style="display:block;margin:18px 0;min-height:90px;"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="0000000000"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+      <div class="section-title"><h3 data-i18n="topics_title">Темы: грамматика и лексика</h3><span id="topics-count-label">10 тем</span></div>
+      <div class="topic-grid" id="topic-grid"></div>
+
+      <div class="section-title"><h3 data-i18n="av_title">Аудирование и говорение</h3><span data-i18n="av_sub">практика вживую</span></div>
+      <div class="two-col">
+        <div class="card feature-card">
+          <div class="icon-lg">🎧</div>
+          <h4 data-i18n="listening_card_title">Listening — аудирование</h4>
+          <p data-i18n="listening_card_desc">ИИ озвучивает диалоги и короткие тексты вслух (синтез речи браузера), с разной скоростью и уровнем сложности. Слушайте и отвечайте на вопросы по содержанию — набор фрагментов каждый раз новый.</p>
+          <button class="btn btn-dark" id="btn-start-listening" data-i18n="listening_card_btn">Начать аудирование →</button>
+        </div>
+        <div class="card feature-card">
+          <div class="icon-lg">🎤</div>
+          <h4 data-i18n="speaking_card_title">Speaking — говорение</h4>
+          <p data-i18n="speaking_card_desc">Произносите фразы вслух в микрофон — распознавание речи браузера сравнит сказанное с эталоном и оценит точность произношения и попадание в текст.</p>
+          <button class="btn btn-dark" id="btn-start-speaking" data-i18n="speaking_card_btn">Начать говорение →</button>
+        </div>
+      </div>
+
+      <div class="section-title"><h3 data-i18n="history_title">История результатов</h3><span id="history-count">0 записей</span></div>
+      <div class="card" style="padding:8px 0;" id="history-card">
+        <div id="history-list" style="padding:6px 20px 14px;"></div>
+      </div>
+    </div>
+
+    <!-- ---------- EXPLAIN (подробное объяснение темы) ---------- -->
+    <div id="screen-explain" class="hidden">
+      <div class="test-wrap">
+        <div class="card" style="padding:32px 30px;">
+          <div class="level-tag" id="explain-level">A2 · GRAMMAR</div>
+          <h2 id="explain-title" style="margin:0 0 14px;font-size:26px;">Тема</h2>
+          <p id="explain-rule" style="font-size:15px;line-height:1.7;color:var(--ink-soft);margin:0 0 18px;"></p>
+          <ul id="explain-points" style="margin:0 0 20px;padding-left:20px;line-height:1.8;font-size:14.5px;color:var(--ink);"></ul>
+          <div id="explain-examples" style="display:flex;flex-direction:column;gap:8px;margin-bottom:26px;"></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn btn-primary" id="btn-explain-start" style="width:auto;" data-i18n="start_test_btn">Пройти тест по теме (20 вопросов) →</button>
+            <button class="btn btn-outline" id="btn-explain-back" style="width:auto;" data-i18n="back_dash_btn">В кабинет</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- TEST (грамматика/лексика) ---------- -->
+    <div id="screen-test" class="hidden">
+      <div class="test-wrap">
+        <div class="progress-info">
+          <span id="test-topic-label">ТЕМА</span>
+          <span id="test-progress-label">Вопрос 1 / 20</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="test-progress-fill" style="width:5%"></div></div>
+        <div class="card question-card">
+          <div class="q-eyebrow" id="q-eyebrow">Выберите правильный вариант</div>
+          <p class="q-text" id="q-text">—</p>
+          <div class="options" id="q-options"></div>
+        </div>
+        <div class="test-footer">
+          <button class="exit-link" id="btn-exit-test" data-i18n="exit_no_save">← Выйти без сохранения</button>
+          <button class="btn btn-primary hidden" id="btn-next-question" style="width:auto;" data-i18n="next_btn">Далее →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- RESULTS ---------- -->
+    <div id="screen-results" class="hidden">
+      <div class="results-wrap">
+        <div class="card score-card">
+          <div class="score-ring" id="score-ring" style="--pct:0;">
+            <div class="val" id="score-value">0/20</div>
+            <div class="sub" data-i18n="score_sub">верных ответов</div>
+          </div>
+          <h2 class="score-title" id="score-title">Тест завершён</h2>
+          <p class="score-topic" id="score-topic">Тема</p>
+
+          <div class="ai-feedback" id="ai-feedback">
+            <div class="ai-tag"><span class="ai-dot"></span> <span data-i18n="ai_tag">Разбор от ИИ-преподавателя</span></div>
+            <div id="ai-feedback-text">Формируем персональный разбор результата…</div>
+          </div>
+
+          <div class="review-list" id="review-list"></div>
+
+          <!-- Рекламный блок: показывается после каждого теста -->
+          <ins class="adsbygoogle ad-slot"
+               style="display:block;margin:16px 0;min-height:90px;"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="0000000000"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+          <div class="results-actions">
+            <button class="btn btn-primary" id="btn-retry-topic" style="width:auto;" data-i18n="retry_btn">🔁 Пройти новый тест по теме</button>
+            <button class="btn btn-outline" id="btn-back-dash" style="width:auto;" data-i18n="back_dash_btn">В кабинет</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- LISTENING SCREEN ---------- -->
+    <div id="screen-listening" class="hidden">
+      <div class="test-wrap">
+        <div class="progress-info">
+          <span data-i18n="listening_label">АУДИРОВАНИЕ</span>
+          <span id="listen-progress-label">Фрагмент 1 / 10</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="listen-progress-fill" style="width:10%"></div></div>
+        <div class="card listen-card">
+          <div class="speed-row" id="speed-row"></div>
+          <button class="audio-btn" id="btn-play-audio">🔊</button>
+          <div class="replay-row">
+            <button class="small-link" id="btn-replay-audio" data-i18n="replay_btn">▶ прослушать ещё раз</button>
+            <button class="small-link" id="btn-show-transcript" data-i18n="transcript_btn">показать текст</button>
+          </div>
+          <div class="transcript-box" id="listen-transcript"></div>
+          <p class="q-text" id="listen-question" style="text-align:left;">—</p>
+          <div class="options" id="listen-options"></div>
+        </div>
+        <div class="test-footer">
+          <button class="exit-link" id="btn-exit-listening" data-i18n="exit_no_save">← Выйти без сохранения</button>
+          <button class="btn btn-primary hidden" id="btn-next-listen" style="width:auto;" data-i18n="next_btn">Далее →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- SPEAKING SCREEN ---------- -->
+    <div id="screen-speaking" class="hidden">
+      <div class="test-wrap">
+        <div class="progress-info">
+          <span data-i18n="speaking_label">ГОВОРЕНИЕ</span>
+          <span id="speak-progress-label">Фраза 1 / 12</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="speak-progress-fill" style="width:8%"></div></div>
+        <div class="card speak-card">
+          <div id="speak-unsupported" class="unsupported-note hidden" data-i18n="speak_unsupported">
+            Ваш браузер не поддерживает распознавание речи (Web Speech API). Эта функция лучше всего работает в Google Chrome на компьютере или Android. Вы можете продолжить и просто потренировать произношение вслух — но автоматическая проверка будет недоступна.
+          </div>
+          <div class="phrase-box">
+            <div class="ru" id="speak-ru">перевод</div>
+            <div class="en" id="speak-en">Phrase to say</div>
+          </div>
+          <button class="mic-btn" id="btn-mic">🎤</button>
+          <div class="mic-status" id="mic-status" data-i18n="mic_status_default">Нажмите на микрофон и произнесите фразу</div>
+          <div class="speak-result" id="speak-result">
+            <div class="said"><span data-i18n="you_said">Вы сказали:</span> <span id="speak-said">—</span></div>
+            <div class="match-bar-track"><div class="match-bar-fill" id="speak-match-fill" style="width:0%"></div></div>
+            <div id="speak-match-text" style="color:var(--ink-soft);"></div>
+          </div>
+        </div>
+        <div class="test-footer">
+          <button class="exit-link" id="btn-exit-speaking" data-i18n="exit_no_save">← Выйти без сохранения</button>
+          <button class="btn btn-primary hidden" id="btn-next-speak" style="width:auto;" data-i18n="next_phrase_btn">Следующая фраза →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==========================================================================
+   WORDPORT — ENGINE
+   ========================================================================== */
+
+/* ---------------------------- УТИЛИТЫ ---------------------------------- */
+function rnd(n){ return Math.floor(Math.random()*n); }
+function pick(arr){ return arr[rnd(arr.length)]; }
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = rnd(i+1);
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickN(arr, n){ return shuffle(arr).slice(0, Math.min(n, arr.length)); }
+function uniqueOptions(correct, pool, count){
+  // собирает count вариантов, включая correct, без повторов
+  const set = new Set([correct]);
+  const shuffledPool = shuffle(pool);
+  for(const item of shuffledPool){
+    if(set.size >= count) break;
+    set.add(item);
+  }
+  return shuffle(Array.from(set));
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2600);
+}
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ==========================================================================
+   ИНТЕРФЕЙС НА 4 ЯЗЫКАХ: EN / RU / UZ (Oʻzbekcha) / TJ (Тоҷикӣ)
+   ========================================================================== */
+const LANGS = [
+  {code:'ru', label:'RU'},
+  {code:'en', label:'EN'},
+  {code:'uz', label:'UZ'},
+  {code:'tj', label:'TJ'}
+];
+const TR = {
+  ru:{
+    login_sub:"Персональный кабинет для изучения английского. Введите имя — и мы создадим ваш профиль с историей тестов, темами и разбором результатов от ИИ.",
+    login_name_label:"Ваше имя", login_name_ph:"Например, Азиз", login_btn:"Войти в кабинет →",
+    login_note:"Данные (имя и результаты тестов) сохраняются в вашем личном хранилище и привязаны к вашему аккаунту — при следующем визите кабинет будет там же, где вы его оставили.",
+    logout:"выйти",
+    hero_eyebrow:"Языковой профиль", hero_desc:"Каждый тест — новый и уникальный набор из 20 вопросов. Изучайте темы подробно, слушайте диалоги, тренируйте произношение — и получайте разбор результатов от ИИ.",
+    stat_tests:"тестов пройдено", stat_avg:"средний результат", stat_topics:"тем затронуто", stat_streak:"дней подряд",
+    stamps_title:"Штампы прогресса", stamps_hint:"Каждый завершённый тест — новый штамп", stamps_empty:"Пока пусто — пройдите первый тест!",
+    topics_title:"Темы: грамматика и лексика", av_title:"Аудирование и говорение", av_sub:"практика вживую",
+    listening_card_title:"Listening — аудирование", listening_card_desc:"ИИ озвучивает диалоги и короткие тексты вслух (синтез речи браузера), с разной скоростью и уровнем сложности. Слушайте и отвечайте на вопросы по содержанию — набор фрагментов каждый раз новый.", listening_card_btn:"Начать аудирование →",
+    speaking_card_title:"Speaking — говорение", speaking_card_desc:"Произносите фразы вслух в микрофон — распознавание речи браузера сравнит сказанное с эталоном и оценит точность произношения и попадание в текст.", speaking_card_btn:"Начать говорение →",
+    history_title:"История результатов",
+    exit_no_save:"← Выйти без сохранения", next_btn:"Далее →", next_phrase_btn:"Следующая фраза →",
+    score_sub:"верных ответов", ai_tag:"Разбор от ИИ-преподавателя", retry_btn:"🔁 Пройти новый тест по теме", back_dash_btn:"В кабинет",
+    listening_label:"АУДИРОВАНИЕ", speaking_label:"ГОВОРЕНИЕ",
+    replay_btn:"▶ прослушать ещё раз", transcript_btn:"показать текст",
+    speak_unsupported:"Ваш браузер не поддерживает распознавание речи (Web Speech API). Эта функция лучше всего работает в Google Chrome на компьютере или Android. Вы можете продолжить и просто потренировать произношение вслух — но автоматическая проверка будет недоступна.",
+    mic_status_default:"Нажмите на микрофон и произнесите фразу", you_said:"Вы сказали:",
+    start_test_btn:"Пройти тест по теме (20 вопросов) →",
+    attempts_short:"попыт.", best_badge:"лучший",
+    study_topic_btn:"Изучить тему →",
+    empty_history:"История пуста. Пройдите тест, аудирование или тренировку говорения — результат появится здесь.",
+    lang_note:"Язык интерфейса", topics_word:"тем", records_word:"записей"
+  },
+  en:{
+    login_sub:"Your personal English learning dashboard. Enter your name and we'll create your profile with test history, topics and AI feedback.",
+    login_name_label:"Your name", login_name_ph:"e.g. Aziz", login_btn:"Enter my dashboard →",
+    login_note:"Your name and test results are saved to your personal storage, linked to your account — next time you visit, everything will be right where you left it.",
+    logout:"log out",
+    hero_eyebrow:"Language profile", hero_desc:"Every test is a brand-new set of 20 questions. Study each topic in detail, listen to dialogues, practice pronunciation — and get AI feedback after every attempt.",
+    stat_tests:"tests taken", stat_avg:"average score", stat_topics:"topics tried", stat_streak:"day streak",
+    stamps_title:"Progress stamps", stamps_hint:"Every finished test adds a new stamp", stamps_empty:"Nothing yet — complete your first test!",
+    topics_title:"Topics: grammar & vocabulary", av_title:"Listening & Speaking", av_sub:"live practice",
+    listening_card_title:"Listening", listening_card_desc:"Dialogues and short texts are read aloud (browser speech synthesis), with adjustable speed and difficulty. Listen and answer comprehension questions — a fresh set every time.", listening_card_btn:"Start listening →",
+    speaking_card_title:"Speaking", speaking_card_desc:"Say phrases out loud into your microphone — browser speech recognition compares what you said to the target phrase and scores your accuracy.", speaking_card_btn:"Start speaking →",
+    history_title:"Result history",
+    exit_no_save:"← Exit without saving", next_btn:"Next →", next_phrase_btn:"Next phrase →",
+    score_sub:"correct answers", ai_tag:"AI teacher feedback", retry_btn:"🔁 Take a new test on this topic", back_dash_btn:"Back to dashboard",
+    listening_label:"LISTENING", speaking_label:"SPEAKING",
+    replay_btn:"▶ play again", transcript_btn:"show transcript",
+    speak_unsupported:"Your browser doesn't support speech recognition (Web Speech API). This works best in Google Chrome on desktop or Android. You can still practice speaking out loud, but automatic scoring won't be available.",
+    mic_status_default:"Tap the microphone and say the phrase", you_said:"You said:",
+    start_test_btn:"Take the topic test (20 questions) →",
+    attempts_short:"tries", best_badge:"best",
+    study_topic_btn:"Study this topic →",
+    empty_history:"No history yet. Take a test, listening or speaking practice — results will show up here.",
+    lang_note:"Interface language", topics_word:"topics", records_word:"records"
+  },
+  uz:{
+    login_sub:"Ingliz tilini o'rganish uchun shaxsiy kabinet. Ismingizni kiriting — testlar tarixi, mavzular va AI tahlili bilan profilingiz yaratiladi.",
+    login_name_label:"Ismingiz", login_name_ph:"Masalan, Aziz", login_btn:"Kabinetga kirish →",
+    login_note:"Ismingiz va test natijalari sizning shaxsiy xotirangizda saqlanadi va hisobingizga bog'langan — keyingi safar kabinet xuddi shu joyda bo'ladi.",
+    logout:"chiqish",
+    hero_eyebrow:"Til profili", hero_desc:"Har bir test — 20 ta savoldan iborat yangi va o'ziga xos to'plam. Mavzularni batafsil o'rganing, dialoglarni tinglang, talaffuzni mashq qiling — va AI dan natijalar tahlilini oling.",
+    stat_tests:"testlar topshirildi", stat_avg:"o'rtacha natija", stat_topics:"mavzular o'rganildi", stat_streak:"kun ketma-ket",
+    stamps_title:"Muvaffaqiyat shtamplari", stamps_hint:"Har bir yakunlangan test — yangi shtamp", stamps_empty:"Hozircha bo'sh — birinchi testni topshiring!",
+    topics_title:"Mavzular: grammatika va lug'at", av_title:"Tinglash va gapirish", av_sub:"jonli mashq",
+    listening_card_title:"Listening — tinglab tushunish", listening_card_desc:"Dialoglar va qisqa matnlar ovoz chiqarib o'qiladi (brauzer nutq sintezi), tezlik va qiyinlik darajasi moslashtiriladi. Tinglang va savollarga javob bering — har safar yangi to'plam.", listening_card_btn:"Tinglashni boshlash →",
+    speaking_card_title:"Speaking — gapirish", speaking_card_desc:"Iboralarni mikrofonga ovoz chiqarib ayting — brauzer nutqni tanish tizimi aytilgan so'zlarni namuna bilan solishtirib, aniqligini baholaydi.", speaking_card_btn:"Gapirishni boshlash →",
+    history_title:"Natijalar tarixi",
+    exit_no_save:"← Saqlamasdan chiqish", next_btn:"Keyingisi →", next_phrase_btn:"Keyingi ibora →",
+    score_sub:"to'g'ri javoblar", ai_tag:"AI o'qituvchi tahlili", retry_btn:"🔁 Mavzu bo'yicha yangi test", back_dash_btn:"Kabinetga qaytish",
+    listening_label:"TINGLASH", speaking_label:"GAPIRISH",
+    replay_btn:"▶ yana tinglash", transcript_btn:"matnni ko'rsatish",
+    speak_unsupported:"Brauzeringiz nutqni tanishni (Web Speech API) qo'llab-quvvatlamaydi. Bu funksiya Google Chrome brauzerida (kompyuter yoki Android) yaxshi ishlaydi. Siz baribir talaffuzni mashq qilishingiz mumkin, lekin avtomatik baholash mavjud bo'lmaydi.",
+    mic_status_default:"Mikrofonni bosing va iborani talaffuz qiling", you_said:"Siz aytdingiz:",
+    start_test_btn:"Mavzu bo'yicha testni boshlash (20 savol) →",
+    attempts_short:"urinish", best_badge:"eng yaxshi",
+    study_topic_btn:"Mavzuni o'rganish →",
+    empty_history:"Tarix hali bo'sh. Test, tinglash yoki gapirish mashqini bajaring — natija shu yerda ko'rinadi.",
+    lang_note:"Interfeys tili", topics_word:"mavzu", records_word:"yozuv"
+  },
+  tj:{
+    login_sub:"Кабинети шахсӣ барои омӯзиши забони англисӣ. Номи худро ворид кунед — мо профили шуморо бо таърихи тестҳо, мавзӯъҳо ва таҳлили ИИ месозем.",
+    login_name_label:"Номи шумо", login_name_ph:"Масалан, Азиз", login_btn:"Ворид шудан ба кабинет →",
+    login_note:"Ном ва натиҷаҳои тести шумо дар анбори шахсии шумо нигоҳ дошта мешаванд ва ба ҳисоби шумо пайваст мешаванд — дафъаи оянда кабинет дар ҳамон ҷо хоҳад буд.",
+    logout:"баромадан",
+    hero_eyebrow:"Профили забонӣ", hero_desc:"Ҳар тест — маҷмӯи нав аз 20 савол. Мавзӯъҳоро муфассал омӯзед, диалогҳоро гӯш кунед, талаффузро машқ кунед — ва аз ИИ таҳлили натиҷаҳоро гиред.",
+    stat_tests:"тестҳо гузаронида шуд", stat_avg:"натиҷаи миёна", stat_topics:"мавзӯъҳо фаро гирифта шуд", stat_streak:"рӯзи паиҳам",
+    stamps_title:"Мӯҳрҳои пешравӣ", stamps_hint:"Ҳар тести анҷомёфта — мӯҳри нав", stamps_empty:"Ҳоло холист — аввалин тестро гузаронед!",
+    topics_title:"Мавзӯъҳо: грамматика ва луғат", av_title:"Гӯш кардан ва гуфтугӯ", av_sub:"машқи зинда",
+    listening_card_title:"Listening — гӯш кардан", listening_card_desc:"Диалогҳо ва матнҳои кӯтоҳ бо овоз хонда мешаванд (синтези нутқи браузер), бо суръат ва сатҳи гуногун. Гӯш кунед ва ба саволҳо ҷавоб диҳед — ҳар дафъа маҷмӯи нав.", listening_card_btn:"Гӯш карданро сар кунед →",
+    speaking_card_title:"Speaking — гуфтугӯ", speaking_card_desc:"Ибораҳоро бо овоз ба микрофон гӯед — системаи шинохти нутқи браузер гуфтаи шуморо бо намуна муқоиса карда, дурустиро баҳо медиҳад.", speaking_card_btn:"Гуфтугӯро сар кунед →",
+    history_title:"Таърихи натиҷаҳо",
+    exit_no_save:"← Бе сабт баромадан", next_btn:"Баъдӣ →", next_phrase_btn:"Ибораи навбатӣ →",
+    score_sub:"ҷавобҳои дуруст", ai_tag:"Таҳлили муаллими ИИ", retry_btn:"🔁 Тести нав аз рӯи мавзӯъ", back_dash_btn:"Ба кабинет",
+    listening_label:"ГӮШ КАРДАН", speaking_label:"ГУФТУГӮ",
+    replay_btn:"▶ дубора гӯш кунед", transcript_btn:"матнро нишон диҳед",
+    speak_unsupported:"Браузери шумо шинохти нутқро (Web Speech API) дастгирӣ намекунад. Ин функсия дар Google Chrome (компютер ё Android) беҳтарин кор мекунад. Шумо метавонед талаффузро машқ кунед, аммо санҷиши худкор дастрас нахоҳад буд.",
+    mic_status_default:"Микрофонро пахш кунед ва ибораро талаффуз кунед", you_said:"Шумо гуфтед:",
+    start_test_btn:"Тестро аз рӯи мавзӯъ сар кунед (20 савол) →",
+    attempts_short:"кӯшиш", best_badge:"беҳтарин",
+    study_topic_btn:"Омӯхтани мавзӯъ →",
+    empty_history:"Таърих ҳанӯз холист. Тест, гӯш кардан ё гуфтугӯро иҷро кунед — натиҷа дар ин ҷо пайдо мешавад.",
+    lang_note:"Забони интерфейс", topics_word:"мавзӯъ", records_word:"сабт"
+  }
+};
+function t2(key){
+  const dict = TR[App.lang] || TR.ru;
+  return dict[key] !== undefined ? dict[key] : (TR.ru[key] || key);
+}
+function applyI18n(){
+  document.documentElement.lang = App.lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    el.textContent = t2(el.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.setAttribute('placeholder', t2(el.getAttribute('data-i18n-placeholder')));
+  });
+  renderLangSwitch();
+}
+function renderLangSwitch(){
+  const html = LANGS.map(l=>`<button class="${App.lang===l.code?'active':''}" data-lang="${l.code}">${l.label}</button>`).join('');
+  ['lang-switch-login','lang-switch-app'].forEach(id=>{
+    const wrap = document.getElementById(id);
+    if(!wrap) return;
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        App.lang = btn.getAttribute('data-lang');
+        try{ await window.storage.set('lang', App.lang, false); }catch(e){}
+        applyI18n();
+        if(App.profile){ renderDashboard(); }
+      });
+    });
+  });
+}
+
+/* ---------------------------- ДАННЫЕ: ГЛАГОЛЫ --------------------------- */
+const VERBS = [
+  {base:"work", s:"works", ing:"working", past:"worked"},
+  {base:"play", s:"plays", ing:"playing", past:"played"},
+  {base:"study", s:"studies", ing:"studying", past:"studied"},
+  {base:"go", s:"goes", ing:"going", past:"went"},
+  {base:"do", s:"does", ing:"doing", past:"did"},
+  {base:"have", s:"has", ing:"having", past:"had"},
+  {base:"watch", s:"watches", ing:"watching", past:"watched"},
+  {base:"read", s:"reads", ing:"reading", past:"read"},
+  {base:"write", s:"writes", ing:"writing", past:"wrote"},
+  {base:"eat", s:"eats", ing:"eating", past:"ate"},
+  {base:"drink", s:"drinks", ing:"drinking", past:"drank"},
+  {base:"speak", s:"speaks", ing:"speaking", past:"spoke"},
+  {base:"see", s:"sees", ing:"seeing", past:"saw"},
+  {base:"buy", s:"buys", ing:"buying", past:"bought"},
+  {base:"make", s:"makes", ing:"making", past:"made"},
+  {base:"take", s:"takes", ing:"taking", past:"took"},
+  {base:"give", s:"gives", ing:"giving", past:"gave"},
+  {base:"cook", s:"cooks", ing:"cooking", past:"cooked"},
+  {base:"clean", s:"cleans", ing:"cleaning", past:"cleaned"},
+  {base:"travel", s:"travels", ing:"travelling", past:"travelled"},
+  {base:"visit", s:"visits", ing:"visiting", past:"visited"},
+  {base:"finish", s:"finishes", ing:"finishing", past:"finished"},
+  {base:"start", s:"starts", ing:"starting", past:"started"},
+  {base:"live", s:"lives", ing:"living", past:"lived"},
+  {base:"drive", s:"drives", ing:"driving", past:"drove"},
+  {base:"call", s:"calls", ing:"calling", past:"called"},
+  {base:"help", s:"helps", ing:"helping", past:"helped"},
+  {base:"open", s:"opens", ing:"opening", past:"opened"},
+  {base:"close", s:"closes", ing:"closing", past:"closed"},
+  {base:"walk", s:"walks", ing:"walking", past:"walked"}
+];
+const PP = {go:"gone",do:"done",have:"had",watch:"watched",read:"read",write:"written",eat:"eaten",drink:"drunk",speak:"spoken",see:"seen",buy:"bought",make:"made",take:"taken",give:"given",cook:"cooked",clean:"cleaned",travel:"travelled",visit:"visited",finish:"finished",start:"started",live:"lived",drive:"driven",call:"called",help:"helped",open:"opened",close:"closed",walk:"walked",work:"worked",play:"played",study:"studied",sell:"sold",build:"built",check:"checked",paint:"painted"};
+
+const SUBJECTS = ["I","You","He","She","It","We","They","My friend","The children","Our teacher","My parents","The dog"];
+function isThirdSingular(subj){ return ["He","She","It","My friend","Our teacher","The dog"].includes(subj); }
+function auxBe(subj){
+  if(subj==="I") return "am";
+  if(isThirdSingular(subj)) return "is";
+  return "are";
+}
+function auxHave(subj){ return isThirdSingular(subj) ? "has" : "have"; }
+
+/* ---------------------------- ГЕНЕРАТОРЫ ГРАММАТИКИ --------------------- */
+
+function genPresentSimple(){
+  const subj = pick(SUBJECTS);
+  const v = pick(VERBS);
+  const time = pick(["every day","every morning","every week","on Mondays","usually","often","every year","at the weekend","every summer","most days"]);
+  const correct = isThirdSingular(subj) ? v.s : v.base;
+  const wrongPool = [v.base===correct?null:v.base, v.s===correct?null:v.s, v.ing, v.past].filter(Boolean);
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return {
+    eyebrow:"Present Simple",
+    text:`${subj} ___ (${v.base}) ${time}.`,
+    options, correct
+  };
+}
+function genPresentContinuous(){
+  const subj = pick(SUBJECTS);
+  const v = pick(VERBS);
+  const time = pick(["right now","at the moment","now","currently","at this moment"]);
+  const correctAux = auxBe(subj);
+  const correct = `${correctAux} ${v.ing}`;
+  const otherAux = ["am","is","are"].filter(a=>a!==correctAux);
+  const wrongPool = [
+    `${otherAux[0]} ${v.ing}`,
+    `${otherAux[1]} ${v.ing}`,
+    v.base,
+    v.past
+  ];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return {
+    eyebrow:"Present Continuous",
+    text:`${subj} ___ (${v.base}) ${time}.`,
+    options, correct
+  };
+}
+function genPastSimple(){
+  const subj = pick(SUBJECTS);
+  const v = pick(VERBS);
+  const time = pick(["yesterday","last week","two days ago","last night","last summer","in 2019","a moment ago","last month"]);
+  const correct = v.past;
+  const wrongPool = [v.base, v.s, v.ing];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return {
+    eyebrow:"Past Simple",
+    text:`${subj} ___ (${v.base}) ${time}.`,
+    options, correct
+  };
+}
+function genPresentPerfect(){
+  const subj = pick(SUBJECTS);
+  const v = pick(VERBS);
+  const marker = pick(["already","just","never","yet","for three years","since 2015","recently","many times"]);
+  const correctAux = auxHave(subj);
+  const pp = PP[v.base] || v.past;
+  const correct = `${correctAux} ${pp}`;
+  const otherAux = ["have","has"].filter(a=>a!==correctAux)[0];
+  const wrongPool = [`${otherAux} ${pp}`, v.past, v.base];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return {
+    eyebrow:"Present Perfect",
+    text:`${subj} ___ (${v.base}) ${marker}.`,
+    options, correct
+  };
+}
+const ARTICLE_NOUNS = [
+  {n:"apple", cat:"vowel"}, {n:"orange", cat:"vowel"}, {n:"umbrella", cat:"vowel"},
+  {n:"hour", cat:"vowel"}, {n:"idea", cat:"vowel"}, {n:"elephant", cat:"vowel"}, {n:"office", cat:"vowel"},
+  {n:"book", cat:"cons"}, {n:"car", cat:"cons"}, {n:"dog", cat:"cons"}, {n:"university", cat:"cons"},
+  {n:"house", cat:"cons"}, {n:"student", cat:"cons"}, {n:"teacher", cat:"cons"}, {n:"laptop", cat:"cons"},
+  {n:"water", cat:"unc"}, {n:"music", cat:"unc"}, {n:"information", cat:"unc"}, {n:"advice", cat:"unc"}, {n:"rice", cat:"unc"}, {n:"money", cat:"unc"},
+  {n:"sun", cat:"uniq"}, {n:"moon", cat:"uniq"}, {n:"internet", cat:"uniq"}, {n:"sky", cat:"uniq"}
+];
+function genArticles(){
+  const item = pick(ARTICLE_NOUNS);
+  const templates = {
+    vowel: `I saw ___ ${item.n} in the shop.`,
+    cons: `She bought ___ ${item.n} yesterday.`,
+    unc: `Can I have ___ ${item.n}, please?`,
+    uniq: `Look at ___ ${item.n} tonight.`
+  };
+  const answerMap = {vowel:"an", cons:"a", unc:"no article", uniq:"the"};
+  const correct = answerMap[item.cat];
+  const allOptions = ["a","an","the","no article"];
+  return {
+    eyebrow:"Articles: a / an / the",
+    text: templates[item.cat],
+    options: shuffle(allOptions),
+    correct
+  };
+}
+const PREP_SCENARIOS = [
+  {t:"The cat is ___ the box.", c:"in"},
+  {t:"The book is ___ the table.", c:"on"},
+  {t:"We met ___ the corner of the street.", c:"at"},
+  {t:"The picture is ___ the wall.", c:"on"},
+  {t:"She is standing ___ the door.", c:"at"},
+  {t:"The ball rolled ___ the bed.", c:"under"},
+  {t:"He arrived ___ 8 o'clock.", c:"at"},
+  {t:"My birthday is ___ July.", c:"in"},
+  {t:"The meeting is ___ Monday.", c:"on"},
+  {t:"There is a bridge ___ the river.", c:"over"},
+  {t:"The shop is ___ the bank and the cafe.", c:"between"},
+  {t:"We arrived ___ the airport early.", c:"at"},
+  {t:"She lives ___ Paris.", c:"in"},
+  {t:"He was born ___ 1995.", c:"in"},
+  {t:"The plane flew ___ the clouds.", c:"above"},
+  {t:"Put the vase ___ the shelf.", c:"on"},
+  {t:"The dog is hiding ___ the sofa.", c:"behind"},
+  {t:"I'll see you ___ the morning.", c:"in"},
+  {t:"The store closes ___ midnight.", c:"at"},
+  {t:"They walked ___ the park.", c:"through"},
+  {t:"The keys are ___ my bag.", c:"in"},
+  {t:"We'll meet ___ the weekend.", c:"at"}
+];
+const PREP_POOL = ["in","on","at","under","over","between","behind","through","above","near","into","from"];
+function genPrepositions(){
+  const s = pick(PREP_SCENARIOS);
+  const wrongPool = PREP_POOL.filter(p=>p!==s.c);
+  const options = uniqueOptions(s.c, wrongPool, 4);
+  return { eyebrow:"Prepositions", text:s.t, options, correct:s.c };
+}
+const MODAL_SCENARIOS = [
+  {t:"You ___ smoke in the hospital. It's forbidden.", c:"mustn't"},
+  {t:"It's cloudy, so it ___ rain later.", c:"might"},
+  {t:"___ you help me with this bag, please?", c:"Can"},
+  {t:"Students ___ wear a uniform at this school. It's a rule.", c:"must"},
+  {t:"You look tired. You ___ go to bed early.", c:"should"},
+  {t:"___ I open the window? It's hot in here.", c:"May"},
+  {t:"She ___ speak three languages fluently.", c:"can"},
+  {t:"We ___ finish the report by Friday, it's the deadline.", c:"must"},
+  {t:"You don't have to come, but you ___ if you want.", c:"can"},
+  {t:"He ___ be at home now, I saw his car outside.", c:"must"},
+  {t:"You ___ eat more vegetables, it's good for your health.", c:"should"},
+  {t:"___ I borrow your pen for a second?", c:"Could"},
+  {t:"They ___ arrive late, the traffic is terrible today.", c:"might"},
+  {t:"You ___ touch that, it's very hot!", c:"mustn't"},
+  {t:"When I was young, I ___ climb trees very fast.", c:"could"},
+  {t:"You ___ apologize, it wasn't your fault at all.", c:"don't have to"}
+];
+const MODAL_POOL = ["can","could","must","mustn't","should","might","may","have to","don't have to","Can","May","Could"];
+function genModals(){
+  const s = pick(MODAL_SCENARIOS);
+  const wrongPool = MODAL_POOL.filter(m=>m.toLowerCase()!==s.c.toLowerCase());
+  const options = uniqueOptions(s.c, wrongPool, 4);
+  return { eyebrow:"Modal Verbs", text:s.t, options, correct:s.c };
+}
+const ADJS = [
+  {b:"big",c:"bigger",s:"biggest"},{b:"small",c:"smaller",s:"smallest"},
+  {b:"fast",c:"faster",s:"fastest"},{b:"happy",c:"happier",s:"happiest"},
+  {b:"easy",c:"easier",s:"easiest"},{b:"beautiful",c:"more beautiful",s:"most beautiful"},
+  {b:"expensive",c:"more expensive",s:"most expensive"},{b:"good",c:"better",s:"best"},
+  {b:"bad",c:"worse",s:"worst"},{b:"far",c:"farther",s:"farthest"},
+  {b:"interesting",c:"more interesting",s:"most interesting"},{b:"hot",c:"hotter",s:"hottest"},
+  {b:"cold",c:"colder",s:"coldest"},{b:"tall",c:"taller",s:"tallest"},
+  {b:"intelligent",c:"more intelligent",s:"most intelligent"},{b:"cheap",c:"cheaper",s:"cheapest"},
+  {b:"difficult",c:"more difficult",s:"most difficult"},{b:"young",c:"younger",s:"youngest"},{b:"old",c:"older",s:"oldest"}
+];
+function genComparatives(){
+  const a = pick(ADJS);
+  const isSuper = Math.random()<0.5;
+  const correct = isSuper ? a.s : a.c;
+  const other = pick(ADJS.filter(x=>x.b!==a.b));
+  const wrongPool = isSuper ? [a.c, a.b, other.s] : [a.s, a.b, other.c];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  const text = isSuper
+    ? `This is ${["a","e","i","o","u"].includes(a.s[0])?"the":"the"} ___ (${a.b}) building I have ever seen.`
+    : `My car is ___ (${a.b}) than my brother's car.`;
+  return { eyebrow: isSuper?"Superlatives":"Comparatives", text, options, correct };
+}
+
+function genFutureSimple(){
+  const subj = pick(SUBJECTS);
+  const v = pick(VERBS);
+  const time = pick(["tomorrow","next week","next year","soon","in two days","next summer","later today","next month"]);
+  const correct = `will ${v.base}`;
+  const wrongPool = [v.base, v.s, v.past, `will ${v.ing}`];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return { eyebrow:"Future Simple (will)", text:`${subj} ___ (${v.base}) ${time}.`, options, correct };
+}
+const COND_RESULTS = ["we will stay at home","I will be very happy","she will call you immediately","they will be surprised","we will cancel the trip","he will help you at once","I will buy a new umbrella","we will go to the beach"];
+function genConditional(){
+  const subj = pick(SUBJECTS);
+  const v = pick(VERBS);
+  const result = pick(COND_RESULTS);
+  const correct = isThirdSingular(subj) ? v.s : v.base;
+  const wrongPool = [v.past, v.ing, `will ${v.base}`];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return { eyebrow:"First Conditional (if)", text:`If ${subj} ___ (${v.base}) tomorrow, ${result}.`, options, correct };
+}
+const PASSIVE_ITEMS = [
+  {subj:"The letter", plural:false, base:"write", pp:"written", ing:"writing"},
+  {subj:"These cars", plural:true, base:"make", pp:"made", ing:"making"},
+  {subj:"The house", plural:false, base:"clean", pp:"cleaned", ing:"cleaning"},
+  {subj:"The windows", plural:true, base:"open", pp:"opened", ing:"opening"},
+  {subj:"Breakfast", plural:false, base:"cook", pp:"cooked", ing:"cooking"},
+  {subj:"The books", plural:true, base:"sell", pp:"sold", ing:"selling"},
+  {subj:"The bridge", plural:false, base:"build", pp:"built", ing:"building"},
+  {subj:"The reports", plural:true, base:"check", pp:"checked", ing:"checking"},
+  {subj:"The room", plural:false, base:"paint", pp:"painted", ing:"painting"},
+  {subj:"The tickets", plural:true, base:"buy", pp:"bought", ing:"buying"}
+];
+function genPassive(){
+  const item = pick(PASSIVE_ITEMS);
+  const correctAux = item.plural ? "are" : "is";
+  const wrongAux = item.plural ? "is" : "are";
+  const correct = `${correctAux} ${item.pp}`;
+  const wrongPool = [`${wrongAux} ${item.pp}`, item.base, item.ing];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return { eyebrow:"Passive Voice", text:`${item.subj} ___ (${item.base}) every day.`, options, correct };
+}
+const QUESTION_PAIRS = [
+  {v:"like", o:"coffee"}, {v:"play", o:"football on Sundays"}, {v:"live", o:"in London"},
+  {v:"speak", o:"French"}, {v:"work", o:"in a bank"}, {v:"have", o:"a car"},
+  {v:"study", o:"at university"}, {v:"watch", o:"TV every evening"}, {v:"read", o:"the news"},
+  {v:"drink", o:"tea"}, {v:"go", o:"to the gym"}, {v:"cook", o:"dinner"}
+];
+function genQuestions(){
+  const subj = pick(SUBJECTS);
+  const pair = pick(QUESTION_PAIRS);
+  const correct = isThirdSingular(subj) ? "Does" : "Do";
+  const options = shuffle(["Do","Does","Is","Are"]);
+  return { eyebrow:"Questions with Do / Does", text:`___ ${subj} ${pair.v} ${pair.o}?`, options, correct };
+}
+const QUANT_SCENARIOS = [
+  {t:"There isn't ___ milk in the fridge.", c:"any"},
+  {t:"I have ___ good friends in this city.", c:"many"},
+  {t:"Would you like ___ tea?", c:"some"},
+  {t:"How ___ money do you have?", c:"much"},
+  {t:"There are ___ books on the shelf.", c:"many"},
+  {t:"She doesn't have ___ time today.", c:"any"},
+  {t:"We need ___ sugar for the cake.", c:"some"},
+  {t:"How ___ apples did you buy?", c:"many"},
+  {t:"There is ___ water left in the bottle.", c:"some"},
+  {t:"I don't have ___ questions right now.", c:"any"},
+  {t:"He drinks ___ coffee every day.", c:"a lot of"},
+  {t:"Are there ___ eggs in the basket?", c:"any"}
+];
+const QUANT_POOL = ["some","any","much","many","a lot of","a few"];
+function genQuantifiers(){
+  const s = pick(QUANT_SCENARIOS);
+  const wrongPool = QUANT_POOL.filter(q=>q!==s.c);
+  const options = uniqueOptions(s.c, wrongPool, 4);
+  return { eyebrow:"Some / Any / Much / Many", text:s.t, options, correct:s.c };
+}
+const POSS_PAIRS = [
+  {owner:"Peter", obj:"car"}, {owner:"Maria", obj:"phone"}, {owner:"the teacher", obj:"book"},
+  {owner:"my sister", obj:"bag"}, {owner:"the children", obj:"toys"}, {owner:"John", obj:"house"},
+  {owner:"my parents", obj:"car"}, {owner:"the dog", obj:"food"}, {owner:"Anna", obj:"laptop"},
+  {owner:"my brother", obj:"bicycle"}
+];
+function genPossessive(){
+  const p = pick(POSS_PAIRS);
+  const ownerCap = p.owner.charAt(0).toUpperCase()+p.owner.slice(1);
+  const correct = `${ownerCap}'s ${p.obj}`;
+  const wrongPool = [`${p.obj} of ${p.owner}`, `${ownerCap} ${p.obj}'s`, `${p.obj}'s ${p.owner}`];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return { eyebrow:"Possessive Case", text:`How do you correctly say: "the ${p.obj} that belongs to ${p.owner}"?`, options, correct };
+}
+
+const PHRASAL_VERBS = [
+  {p:"give up", m:"прекратить попытки, сдаться"},
+  {p:"look after", m:"заботиться о ком-то"},
+  {p:"look for", m:"искать что-то"},
+  {p:"turn on", m:"включить"},
+  {p:"turn off", m:"выключить"},
+  {p:"put off", m:"откладывать"},
+  {p:"pick up", m:"забрать, поднять"},
+  {p:"break down", m:"сломаться (о технике)"},
+  {p:"come across", m:"случайно встретить или найти"},
+  {p:"figure out", m:"разобраться, понять"},
+  {p:"get along with", m:"ладить с кем-то"},
+  {p:"run out of", m:"у чего-то заканчивается запас"},
+  {p:"take off", m:"взлетать / снимать одежду"},
+  {p:"check in", m:"регистрироваться в отеле или аэропорту"},
+  {p:"check out", m:"выписываться из отеля"},
+  {p:"look up", m:"искать информацию в словаре или интернете"},
+  {p:"set up", m:"устанавливать, организовывать"},
+  {p:"call off", m:"отменять"},
+  {p:"carry on", m:"продолжать"},
+  {p:"fill out", m:"заполнять форму"},
+  {p:"get over", m:"оправиться от чего-то"},
+  {p:"hang out", m:"проводить время с кем-то"},
+  {p:"hold on", m:"подождать"},
+  {p:"keep up with", m:"не отставать от чего-то"},
+  {p:"make up", m:"придумывать или мириться"},
+  {p:"point out", m:"указывать на что-то"},
+  {p:"put up with", m:"мириться с чем-то неприятным"},
+  {p:"run into", m:"случайно встретить"},
+  {p:"show up", m:"появиться, прийти"},
+  {p:"switch off", m:"выключать"},
+  {p:"take after", m:"быть похожим на родственника"},
+  {p:"work out", m:"тренироваться или срабатывать"},
+  {p:"bring up", m:"воспитывать или поднимать тему"},
+  {p:"come up with", m:"придумать идею"},
+  {p:"drop off", m:"подвезти и высадить кого-то"},
+  {p:"end up", m:"в итоге оказаться где-то"},
+  {p:"go on", m:"продолжаться, происходить"},
+  {p:"leave out", m:"пропустить, не включить"},
+  {p:"stand for", m:"означать (об аббревиатуре)"},
+  {p:"take over", m:"взять на себя управление"}
+];
+function genPhrasalVerb(){
+  const item = pick(PHRASAL_VERBS);
+  const wrongPool = PHRASAL_VERBS.filter(x=>x.p!==item.p).map(x=>x.m);
+  const options = uniqueOptions(item.m, wrongPool, 4);
+  return { eyebrow:"Phrasal Verbs", text:`Что означает фразовый глагол «${item.p}»?`, options, correct:item.m };
+}
+
+const VOCAB_BANK = [
+  {w:"boarding pass", m:"посадочный талон"},
+  {w:"luggage", m:"багаж"},
+  {w:"departure", m:"вылет, отправление"},
+  {w:"arrival", m:"прибытие"},
+  {w:"customs", m:"таможня"},
+  {w:"passport control", m:"паспортный контроль"},
+  {w:"itinerary", m:"маршрут поездки"},
+  {w:"accommodation", m:"жильё, размещение"},
+  {w:"fare", m:"стоимость проезда"},
+  {w:"platform", m:"платформа на вокзале"},
+  {w:"jet lag", m:"усталость от смены часовых поясов"},
+  {w:"souvenir", m:"сувенир"},
+  {w:"currency exchange", m:"обмен валюты"},
+  {w:"round trip", m:"поездка туда и обратно"},
+  {w:"layover", m:"пересадка в аэропорту"},
+  {w:"appetizer", m:"закуска"},
+  {w:"main course", m:"основное блюдо"},
+  {w:"dessert", m:"десерт"},
+  {w:"leftovers", m:"остатки еды"},
+  {w:"recipe", m:"рецепт"},
+  {w:"ingredient", m:"ингредиент"},
+  {w:"to roast", m:"жарить или запекать в духовке"},
+  {w:"to boil", m:"варить"},
+  {w:"to chop", m:"нарезать"},
+  {w:"to season", m:"приправлять"},
+  {w:"flavor", m:"вкус, аромат"},
+  {w:"tasty", m:"вкусный"},
+  {w:"bland", m:"безвкусный"},
+  {w:"spicy", m:"острый (о еде)"},
+  {w:"sightseeing", m:"осмотр достопримечательностей"},
+  {w:"guided tour", m:"экскурсия с гидом"},
+  {w:"reservation", m:"бронирование"},
+  {w:"check-in time", m:"время заселения"},
+  {w:"local cuisine", m:"местная кухня"},
+  {w:"budget traveler", m:"путешественник с ограниченным бюджетом"}
+];
+function genVocab(){
+  const item = pick(VOCAB_BANK);
+  const wrongPool = VOCAB_BANK.filter(x=>x.w!==item.w).map(x=>x.m);
+  const options = uniqueOptions(item.m, wrongPool, 4);
+  return { eyebrow:"Vocabulary: Travel & Food", text:`Что означает слово «${item.w}»?`, options, correct:item.m };
+}
+
+/* ---------------------------- ТЕМЫ (TOPICS) ----------------------------- */
+const TOPICS = [
+  {id:"present_simple", title:"Present Simple", icon:"🕐", desc:"Повседневные действия и привычки.", gen:genPresentSimple},
+  {id:"present_continuous", title:"Present Continuous", icon:"⏳", desc:"Действия, происходящие сейчас.", gen:genPresentContinuous},
+  {id:"past_simple", title:"Past Simple", icon:"📜", desc:"Завершённые действия в прошлом.", gen:genPastSimple},
+  {id:"present_perfect", title:"Present Perfect", icon:"✅", desc:"Связь прошлого с настоящим.", gen:genPresentPerfect},
+  {id:"future_simple", title:"Future Simple (will)", icon:"🚀", desc:"Планы, обещания и предсказания.", gen:genFutureSimple},
+  {id:"conditional1", title:"First Conditional", icon:"🌦️", desc:"Реальные условия: if + present, will.", gen:genConditional},
+  {id:"passive", title:"Passive Voice", icon:"🔄", desc:"Пассивный залог в Present Simple.", gen:genPassive},
+  {id:"questions", title:"Questions: Do / Does", icon:"❓", desc:"Построение вопросов в Present Simple.", gen:genQuestions},
+  {id:"articles", title:"Articles a/an/the", icon:"🔤", desc:"Артикли в английском языке.", gen:genArticles},
+  {id:"prepositions", title:"Prepositions", icon:"📍", desc:"Предлоги места и времени.", gen:genPrepositions},
+  {id:"modals", title:"Modal Verbs", icon:"🧭", desc:"Can, must, should, might и другие.", gen:genModals},
+  {id:"comparatives", title:"Comparatives & Superlatives", icon:"📈", desc:"Сравнение предметов и людей.", gen:genComparatives},
+  {id:"quantifiers", title:"Some / Any / Much / Many", icon:"🔢", desc:"Слова количества в английском.", gen:genQuantifiers},
+  {id:"possessive", title:"Possessive Case", icon:"👤", desc:"Притяжательный падеж 's.", gen:genPossessive},
+  {id:"phrasal", title:"Phrasal Verbs", icon:"🧩", desc:"Популярные фразовые глаголы.", gen:genPhrasalVerb},
+  {id:"vocab_travel", title:"Vocabulary: Travel & Food", icon:"🍽️", desc:"Лексика путешествий и еды.", gen:genVocab}
+];
+function getTopic(id){ return TOPICS.find(t=>t.id===id); }
+
+/* ==========================================================================
+   ПОДРОБНЫЕ ОБЪЯСНЕНИЯ ТЕМ НА 4 ЯЗЫКАХ
+   Правило и пункты переведены полностью на ru/en/uz/tj.
+   Примеры-предложения общие для всех языков, перевод примеров дан по-русски
+   (как общепонятный язык для региона) и подписан меткой на выбранном языке интерфейса.
+   ========================================================================== */
+const EXPLAIN = {
+  present_simple:{
+    level:"A1 · GRAMMAR",
+    rule:{
+      ru:"Present Simple используется для регулярных действий, привычек, фактов и расписаний. К глаголу добавляется -s/-es, если подлежащее — He/She/It (третье лицо единственного числа).",
+      en:"Present Simple is used for routines, habits, facts and schedules. Add -s/-es to the verb when the subject is He/She/It (third person singular).",
+      uz:"Present Simple doimiy harakatlar, odatlar, faktlar va jadvallar uchun ishlatiladi. Ega He/She/It bo'lsa, fe'lga -s/-es qo'shiladi.",
+      tj:"Present Simple барои амалҳои мунтазам, одатҳо, далелҳо ва ҷадвалҳо истифода мешавад. Агар мубтадо He/She/It бошад, ба феъл -s/-es илова карда мешавад."
+    },
+    points:{
+      ru:["I / You / We / They + базовая форма глагола","He / She / It + глагол + -s / -es","Отрицание: don't / doesn't + базовая форма","Маркеры времени: every day, usually, often, always"],
+      en:["I / You / We / They + base verb","He / She / It + verb + -s / -es","Negative: don't / doesn't + base verb","Time markers: every day, usually, often, always"],
+      uz:["I / You / We / They + fe'lning asosiy shakli","He / She / It + fe'l + -s / -es","Inkor: don't / doesn't + asosiy shakl","Vaqt so'zlari: every day, usually, often, always"],
+      tj:["I / You / We / They + шакли асосии феъл","He / She / It + феъл + -s / -es","Инкор: don't / doesn't + шакли асосӣ","Аломатҳои вақт: every day, usually, often, always"]
+    },
+    examples:[
+      {en:"She works in a hospital.", ru:"Она работает в больнице."},
+      {en:"They don't like spicy food.", ru:"Они не любят острую еду."},
+      {en:"The shop opens at nine every morning.", ru:"Магазин открывается в девять каждое утро."}
+    ]
+  },
+  present_continuous:{
+    level:"A1-A2 · GRAMMAR",
+    rule:{
+      ru:"Present Continuous описывает действия, происходящие прямо сейчас или временные ситуации. Строится по формуле: am/is/are + глагол с окончанием -ing.",
+      en:"Present Continuous describes actions happening right now or temporary situations. Formula: am/is/are + verb + -ing.",
+      uz:"Present Continuous hozir sodir bo'layotgan yoki vaqtinchalik holatlarni ifodalaydi. Formula: am/is/are + fe'l + -ing.",
+      tj:"Present Continuous амалҳое, ки ҳозир рух медиҳанд ё ҳолатҳои муваққатиро тасвир мекунад. Формула: am/is/are + феъл + -ing."
+    },
+    points:{
+      ru:["I am + -ing","He/She/It is + -ing","You/We/They are + -ing","Маркеры: now, right now, at the moment, currently"],
+      en:["I am + -ing","He/She/It is + -ing","You/We/They are + -ing","Markers: now, right now, at the moment, currently"],
+      uz:["I am + -ing","He/She/It is + -ing","You/We/They are + -ing","Belgilar: now, right now, at the moment, currently"],
+      tj:["I am + -ing","He/She/It is + -ing","You/We/They are + -ing","Аломатҳо: now, right now, at the moment, currently"]
+    },
+    examples:[
+      {en:"I am reading an interesting book right now.", ru:"Я сейчас читаю интересную книгу."},
+      {en:"She is cooking dinner at the moment.", ru:"Она сейчас готовит ужин."},
+      {en:"They are travelling in Europe this month.", ru:"Они путешествуют по Европе в этом месяце."}
+    ]
+  },
+  past_simple:{
+    level:"A1-A2 · GRAMMAR",
+    rule:{
+      ru:"Past Simple используется для завершённых действий в прошлом с указанным временем. У правильных глаголов добавляется -ed, у неправильных — особая форма (go → went).",
+      en:"Past Simple is used for completed actions at a specific time in the past. Regular verbs add -ed; irregular verbs have a special form (go → went).",
+      uz:"Past Simple o'tmishda ma'lum vaqtda tugallangan harakatlar uchun ishlatiladi. To'g'ri fe'llarga -ed qo'shiladi, noto'g'ri fe'llar maxsus shaklga ega (go → went).",
+      tj:"Past Simple барои амалҳои дар вақти муайяни гузашта анҷомёфта истифода мешавад. Ба феълҳои дуруст -ed илова мешавад, феълҳои нодуруст шакли махсус доранд (go → went)."
+    },
+    points:{
+      ru:["Правильные глаголы: verb + -ed","Неправильные глаголы: особая форма (2-я колонка)","Отрицание: didn't + базовая форма","Маркеры: yesterday, last week, in 2020, ago"],
+      en:["Regular verbs: verb + -ed","Irregular verbs: special form (2nd column)","Negative: didn't + base verb","Markers: yesterday, last week, in 2020, ago"],
+      uz:["To'g'ri fe'llar: verb + -ed","Noto'g'ri fe'llar: maxsus shakl","Inkor: didn't + asosiy shakl","Belgilar: yesterday, last week, in 2020, ago"],
+      tj:["Феълҳои дуруст: verb + -ed","Феълҳои нодуруст: шакли махсус","Инкор: didn't + шакли асосӣ","Аломатҳо: yesterday, last week, in 2020, ago"]
+    },
+    examples:[
+      {en:"We visited our grandparents last weekend.", ru:"Мы навестили бабушку с дедушкой на прошлых выходных."},
+      {en:"She didn't call me yesterday.", ru:"Она не позвонила мне вчера."},
+      {en:"He went to Paris in 2019.", ru:"Он ездил в Париж в 2019 году."}
+    ]
+  },
+  present_perfect:{
+    level:"B1 · GRAMMAR",
+    rule:{
+      ru:"Present Perfect связывает прошлое с настоящим: результат важнее, чем точное время действия. Формула: have/has + причастие прошедшего времени (participle).",
+      en:"Present Perfect connects the past with the present: the result matters more than the exact time. Formula: have/has + past participle.",
+      uz:"Present Perfect o'tmishni hozirgi zamon bilan bog'laydi: aniq vaqtdan ko'ra natija muhimroq. Formula: have/has + past participle.",
+      tj:"Present Perfect гузаштаро бо ҳозира мепайвандад: натиҷа муҳимтар аз вақти дақиқ аст. Формула: have/has + past participle."
+    },
+    points:{
+      ru:["I/You/We/They + have + participle","He/She/It + has + participle","Маркеры: already, just, never, yet, ever, since, for","Не используется с точным указанием времени (yesterday, in 2020)"],
+      en:["I/You/We/They + have + participle","He/She/It + has + participle","Markers: already, just, never, yet, ever, since, for","Not used with a specific past time (yesterday, in 2020)"],
+      uz:["I/You/We/They + have + participle","He/She/It + has + participle","Belgilar: already, just, never, yet, ever, since, for","Aniq vaqt bilan ishlatilmaydi (yesterday, in 2020)"],
+      tj:["I/You/We/They + have + participle","He/She/It + has + participle","Аломатҳо: already, just, never, yet, ever, since, for","Бо вақти дақиқ истифода намешавад (yesterday, in 2020)"]
+    },
+    examples:[
+      {en:"I have already finished my homework.", ru:"Я уже закончил домашнее задание."},
+      {en:"She has never been to Japan.", ru:"Она никогда не была в Японии."},
+      {en:"We have lived here for ten years.", ru:"Мы живём здесь уже десять лет."}
+    ]
+  },
+  future_simple:{
+    level:"A2 · GRAMMAR",
+    rule:{
+      ru:"Future Simple выражает решения, принятые в момент речи, обещания и предсказания. Формула: will + базовая форма глагола, одинаковая для всех подлежащих.",
+      en:"Future Simple expresses spontaneous decisions, promises and predictions. Formula: will + base verb, the same for every subject.",
+      uz:"Future Simple gapirish paytida qabul qilingan qarorlar, va'dalar va bashoratlarni ifodalaydi. Formula: will + fe'lning asosiy shakli.",
+      tj:"Future Simple қарорҳои дар лаҳзаи гуфтугӯ қабулшуда, ваъдаҳо ва пешгӯиҳоро ифода мекунад. Формула: will + шакли асосии феъл."
+    },
+    points:{
+      ru:["Формула одинакова для всех: will + базовая форма","Отрицание: won't (will not) + базовая форма","Маркеры: tomorrow, next week, soon, in two days","Используется для обещаний: I will help you."],
+      en:["Same formula for everyone: will + base verb","Negative: won't (will not) + base verb","Markers: tomorrow, next week, soon, in two days","Used for promises: I will help you."],
+      uz:["Barcha uchun bir xil formula: will + asosiy shakl","Inkor: won't (will not) + asosiy shakl","Belgilar: tomorrow, next week, soon, in two days","Va'dalar uchun: I will help you."],
+      tj:["Формулаи ягона барои ҳама: will + шакли асосӣ","Инкор: won't (will not) + шакли асосӣ","Аломатҳо: tomorrow, next week, soon, in two days","Барои ваъдаҳо: I will help you."]
+    },
+    examples:[
+      {en:"I will call you tomorrow.", ru:"Я позвоню тебе завтра."},
+      {en:"It will probably rain later.", ru:"Возможно, позже пойдёт дождь."},
+      {en:"We will help you with the project.", ru:"Мы поможем тебе с проектом."}
+    ]
+  },
+  conditional1:{
+    level:"B1 · GRAMMAR",
+    rule:{
+      ru:"First Conditional описывает реальные и возможные условия в будущем. Формула: If + Present Simple, ... will + базовая форма глагола.",
+      en:"First Conditional describes real, possible conditions in the future. Formula: If + Present Simple, ... will + base verb.",
+      uz:"First Conditional kelajakda real va mumkin bo'lgan shartlarni tasvirlaydi. Formula: If + Present Simple, ... will + asosiy shakl.",
+      tj:"First Conditional шартҳои воқеӣ ва имконпазирро дар оянда тасвир мекунад. Формула: If + Present Simple, ... will + шакли асосӣ."
+    },
+    points:{
+      ru:["Условие (if-часть) всегда в Present Simple, не в will","Результат — в Future Simple (will + base)","Можно менять части местами: We will stay home if it rains.","Используется для реальных, вероятных ситуаций"],
+      en:["The if-clause is always in Present Simple, never with will","The result clause uses Future Simple (will + base)","Clauses can be reversed: We will stay home if it rains.","Used for real, likely situations"],
+      uz:["If-qism doimo Present Simple'da, will bilan emas","Natija qismi Future Simple (will + asosiy shakl)","Qismlarni almashtirish mumkin: We will stay home if it rains.","Real, ehtimoli baland vaziyatlar uchun"],
+      tj:["Қисми if ҳамеша дар Present Simple аст, на бо will","Қисми натиҷа дар Future Simple (will + шакли асосӣ)","Қисмҳоро иваз кардан мумкин: We will stay home if it rains.","Барои вазъиятҳои воқеӣ ва эҳтимолӣ истифода мешавад"]
+    },
+    examples:[
+      {en:"If it rains tomorrow, we will stay at home.", ru:"Если завтра пойдёт дождь, мы останемся дома."},
+      {en:"If she studies hard, she will pass the exam.", ru:"Если она будет усердно учиться, она сдаст экзамен."},
+      {en:"If you call me, I will explain everything.", ru:"Если ты мне позвонишь, я всё объясню."}
+    ]
+  },
+  passive:{
+    level:"B1 · GRAMMAR",
+    rule:{
+      ru:"Пассивный залог используется, когда важнее действие или объект, чем тот, кто его выполняет. Формула для Present Simple: is/are + причастие прошедшего времени (participle).",
+      en:"The passive voice is used when the action or the object matters more than who does it. Present Simple formula: is/are + past participle.",
+      uz:"Passiv nisbat harakat yoki obyekt kim tomonidan bajarilganidan muhimroq bo'lganda ishlatiladi. Present Simple formulasi: is/are + past participle.",
+      tj:"Овози пассивӣ вақте истифода мешавад, ки амал ё объект муҳимтар аз иҷрокунанда аст. Формулаи Present Simple: is/are + past participle."
+    },
+    points:{
+      ru:["Единственное число: is + participle","Множественное число: are + participle","Исполнитель действия можно указать через by: written by her","Часто используется в новостях, инструкциях, официальных текстах"],
+      en:["Singular: is + participle","Plural: are + participle","The doer can be added with by: written by her","Common in news, instructions and formal texts"],
+      uz:["Birlik: is + participle","Ko'plik: are + participle","Bajaruvchini by bilan qo'shish mumkin: written by her","Yangiliklar, yo'riqnomalar va rasmiy matnlarda ko'p ishlatiladi"],
+      tj:["Танҳо: is + participle","Ҷамъ: are + participle","Иҷрокунандаро бо by илова кардан мумкин: written by her","Дар хабарҳо, дастурҳо ва матнҳои расмӣ бисёр истифода мешавад"]
+    },
+    examples:[
+      {en:"The letter is written by hand.", ru:"Письмо написано от руки."},
+      {en:"These cars are made in Germany.", ru:"Эти машины произведены в Германии."},
+      {en:"Breakfast is cooked every morning.", ru:"Завтрак готовится каждое утро."}
+    ]
+  },
+  questions:{
+    level:"A1 · GRAMMAR",
+    rule:{
+      ru:"Вопросы в Present Simple строятся с помощью вспомогательных глаголов Do и Does. Does используется с He/She/It, Do — со всеми остальными подлежащими.",
+      en:"Questions in Present Simple are formed with the auxiliary verbs Do and Does. Does is used with He/She/It, Do with all other subjects.",
+      uz:"Present Simple'da savollar Do va Does yordamchi fe'llari bilan tuziladi. Does He/She/It bilan, Do esa boshqa barcha egalar bilan ishlatiladi.",
+      tj:"Саволҳо дар Present Simple бо ёрии феълҳои ёрирасон Do ва Does сохта мешаванд. Does бо He/She/It, Do бо ҳамаи дигар мубтадоҳо истифода мешавад."
+    },
+    points:{
+      ru:["Do/Does + подлежащее + базовая форма глагола + ?","После Do/Does глагол НЕ получает -s","Краткий ответ: Yes, he does. / No, they don't.","Порядок слов: вспомогательный глагол всегда первый"],
+      en:["Do/Does + subject + base verb + ?","The verb never gets -s after Do/Does","Short answer: Yes, he does. / No, they don't.","Word order: the auxiliary verb always comes first"],
+      uz:["Do/Does + ega + fe'lning asosiy shakli + ?","Do/Does'dan keyin fe'lga -s qo'shilmaydi","Qisqa javob: Yes, he does. / No, they don't.","So'z tartibi: yordamchi fe'l doim birinchi"],
+      tj:["Do/Does + мубтадо + шакли асосии феъл + ?","Пас аз Do/Does ба феъл -s илова намешавад","Ҷавоби кӯтоҳ: Yes, he does. / No, they don't.","Тартиби калимаҳо: феъли ёрирасон ҳамеша аввал меояд"]
+    },
+    examples:[
+      {en:"Does she like coffee?", ru:"Она любит кофе?"},
+      {en:"Do they live in London?", ru:"Они живут в Лондоне?"},
+      {en:"Does he work in a bank?", ru:"Он работает в банке?"}
+    ]
+  },
+  articles:{
+    level:"A1-A2 · GRAMMAR",
+    rule:{
+      ru:"Артикль a/an ставится перед исчисляемым существительным в единственном числе при первом упоминании; the — когда предмет уже известен или уникален; перед неисчисляемыми существительными в общем смысле артикль не нужен.",
+      en:"A/an goes before a singular countable noun mentioned for the first time; the is used when the thing is already known or unique; no article is needed before uncountable nouns used in a general sense.",
+      uz:"A/an birinchi marta tilga olinayotgan birlikdagi sanaladigan ot oldiga qo'yiladi; the narsa allaqachon ma'lum yoki noyob bo'lganda ishlatiladi; sanalmaydigan otlar oldida umumiy ma'noda artikl kerak emas.",
+      tj:"A/an пеш аз исми ҳисобшавандаи танҳо, ки бори аввал зикр мешавад, гузошта мешавад; the вақте истифода мешавад, ки чиз аллакай маълум ё беназир аст; пеш аз исмҳои ношумурдашаванда дар маънои умумӣ артикл лозим нест."
+    },
+    points:{
+      ru:["a — перед словом на согласный звук (a book)","an — перед словом на гласный звук (an apple)","the — уникальные объекты, повторное упоминание (the sun, the Internet)","Нулевой артикль — неисчисляемые в общем смысле (water, music)"],
+      en:["a — before a consonant sound (a book)","an — before a vowel sound (an apple)","the — unique objects, repeated mention (the sun, the Internet)","No article — uncountables in general (water, music)"],
+      uz:["a — undosh tovush oldida (a book)","an — unli tovush oldida (an apple)","the — noyob narsalar, qayta eslatish (the sun, the Internet)","Artiklsiz — sanalmaydiganlar umumiy ma'noda (water, music)"],
+      tj:["a — пеш аз садои ҳамсадо (a book)","an — пеш аз садои садонок (an apple)","the — объектҳои беназир, зикри такрорӣ (the sun, the Internet)","Бе артикл — исмҳои ношумурдашаванда умуман (water, music)"]
+    },
+    examples:[
+      {en:"I saw an elephant at the zoo.", ru:"Я видел слона в зоопарке."},
+      {en:"She bought a book yesterday.", ru:"Она купила книгу вчера."},
+      {en:"Look at the moon tonight.", ru:"Посмотри сегодня на луну."}
+    ]
+  },
+  prepositions:{
+    level:"A1-A2 · GRAMMAR",
+    rule:{
+      ru:"Предлоги места и времени показывают, где находится предмет или когда происходит действие. In используется для месяцев/лет и «внутри», on — для дней и поверхностей, at — для точного времени и точек.",
+      en:"Prepositions of place and time show where something is or when something happens. In is used for months/years and 'inside', on for days and surfaces, at for exact times and points.",
+      uz:"O'rin va vaqt predloglari narsa qayerda joylashganini yoki harakat qachon sodir bo'lishini ko'rsatadi. In oylar/yillar va 'ichida' uchun, on kunlar va yuzalar uchun, at aniq vaqt va nuqtalar uchun ishlatiladi.",
+      tj:"Пешояндҳои макон ва вақт нишон медиҳанд, ки чиз дар куҷост ё амал кай рух медиҳад. In барои моҳҳо/солҳо ва 'дар дохил', on барои рӯзҳо ва сатҳҳо, at барои вақти дақиқ ва нуқтаҳо истифода мешавад."
+    },
+    points:{
+      ru:["in — месяцы, годы, внутри чего-то (in July, in the box)","on — дни недели, поверхности (on Monday, on the table)","at — точное время, точки (at 8 o'clock, at the door)","under/over/between/behind — относительное расположение"],
+      en:["in — months, years, inside something (in July, in the box)","on — days of the week, surfaces (on Monday, on the table)","at — exact time, points (at 8 o'clock, at the door)","under/over/between/behind — relative position"],
+      uz:["in — oylar, yillar, ichida (in July, in the box)","on — hafta kunlari, yuzalar (on Monday, on the table)","at — aniq vaqt, nuqtalar (at 8 o'clock, at the door)","under/over/between/behind — nisbiy joylashuv"],
+      tj:["in — моҳҳо, солҳо, дар дохил (in July, in the box)","on — рӯзҳои ҳафта, сатҳҳо (on Monday, on the table)","at — вақти дақиқ, нуқтаҳо (at 8 o'clock, at the door)","under/over/between/behind — ҷойгиршавии нисбӣ"]
+    },
+    examples:[
+      {en:"The meeting is on Monday at nine.", ru:"Встреча в понедельник в девять."},
+      {en:"My birthday is in July.", ru:"Мой день рождения в июле."},
+      {en:"The shop is between the bank and the cafe.", ru:"Магазин находится между банком и кафе."}
+    ]
+  },
+  modals:{
+    level:"A2-B1 · GRAMMAR",
+    rule:{
+      ru:"Модальные глаголы выражают возможность, обязанность, разрешение или совет. После модального глагола всегда идёт базовая форма смыслового глагола без to.",
+      en:"Modal verbs express ability, obligation, permission or advice. A modal verb is always followed by the base form of the main verb, without to.",
+      uz:"Modal fe'llar imkoniyat, majburiyat, ruxsat yoki maslahatni ifodalaydi. Modal fe'ldan keyin doim asosiy fe'lning to'siz shakli keladi.",
+      tj:"Феълҳои модалӣ имконият, ӯҳдадорӣ, иҷозат ё маслиҳатро ифода мекунанд. Пас аз феъли модалӣ ҳамеша шакли асосии феъли асосӣ бе to меояд."
+    },
+    points:{
+      ru:["must/have to — обязанность, mustn't — запрет","should — совет, рекомендация","can/could — возможность, умение, просьба","might/may — вероятность, разрешение"],
+      en:["must/have to — obligation, mustn't — prohibition","should — advice, recommendation","can/could — ability, permission, requests","might/may — possibility, permission"],
+      uz:["must/have to — majburiyat, mustn't — taqiq","should — maslahat, tavsiya","can/could — imkoniyat, ruxsat, iltimos","might/may — ehtimollik, ruxsat"],
+      tj:["must/have to — ӯҳдадорӣ, mustn't — манъ","should — маслиҳат, тавсия","can/could — қобилият, иҷозат, дархост","might/may — эҳтимолият, иҷозат"]
+    },
+    examples:[
+      {en:"You mustn't smoke here.", ru:"Здесь нельзя курить."},
+      {en:"You should drink more water.", ru:"Тебе стоит пить больше воды."},
+      {en:"It might rain later.", ru:"Возможно, позже пойдёт дождь."}
+    ]
+  },
+  comparatives:{
+    level:"A2 · GRAMMAR",
+    rule:{
+      ru:"Сравнительная степень (comparative) сравнивает два предмета, превосходная (superlative) выделяет один предмет среди многих. Короткие прилагательные получают -er/-est, длинные — more/most.",
+      en:"The comparative form compares two things; the superlative singles out one thing among many. Short adjectives take -er/-est, longer ones take more/most.",
+      uz:"Qiyosiy daraja (comparative) ikkita narsani solishtiradi, orttirma daraja (superlative) esa ko'plar orasidan bittasini ajratadi. Qisqa sifatlar -er/-est, uzun sifatlar more/most oladi.",
+      tj:"Дараҷаи муқоисавӣ (comparative) ду чизро муқоиса мекунад, дараҷаи олӣ (superlative) якеро аз бисёрҳо ҷудо мекунад. Сифатҳои кӯтоҳ -er/-est, дарозҳо more/most мегиранд."
+    },
+    points:{
+      ru:["Короткие прилагательные: big → bigger → the biggest","Длинные прилагательные: more beautiful → the most beautiful","Сравнение: than (This is bigger than that)","Исключения: good → better → best, bad → worse → worst"],
+      en:["Short adjectives: big → bigger → the biggest","Longer adjectives: more beautiful → the most beautiful","Comparison word: than (This is bigger than that)","Irregulars: good → better → best, bad → worse → worst"],
+      uz:["Qisqa sifatlar: big → bigger → the biggest","Uzun sifatlar: more beautiful → the most beautiful","Solishtirish so'zi: than (This is bigger than that)","Istisnolar: good → better → best, bad → worse → worst"],
+      tj:["Сифатҳои кӯтоҳ: big → bigger → the biggest","Сифатҳои дароз: more beautiful → the most beautiful","Калимаи муқоиса: than (This is bigger than that)","Истисноҳо: good → better → best, bad → worse → worst"]
+    },
+    examples:[
+      {en:"My car is faster than his car.", ru:"Моя машина быстрее, чем его."},
+      {en:"This is the most interesting book I've read.", ru:"Это самая интересная книга, которую я читал."},
+      {en:"Today is colder than yesterday.", ru:"Сегодня холоднее, чем вчера."}
+    ]
+  },
+  quantifiers:{
+    level:"A2 · GRAMMAR",
+    rule:{
+      ru:"Some/any/much/many показывают количество. Some — в утверждениях, any — в вопросах и отрицаниях, much — с неисчисляемыми, many — с исчисляемыми существительными во множественном числе.",
+      en:"Some/any/much/many show quantity. Some is used in affirmative sentences, any in questions and negatives, much with uncountable nouns, many with plural countable nouns.",
+      uz:"Some/any/much/many miqdorni ko'rsatadi. Some — tasdiq gaplarda, any — savol va inkorlarda, much — sanalmaydiganlar bilan, many — ko'plikdagi sanaladiganlar bilan.",
+      tj:"Some/any/much/many миқдорро нишон медиҳанд. Some — дар ҷумлаҳои тасдиқӣ, any — дар саволу инкор, much — бо исмҳои ношумурдашаванда, many — бо исмҳои ҷамъи ҳисобшаванда."
+    },
+    points:{
+      ru:["some — утверждения: I have some money.","any — вопросы/отрицания: Do you have any money?","much — неисчисляемые: much water","many — исчисляемые во мн.ч.: many books"],
+      en:["some — affirmatives: I have some money.","any — questions/negatives: Do you have any money?","much — uncountables: much water","many — plural countables: many books"],
+      uz:["some — tasdiq: I have some money.","any — savol/inkor: Do you have any money?","much — sanalmaydigan: much water","many — ko'plik: many books"],
+      tj:["some — тасдиқ: I have some money.","any — савол/инкор: Do you have any money?","much — ношумурдашаванда: much water","many — ҷамъи ҳисобшаванда: many books"]
+    },
+    examples:[
+      {en:"There isn't any milk in the fridge.", ru:"В холодильнике нет молока."},
+      {en:"I have many good friends here.", ru:"У меня здесь много хороших друзей."},
+      {en:"Would you like some tea?", ru:"Хочешь чаю?"}
+    ]
+  },
+  possessive:{
+    level:"A1-A2 · GRAMMAR",
+    rule:{
+      ru:"Притяжательный падеж 's показывает принадлежность и используется, в основном, с людьми и животными: Peter's car. Для неодушевлённых предметов чаще используется конструкция с of.",
+      en:"The possessive 's shows ownership and is mainly used with people and animals: Peter's car. For inanimate objects, the of-construction is more common.",
+      uz:"Egalik kelishigi 's mansublikni ko'rsatadi va asosan odamlar va hayvonlar bilan ishlatiladi: Peter's car. Jonsiz narsalar uchun ko'proq of konstruksiyasi ishlatiladi.",
+      tj:"Ҳолати соҳибӣ 's тааллуқро нишон медиҳад ва асосан бо одамон ва ҳайвонот истифода мешавад: Peter's car. Барои ашёи беҷон бештар сохтори of истифода мешавад."
+    },
+    points:{
+      ru:["Одно лицо: Peter's car","Множественное число на -s: the students' books (апостроф после s)","Неправильное мн.ч.: the children's toys","Неодушевлённые предметы: the door of the house"],
+      en:["One person: Peter's car","Plural ending in -s: the students' books (apostrophe after s)","Irregular plural: the children's toys","Inanimate objects: the door of the house"],
+      uz:["Bitta shaxs: Peter's car","-s bilan tugagan ko'plik: the students' books (s dan keyin apostrof)","Noto'g'ri ko'plik: the children's toys","Jonsiz narsalar: the door of the house"],
+      tj:["Як шахс: Peter's car","Ҷамъи бо -s: the students' books (апостроф пас аз s)","Ҷамъи ғайримунтазам: the children's toys","Ашёи беҷон: the door of the house"]
+    },
+    examples:[
+      {en:"This is Peter's car.", ru:"Это машина Питера."},
+      {en:"The children's toys are on the floor.", ru:"Игрушки детей на полу."},
+      {en:"The door of the house is blue.", ru:"Дверь дома синяя."}
+    ]
+  },
+  phrasal:{
+    level:"B1 · VOCABULARY",
+    rule:{
+      ru:"Фразовые глаголы — это глагол + предлог/наречие, которые вместе образуют новое значение, часто отличное от значения глагола отдельно. Они очень часто встречаются в разговорной речи.",
+      en:"Phrasal verbs are a verb + a preposition/adverb that together create a new meaning, often different from the verb alone. They are very common in everyday spoken English.",
+      uz:"Frazaviy fe'llar — fe'l + predlog/ravish, ular birgalikda alohida fe'l ma'nosidan farq qiluvchi yangi ma'no hosil qiladi. Ular kundalik nutqda juda ko'p uchraydi.",
+      tj:"Феълҳои фразавӣ — феъл + пешоянд/зарф, ки якҷоя маънои наверо ба вуҷуд меоранд, ки аксар вақт аз маънои феъли алоҳида фарқ мекунад. Онҳо дар нутқи ҳаррӯза хеле маъмуланд."
+    },
+    points:{
+      ru:["Значение часто нельзя угадать по отдельным словам","Многие фразовые глаголы имеют несколько значений","Учите их в контексте предложения, а не по отдельности","Очень распространены в разговорном английском"],
+      en:["The meaning often can't be guessed from the individual words","Many phrasal verbs have more than one meaning","Learn them in context, not in isolation","Extremely common in spoken English"],
+      uz:["Ma'noni ko'pincha alohida so'zlardan taxmin qilib bo'lmaydi","Ko'p frazaviy fe'llar bir nechta ma'noga ega","Ularni kontekstda o'rganing, alohida emas","Og'zaki nutqda juda keng tarqalgan"],
+      tj:["Маъноро аксар вақт аз калимаҳои алоҳида тахмин кардан мумкин нест","Бисёр феълҳои фразавӣ якчанд маъно доранд","Онҳоро дар матн омӯзед, на алоҳида","Дар нутқи гуфтугӯӣ хеле маъмуланд"]
+    },
+    examples:[
+      {en:"I need to look after my little brother tonight.", ru:"Мне нужно присмотреть за младшим братом сегодня вечером."},
+      {en:"Please turn off the lights before leaving.", ru:"Пожалуйста, выключи свет перед уходом."},
+      {en:"She gave up smoking last year.", ru:"Она бросила курить в прошлом году."}
+    ]
+  },
+  vocab_travel:{
+    level:"A2-B1 · VOCABULARY",
+    rule:{
+      ru:"Лексика путешествий и еды пригодится в аэропорту, отеле, ресторане и во время готовки. Знание этих слов делает поездки и повседневную жизнь намного проще.",
+      en:"Travel and food vocabulary is essential at the airport, in a hotel, at a restaurant and while cooking. Knowing these words makes trips and everyday life much easier.",
+      uz:"Sayohat va oziq-ovqat lug'ati aeroportda, mehmonxonada, restoranda va ovqat pishirishda kerak bo'ladi. Bu so'zlarni bilish sayohat va kundalik hayotni ancha osonlashtiradi.",
+      tj:"Луғати сафар ва хӯрок дар фурудгоҳ, меҳмонхона, тарабхона ва ҳангоми пухтупаз лозим мешавад. Донистани ин калимаҳо сафар ва ҳаёти ҳаррӯзаро хеле осон мекунад."
+    },
+    points:{
+      ru:["Аэропорт и транспорт: boarding pass, layover, round trip","Отель: accommodation, check-in, reservation","Еда: appetizer, main course, dessert, ingredient","Готовка: to roast, to boil, to chop, to season"],
+      en:["Airport & transport: boarding pass, layover, round trip","Hotel: accommodation, check-in, reservation","Food: appetizer, main course, dessert, ingredient","Cooking: to roast, to boil, to chop, to season"],
+      uz:["Aeroport va transport: boarding pass, layover, round trip","Mehmonxona: accommodation, check-in, reservation","Ovqat: appetizer, main course, dessert, ingredient","Pishirish: to roast, to boil, to chop, to season"],
+      tj:["Фурудгоҳ ва нақлиёт: boarding pass, layover, round trip","Меҳмонхона: accommodation, check-in, reservation","Хӯрок: appetizer, main course, dessert, ingredient","Пухтупаз: to roast, to boil, to chop, to season"]
+    },
+    examples:[
+      {en:"Don't forget your boarding pass at the gate.", ru:"Не забудь посадочный талон у выхода."},
+      {en:"The soup needs a bit more seasoning.", ru:"Супу нужно немного больше приправ."},
+      {en:"We booked our accommodation online.", ru:"Мы забронировали жильё онлайн."}
+    ]
+  }
+};
+
+/* Генерация теста из 20 непохожих вопросов по теме */
+function generateTest(topicId, count){
+  const topic = getTopic(topicId);
+  const n = count || 20;
+  const questions = [];
+  const seenTexts = new Set();
+  let guard = 0;
+  while(questions.length < n && guard < n*12){
+    guard++;
+    const q = topic.gen();
+    if(seenTexts.has(q.text)) continue;
+    seenTexts.add(q.text);
+    questions.push(q);
+  }
+  return questions;
+}
+
+/* ---------------------------- LISTENING DATA ---------------------------- */
+const LISTENING_BANK = [
+  {
+    text:"Hi, I'm calling about the apartment you advertised online. Is it still available for rent? I would like to visit it this weekend if possible, maybe on Saturday morning.",
+    q:"Почему звонит человек?",
+    options:["Хочет продать квартиру","Хочет узнать, доступна ли аренда квартиры","Хочет пожаловаться на соседей","Ищет работу"],
+    correct:"Хочет узнать, доступна ли аренда квартиры"
+  },
+  {
+    text:"Good morning, passengers. This is the final call for flight BA 249 to London. Please proceed immediately to gate 14. The gate closes in ten minutes.",
+    q:"Что должны сделать пассажиры?",
+    options:["Подождать на регистрации","Немедленно пройти к выходу 14","Сдать багаж","Купить билет"],
+    correct:"Немедленно пройти к выходу 14"
+  },
+  {
+    text:"I usually wake up at seven, have a quick breakfast, and then walk to work because the office is only fifteen minutes away from my house.",
+    q:"Как человек добирается до работы?",
+    options:["На машине","На автобусе","Пешком","На велосипеде"],
+    correct:"Пешком"
+  },
+  {
+    text:"The weather forecast for tomorrow says it will be sunny in the morning, but heavy rain is expected in the afternoon, so remember to bring an umbrella.",
+    q:"Что советуют взять с собой?",
+    options:["Солнцезащитные очки","Зонт","Тёплую куртку","Ничего не нужно"],
+    correct:"Зонт"
+  },
+  {
+    text:"Welcome to the museum. Please note that photography is not allowed in the main hall, but you are welcome to take pictures in the garden area outside.",
+    q:"Где разрешено фотографировать?",
+    options:["Везде в музее","Только в главном зале","В саду снаружи","Фотографировать запрещено везде"],
+    correct:"В саду снаружи"
+  },
+  {
+    text:"Could you pass me the salt, please? This soup is a little bland, and I think it just needs a bit more seasoning to taste better.",
+    q:"Что не так с супом?",
+    options:["Он слишком солёный","Он слишком острый","Он безвкусный","Он холодный"],
+    correct:"Он безвкусный"
+  },
+  {
+    text:"Our train was delayed by forty minutes because of a technical problem, so we missed our connection and had to wait two more hours at the station.",
+    q:"Почему пассажиры пропустили пересадку?",
+    options:["Проспали","Поезд задержали из-за технической проблемы","Купили не тот билет","Заблудились на вокзале"],
+    correct:"Поезд задержали из-за технической проблемы"
+  },
+  {
+    text:"If you have any questions about your order, please don't hesitate to contact our customer support team, available twenty four hours a day, seven days a week.",
+    q:"Когда доступна поддержка клиентов?",
+    options:["Только по будням","С 9 до 18","Круглосуточно","Только по выходным"],
+    correct:"Круглосуточно"
+  },
+  {
+    text:"She has been learning English for about two years now, and she says watching movies without subtitles has really improved her listening skills a lot.",
+    q:"Что помогло ей улучшить понимание речи на слух?",
+    options:["Учебники","Просмотр фильмов без субтитров","Разговоры с носителями языка","Прослушивание музыки"],
+    correct:"Просмотр фильмов без субтитров"
+  },
+  {
+    text:"Attention, shoppers. Our store will be closing in fifteen minutes. Please bring your final purchases to the checkout. Thank you for shopping with us today.",
+    q:"Через сколько минут закроется магазин?",
+    options:["Через 5 минут","Через 15 минут","Через 30 минут","Через час"],
+    correct:"Через 15 минут"
+  },
+  {
+    text:"I ran into an old friend from university yesterday at the coffee shop. We hadn't seen each other for almost five years, so we talked for hours.",
+    q:"Что произошло с человеком вчера?",
+    options:["Он потерял друга","Он случайно встретил старого друга","Он поссорился с другом","Он переехал в другой город"],
+    correct:"Он случайно встретил старого друга"
+  },
+  {
+    text:"To reset your password, click the link we sent to your email, enter a new password twice, and then log in again with your new credentials.",
+    q:"Что нужно сделать в первую очередь?",
+    options:["Позвонить в поддержку","Кликнуть по ссылке в письме","Удалить аккаунт","Написать в чат"],
+    correct:"Кликнуть по ссылке в письме"
+  },
+  {
+    text:"The restaurant is fully booked tonight, but we do have a table available tomorrow at eight in the evening if that works for you.",
+    q:"Когда есть свободный столик?",
+    options:["Сегодня вечером","Завтра в 8 вечера","Через неделю","Столиков нет вообще"],
+    correct:"Завтра в 8 вечера"
+  },
+  {
+    text:"Remember to submit your assignment before midnight on Friday. Late submissions will lose ten percent of the total grade for every day they are delayed.",
+    q:"Что произойдёт при опоздании со сдачей задания?",
+    options:["Ничего не изменится","Оценка снизится на 10% за каждый день","Задание не примут вообще","Дадут дополнительное время"],
+    correct:"Оценка снизится на 10% за каждый день"
+  },
+  {
+    text:"We spent the whole afternoon hiking up the mountain, and even though it was exhausting, the view from the top was absolutely worth it.",
+    q:"Как чувствовали себя люди после похода?",
+    options:["Скучали","Устали, но вид того стоил","Испугались","Замёрзли"],
+    correct:"Устали, но вид того стоил"
+  },
+  {
+    text:"Before you leave the office, please make sure all the lights are switched off and the doors are properly locked for security reasons.",
+    q:"Что нужно сделать перед уходом из офиса?",
+    options:["Оставить свет включённым","Выключить свет и запереть двери","Позвонить охране","Ничего специального"],
+    correct:"Выключить свет и запереть двери"
+  },
+  {
+    text:"I have never been particularly good at cooking, but since I started following simple recipes online, my meals have become much tastier.",
+    q:"Что помогло улучшить готовку?",
+    options:["Кулинарные курсы","Простые рецепты онлайн","Помощь мамы","Дорогая техника"],
+    correct:"Простые рецепты онлайн"
+  },
+  {
+    text:"The concert has been postponed until next month due to unforeseen circumstances. All tickets already purchased will remain valid for the new date.",
+    q:"Что будет с уже купленными билетами?",
+    options:["Их аннулируют","Они останутся действительными","Нужно купить новые","Деньги вернут"],
+    correct:"Они останутся действительными"
+  },
+  {
+    text:"He decided to give up sugar for a month to see how it would affect his energy levels, and surprisingly, he started sleeping much better too.",
+    q:"Что дополнительно улучшилось у него?",
+    options:["Настроение","Сон","Зрение","Память"],
+    correct:"Сон"
+  },
+  {
+    text:"Passengers travelling with children or those who need extra assistance are kindly invited to board the aircraft first, before general boarding begins.",
+    q:"Кто садится в самолёт первым?",
+    options:["Пассажиры бизнес-класса","Пассажиры с детьми и те, кому нужна помощь","Экипаж","Все одновременно"],
+    correct:"Пассажиры с детьми и те, кому нужна помощь"
+  },
+  {
+    text:"I'm afraid the item you ordered is currently out of stock, but we expect a new delivery by the end of next week if you'd like to wait.",
+    q:"Что происходит с заказанным товаром?",
+    options:["Он уже отправлен","Его нет в наличии","Он был отменён","Он стоит слишком дорого"],
+    correct:"Его нет в наличии"
+  },
+  {
+    text:"On your left you can see the old town hall, which was built in the fourteenth century and is now one of the most visited landmarks in the city.",
+    q:"Что говорится про ратушу?",
+    options:["Она была построена недавно","Она была построена в 14 веке","Она закрыта для посещения","Она находится за городом"],
+    correct:"Она была построена в 14 веке"
+  },
+  {
+    text:"Before the interview, take a few minutes to research the company, prepare examples of your past achievements, and think of a couple of questions to ask them.",
+    q:"Что нужно сделать перед собеседованием?",
+    options:["Только выспаться","Изучить компанию и подготовить примеры","Ничего специального","Купить новый костюм"],
+    correct:"Изучить компанию и подготовить примеры"
+  },
+  {
+    text:"Due to heavy snowfall, several flights have been cancelled this morning, and passengers are advised to check the status of their flight online before travelling to the airport.",
+    q:"Что советуют сделать пассажирам?",
+    options:["Приехать в аэропорт как можно раньше","Проверить статус рейса онлайн","Купить новый билет","Позвонить в полицию"],
+    correct:"Проверить статус рейса онлайн"
+  },
+  {
+    text:"After moving to a new city, it took her a few months to make friends, but joining a local sports club really helped her meet new people.",
+    q:"Что помогло ей завести друзей?",
+    options:["Работа","Спортивный клуб","Онлайн-знакомства","Соседи"],
+    correct:"Спортивный клуб"
+  }
+];
+
+/* ---------------------------- SPEAKING DATA ------------------------------ */
+const SPEAKING_BANK = [
+  {en:"I would like a cup of coffee, please.", ru:"Я бы хотел чашку кофе, пожалуйста."},
+  {en:"Could you tell me the way to the station?", ru:"Не могли бы вы подсказать дорогу до вокзала?"},
+  {en:"How much does this cost?", ru:"Сколько это стоит?"},
+  {en:"I have been living here for five years.", ru:"Я живу здесь уже пять лет."},
+  {en:"She is the most talented singer in the class.", ru:"Она самая талантливая певица в классе."},
+  {en:"We should leave early to avoid the traffic.", ru:"Нам стоит выехать пораньше, чтобы избежать пробок."},
+  {en:"Can you help me carry these bags?", ru:"Можешь помочь мне донести эти сумки?"},
+  {en:"I have never tried sushi before.", ru:"Я никогда раньше не пробовал суши."},
+  {en:"The weather is absolutely beautiful today.", ru:"Погода сегодня просто прекрасная."},
+  {en:"He is looking for a new job in marketing.", ru:"Он ищет новую работу в маркетинге."},
+  {en:"Please turn off the lights before you leave.", ru:"Пожалуйста, выключи свет перед уходом."},
+  {en:"They are travelling around Europe this summer.", ru:"Этим летом они путешествуют по Европе."},
+  {en:"I usually wake up early on weekdays.", ru:"Обычно я просыпаюсь рано по будням."},
+  {en:"What time does the museum open?", ru:"Во сколько открывается музей?"},
+  {en:"This is the best restaurant in the city.", ru:"Это лучший ресторан в городе."},
+  {en:"I need to finish my homework tonight.", ru:"Мне нужно закончить домашнее задание сегодня вечером."},
+  {en:"She has just arrived from the airport.", ru:"Она только что приехала из аэропорта."},
+  {en:"Would you like something to drink?", ru:"Хотели бы вы что-нибудь выпить?"},
+  {en:"We must finish this project by Friday.", ru:"Мы должны закончить этот проект к пятнице."},
+  {en:"I am really looking forward to the trip.", ru:"Я очень жду эту поездку."},
+  {en:"Can I open the window? It is quite hot.", ru:"Можно открыть окно? Здесь довольно жарко."},
+  {en:"He speaks three languages fluently.", ru:"Он свободно говорит на трёх языках."}
+];
+
+/* ==========================================================================
+   ХРАНИЛИЩЕ (window.storage)
+   ========================================================================== */
+const Store = {
+  async getProfile(){
+    try{ const r = await window.storage.get('profile', false); return r ? JSON.parse(r.value) : null; }
+    catch(e){ return null; }
+  },
+  async setProfile(profile){
+    try{ await window.storage.set('profile', JSON.stringify(profile), false); }catch(e){ console.error(e); }
+  },
+  async getHistory(){
+    try{ const r = await window.storage.get('history', false); return r ? JSON.parse(r.value) : []; }
+    catch(e){ return []; }
+  },
+  async addHistory(record){
+    const hist = await this.getHistory();
+    hist.unshift(record);
+    try{ await window.storage.set('history', JSON.stringify(hist.slice(0,300)), false); }catch(e){ console.error(e); }
+    return hist;
+  }
+};
+
+/* ==========================================================================
+   СОСТОЯНИЕ ПРИЛОЖЕНИЯ
+   ========================================================================== */
+const App = {
+  profile:null,
+  history:[],
+  lang:'ru',
+  currentTest:null,       // {topicId, questions, index, correctCount, answers:[]}
+  currentListen:null,     // {items, index, correctCount, answered}
+  listenRate:0.95,
+  currentSpeak:null,      // {items, index}
+  speechRecognition:null,
+  recognizing:false
+};
+
+function screen(id){
+  ['screen-dashboard','screen-explain','screen-test','screen-results','screen-listening','screen-speaking'].forEach(s=>{
+    document.getElementById(s).classList.toggle('hidden', s!==id);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ---------------------------- ВХОД / ВЫХОД ------------------------------ */
+document.getElementById('btn-login').addEventListener('click', doLogin);
+document.getElementById('login-name').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+
+async function doLogin(){
+  const nameInput = document.getElementById('login-name');
+  const name = nameInput.value.trim();
+  if(!name){ nameInput.focus(); showToast('Пожалуйста, введите имя'); return; }
+  let profile = await Store.getProfile();
+  if(!profile || profile.name !== name){
+    profile = { name, joined: new Date().toISOString() };
+    await Store.setProfile(profile);
+  }
+  App.profile = profile;
+  App.history = await Store.getHistory();
+  document.getElementById('screen-login').classList.add('hidden');
+  document.getElementById('screen-app').classList.remove('hidden');
+  document.getElementById('chip-name').textContent = profile.name;
+  renderDashboard();
+}
+
+document.getElementById('btn-logout').addEventListener('click', ()=>{
+  document.getElementById('screen-app').classList.add('hidden');
+  document.getElementById('screen-login').classList.remove('hidden');
+  document.getElementById('login-name').value='';
+});
+
+/* Инициализация: язык интерфейса + автовход, если профиль уже сохранён */
+(async function init(){
+  try{
+    const langRes = await window.storage.get('lang', false);
+    if(langRes && langRes.value && TR[langRes.value]) App.lang = langRes.value;
+  }catch(e){ /* нет сохранённого языка — используем ru по умолчанию */ }
+  applyI18n();
+
+  const profile = await Store.getProfile();
+  if(profile && profile.name){
+    App.profile = profile;
+    App.history = await Store.getHistory();
+    document.getElementById('screen-login').classList.add('hidden');
+    document.getElementById('screen-app').classList.remove('hidden');
+    document.getElementById('chip-name').textContent = profile.name;
+    renderDashboard();
+  }
+})();
+
+/* ---------------------------- DASHBOARD ---------------------------------- */
+function renderDashboard(){
+  const greetings = { ru:'Добро пожаловать', en:'Welcome', uz:'Xush kelibsiz', tj:'Хуш омадед' };
+  document.getElementById('hero-greeting').textContent = `${greetings[App.lang]||greetings.ru}, ${App.profile.name}!`;
+  const tests = App.history.filter(h=>h.kind!=='speaking_session');
+  const total = App.history.length;
+  const avg = total ? Math.round(App.history.reduce((s,h)=>s+ (h.percent||0),0)/total) : null;
+  const topicsSet = new Set(App.history.map(h=>h.topicId));
+  document.getElementById('stat-tests').textContent = total;
+  document.getElementById('stat-avg').textContent = avg===null ? '—' : avg+'%';
+  document.getElementById('stat-topics').textContent = topicsSet.size;
+
+  // streak (уникальные календарные дни подряд, считая от сегодня)
+  const days = new Set(App.history.map(h=>h.date.slice(0,10)));
+  let streak = 0;
+  for(let i=0;i<365;i++){
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const key = d.toISOString().slice(0,10);
+    if(days.has(key)) streak++; else if(i>0) break; else continue;
+  }
+  document.getElementById('stat-streak').textContent = streak;
+
+  // Штампы
+  const stampsWrap = document.getElementById('stamps-scroll');
+  if(App.history.length===0){
+    stampsWrap.innerHTML = `<div class="stamps-empty">${t2('stamps_empty')}</div>`;
+  } else {
+    stampsWrap.innerHTML = App.history.slice(0,12).map(h=>{
+      const d = new Date(h.date);
+      const dateLabel = `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}`;
+      return `<div class="stamp" title="${escapeHtml(h.topicTitle)} — ${h.percent}%"><b>${h.percent}%</b>${dateLabel}</div>`;
+    }).join('');
+  }
+
+  // Сетка тем
+  const grid = document.getElementById('topic-grid');
+  document.getElementById('topics-count-label').textContent = TOPICS.length + ' ' + t2('topics_word');
+  grid.innerHTML = TOPICS.map(t=>{
+    const attempts = App.history.filter(h=>h.topicId===t.id);
+    const best = attempts.length ? Math.max(...attempts.map(a=>a.percent)) : null;
+    return `
+    <div class="card topic-card">
+      <div class="icon">${t.icon}</div>
+      <h4>${t.title}</h4>
+      <p>${t.desc}</p>
+      <div class="topic-meta">
+        <span>${attempts.length} ${t2('attempts_short')}</span>
+        ${best!==null ? `<span class="best-badge">${t2('best_badge')} ${best}%</span>` : `<span>—</span>`}
+      </div>
+      <button class="btn btn-primary" data-topic="${t.id}" onclick="openExplain('${t.id}')">${t2('study_topic_btn')}</button>
     </div>`;
-        });
-        h += "</div>";
-        html("mainContent", h);
-      }
+  }).join('');
 
-      function startLesson(key) {
-        const info = LESSON_INFO[key] || "";
-        const L = t();
-        const topicIdx = TOPIC_KEYS.indexOf(key);
-        const topicName = L.topics[topicIdx] || key;
-        const qCount = QUESTIONS[key]?.length || 0;
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <button class="btn btn-outline" style="margin-bottom:14px" onclick="renderLessons()">← ${L.back}</button>
-      <div class="section-title">${topicName}</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:14px">${qCount} questions available · 50 per quiz</div>
-      <div class="grammar-info">
-        <pre>${info}</pre>
-      </div>
-      <button class="btn btn-primary" style="width:100%;padding:13px" onclick="beginQuiz('${key}')">
-        🚀 ${L.start}
-      </button>
-    </div>
-  `,
-        );
-      }
-
-      function beginQuiz(key) {
-        const pool = QUESTIONS[key] || [];
-        const selected = shuffle(pool).slice(0, 50);
-        quizState = {
-          topic: key,
-          questions: selected,
-          idx: 0,
-          score: 0,
-          answered: false,
-          done: false,
-        };
-        tab = "lessons";
-        renderQuiz();
-      }
-
-      function renderQuiz() {
-        const Q = quizState;
-        const L = t();
-        if (Q.done) {
-          renderQuizResult();
-          return;
-        }
-        const q = Q.questions[Q.idx];
-        const topicIdx = TOPIC_KEYS.indexOf(Q.topic);
-        const topicName = L.topics[topicIdx] || Q.topic;
-        const pct = Math.round((Q.idx / Q.questions.length) * 100);
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <button class="btn btn-outline" onclick="quizState=null;renderLessons()">← ${L.back}</button>
-        <span style="font-size:11px;color:var(--text2)">${topicName}</span>
-        <span class="pill pill-purple">${L.question} ${Q.idx + 1}/${Q.questions.length}</span>
-      </div>
-      <div class="progress-track" style="margin-bottom:16px">
-        <div class="progress-fill" style="width:${pct}%"></div>
-      </div>
-      <div class="card" style="margin-bottom:16px">
-        <div style="font-size:16px;font-weight:700;line-height:1.5">${q.q}</div>
-      </div>
-      <div id="optionsArea">
-        ${q.o
-          .map(
-            (opt, i) => `
-          <button class="quiz-opt" id="opt${i}" onclick="selectOpt(${i})">
-            <span class="opt-letter">${String.fromCharCode(65 + i)}</span>
-            ${opt}
-          </button>
-        `,
-          )
-          .join("")}
-      </div>
-      <div id="feedbackArea"></div>
-    </div>
-  `,
-        );
-      }
-
-      function selectOpt(chosen) {
-        if (quizState.answered) return;
-        quizState.answered = true;
-        const q = quizState.questions[quizState.idx];
-        const correct = q.a;
-        const L = t();
-        const isCorrect = chosen === correct;
-        if (isCorrect) {
-          quizState.score++;
-          addXP(10);
-        }
-        for (let i = 0; i < q.o.length; i++) {
-          const btn = el("opt" + i);
-          if (!btn) continue;
-          btn.classList.add("disabled");
-          if (i === correct) btn.classList.add("correct");
-          else if (i === chosen && !isCorrect) btn.classList.add("wrong");
-        }
-        const fb = el("feedbackArea");
-        if (fb) {
-          fb.innerHTML = `
-      <div style="text-align:center;padding:14px 0">
-        <div style="font-size:22px;margin-bottom:4px">${isCorrect ? "✅" : "❌"}</div>
-        <div style="font-weight:700;color:${isCorrect ? "var(--accent2)" : "var(--danger)"}">${isCorrect ? L.correct : L.wrong}</div>
-        ${!isCorrect ? `<div style="font-size:12px;color:var(--text2);margin-top:3px">✓ ${q.o[correct]}</div>` : ""}
-        <button class="btn btn-primary" style="margin-top:10px" onclick="nextQuestion()">${L.next} →</button>
-      </div>
-    `;
-        }
-      }
-
-      function nextQuestion() {
-        quizState.idx++;
-        quizState.answered = false;
-        if (quizState.idx >= quizState.questions.length) {
-          quizState.done = true;
-          const pct = Math.round(
-            (quizState.score / quizState.questions.length) * 100,
-          );
-          results.push({
-            topic: quizState.topic,
-            score: quizState.score,
-            total: quizState.questions.length,
-            pct,
-            date: new Date().toLocaleDateString(),
-          });
-          if (pct >= 70) {
-            streak++;
-            el("streakCount").textContent = streak;
-            addXP(50);
-            showBadge("🔥 Streak +1!");
-          }
-        }
-        renderAll();
-      }
-
-      function renderQuizResult() {
-        const Q = quizState;
-        const L = t();
-        const pct = Math.round((Q.score / Q.questions.length) * 100);
-        const emoji =
-          pct >= 90 ? "🏆" : pct >= 70 ? "🎉" : pct >= 50 ? "👍" : "💪";
-        const topicIdx = TOPIC_KEYS.indexOf(Q.topic);
-        const topicName = L.topics[topicIdx] || Q.topic;
-        html(
-          "mainContent",
-          `
-    <div class="fade-in" style="text-align:center;padding:20px 0">
-      <div style="font-size:46px;margin-bottom:10px">${emoji}</div>
-      <div class="section-title">${L.yourScore}</div>
-      <div class="score-big" style="margin:10px 0">${pct}%</div>
-      <div style="color:var(--text2);margin-bottom:4px">${Q.score} / ${Q.questions.length}</div>
-      <div class="pill pill-purple" style="margin-bottom:20px">${topicName}</div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="beginQuiz('${Q.topic}')">🔄 ${L.tryAgain}</button>
-        <button class="btn btn-outline" onclick="quizState=null;renderLessons()">← ${L.back}</button>
-      </div>
-    </div>
-  `,
-        );
-      }
-
-      // ============================================================
-      // LISTENING
-      // ============================================================
-      let listenState = null;
-      function renderListening() {
-        if (listenState && listenState.quiz) {
-          renderListenQuiz();
-          return;
-        }
-        const L = t();
-        let h = `<div class="section-title">🎧 ${L.tabs[2]}</div>
-    <div class="section-sub">${L.listenSelect}</div>`;
-        LISTENING.forEach((item, i) => {
-          h += `<div class="card-sm" style="margin-bottom:10px" onclick="startListening(${i})">
-      <div style="font-weight:700;font-size:14px;margin-bottom:3px">${item.title}</div>
-      <div style="font-size:11px;color:var(--text3)">${item.qs.length} questions · 🔊 Text-to-Speech</div>
-    </div>`;
-        });
-        html("mainContent", h);
-      }
-
-      function startListening(i) {
-        listenState = {
-          idx: i,
-          item: LISTENING[i],
-          qidx: 0,
-          score: 0,
-          quiz: false,
-          answered: false,
-        };
-        const L = t();
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <button class="btn btn-outline" style="margin-bottom:14px" onclick="listenState=null;renderListening()">← ${L.back}</button>
-      <div class="section-title">${listenState.item.title}</div>
-      <div class="reading-text">${listenState.item.text}</div>
-      <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="speak(LISTENING[${i}].text)">🔊 ${L.play}</button>
-        <button class="btn btn-outline" onclick="speechSynthesis.cancel()">⏹ Stop</button>
-      </div>
-      <button class="btn btn-accent" style="width:100%;padding:13px" onclick="startListenQuiz()">📝 ${L.start}</button>
-    </div>
-  `,
-        );
-      }
-
-      function startListenQuiz() {
-        listenState.quiz = true;
-        listenState.qidx = 0;
-        listenState.score = 0;
-        listenState.answered = false;
-        renderListenQuiz();
-      }
-
-      function renderListenQuiz() {
-        const s = listenState;
-        const L = t();
-        if (s.qidx >= s.item.qs.length) {
-          const pct = Math.round((s.score / s.item.qs.length) * 100);
-          results.push({
-            topic: s.item.title,
-            score: s.score,
-            total: s.item.qs.length,
-            pct,
-            date: new Date().toLocaleDateString(),
-          });
-          addXP(40);
-          html(
-            "mainContent",
-            `<div class="fade-in" style="text-align:center;padding:20px 0">
-      <div style="font-size:46px;margin-bottom:10px">${pct >= 70 ? "🎉" : "💪"}</div>
-      <div class="section-title">${L.yourScore}</div>
-      <div class="score-big" style="margin:10px 0">${pct}%</div>
-      <div style="color:var(--text2);margin-bottom:20px">${s.score} / ${s.item.qs.length}</div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="startListenQuiz()">🔄 ${L.tryAgain}</button>
-        <button class="btn btn-outline" onclick="listenState=null;renderListening()">← ${L.back}</button>
-      </div></div>`,
-          );
-          return;
-        }
-        const q = s.item.qs[s.qidx];
-        const pct = Math.round((s.qidx / s.item.qs.length) * 100);
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <button class="btn btn-outline" onclick="speechSynthesis.cancel();listenState=null;renderListening()">← ${L.back}</button>
-        <span class="pill pill-purple">${L.question} ${s.qidx + 1}/${s.item.qs.length}</span>
-      </div>
-      <div class="progress-track" style="margin-bottom:14px"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div style="text-align:center;margin-bottom:12px">
-        <button class="btn btn-outline" onclick="speak(LISTENING[${s.idx}].text)">🔊 ${L.listenAgain}</button>
-      </div>
-      <div class="card" style="margin-bottom:14px"><div style="font-size:15px;font-weight:700">${q.q}</div></div>
-      ${q.o.map((opt, i) => `<button class="quiz-opt" id="lopt${i}" onclick="selectListenOpt(${i})"><span class="opt-letter">${String.fromCharCode(65 + i)}</span>${opt}</button>`).join("")}
-      <div id="listenFeedback"></div>
-    </div>
-  `,
-        );
-      }
-
-      function selectListenOpt(chosen) {
-        if (listenState.answered) return;
-        listenState.answered = true;
-        const q = listenState.item.qs[listenState.qidx];
-        const correct = q.a;
-        const L = t();
-        const isCorrect = chosen === correct;
-        if (isCorrect) {
-          listenState.score++;
-          addXP(10);
-        }
-        for (let i = 0; i < q.o.length; i++) {
-          const btn = el("lopt" + i);
-          if (!btn) continue;
-          btn.classList.add("disabled");
-          if (i === correct) btn.classList.add("correct");
-          else if (i === chosen && !isCorrect) btn.classList.add("wrong");
-        }
-        el("listenFeedback").innerHTML =
-          `<div style="text-align:center;padding:10px 0">
-    <div style="font-size:20px">${isCorrect ? "✅" : "❌"}</div>
-    <div style="font-weight:700;color:${isCorrect ? "var(--accent2)" : "var(--danger)"}">${isCorrect ? L.correct : L.wrong}</div>
-    ${!isCorrect ? `<div style="font-size:12px;color:var(--text2)">✓ ${q.o[correct]}</div>` : ""}
-    <button class="btn btn-primary" style="margin-top:8px" onclick="nextListenQ()">${L.next} →</button>
-  </div>`;
-      }
-      function nextListenQ() {
-        listenState.qidx++;
-        listenState.answered = false;
-        renderListenQuiz();
-      }
-
-      // ============================================================
-      // READING
-      // ============================================================
-      let readState = null;
-      function renderReading() {
-        if (readState && readState.quiz) {
-          renderReadQuiz();
-          return;
-        }
-        const L = t();
-        let h = `<div class="section-title">📰 ${L.tabs[3]}</div>
-    <div class="section-sub">${L.readingSelect}</div>`;
-        READING.forEach((item, i) => {
-          h += `<div class="card-sm" style="margin-bottom:10px" onclick="startReading(${i})">
-      <div style="font-weight:700;font-size:14px;margin-bottom:3px">${item.title}</div>
-      <div style="font-size:11px;color:var(--text3)">${item.qs.length} questions · 📖 Comprehension</div>
-    </div>`;
-        });
-        html("mainContent", h);
-      }
-
-      function startReading(i) {
-        readState = {
-          idx: i,
-          item: READING[i],
-          qidx: 0,
-          score: 0,
-          quiz: false,
-          answered: false,
-        };
-        const L = t();
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <button class="btn btn-outline" style="margin-bottom:14px" onclick="readState=null;renderReading()">← ${L.back}</button>
-      <div class="section-title">${readState.item.title}</div>
-      <div class="reading-text">${readState.item.text}</div>
-      <button class="btn btn-accent" style="width:100%;padding:13px" onclick="startReadQuiz()">📝 ${L.start}</button>
-    </div>
-  `,
-        );
-      }
-
-      function startReadQuiz() {
-        readState.quiz = true;
-        readState.qidx = 0;
-        readState.score = 0;
-        readState.answered = false;
-        renderReadQuiz();
-      }
-
-      function renderReadQuiz() {
-        const s = readState;
-        const L = t();
-        if (s.qidx >= s.item.qs.length) {
-          const pct = Math.round((s.score / s.item.qs.length) * 100);
-          results.push({
-            topic: s.item.title,
-            score: s.score,
-            total: s.item.qs.length,
-            pct,
-            date: new Date().toLocaleDateString(),
-          });
-          addXP(40);
-          html(
-            "mainContent",
-            `<div class="fade-in" style="text-align:center;padding:20px 0">
-      <div style="font-size:46px;margin-bottom:10px">${pct >= 70 ? "🎉" : "💪"}</div>
-      <div class="section-title">${L.yourScore}</div>
-      <div class="score-big" style="margin:10px 0">${pct}%</div>
-      <div style="color:var(--text2);margin-bottom:20px">${s.score} / ${s.item.qs.length}</div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="startReadQuiz()">🔄 ${L.tryAgain}</button>
-        <button class="btn btn-outline" onclick="readState=null;renderReading()">← ${L.back}</button>
-      </div></div>`,
-          );
-          return;
-        }
-        const q = s.item.qs[s.qidx];
-        const pct = Math.round((s.qidx / s.item.qs.length) * 100);
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <button class="btn btn-outline" onclick="readState=null;renderReading()">← ${L.back}</button>
-        <span class="pill pill-purple">${L.question} ${s.qidx + 1}/${s.item.qs.length}</span>
-      </div>
-      <div class="progress-track" style="margin-bottom:14px"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div class="card" style="margin-bottom:14px"><div style="font-size:15px;font-weight:700">${q.q}</div></div>
-      ${q.o.map((opt, i) => `<button class="quiz-opt" id="ropt${i}" onclick="selectReadOpt(${i})"><span class="opt-letter">${String.fromCharCode(65 + i)}</span>${opt}</button>`).join("")}
-      <div id="readFeedback"></div>
-    </div>
-  `,
-        );
-      }
-
-      function selectReadOpt(chosen) {
-        if (readState.answered) return;
-        readState.answered = true;
-        const q = readState.item.qs[readState.qidx];
-        const correct = q.a;
-        const L = t();
-        const isCorrect = chosen === correct;
-        if (isCorrect) {
-          readState.score++;
-          addXP(10);
-        }
-        for (let i = 0; i < q.o.length; i++) {
-          const btn = el("ropt" + i);
-          if (!btn) continue;
-          btn.classList.add("disabled");
-          if (i === correct) btn.classList.add("correct");
-          else if (i === chosen && !isCorrect) btn.classList.add("wrong");
-        }
-        el("readFeedback").innerHTML =
-          `<div style="text-align:center;padding:10px 0">
-    <div style="font-size:20px">${isCorrect ? "✅" : "❌"}</div>
-    <div style="font-weight:700;color:${isCorrect ? "var(--accent2)" : "var(--danger)"}">${isCorrect ? L.correct : L.wrong}</div>
-    ${!isCorrect ? `<div style="font-size:12px;color:var(--text2)">✓ ${q.o[correct]}</div>` : ""}
-    <button class="btn btn-primary" style="margin-top:8px" onclick="nextReadQ()">${L.next} →</button>
-  </div>`;
-      }
-      function nextReadQ() {
-        readState.qidx++;
-        readState.answered = false;
-        renderReadQuiz();
-      }
-
-      // ============================================================
-      // SPEAKING
-      // ============================================================
-      let speakIdx = 0;
-      function renderSpeaking() {
-        const L = t();
-        const prompt = SPEAKING[speakIdx];
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <div class="section-title">🎤 ${L.speakTitle}</div>
-      <div class="section-sub">${L.speakInstr}</div>
-      <div class="speak-prompt-box">
-        <div style="font-size:34px;margin-bottom:8px">❓</div>
-        <div class="speak-prompt-text">"${prompt.prompt}"</div>
-        <div class="speak-hint" style="margin-top:6px">💡 ${prompt.hint}</div>
-        <button class="btn btn-primary" style="margin-top:12px" onclick="speak('${prompt.prompt.replace(/'/g, "\\'")}')">
-          🔊 ${L.play}
-        </button>
-      </div>
-      <div style="margin-bottom:12px">
-        <div style="font-size:12px;color:var(--text2);margin-bottom:7px">✍️ Write your answer:</div>
-        <textarea id="speakAnswer" placeholder="${prompt.hint}" style="width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 13px;color:var(--text);font-family:'Sora',sans-serif;font-size:13px;min-height:80px;outline:none;resize:vertical;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'"></textarea>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="checkSpeakAnswer()">🤖 Get AI Feedback</button>
-        <button class="btn btn-outline" onclick="showSpeakExample()">💡 Example</button>
-        <button class="btn btn-outline" onclick="nextSpeakPrompt()">→ Next</button>
-      </div>
-      <div id="speakFeedback" style="margin-top:14px"></div>
-      <div style="margin-top:14px;text-align:center;font-size:12px;color:var(--text3)">${speakIdx + 1} / ${SPEAKING.length}</div>
-    </div>
-  `,
-        );
-      }
-
-      function checkSpeakAnswer() {
-        const ans = el("speakAnswer");
-        if (!ans || !ans.value.trim()) return;
-        el("speakFeedback").innerHTML = `
-    <div class="card" style="border-color:rgba(79,70,229,0.25)">
-      <div style="font-size:12px;color:var(--text2);margin-bottom:6px">🤖 Getting AI feedback...</div>
-      <div><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>
-    </div>`;
-        getAIFeedback(ans.value.trim(), SPEAKING[speakIdx].prompt);
-      }
-
-      function buildSpeakingFeedback(answer) {
-        const words = answer.trim().split(/\s+/).filter(Boolean);
-        const lower = answer.toLowerCase();
-        let improve = [];
-
-        if (words.length < 6)
-          improve.push(
-            "Try writing a longer answer (at least 1-2 full sentences).",
-          );
-        if (!/[.!?]$/.test(answer.trim()))
-          improve.push("Add punctuation at the end of your sentence.");
-        if (/\bi am\b/.test(lower) && !/\bI am\b/.test(answer))
-          improve.push("Use capital 'I' in English (I, I'm, I am).");
-        if (/\bgoed\b/.test(lower))
-          improve.push("Use irregular past forms: 'went' instead of 'goed'.");
-        if (/\bdont\b/.test(lower))
-          improve.push("Use apostrophes in contractions: don't, can't, isn't.");
-
-        if (!improve.length)
-          improve.push(
-            "Excellent structure. Try adding one more detail to sound more natural.",
-          );
-        const better = answer.trim().length
-          ? answer
-              .trim()
-              .replace(/\s+/g, " ")
-              .replace(/^./, (c) => c.toUpperCase()) +
-            (/[.!?]$/.test(answer.trim()) ? "" : ".")
-          : "I am learning English every day, and I enjoy practicing speaking.";
-
-        return `✅ **What you did well**\nYour answer is clear and understandable. Great effort!\n\n📝 **What to improve**\n- ${improve.join("\n- ")}\n\n💡 **Better version**\n${better}`;
-      }
-
-      async function getAIFeedback(answer, prompt) {
-        try {
-          const text = buildSpeakingFeedback(answer, prompt);
-          el("speakFeedback").innerHTML = `
-      <div class="card" style="border-color:rgba(16,185,129,0.25)">
-        <div style="font-size:12px;color:var(--accent2);font-weight:700;margin-bottom:6px">🤖 AI Feedback</div>
-        <div style="font-size:13px;line-height:1.65;color:var(--text);white-space:pre-line">${text}</div>
+  // История
+  document.getElementById('history-count').textContent = App.history.length + ' ' + t2('records_word');
+  const histList = document.getElementById('history-list');
+  if(App.history.length===0){
+    histList.innerHTML = `<p style="color:var(--ink-soft);font-size:13.5px;padding:14px 0;">${t2('empty_history')}</p>`;
+  } else {
+    histList.innerHTML = App.history.slice(0,25).map(h=>{
+      const d = new Date(h.date);
+      const dateLabel = d.toLocaleDateString('ru-RU', {day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' + d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+      const color = h.percent>=80 ? 'var(--teal)' : (h.percent>=50 ? 'var(--marigold-dark)' : 'var(--coral)');
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;">
+        <div>
+          <div style="font-weight:600;color:var(--ink);">${escapeHtml(h.topicTitle)}</div>
+          <div style="color:var(--ink-soft);font-size:12px;font-family:'IBM Plex Mono',monospace;">${dateLabel}</div>
+        </div>
+        <div style="font-weight:700;color:${color};">${h.percent}%</div>
       </div>`;
-          addXP(15);
-        } catch (e) {
-          el("speakFeedback").innerHTML =
-            `<div class="card"><div style="color:var(--text2);font-size:13px">Good effort! Keep practising every day. Consistency is the key to fluency! 🌟</div></div>`;
-        }
-      }
+    }).join('');
+  }
+}
 
-      function showSpeakExample() {
-        const p = SPEAKING[speakIdx];
-        el("speakFeedback").innerHTML = `
-    <div class="card" style="border-color:rgba(245,158,11,0.25)">
-      <div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:6px">💡 Example Answer</div>
-      <div style="font-size:13px;color:var(--text)">"${p.example}"</div>
-      <button class="btn btn-outline" style="margin-top:8px;font-size:11px;padding:4px 10px" onclick="speak('${p.example.replace(/'/g, "\\'")}')">🔊 Listen</button>
-    </div>`;
-      }
-      function nextSpeakPrompt() {
-        speakIdx = (speakIdx + 1) % SPEAKING.length;
-        renderSpeaking();
-      }
+document.getElementById('btn-back-dash').addEventListener('click', ()=>{ renderDashboard(); screen('screen-dashboard'); });
 
-      // ============================================================
-      // VOCABULARY
-      // ============================================================
-      function renderVocab() {
-        const L = t();
-        const cats = [...new Set(VOCAB.map((v) => v.cat))];
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <div class="section-title">📚 ${L.tabs[5]}</div>
-      <input class="search-input" id="vocabSearch" placeholder="${L.vocabSearch}" oninput="filterVocab(this.value)">
-      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px" id="catFilters">
-        <button class="btn btn-primary" style="padding:4px 11px;font-size:11px" onclick="setVocabCat(null)">All</button>
-        ${cats.map((c) => `<button class="btn btn-outline" style="padding:4px 11px;font-size:11px" onclick="setVocabCat('${c}')">${c}</button>`).join("")}
-      </div>
-      <div id="vocabGrid" class="grid-2"></div>
-    </div>
-  `,
-        );
-        renderVocabGrid(VOCAB);
-      }
+/* ==========================================================================
+   ПОДРОБНОЕ ОБЪЯСНЕНИЕ ТЕМЫ
+   ========================================================================== */
+const TRANSLATION_LABEL = { ru:"Перевод:", en:"Translation:", uz:"Tarjima:", tj:"Тарҷума:" };
+function openExplain(topicId){
+  const topic = getTopic(topicId);
+  const ex = EXPLAIN[topicId];
+  document.getElementById('explain-level').textContent = ex ? ex.level : topic.title.toUpperCase();
+  document.getElementById('explain-title').textContent = topic.title;
+  if(ex){
+    const lang = TR[App.lang] ? App.lang : 'ru';
+    document.getElementById('explain-rule').textContent = ex.rule[lang] || ex.rule.ru;
+    document.getElementById('explain-points').innerHTML = (ex.points[lang] || ex.points.ru).map(p=>`<li>${escapeHtml(p)}</li>`).join('');
+    const label = TRANSLATION_LABEL[App.lang] || TRANSLATION_LABEL.ru;
+    document.getElementById('explain-examples').innerHTML = ex.examples.map(e=>`
+      <div class="example-line">
+        <div class="en-ex">${escapeHtml(e.en)}</div>
+        <div class="tr-ex">${label} ${escapeHtml(e.ru)}</div>
+      </div>`).join('');
+  } else {
+    document.getElementById('explain-rule').textContent = topic.desc;
+    document.getElementById('explain-points').innerHTML = '';
+    document.getElementById('explain-examples').innerHTML = '';
+  }
+  document.getElementById('btn-explain-start').onclick = ()=>startTopicTest(topicId);
+  screen('screen-explain');
+}
+document.getElementById('btn-explain-back').addEventListener('click', ()=>{ renderDashboard(); screen('screen-dashboard'); });
 
-      let vocabCatFilter = null;
-      function setVocabCat(cat) {
-        vocabCatFilter = cat;
-        filterVocab(el("vocabSearch")?.value || "");
-      }
-      function filterVocab(search) {
-        const q = (search || "").toLowerCase();
-        const filtered = VOCAB.filter((v) => {
-          const matchCat = !vocabCatFilter || v.cat === vocabCatFilter;
-          const matchQ =
-            !q ||
-            v.en.includes(q) ||
-            v.ru.includes(q) ||
-            v.uz.includes(q) ||
-            v.tj.includes(q);
-          return matchCat && matchQ;
-        });
-        renderVocabGrid(filtered);
-      }
+/* ==========================================================================
+   ТЕСТ ПО ТЕМЕ
+   ========================================================================== */
+function startTopicTest(topicId){
+  const topic = getTopic(topicId);
+  const questions = generateTest(topicId, 20);
+  App.currentTest = { topicId, topic, questions, index:0, correctCount:0, answers:[] };
+  screen('screen-test');
+  renderTestQuestion();
+}
 
-      function renderVocabGrid(list) {
-        const grid = el("vocabGrid");
-        if (!grid) return;
-        if (!list.length) {
-          grid.innerHTML =
-            '<div class="empty-state"><div class="icon">🔍</div><div>No words found</div></div>';
-          return;
-        }
-        grid.innerHTML = list
-          .map(
-            (v) => `
-    <div class="vocab-card" onclick="speak('${v.en.replace(/'/g, "\\'")}')">
-      <div class="vocab-en">${v.en} <span style="font-size:11px;color:var(--text3)">🔊</span></div>
-      <div class="vocab-tr">🇷🇺 ${v.ru}</div>
-      <div class="vocab-tr">🇺🇿 ${v.uz}</div>
-      <div class="vocab-tr">🇹🇯 ${v.tj}</div>
-      <div class="vocab-cat">${v.cat}</div>
-    </div>
-  `,
-          )
-          .join("");
-      }
+function renderTestQuestion(){
+  const t = App.currentTest;
+  const q = t.questions[t.index];
+  document.getElementById('test-topic-label').textContent = t.topic.title.toUpperCase();
+  document.getElementById('test-progress-label').textContent = `Вопрос ${t.index+1} / ${t.questions.length}`;
+  document.getElementById('test-progress-fill').style.width = `${((t.index)/t.questions.length)*100}%`;
+  document.getElementById('q-eyebrow').textContent = q.eyebrow;
+  document.getElementById('q-text').innerHTML = escapeHtml(q.text).replace('___','<b>___</b>');
+  const optsWrap = document.getElementById('q-options');
+  const letters = ['A','B','C','D'];
+  optsWrap.innerHTML = q.options.map((opt,i)=>`<button class="opt-btn" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${escapeHtml(opt)}</span></button>`).join('');
+  document.getElementById('btn-next-question').classList.add('hidden');
+  Array.from(optsWrap.querySelectorAll('.opt-btn')).forEach(btn=>{
+    btn.addEventListener('click', ()=>onAnswerTest(btn, q));
+  });
+}
 
-      // ============================================================
-      // AI CHAT — Improved with suggestions and system prompt
-      // ============================================================
-      function renderAI() {
-        const L = t();
-        const suggestions = [
-          "Correct my grammar: I goed to store yesterday.",
-          "Explain the difference between 'make' and 'do'",
-          "Give me 5 sentences using Present Perfect",
-          "What is the difference between 'since' and 'for'?",
-          "How do I use 'used to'?",
-          "Translate and explain: 'It's raining cats and dogs'",
-        ];
-        html(
-          "mainContent",
-          `
-    <div class="chat-wrap fade-in">
-      <div style="margin-bottom:10px">
-        <div class="section-title">🤖 ${L.tabs[6]}</div>
-        <div class="section-sub">Powered by Claude AI · Ask anything about English</div>
-      </div>
-      <div class="chat-msgs" id="chatMsgs">
-        <div class="chat-msg-ai">${L.aiWelcome}</div>
-      </div>
-      <div class="ai-suggest" id="aiSuggest">
-        ${suggestions.map((s) => `<button class="tip-chip" style="font-size:11px" onclick="quickSend('${s.replace(/'/g, "\\'")}')">💬 ${s.length > 35 ? s.slice(0, 35) + "..." : s}</button>`).join("")}
-      </div>
-      <div class="chat-input-row">
-        <input class="chat-input" id="chatInput" placeholder="${L.aiPlaceholder}" onkeydown="if(event.key==='Enter')sendChat()">
-        <button class="btn btn-primary" onclick="sendChat()" style="padding:10px 14px">↑</button>
-      </div>
-    </div>
-  `,
-        );
-        if (chatHistory.length) {
-          const box = el("chatMsgs");
-          chatHistory.forEach((m) => {
-            const div = document.createElement("div");
-            div.className = m.role === "user" ? "chat-msg-user" : "chat-msg-ai";
-            div.textContent = m.content;
-            box.appendChild(div);
-          });
-          box.scrollTop = box.scrollHeight;
-        }
-      }
+function onAnswerTest(btn, q){
+  const t = App.currentTest;
+  const chosen = btn.querySelector('span:last-child').textContent;
+  const isCorrect = chosen === q.correct;
+  Array.from(document.querySelectorAll('#q-options .opt-btn')).forEach(b=>{
+    b.disabled = true;
+    const val = b.querySelector('span:last-child').textContent;
+    if(val === q.correct) b.classList.add('correct');
+    else if(b===btn) b.classList.add('wrong');
+  });
+  if(isCorrect) t.correctCount++;
+  t.answers.push({ question:q.text, chosen, correct:q.correct, isCorrect });
+  document.getElementById('btn-next-question').classList.remove('hidden');
+}
 
-      function quickSend(text) {
-        const inp = el("chatInput");
-        if (inp) inp.value = text;
-        const sugBox = el("aiSuggest");
-        if (sugBox) sugBox.style.display = "none";
-        sendChat();
-      }
+document.getElementById('btn-next-question').addEventListener('click', ()=>{
+  const t = App.currentTest;
+  t.index++;
+  if(t.index >= t.questions.length){
+    finishTest();
+  } else {
+    renderTestQuestion();
+  }
+});
+document.getElementById('btn-exit-test').addEventListener('click', ()=>{
+  App.currentTest = null;
+  renderDashboard();
+  screen('screen-dashboard');
+});
 
-      function buildLocalTutorReply(message) {
-        const m = message.toLowerCase();
-        if (m.includes("present perfect")) {
-          return "Present Perfect = have/has + past participle.\nExamples:\n1) I have finished my homework.\n2) She has visited London.\n3) They have not seen this film yet.";
-        }
-        if (m.includes("since") && m.includes("for")) {
-          return "'Since' = starting point (since 2020, since Monday).\n'For' = duration (for 2 hours, for 3 years).\nExample: I have lived here since 2022 / for 3 years.";
-        }
-        if (m.includes("make") && m.includes("do")) {
-          return "Use 'make' for creating/producing (make a cake, make a decision).\nUse 'do' for actions/tasks (do homework, do the dishes, do exercise).";
-        }
-        if (m.includes("correct my grammar") || m.includes("correct")) {
-          return "Sure! Send your sentence, and I will correct it with explanation.\nExample: ❌ I goed to store yesterday.\n✅ I went to the store yesterday.";
-        }
-        if (m.includes("used to")) {
-          return "'Used to + verb' describes past habits/states that are not true now.\nExample: I used to play football every day (but now I don't).";
-        }
-        return "Great question! Here is a quick tip: write short, clear sentences, then expand with details. If you send one sentence, I can correct it and explain why. 💡";
-      }
+async function finishTest(){
+  const t = App.currentTest;
+  const percent = Math.round((t.correctCount / t.questions.length) * 100);
+  const record = {
+    date: new Date().toISOString(),
+    kind:'topic_test',
+    topicId: t.topicId,
+    topicTitle: t.topic.title,
+    correct: t.correctCount,
+    total: t.questions.length,
+    percent,
+    wrongItems: t.answers.filter(a=>!a.isCorrect).slice(0,8)
+  };
+  App.history = await Store.addHistory(record);
+  renderResults(record);
+  screen('screen-results');
+}
 
-      async function sendChat() {
-        const inp = el("chatInput");
-        if (!inp || !inp.value.trim()) return;
-        const msg = inp.value.trim();
-        inp.value = "";
-        const sugBox = el("aiSuggest");
-        if (sugBox) sugBox.style.display = "none";
-        const box = el("chatMsgs");
-        const userDiv = document.createElement("div");
-        userDiv.className = "chat-msg-user";
-        userDiv.textContent = msg;
-        box.appendChild(userDiv);
-        const typingDiv = document.createElement("div");
-        typingDiv.className = "chat-msg-ai";
-        typingDiv.innerHTML =
-          '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
-        box.appendChild(typingDiv);
-        box.scrollTop = box.scrollHeight;
-        chatHistory.push({ role: "user", content: msg });
-        try {
-          const reply = buildLocalTutorReply(msg);
-          chatHistory.push({ role: "assistant", content: reply });
-          typingDiv.textContent = reply;
-          typingDiv.className = "chat-msg-ai";
-          addXP(5);
-        } catch (e) {
-          typingDiv.textContent =
-            "Connection error. Please check your internet and try again!";
-          chatHistory.push({
-            role: "assistant",
-            content: typingDiv.textContent,
-          });
-        }
-        box.scrollTop = box.scrollHeight;
-      }
+function renderResults(record){
+  document.getElementById('score-ring').style.setProperty('--pct', record.percent);
+  document.getElementById('score-value').textContent = `${record.correct}/${record.total}`;
+  const scoreTitles = {
+    ru:{great:'Отличный результат!', mid:'Неплохо, есть куда расти', low:'Стоит повторить тему'},
+    en:{great:'Great result!', mid:'Not bad, room to grow', low:'This topic needs review'},
+    uz:{great:'Ajoyib natija!', mid:"Yomon emas, o'sishga joy bor", low:'Mavzuni takrorlash kerak'},
+    tj:{great:'Натиҷаи аъло!', mid:'Бад не, ҷои рушд ҳаст', low:'Мавзӯъро такрор кардан лозим'}
+  };
+  const stKey = record.percent>=80 ? 'great' : (record.percent>=50 ? 'mid' : 'low');
+  document.getElementById('score-title').textContent = (scoreTitles[App.lang]||scoreTitles.ru)[stKey];
+  document.getElementById('score-topic').textContent = record.topicTitle;
 
-      // ============================================================
-      // STATS
-      // ============================================================
-      function renderStats() {
-        const L = t();
-        if (!results.length) {
-          html(
-            "mainContent",
-            `<div class="fade-in"><div class="section-title">📊 ${L.statsTitle}</div>
-      <div class="empty-state"><div class="icon">📭</div><div>${L.noStats}</div></div></div>`,
-          );
-          return;
-        }
-        const total = results.length;
-        const avg = Math.round(results.reduce((s, r) => s + r.pct, 0) / total);
-        const best = Math.max(...results.map((r) => r.pct));
-        const byTopic = {};
-        results.forEach((r) => {
-          if (!byTopic[r.topic] || r.pct > byTopic[r.topic])
-            byTopic[r.topic] = r.pct;
-        });
-        const lb = Object.entries(byTopic).sort((a, b) => b[1] - a[1]);
-        html(
-          "mainContent",
-          `
-    <div class="fade-in">
-      <div class="section-title">📊 ${L.statsTitle}</div>
-      <div class="grid-3" style="margin-bottom:20px">
-        <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">${L.totalTests}</div></div>
-        <div class="stat-card"><div class="stat-num">${avg}%</div><div class="stat-label">${L.avgScore}</div></div>
-        <div class="stat-card"><div class="stat-num">${best}%</div><div class="stat-label">${L.bestScore}</div></div>
-      </div>
-      <div style="font-weight:700;margin-bottom:10px;font-size:14px">🏆 Best Scores by Topic</div>
-      ${lb
-        .slice(0, 10)
-        .map(
-          ([topic, pct], i) => `
-        <div class="lb-row">
-          <div class="lb-rank" style="color:${i === 0 ? "#fbbf24" : i === 1 ? "#94a3b8" : i === 2 ? "#cd7f32" : "var(--text3)"}">${i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1}</div>
-          <div class="lb-name">${topic}</div>
-          <div class="lb-score">${pct}%</div>
-        </div>
-      `,
-        )
-        .join("")}
-      <div style="margin-top:20px;font-weight:700;margin-bottom:10px;font-size:14px">📋 Recent Tests</div>
-      ${results
-        .slice()
-        .reverse()
-        .slice(0, 8)
-        .map(
-          (r) => `
-        <div class="result-item">
-          <div>
-            <div style="font-weight:600;font-size:12px">${r.topic}</div>
-            <div style="font-size:10px;color:var(--text3)">${r.date}</div>
-          </div>
-          <div class="pill ${r.pct >= 70 ? "pill-green" : "pill-red"}">${r.pct}%</div>
-        </div>
-      `,
-        )
-        .join("")}
-    </div>
-  `,
-        );
-      }
+  const reviewTitles = { ru:'Разбор ошибок', en:'Mistakes review', uz:'Xatolar tahlili', tj:'Таҳлили хатогиҳо' };
+  const allCorrectMsg = { ru:'Все ответы верны — ошибок нет! 🎉', en:'All answers correct — no mistakes! 🎉', uz:"Barcha javoblar to'g'ri — xato yo'q! 🎉", tj:'Ҳамаи ҷавобҳо дуруст — хато нест! 🎉' };
+  const reviewWrap = document.getElementById('review-list');
+  if(record.wrongItems && record.wrongItems.length){
+    reviewWrap.innerHTML = `<h3 style="font-size:15px;margin:0 0 10px;">${reviewTitles[App.lang]||reviewTitles.ru}</h3>` + record.wrongItems.map(w=>`
+      <div class="review-item">
+        <div class="q">${escapeHtml(w.question)}</div>
+        <div><span class="a-wrong">${escapeHtml(w.chosen)}</span><span class="a-right">✓ ${escapeHtml(w.correct)}</span></div>
+      </div>`).join('');
+  } else {
+    reviewWrap.innerHTML = `<p style="color:var(--teal);font-weight:600;">${allCorrectMsg[App.lang]||allCorrectMsg.ru}</p>`;
+  }
 
-      // ============================================================
-      // INIT
-      // ============================================================
-      renderAll();
-    </script>
-  </body>
+  document.getElementById('ai-feedback-text').textContent = 'Формируем персональный разбор результата…';
+  fetchAIFeedback(record);
+
+  document.getElementById('btn-retry-topic').onclick = ()=>{ startTopicTest(record.topicId); };
+}
+
+/* ---------------------------- ИИ-ОБРАТНАЯ СВЯЗЬ -------------------------- */
+const FEEDBACK_LANG_NAME = { ru:"русском", en:"English", uz:"o'zbek", tj:"тоҷикӣ" };
+async function fetchAIFeedback(record){
+  const el = document.getElementById('ai-feedback-text');
+  const wrongList = (record.wrongItems||[]).map(w=>`"${w.question}" — chosen "${w.chosen}", correct "${w.correct}"`).join('; ');
+  const langName = FEEDBACK_LANG_NAME[App.lang] || FEEDBACK_LANG_NAME.ru;
+  const prompt = `You are an experienced, friendly English teacher. A student just finished a test on the topic "${record.topicTitle}" and answered ${record.correct} out of ${record.total} questions correctly (${record.percent}%). ${wrongList ? 'Examples of mistakes: '+wrongList+'.' : 'There were no mistakes.'} Write short, personal feedback IN THE ${langName.toUpperCase()} LANGUAGE ONLY (3-4 sentences, friendly and motivating tone): mention their strengths, point out any pattern in the mistakes if there is one, and give one concrete tip on what to review next. Do not use markdown formatting, just plain text, and do not mix in other languages.`;
+  try{
+    // Запрос идёт на СВОЙ backend (/api/feedback), а не напрямую в Anthropic —
+    // ключ API хранится на сервере и никогда не попадает в браузер пользователя.
+    // Код самой serverless-функции: /api/feedback.js (см. отдельный файл).
+    const response = await fetch("/api/feedback", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ prompt })
+    });
+    if(!response.ok) throw new Error('backend error');
+    const data = await response.json();
+    const text = (data.text || '').trim();
+    el.textContent = text || fallbackFeedback(record);
+  }catch(e){
+    el.textContent = fallbackFeedback(record);
+  }
+}
+const FALLBACK_FEEDBACK = {
+  ru:{
+    great:(r)=>`Превосходно! ${r.correct} из ${r.total} — вы уверенно владеете темой «${r.topicTitle}». Попробуйте более сложную тему или повторите этот тест ещё раз — вопросы будут другими.`,
+    good:(r)=>`Хороший результат — ${r.correct} из ${r.total}. Тема «${r.topicTitle}» усвоена достаточно хорошо, но стоит ещё раз просмотреть вопросы, где были ошибки.`,
+    mid:(r)=>`Результат ${r.correct} из ${r.total} — вы на верном пути, но тема «${r.topicTitle}» требует ещё практики. Повторите правило и пройдите тест ещё раз — вопросы будут новыми.`,
+    low:(r)=>`Результат ${r.correct} из ${r.total} показывает, что тему «${r.topicTitle}» стоит изучить внимательнее. Разберите ошибки ниже и попробуйте снова.`
+  },
+  en:{
+    great:(r)=>`Excellent! ${r.correct} out of ${r.total} — you have a strong grasp of "${r.topicTitle}". Try a more challenging topic, or retake this test — the questions will be different.`,
+    good:(r)=>`Good result — ${r.correct} out of ${r.total}. You know "${r.topicTitle}" fairly well, but it's worth reviewing the questions you got wrong.`,
+    mid:(r)=>`${r.correct} out of ${r.total} — you're on the right track, but "${r.topicTitle}" needs more practice. Review the rule and try the test again with fresh questions.`,
+    low:(r)=>`${r.correct} out of ${r.total} shows that "${r.topicTitle}" needs more attention. Go through the mistakes below and give it another try.`
+  },
+  uz:{
+    great:(r)=>`Ajoyib! ${r.correct} tadan ${r.total} — siz "${r.topicTitle}" mavzusini yaxshi bilasiz. Qiyinroq mavzuni sinab ko'ring yoki testni qayta topshiring — savollar boshqacha bo'ladi.`,
+    good:(r)=>`Yaxshi natija — ${r.correct} tadan ${r.total}. "${r.topicTitle}" mavzusi yetarlicha o'zlashtirilgan, lekin xato qilingan savollarni qayta ko'rib chiqing.`,
+    mid:(r)=>`${r.correct} tadan ${r.total} — to'g'ri yo'ldasiz, lekin "${r.topicTitle}" ko'proq mashq talab qiladi. Qoidani takrorlang va testni qayta topshiring.`,
+    low:(r)=>`${r.correct} tadan ${r.total} natija "${r.topicTitle}" mavzusini diqqat bilan o'rganish kerakligini ko'rsatadi. Quyidagi xatolarni ko'rib chiqing va qayta urinib ko'ring.`
+  },
+  tj:{
+    great:(r)=>`Аъло! ${r.correct} аз ${r.total} — шумо мавзӯи "${r.topicTitle}"-ро хуб медонед. Мавзӯи мураккабтарро санҷед ё тестро аз нав гузаронед — саволҳо дигар хоҳанд буд.`,
+    good:(r)=>`Натиҷаи хуб — ${r.correct} аз ${r.total}. Мавзӯи "${r.topicTitle}" хуб азхуд карда шудааст, аммо саволҳои хатогиро аз нав дида бароед.`,
+    mid:(r)=>`${r.correct} аз ${r.total} — шумо дар роҳи дуруст ҳастед, аммо мавзӯи "${r.topicTitle}" бештар машқ лозим дорад. Қоидаро такрор кунед ва тестро аз нав гузаронед.`,
+    low:(r)=>`Натиҷаи ${r.correct} аз ${r.total} нишон медиҳад, ки мавзӯи "${r.topicTitle}" бояд бодиққаттар омӯхта шавад. Хатогиҳои дар поён овардашударо дида бароед ва аз нав кӯшиш кунед.`
+  }
+};
+function fallbackFeedback(record){
+  const dict = FALLBACK_FEEDBACK[App.lang] || FALLBACK_FEEDBACK.ru;
+  if(record.percent>=90) return dict.great(record);
+  if(record.percent>=70) return dict.good(record);
+  if(record.percent>=50) return dict.mid(record);
+  return dict.low(record);
+}
+
+/* ==========================================================================
+   LISTENING
+   ========================================================================== */
+document.getElementById('btn-start-listening').addEventListener('click', startListening);
+function startListening(){
+  const items = pickN(LISTENING_BANK, 12);
+  App.currentListen = { items, index:0, correctCount:0, answered:false };
+  screen('screen-listening');
+  renderSpeedRow();
+  renderListenItem();
+}
+function renderSpeedRow(){
+  const speeds = [{v:0.75,l:'0.75x'},{v:0.95,l:'1x'},{v:1.25,l:'1.25x'}];
+  const wrap = document.getElementById('speed-row');
+  wrap.innerHTML = speeds.map(s=>`<button data-rate="${s.v}" class="${App.listenRate===s.v?'active':''}">${s.l}</button>`).join('');
+  wrap.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      App.listenRate = parseFloat(btn.getAttribute('data-rate'));
+      renderSpeedRow();
+      const st = App.currentListen;
+      if(st) playListeningAudio(st.items[st.index].text);
+    });
+  });
+}
+function renderListenItem(){
+  const st = App.currentListen;
+  const item = st.items[st.index];
+  document.getElementById('listen-progress-label').textContent = `Фрагмент ${st.index+1} / ${st.items.length}`;
+  document.getElementById('listen-progress-fill').style.width = `${(st.index/st.items.length)*100}%`;
+  document.getElementById('listen-question').textContent = item.q;
+  document.getElementById('listen-transcript').style.display = 'none';
+  document.getElementById('listen-transcript').textContent = item.text;
+  const optsWrap = document.getElementById('listen-options');
+  const letters = ['A','B','C','D'];
+  const shuffledOptions = shuffle(item.options);
+  optsWrap.innerHTML = shuffledOptions.map((opt,i)=>`<button class="opt-btn" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${escapeHtml(opt)}</span></button>`).join('');
+  document.getElementById('btn-next-listen').classList.add('hidden');
+  Array.from(optsWrap.querySelectorAll('.opt-btn')).forEach(btn=>{
+    btn.addEventListener('click', ()=>onAnswerListen(btn, item));
+  });
+  playListeningAudio(item.text);
+}
+function playListeningAudio(text){
+  if(!('speechSynthesis' in window)) { showToast('Синтез речи не поддерживается в этом браузере'); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = App.listenRate || 0.95;
+  const btn = document.getElementById('btn-play-audio');
+  btn.classList.add('speaking');
+  u.onend = ()=>btn.classList.remove('speaking');
+  u.onerror = ()=>btn.classList.remove('speaking');
+  window.speechSynthesis.speak(u);
+}
+document.getElementById('btn-play-audio').addEventListener('click', ()=>{
+  const st = App.currentListen;
+  if(st) playListeningAudio(st.items[st.index].text);
+});
+document.getElementById('btn-replay-audio').addEventListener('click', ()=>{
+  const st = App.currentListen;
+  if(st) playListeningAudio(st.items[st.index].text);
+});
+document.getElementById('btn-show-transcript').addEventListener('click', ()=>{
+  const box = document.getElementById('listen-transcript');
+  box.style.display = box.style.display==='none' ? 'block' : 'none';
+});
+function onAnswerListen(btn, item){
+  const st = App.currentListen;
+  if(st.answered) return;
+  st.answered = true;
+  const chosen = btn.querySelector('span:last-child').textContent;
+  const isCorrect = chosen === item.correct;
+  Array.from(document.querySelectorAll('#listen-options .opt-btn')).forEach(b=>{
+    b.disabled = true;
+    const val = b.querySelector('span:last-child').textContent;
+    if(val === item.correct) b.classList.add('correct');
+    else if(b===btn) b.classList.add('wrong');
+  });
+  if(isCorrect) st.correctCount++;
+  document.getElementById('btn-next-listen').classList.remove('hidden');
+}
+document.getElementById('btn-next-listen').addEventListener('click', async ()=>{
+  const st = App.currentListen;
+  st.index++;
+  st.answered = false;
+  if(st.index >= st.items.length){
+    const percent = Math.round((st.correctCount/st.items.length)*100);
+    const record = {
+      date:new Date().toISOString(), kind:'listening', topicId:'listening', topicTitle:'Listening — аудирование',
+      correct: st.correctCount, total: st.items.length, percent, wrongItems:[]
+    };
+    App.history = await Store.addHistory(record);
+    renderResults(record);
+    document.getElementById('btn-retry-topic').onclick = ()=>{ startListening(); };
+    screen('screen-results');
+  } else {
+    renderListenItem();
+  }
+});
+document.getElementById('btn-exit-listening').addEventListener('click', ()=>{
+  window.speechSynthesis && window.speechSynthesis.cancel();
+  App.currentListen = null;
+  renderDashboard();
+  screen('screen-dashboard');
+});
+
+/* ==========================================================================
+   SPEAKING
+   ========================================================================== */
+const SpeechRecCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+document.getElementById('btn-start-speaking').addEventListener('click', startSpeaking);
+function startSpeaking(){
+  const items = pickN(SPEAKING_BANK, 12);
+  App.currentSpeak = { items, index:0, scores:[] };
+  screen('screen-speaking');
+  document.getElementById('speak-unsupported').classList.toggle('hidden', !!SpeechRecCtor);
+  renderSpeakItem();
+}
+function renderSpeakItem(){
+  const st = App.currentSpeak;
+  const item = st.items[st.index];
+  document.getElementById('speak-progress-label').textContent = `Фраза ${st.index+1} / ${st.items.length}`;
+  document.getElementById('speak-progress-fill').style.width = `${(st.index/st.items.length)*100}%`;
+  document.getElementById('speak-ru').textContent = item.ru;
+  document.getElementById('speak-en').textContent = item.en;
+  document.getElementById('speak-result').style.display = 'none';
+  document.getElementById('mic-status').textContent = 'Нажмите на микрофон и произнесите фразу';
+  document.getElementById('btn-next-speak').classList.add('hidden');
+  document.getElementById('btn-mic').classList.remove('listening');
+}
+function wordOverlapScore(target, said){
+  const norm = s => s.toLowerCase().replace(/[^a-z\s']/g,'').split(/\s+/).filter(Boolean);
+  const t = norm(target), sSaid = norm(said);
+  if(t.length===0) return 0;
+  let matched = 0;
+  const saidCopy = sSaid.slice();
+  t.forEach(w=>{
+    const idx = saidCopy.indexOf(w);
+    if(idx>-1){ matched++; saidCopy.splice(idx,1); }
+  });
+  return Math.round((matched/t.length)*100);
+}
+document.getElementById('btn-mic').addEventListener('click', ()=>{
+  if(!SpeechRecCtor){ showToast('Распознавание речи недоступно в этом браузере'); return; }
+  if(App.recognizing){ App.speechRecognition && App.speechRecognition.stop(); return; }
+  const rec = new SpeechRecCtor();
+  rec.lang = 'en-US';
+  rec.interimResults = false;
+  rec.maxAlternatives = 1;
+  App.speechRecognition = rec;
+  App.recognizing = true;
+  document.getElementById('btn-mic').classList.add('listening');
+  document.getElementById('mic-status').textContent = 'Слушаю… говорите сейчас';
+  rec.onresult = (e)=>{
+    const said = e.results[0][0].transcript;
+    handleSpeechResult(said);
+  };
+  rec.onerror = (e)=>{
+    document.getElementById('mic-status').textContent = 'Не удалось распознать речь. Попробуйте снова.';
+  };
+  rec.onend = ()=>{
+    App.recognizing = false;
+    document.getElementById('btn-mic').classList.remove('listening');
+  };
+  try{ rec.start(); }catch(e){ App.recognizing=false; }
+});
+function handleSpeechResult(said){
+  const st = App.currentSpeak;
+  const item = st.items[st.index];
+  const score = wordOverlapScore(item.en, said);
+  st.scores.push(score);
+  document.getElementById('speak-result').style.display = 'block';
+  document.getElementById('speak-said').textContent = said;
+  document.getElementById('speak-match-fill').style.width = score+'%';
+  document.getElementById('speak-match-fill').style.background = score>=75 ? 'var(--teal)' : (score>=45 ? 'var(--marigold)' : 'var(--coral)');
+  document.getElementById('speak-match-text').textContent = score>=75 ? 'Отличное совпадение!' : (score>=45 ? 'Неплохо, но есть расхождения' : 'Попробуйте произнести фразу ещё раз, чётче');
+  document.getElementById('mic-status').textContent = 'Готово! Можете попробовать ещё раз или продолжить';
+  document.getElementById('btn-next-speak').classList.remove('hidden');
+}
+document.getElementById('btn-next-speak').addEventListener('click', async ()=>{
+  const st = App.currentSpeak;
+  st.index++;
+  if(st.index >= st.items.length){
+    const avg = st.scores.length ? Math.round(st.scores.reduce((a,b)=>a+b,0)/st.scores.length) : 0;
+    const record = {
+      date:new Date().toISOString(), kind:'speaking', topicId:'speaking', topicTitle:'Speaking — говорение',
+      correct: Math.round(avg/100*st.items.length), total: st.items.length, percent: avg, wrongItems:[]
+    };
+    App.history = await Store.addHistory(record);
+    renderResults(record);
+    document.getElementById('btn-retry-topic').onclick = ()=>{ startSpeaking(); };
+    screen('screen-results');
+  } else {
+    renderSpeakItem();
+  }
+});
+document.getElementById('btn-exit-speaking').addEventListener('click', ()=>{
+  App.speechRecognition && App.speechRecognition.stop();
+  App.currentSpeak = null;
+  renderDashboard();
+  screen('screen-dashboard');
+});
+
+</script>
+</body>
 </html>
