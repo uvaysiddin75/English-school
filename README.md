@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -8,16 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#182234;
-  --ink-soft:#3a4457;
-  --petrol:#0f3238;
-  --petrol-2:#134048;
-  --paper:#f4efe2;
+  --ink:#211c30;
+  --ink-soft:#4c4563;
+  --petrol:#2a1b4d;
+  --petrol-2:#3c2570;
+  --paper:#f6f0e4;
   --paper-2:#ffffff;
-  --marigold:#e8a33d;
-  --marigold-dark:#c07f22;
-  --teal:#3f8f6f;
-  --coral:#c1443b;
+  --marigold:#e8724a;
+  --marigold-dark:#c0562f;
+  --teal:#4a9b76;
+  --coral:#d4483f;
   --line:rgba(24,34,52,0.12);
   --shadow:0 18px 40px -18px rgba(15,50,56,0.45);
   --radius:18px;
@@ -27,8 +27,8 @@ html,body{margin:0;padding:0;}
 body{
   font-family:'Inter',sans-serif;
   background:
-    radial-gradient(1200px 800px at 8% -10%, #16474f 0%, transparent 60%),
-    radial-gradient(1000px 700px at 110% 10%, #0c2a2f 0%, transparent 55%),
+    radial-gradient(1200px 800px at 8% -10%, #3c2570 0%, transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, #1a1030 0%, transparent 55%),
     linear-gradient(180deg,var(--petrol) 0%, var(--petrol-2) 100%);
   color:var(--ink);
   min-height:100vh;
@@ -168,7 +168,7 @@ button{font-family:inherit;cursor:pointer;}
 @media(max-width:820px){.dash-header{grid-template-columns:1fr;}}
 .passport-hero{
   padding:30px 32px;position:relative;overflow:hidden;color:var(--paper);
-  background:linear-gradient(135deg,#0f3238 0%,#1a5560 100%);
+  background:linear-gradient(135deg,#2a1b4d 0%,#4a2f8a 100%);
   border-radius:var(--radius);box-shadow:var(--shadow);
 }
 .passport-hero::after{
@@ -295,12 +295,12 @@ button{font-family:inherit;cursor:pointer;}
 .audio-btn{
   width:88px;height:88px;border-radius:50%;border:none;
   background:var(--petrol);color:var(--marigold);font-size:32px;
-  box-shadow:0 6px 0 #06181b;margin:6px auto 18px;
+  box-shadow:0 6px 0 #1a1030;margin:6px auto 18px;
   display:flex;align-items:center;justify-content:center;
 }
-.audio-btn:active{box-shadow:0 2px 0 #06181b;transform:translateY(4px);}
+.audio-btn:active{box-shadow:0 2px 0 #1a1030;transform:translateY(4px);}
 .audio-btn.speaking{animation:soundwave 1s infinite;}
-@keyframes soundwave{0%,100%{box-shadow:0 6px 0 #06181b, 0 0 0 0 rgba(232,163,61,0.5);}50%{box-shadow:0 6px 0 #06181b, 0 0 0 14px rgba(232,163,61,0);}}
+@keyframes soundwave{0%,100%{box-shadow:0 6px 0 #1a1030, 0 0 0 0 rgba(232,114,74,0.5);}50%{box-shadow:0 6px 0 #1a1030, 0 0 0 14px rgba(232,114,74,0);}}
 .replay-row{display:flex;gap:10px;justify-content:center;margin-bottom:22px;}
 .small-link{background:none;border:none;color:var(--ink-soft);font-size:12.5px;text-decoration:underline;}
 .transcript-box{background:#f0e9d6;border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--ink-soft);margin-bottom:18px;font-family:'IBM Plex Mono',monospace;text-align:left;display:none;}
@@ -332,8 +332,8 @@ button{font-family:inherit;cursor:pointer;}
   position:fixed;inset:0;z-index:100;
   display:flex;align-items:center;justify-content:center;flex-direction:column;
   background:
-    radial-gradient(1200px 800px at 8% -10%, #16474f 0%, transparent 60%),
-    radial-gradient(1000px 700px at 110% 10%, #0c2a2f 0%, transparent 55%),
+    radial-gradient(1200px 800px at 8% -10%, #3c2570 0%, transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, #1a1030 0%, transparent 55%),
     linear-gradient(180deg,var(--petrol) 0%, var(--petrol-2) 100%);
   transition:opacity .5s ease, visibility .5s ease;
 }
@@ -1266,6 +1266,176 @@ function genVocab(){
   return { eyebrow:"Vocabulary: Travel & Food", text:`Что означает слово «${item.w}»?`, options, correct:item.m };
 }
 
+/* ---------------------------- ДОПОЛНИТЕЛЬНЫЕ ТЕМЫ ------------------------ */
+const PAST_CONT_SCENARIOS = [
+  {subj:"I", v:"read", time:"when the phone rang"},
+  {subj:"She", v:"cook", time:"when I arrived"},
+  {subj:"They", v:"play", time:"all afternoon yesterday"},
+  {subj:"We", v:"walk", time:"when it started to rain"},
+  {subj:"He", v:"work", time:"at 9pm last night"},
+  {subj:"The children", v:"sleep", time:"when we came home"},
+  {subj:"I", v:"drive", time:"when I saw the accident"},
+  {subj:"She", v:"study", time:"the whole evening"},
+  {subj:"We", v:"watch", time:"a movie when the power went out"},
+  {subj:"He", v:"talk", time:"on the phone for an hour"},
+  {subj:"They", v:"wait", time:"for the bus when it began to snow"},
+  {subj:"I", v:"write", time:"an email when my boss called"}
+];
+function genPastContinuous(){
+  const s = pick(PAST_CONT_SCENARIOS);
+  const v = VERBS.find(x=>x.base===s.v) || pick(VERBS);
+  const correctAux = isThirdSingular(s.subj) ? "was" : (s.subj==="I" ? "was" : "were");
+  const correct = `${correctAux} ${v.ing}`;
+  const otherAux = correctAux === "was" ? "were" : "was";
+  const wrongPool = [`${otherAux} ${v.ing}`, v.base, v.past];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return { eyebrow:"Past Continuous", text:`${s.subj} ___ (${v.base}) ${s.time}.`, options, correct };
+}
+
+function genPresentPerfectContinuous(){
+  const subj = pick(SUBJECTS);
+  const v = pick(VERBS);
+  const marker = pick(["for two hours","since morning","all day","for a week","since 8am","for the last few days"]);
+  const correctAux = isThirdSingular(subj) ? "has been" : "have been";
+  const correct = `${correctAux} ${v.ing}`;
+  const wrongAux = correctAux === "has been" ? "have been" : "has been";
+  const wrongPool = [`${wrongAux} ${v.ing}`, v.past, v.base];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return { eyebrow:"Present Perfect Continuous", text:`${subj} ___ (${v.base}) ${marker}.`, options, correct };
+}
+
+const PAST_PERFECT_SCENARIOS = [
+  {t:"When I arrived, the film ___ (start) already.", v:"start"},
+  {t:"She ___ (finish) her homework before dinner.", v:"finish"},
+  {t:"They ___ (leave) by the time we got there.", v:"leave"},
+  {t:"He was tired because he ___ (work) all day.", v:"work"},
+  {t:"We ___ (never see) snow before that winter.", v:"see"},
+  {t:"By the time I woke up, everyone ___ (go).", v:"go"},
+  {t:"I ___ (already eat) when she invited me to lunch.", v:"eat"},
+  {t:"The train ___ (leave) before we reached the station.", v:"leave"}
+];
+const PAST_PERFECT_PP = {start:"started",finish:"finished",leave:"left",work:"worked",see:"seen",go:"gone",eat:"eaten"};
+function genPastPerfect(){
+  const s = pick(PAST_PERFECT_SCENARIOS);
+  const pp = PAST_PERFECT_PP[s.v];
+  const correct = `had ${pp}`;
+  const wrongPool = [`have ${pp}`, `has ${pp}`, pp];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  const text = s.t.replace(/___ \([a-z ]+\)/, "___");
+  return { eyebrow:"Past Perfect", text, options, correct };
+}
+
+const COND2_RESULTS = ["I would travel around the world","she would be much happier","we would buy a bigger house","he would help you immediately","they would move to another city","I would learn a new language","we would live by the sea"];
+function genSecondConditional(){
+  const subj = pick(SUBJECTS);
+  const v = pick(VERBS);
+  const result = pick(COND2_RESULTS);
+  const correct = v.past;
+  const wrongPool = [v.base, `will ${v.base}`, v.ing];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return { eyebrow:"Second Conditional", text:`If ${subj} ___ (${v.base}) more money, ${result}.`, options, correct };
+}
+
+const REPORTED_SCENARIOS = [
+  {direct:'"I am tired," she said.', correct:"was", wrong:["is","am","be"]},
+  {direct:'"I work every day," he said.', correct:"worked", wrong:["works","work","working"]},
+  {direct:'"I will call you," she said.', correct:"would", wrong:["will","shall","can"]},
+  {direct:'"I have finished," he said.', correct:"had finished", wrong:["has finished","have finished","finished already"]},
+  {direct:'"I am reading a book," she said.', correct:"was reading", wrong:["is reading","reads","reading"]},
+  {direct:'"I can help you," he said.', correct:"could", wrong:["can","may","must"]},
+  {direct:'"I saw him yesterday," she said.', correct:"had seen", wrong:["saw","has seen","sees"]}
+];
+function genReportedSpeech(){
+  const s = pick(REPORTED_SCENARIOS);
+  const options = uniqueOptions(s.correct, s.wrong, 4);
+  return { eyebrow:"Reported Speech", text:`Direct speech: ${s.direct} Reported: She/He said (that) ___...`, options, correct:s.correct };
+}
+
+const GERUND_INF_SCENARIOS = [
+  {t:"I enjoy ___ (read) books in the evening.", c:"reading", wrong:["read","to read","reads"]},
+  {t:"She wants ___ (learn) French.", c:"to learn", wrong:["learning","learn","learns"]},
+  {t:"They finished ___ (eat) dinner.", c:"eating", wrong:["eat","to eat","ate"]},
+  {t:"He decided ___ (buy) a new car.", c:"to buy", wrong:["buying","buy","bought"]},
+  {t:"We avoid ___ (drive) in the city center.", c:"driving", wrong:["to drive","drive","drove"]},
+  {t:"I hope ___ (see) you soon.", c:"to see", wrong:["seeing","see","saw"]},
+  {t:"She suggested ___ (go) to the cinema.", c:"going", wrong:["to go","go","went"]},
+  {t:"He promised ___ (help) me tomorrow.", c:"to help", wrong:["helping","help","helps"]},
+  {t:"I don't mind ___ (wait) a few minutes.", c:"waiting", wrong:["to wait","wait","waited"]}
+];
+function genGerundInfinitive(){
+  const s = pick(GERUND_INF_SCENARIOS);
+  const options = uniqueOptions(s.c, s.wrong, 4);
+  const text = s.t.replace(/\([a-z]+\)/, "");
+  return { eyebrow:"Gerunds & Infinitives", text, options, correct:s.c };
+}
+
+const RELATIVE_SCENARIOS = [
+  {t:"The man ___ lives next door is a doctor.", c:"who"},
+  {t:"This is the book ___ I told you about.", c:"that"},
+  {t:"The city ___ we visited last year was beautiful.", c:"which"},
+  {t:"That's the house ___ I grew up.", c:"where"},
+  {t:"She is the woman ___ car was stolen.", c:"whose"},
+  {t:"I know a place ___ we can eat cheaply.", c:"where"},
+  {t:"The teacher ___ taught me English moved away.", c:"who"},
+  {t:"This is the reason ___ I called you.", c:"why"}
+];
+const RELATIVE_POOL = ["who","which","that","where","whose","why","when"];
+function genRelativeClauses(){
+  const s = pick(RELATIVE_SCENARIOS);
+  const wrongPool = RELATIVE_POOL.filter(r=>r!==s.c);
+  const options = uniqueOptions(s.c, wrongPool, 4);
+  return { eyebrow:"Relative Clauses", text:s.t, options, correct:s.c };
+}
+
+const USED_TO_SCENARIOS = [
+  {subj:"I", v:"play", time:"football every weekend when I was a kid."},
+  {subj:"She", v:"live", time:"in Paris before she moved here."},
+  {subj:"We", v:"go", time:"to that beach every summer."},
+  {subj:"He", v:"smoke", time:"but he quit two years ago."},
+  {subj:"They", v:"have", time:"a small shop in the old town."},
+  {subj:"I", v:"be", time:"much shyer when I was younger."},
+  {subj:"She", v:"walk", time:"to school every day."}
+];
+function genUsedTo(){
+  const s = pick(USED_TO_SCENARIOS);
+  const v = s.v === "be" ? "be" : (VERBS.find(x=>x.base===s.v)?.base || s.v);
+  const correct = `used to ${v}`;
+  const wrongPool = [`use to ${v}`, `${v}ed`, `is used to ${v}`];
+  const options = uniqueOptions(correct, wrongPool, 4);
+  return { eyebrow:"Used to", text:`${s.subj} ___ (${v}) ${s.time}`, options, correct };
+}
+
+const TAG_SCENARIOS = [
+  {t:"She is your sister, ___?", c:"isn't she"},
+  {t:"They don't live here, ___?", c:"do they"},
+  {t:"You can swim, ___?", c:"can't you"},
+  {t:"He didn't call you, ___?", c:"did he"},
+  {t:"We are late, ___?", c:"aren't we"},
+  {t:"You haven't seen this movie, ___?", c:"have you"},
+  {t:"She will come tomorrow, ___?", c:"won't she"},
+  {t:"It wasn't very expensive, ___?", c:"was it"}
+];
+const TAG_POOL = ["isn't she","do they","can't you","did he","aren't we","have you","won't she","was it","don't you","is she"];
+function genTagQuestions(){
+  const s = pick(TAG_SCENARIOS);
+  const wrongPool = TAG_POOL.filter(x=>x!==s.c);
+  const options = uniqueOptions(s.c, wrongPool, 4);
+  return { eyebrow:"Question Tags", text:s.t, options, correct:s.c };
+}
+
+const COUNTABLE_NOUNS = [
+  {n:"information", type:"unc"}, {n:"advice", type:"unc"}, {n:"furniture", type:"unc"},
+  {n:"news", type:"unc"}, {n:"luggage", type:"unc"}, {n:"bread", type:"unc"}, {n:"rice", type:"unc"},
+  {n:"apple", type:"c"}, {n:"chair", type:"c"}, {n:"idea", type:"c"}, {n:"suitcase", type:"c"}, {n:"loaf of bread", type:"c"}
+];
+function genCountableUncountable(){
+  const item = pick(COUNTABLE_NOUNS);
+  const isUnc = item.type === "unc";
+  const correct = isUnc ? "uncountable" : "countable";
+  const options = shuffle(["countable","uncountable"]);
+  return { eyebrow:"Countable / Uncountable Nouns", text:`Слово «${item.n}» — исчисляемое или неисчисляемое?`, options, correct };
+}
+
 /* ---------------------------- ТЕМЫ (TOPICS) ----------------------------- */
 const TOPICS = [
   {id:"present_simple", title:"Present Simple", icon:"🕐", desc:"Повседневные действия и привычки.", gen:genPresentSimple},
@@ -1283,15 +1453,22 @@ const TOPICS = [
   {id:"quantifiers", title:"Some / Any / Much / Many", icon:"🔢", desc:"Слова количества в английском.", gen:genQuantifiers},
   {id:"possessive", title:"Possessive Case", icon:"👤", desc:"Притяжательный падеж 's.", gen:genPossessive},
   {id:"phrasal", title:"Phrasal Verbs", icon:"🧩", desc:"Популярные фразовые глаголы.", gen:genPhrasalVerb},
-  {id:"vocab_travel", title:"Vocabulary: Travel & Food", icon:"🍽️", desc:"Лексика путешествий и еды.", gen:genVocab}
+  {id:"vocab_travel", title:"Vocabulary: Travel & Food", icon:"🍽️", desc:"Лексика путешествий и еды.", gen:genVocab},
+  {id:"past_continuous", title:"Past Continuous", icon:"🌀", desc:"Действие в процессе в прошлом.", gen:genPastContinuous},
+  {id:"present_perfect_continuous", title:"Present Perfect Continuous", icon:"⏱️", desc:"Длительность действия до сейчас.", gen:genPresentPerfectContinuous},
+  {id:"past_perfect", title:"Past Perfect", icon:"⏮️", desc:"Действие раньше другого действия в прошлом.", gen:genPastPerfect},
+  {id:"conditional2", title:"Second Conditional", icon:"🌙", desc:"Нереальные условия в настоящем/будущем.", gen:genSecondConditional},
+  {id:"reported_speech", title:"Reported Speech", icon:"🗨️", desc:"Косвенная речь.", gen:genReportedSpeech},
+  {id:"gerund_infinitive", title:"Gerunds & Infinitives", icon:"➰", desc:"Глагол + -ing или to + глагол.", gen:genGerundInfinitive},
+  {id:"relative_clauses", title:"Relative Clauses", icon:"🔗", desc:"Придаточные определительные who/which/that.", gen:genRelativeClauses},
+  {id:"used_to", title:"Used to", icon:"🕰️", desc:"Привычки и состояния в прошлом.", gen:genUsedTo},
+  {id:"tag_questions", title:"Question Tags", icon:"❔", desc:"Разделительные вопросы.", gen:genTagQuestions},
+  {id:"countable_uncountable", title:"Countable / Uncountable", icon:"⚖️", desc:"Исчисляемые и неисчисляемые существительные.", gen:genCountableUncountable}
 ];
 function getTopic(id){ return TOPICS.find(t=>t.id===id); }
 
 /* ==========================================================================
    ПОДРОБНЫЕ ОБЪЯСНЕНИЯ ТЕМ НА 4 ЯЗЫКАХ
-   Правило и пункты переведены полностью на ru/en/uz/tj.
-   Примеры-предложения общие для всех языков, перевод примеров дан по-русски
-   (как общепонятный язык для региона) и подписан меткой на выбранном языке интерфейса.
    ========================================================================== */
 const EXPLAIN = {
   present_simple:{
@@ -1480,7 +1657,7 @@ const EXPLAIN = {
       ru:"Предлоги места и времени показывают, где находится предмет или когда происходит действие. In используется для месяцев/лет и «внутри», on — для дней и поверхностей, at — для точного времени и точек.",
       en:"Prepositions of place and time show where something is or when something happens. In is used for months/years and 'inside', on for days and surfaces, at for exact times and points.",
       uz:"O'rin va vaqt predloglari narsa qayerda joylashganini yoki harakat qachon sodir bo'lishini ko'rsatadi. In oylar/yillar va 'ichida' uchun, on kunlar va yuzalar uchun, at aniq vaqt va nuqtalar uchun ishlatiladi.",
-      tj:"Пешояндҳои макон ва вақт нишон медиҳанд, ки чиз дар куҷост ё амал кай рух медиҳад. In барои моҳҳо/солҳо ва 'дар дохил', on барои рӯзҳо ва сатҳҳо, at барои вақти дақиқ ва нуқтаҳо истифода мешавад."
+      tj:"Пешояндҳои макон ва вақт нишон медиҳанд, ки чиз дар куҷост ё амал кай рух медиҳад. In барои моҳҳо/солҳо ва 'дар дохил', on барои рӯзҳои ва сатҳҳо, at барои вақти дақиқ ва нуқтаҳо истифода мешавад."
     },
     points:{
       ru:["in — месяцы, годы, внутри чего-то (in July, in the box)","on — дни недели, поверхности (on Monday, on the table)","at — точное время, точки (at 8 o'clock, at the door)","under/over/between/behind — относительное расположение"],
@@ -1612,6 +1789,166 @@ const EXPLAIN = {
       {en:"Don't forget your boarding pass at the gate.", ru:"Не забудь посадочный талон у выхода."},
       {en:"The soup needs a bit more seasoning.", ru:"Супу нужно немного больше приправ."},
       {en:"We booked our accommodation online.", ru:"Мы забронировали жильё онлайн."}
+    ]
+  },
+  past_continuous:{
+    level:"A2 · GRAMMAR",
+    rule:{
+      ru:"Past Continuous описывает действие в процессе в определённый момент прошлого, часто прерванное другим действием. Формула: was/were + глагол с -ing.",
+      en:"Past Continuous describes an action in progress at a specific moment in the past, often interrupted by another action. Formula: was/were + verb-ing."
+    },
+    points:{
+      ru:["I/He/She/It + was + -ing","You/We/They + were + -ing","Часто с Past Simple: was reading when the phone rang","Маркеры: while, when, all evening, at that moment"],
+      en:["I/He/She/It + was + -ing","You/We/They + were + -ing","Often paired with Past Simple: was reading when the phone rang","Markers: while, when, all evening, at that moment"]
+    },
+    examples:[
+      {en:"I was reading when the phone rang.", ru:"Я читал, когда зазвонил телефон."},
+      {en:"They were playing football all afternoon.", ru:"Они играли в футбол весь день."},
+      {en:"She was cooking dinner when I arrived.", ru:"Она готовила ужин, когда я пришёл."}
+    ]
+  },
+  present_perfect_continuous:{
+    level:"B1-B2 · GRAMMAR",
+    rule:{
+      ru:"Present Perfect Continuous подчёркивает длительность действия, которое началось в прошлом и продолжается до сих пор (или только что закончилось). Формула: have/has been + -ing.",
+      en:"Present Perfect Continuous emphasizes the duration of an action that started in the past and continues now (or has just stopped). Formula: have/has been + -ing."
+    },
+    points:{
+      ru:["I/You/We/They + have been + -ing","He/She/It + has been + -ing","Маркеры: for, since, all day, lately","Акцент на процессе и длительности, а не результате"],
+      en:["I/You/We/They + have been + -ing","He/She/It + has been + -ing","Markers: for, since, all day, lately","Focus on the ongoing process and duration, not the result"]
+    },
+    examples:[
+      {en:"I have been studying English for two years.", ru:"Я изучаю английский уже два года."},
+      {en:"She has been working since 8am.", ru:"Она работает с 8 утра."},
+      {en:"They have been waiting for an hour.", ru:"Они ждут уже час."}
+    ]
+  },
+  past_perfect:{
+    level:"B1-B2 · GRAMMAR",
+    rule:{
+      ru:"Past Perfect используется для действия, которое произошло раньше другого действия в прошлом. Формула: had + причастие прошедшего времени (participle).",
+      en:"Past Perfect is used for an action that happened before another action in the past. Formula: had + past participle."
+    },
+    points:{
+      ru:["Одинаковая форма had для всех подлежащих","Показывает 'прошлое до прошлого'","Часто с before, after, by the time, already","Отрицание: hadn't + participle"],
+      en:["Same form had for every subject","Shows 'the past before the past'","Often used with before, after, by the time, already","Negative: hadn't + participle"]
+    },
+    examples:[
+      {en:"When I arrived, the film had already started.", ru:"Когда я пришёл, фильм уже начался."},
+      {en:"She had finished her homework before dinner.", ru:"Она закончила домашнее задание до ужина."},
+      {en:"They had left by the time we got there.", ru:"Они уже ушли к тому времени, как мы приехали."}
+    ]
+  },
+  conditional2:{
+    level:"B1-B2 · GRAMMAR",
+    rule:{
+      ru:"Second Conditional описывает нереальные или маловероятные условия в настоящем/будущем. Формула: If + Past Simple, ... would + базовая форма глагола.",
+      en:"Second Conditional describes unreal or unlikely conditions in the present/future. Formula: If + Past Simple, ... would + base verb."
+    },
+    points:{
+      ru:["If-часть в Past Simple, но значение не прошедшее","Результат: would + базовая форма","Часто с 'were' вместо 'was' в формальном стиле: If I were you...","Используется для гипотетических ситуаций"],
+      en:["The if-clause uses Past Simple, but the meaning isn't past","Result: would + base verb","Often 'were' instead of 'was' in formal style: If I were you...","Used for hypothetical situations"]
+    },
+    examples:[
+      {en:"If I had more money, I would travel the world.", ru:"Если бы у меня было больше денег, я бы путешествовал по миру."},
+      {en:"If she studied harder, she would get better grades.", ru:"Если бы она усерднее училась, у неё были бы лучшие оценки."},
+      {en:"If I were you, I would apologize.", ru:"На твоём месте я бы извинился."}
+    ]
+  },
+  reported_speech:{
+    level:"B1-B2 · GRAMMAR",
+    rule:{
+      ru:"В косвенной речи время глагола обычно сдвигается на один шаг назад (present → past, will → would и т.д.), когда мы пересказываем чужие слова.",
+      en:"In reported speech, the verb tense usually shifts one step back (present → past, will → would, etc.) when we report someone else's words."
+    },
+    points:{
+      ru:["Present Simple → Past Simple","am/is/are → was/were","will → would, can → could","Present Perfect → Past Perfect"],
+      en:["Present Simple → Past Simple","am/is/are → was/were","will → would, can → could","Present Perfect → Past Perfect"]
+    },
+    examples:[
+      {en:"\"I am tired,\" she said. → She said she was tired.", ru:"«Я устала», — сказала она. → Она сказала, что устала."},
+      {en:"\"I will call you,\" he said. → He said he would call me.", ru:"«Я тебе позвоню», — сказал он. → Он сказал, что позвонит мне."},
+      {en:"\"I work every day,\" she said. → She said she worked every day.", ru:"«Я работаю каждый день», — сказала она. → Она сказала, что работает каждый день."}
+    ]
+  },
+  gerund_infinitive:{
+    level:"B1 · GRAMMAR",
+    rule:{
+      ru:"Некоторые глаголы требуют после себя герундий (-ing), другие — инфинитив (to + глагол). Это нужно запоминать для каждого глагола отдельно.",
+      en:"Some verbs are followed by a gerund (-ing), others by an infinitive (to + verb). This has to be learned verb by verb."
+    },
+    points:{
+      ru:["+ -ing: enjoy, finish, avoid, suggest, mind","+ to: want, decide, promise, hope, plan","Некоторые глаголы допускают оба варианта: like, start, love","После предлогов всегда -ing: interested in reading"],
+      en:["+ -ing: enjoy, finish, avoid, suggest, mind","+ to: want, decide, promise, hope, plan","Some verbs allow both: like, start, love","After a preposition it's always -ing: interested in reading"]
+    },
+    examples:[
+      {en:"I enjoy reading books in the evening.", ru:"Мне нравится читать книги по вечерам."},
+      {en:"She wants to learn French.", ru:"Она хочет выучить французский."},
+      {en:"He decided to buy a new car.", ru:"Он решил купить новую машину."}
+    ]
+  },
+  relative_clauses:{
+    level:"B1 · GRAMMAR",
+    rule:{
+      ru:"Относительные придаточные предложения добавляют информацию о существительном с помощью слов who, which, that, where, whose.",
+      en:"Relative clauses add information about a noun using who, which, that, where, whose."
+    },
+    points:{
+      ru:["who — для людей","which — для предметов и животных","that — для людей и предметов (неформально)","where — для мест, whose — для принадлежности"],
+      en:["who — for people","which — for things and animals","that — for people and things (informal)","where — for places, whose — for possession"]
+    },
+    examples:[
+      {en:"The man who lives next door is a doctor.", ru:"Мужчина, который живёт по соседству, — врач."},
+      {en:"This is the book that I told you about.", ru:"Это та книга, о которой я тебе рассказывал."},
+      {en:"That's the house where I grew up.", ru:"Это дом, где я вырос."}
+    ]
+  },
+  used_to:{
+    level:"A2-B1 · GRAMMAR",
+    rule:{
+      ru:"Used to + базовая форма глагола описывает привычки или состояния, которые были правдой в прошлом, но больше не актуальны.",
+      en:"Used to + base verb describes past habits or states that were true before but are not true anymore."
+    },
+    points:{
+      ru:["Форма одинакова для всех подлежащих: used to + base","Отрицание: didn't use to","Вопрос: Did you use to...?","Не путать с 'to be used to' (привыкнуть к чему-то)"],
+      en:["Same form for every subject: used to + base","Negative: didn't use to","Question: Did you use to...?","Don't confuse with 'to be used to' (to be accustomed to)"]
+    },
+    examples:[
+      {en:"I used to play football every weekend.", ru:"Раньше я играл в футбол каждые выходные."},
+      {en:"She used to live in Paris.", ru:"Раньше она жила в Париже."},
+      {en:"They didn't use to like coffee.", ru:"Раньше им не нравился кофе."}
+    ]
+  },
+  tag_questions:{
+    level:"B1 · GRAMMAR",
+    rule:{
+      ru:"Разделительные вопросы (question tags) добавляются в конец утверждения, чтобы уточнить или подтвердить информацию. Если основная часть утвердительная — хвостик отрицательный, и наоборот.",
+      en:"Question tags are added to the end of a statement to check or confirm information. If the main clause is positive, the tag is negative, and vice versa."
+    },
+    points:{
+      ru:["Утверждение + отрицательный хвостик: She is nice, isn't she?","Отрицание + положительный хвостик: You don't smoke, do you?","Хвостик повторяет вспомогательный глагол утверждения","Интонация вверх — настоящий вопрос, вниз — подтверждение"],
+      en:["Positive statement + negative tag: She is nice, isn't she?","Negative statement + positive tag: You don't smoke, do you?","The tag repeats the auxiliary verb of the statement","Rising intonation = real question, falling = confirmation"]
+    },
+    examples:[
+      {en:"She is your sister, isn't she?", ru:"Она твоя сестра, не так ли?"},
+      {en:"They don't live here, do they?", ru:"Они здесь не живут, правда?"},
+      {en:"You can swim, can't you?", ru:"Ты умеешь плавать, да?"}
+    ]
+  },
+  countable_uncountable:{
+    level:"A2 · GRAMMAR",
+    rule:{
+      ru:"Исчисляемые существительные можно посчитать (an apple, two apples), у них есть форма множественного числа. Неисчисляемые существительные обозначают вещество или понятие и не имеют множественного числа (water, information, advice).",
+      en:"Countable nouns can be counted (an apple, two apples) and have a plural form. Uncountable nouns refer to a substance or concept and have no plural form (water, information, advice)."
+    },
+    points:{
+      ru:["Исчисляемые: a/an в единственном числе, -s во множественном","Неисчисляемые: без a/an, без -s, глагол в единственном числе","Много неисчисляемых: money, furniture, news, luggage, advice","С неисчисляемыми — much, a little; с исчисляемыми — many, a few"],
+      en:["Countable: a/an in the singular, -s in the plural","Uncountable: no a/an, no -s, singular verb form","Common uncountables: money, furniture, news, luggage, advice","Use much/a little with uncountables, many/a few with countables"]
+    },
+    examples:[
+      {en:"I need some information about the trip.", ru:"Мне нужна информация о поездке."},
+      {en:"She bought a new chair for the office.", ru:"Она купила новый стул для офиса."},
+      {en:"We don't have much furniture in this room.", ru:"У нас не так много мебели в этой комнате."}
     ]
   }
 };
@@ -1844,6 +2181,150 @@ const LISTENING_BANK = [
     q:"Почему он опоздал на встречу?",
     options:["Проспал","Машина сломалась","Забыл о встрече","Попал в пробку"],
     correct:"Машина сломалась"
+  },
+  {
+    text:"Welcome aboard. We will be flying at an altitude of thirty five thousand feet, and the flight time to our destination is approximately six hours.",
+    q:"Сколько будет длиться полёт?",
+    options:["Три часа","Шесть часов","Девять часов","Не указано"],
+    correct:"Шесть часов"
+  },
+  {
+    text:"I can't find my keys anywhere. I checked my bag, my coat pockets, and the kitchen table, but they seem to have completely disappeared.",
+    q:"Что человек не может найти?",
+    options:["Телефон","Кошелёк","Ключи","Очки"],
+    correct:"Ключи"
+  },
+  {
+    text:"The gym is open twenty four hours for members, but the swimming pool closes at ten in the evening every day of the week.",
+    q:"До скольки работает бассейн?",
+    options:["До 22:00","Круглосуточно","До полуночи","До 20:00"],
+    correct:"До 22:00"
+  },
+  {
+    text:"She applied for the job last month and finally got a call for an interview next Tuesday at ten in the morning.",
+    q:"Когда у неё собеседование?",
+    options:["В понедельник","Во вторник в 10 утра","В среду вечером","Дата неизвестна"],
+    correct:"Во вторник в 10 утра"
+  },
+  {
+    text:"Due to roadworks on Main Street, buses are being diverted through Park Avenue until further notice, adding about ten minutes to the journey.",
+    q:"Почему автобусы едут в объезд?",
+    options:["Из-за аварии","Из-за дорожных работ","Из-за протеста","Из-за погоды"],
+    correct:"Из-за дорожных работ"
+  },
+  {
+    text:"I'd recommend the grilled salmon, it's our chef's specialty today, served with roasted vegetables and a lemon butter sauce.",
+    q:"Что рекомендует официант?",
+    options:["Стейк","Жареного лосося","Суп","Пасту"],
+    correct:"Жареного лосося"
+  },
+  {
+    text:"The library is extending its opening hours during exam season, staying open until midnight instead of the usual eight in the evening.",
+    q:"Как меняются часы работы библиотеки во время сессии?",
+    options:["Сокращаются","Не меняются","Продлеваются до полуночи","Библиотека закрывается совсем"],
+    correct:"Продлеваются до полуночи"
+  },
+  {
+    text:"He's been saving up for a new laptop for months, and he finally has enough money to buy the one he wanted.",
+    q:"Что он копил деньги, чтобы купить?",
+    options:["Телефон","Ноутбук","Машину","Велосипед"],
+    correct:"Ноутбук"
+  },
+  {
+    text:"The package was supposed to arrive yesterday, but according to the tracking information, it's still at the sorting facility.",
+    q:"Где сейчас находится посылка?",
+    options:["Уже доставлена","На сортировочном центре","Потеряна","В пути к клиенту"],
+    correct:"На сортировочном центре"
+  },
+  {
+    text:"We're thinking about repainting the living room. My partner wants a bright yellow, but I prefer something calmer, like light gray.",
+    q:"Какой цвет предпочитает рассказчик?",
+    options:["Ярко-жёлтый","Светло-серый","Красный","Синий"],
+    correct:"Светло-серый"
+  },
+  {
+    text:"The conference has been moved online this year, so you can attend all the sessions from home through the official website.",
+    q:"Как теперь проходит конференция?",
+    options:["Очно, как обычно","Онлайн","Отменена совсем","Только для VIP"],
+    correct:"Онлайн"
+  },
+  {
+    text:"I switched to a plant based diet six months ago, and I've noticed I have a lot more energy throughout the day.",
+    q:"Что заметил человек после смены питания?",
+    options:["Проблемы со сном","Больше энергии","Потерю аппетита","Ничего не изменилось"],
+    correct:"Больше энергии"
+  },
+  {
+    text:"The landlord said he would fix the heating by the end of the week, but it's already been broken for ten days.",
+    q:"Что должен починить арендодатель?",
+    options:["Кондиционер","Отопление","Водопровод","Электричество"],
+    correct:"Отопление"
+  },
+  {
+    text:"Tickets for the festival go on sale this Friday at noon, and organizers expect them to sell out within a few hours.",
+    q:"Когда начнётся продажа билетов?",
+    options:["В четверг вечером","В пятницу в полдень","В субботу утром","Уже началась"],
+    correct:"В пятницу в полдень"
+  },
+  {
+    text:"My phone battery drains so fast these days that I have to charge it at least twice a day just to get through work.",
+    q:"Какая проблема у телефона рассказчика?",
+    options:["Экран разбит","Быстро садится батарея","Не включается","Медленно работает"],
+    correct:"Быстро садится батарея"
+  },
+  {
+    text:"The new employee orientation starts at nine sharp, so please make sure you arrive at least fifteen minutes early to sign in.",
+    q:"Во сколько нужно приехать новым сотрудникам?",
+    options:["Ровно в 9","Не позже 8:45","В любое время до полудня","В 9:15"],
+    correct:"Не позже 8:45"
+  },
+  {
+    text:"She's been trying to learn how to play the guitar for a year now, but she still struggles with changing chords quickly.",
+    q:"С чем у неё сложности при игре на гитаре?",
+    options:["С настройкой инструмента","Со сменой аккордов","С пением","С покупкой инструмента"],
+    correct:"Со сменой аккордов"
+  },
+  {
+    text:"The city council approved a plan to build a new park downtown, which should be completed by the end of next year.",
+    q:"Что одобрил городской совет?",
+    options:["Новую дорогу","Новый парк","Новый мост","Новую школу"],
+    correct:"Новый парк"
+  },
+  {
+    text:"I usually meal prep on Sundays, cooking enough food for the whole week so I don't have to cook every single day.",
+    q:"Зачем человек готовит еду по воскресеньям?",
+    options:["Чтобы сэкономить деньги","Чтобы не готовить каждый день","Потому что любит готовить","Для гостей"],
+    correct:"Чтобы не готовить каждый день"
+  },
+  {
+    text:"The internet connection has been really unstable lately, cutting out several times a day, especially in the evening.",
+    q:"Какая проблема с интернетом?",
+    options:["Слишком медленный","Постоянно отключается","Слишком дорогой","Всё в порядке"],
+    correct:"Постоянно отключается"
+  },
+  {
+    text:"He's allergic to peanuts, so he always checks the ingredients carefully before trying any new food at a restaurant.",
+    q:"На что у него аллергия?",
+    options:["На молоко","На арахис","На морепродукты","На глютен"],
+    correct:"На арахис"
+  },
+  {
+    text:"The museum offers free admission on the first Sunday of every month, which is when it tends to get the most crowded.",
+    q:"Когда вход в музей бесплатный?",
+    options:["Каждое воскресенье","В первое воскресенье месяца","По праздникам","Никогда"],
+    correct:"В первое воскресенье месяца"
+  },
+  {
+    text:"We had to reschedule the picnic because of the storm warning, so we're planning to go next weekend instead if the weather is better.",
+    q:"Почему пикник перенесли?",
+    options:["Из-за отпуска","Из-за штормового предупреждения","Из-за ремонта парка","Без причины"],
+    correct:"Из-за штормового предупреждения"
+  },
+  {
+    text:"The company is offering a discount of twenty percent on all orders placed before the end of this month, using the code SAVE20.",
+    q:"Какая скидка предлагается?",
+    options:["10 процентов","20 процентов","50 процентов","Скидки нет"],
+    correct:"20 процентов"
   }
 ];
 
@@ -1870,15 +2351,41 @@ const SPEAKING_BANK = [
   {en:"We must finish this project by Friday.", ru:"Мы должны закончить этот проект к пятнице."},
   {en:"I am really looking forward to the trip.", ru:"Я очень жду эту поездку."},
   {en:"Can I open the window? It is quite hot.", ru:"Можно открыть окно? Здесь довольно жарко."},
-  {en:"He speaks three languages fluently.", ru:"Он свободно говорит на трёх языках."}
+  {en:"He speaks three languages fluently.", ru:"Он свободно говорит на трёх языках."},
+  {en:"Excuse me, is this seat taken?", ru:"Извините, это место занято?"},
+  {en:"I'm sorry, I didn't catch that. Could you repeat it?", ru:"Простите, я не расслышал. Повторите, пожалуйста."},
+  {en:"What do you recommend from the menu?", ru:"Что вы посоветуете из меню?"},
+  {en:"I'll have the same, please.", ru:"Мне то же самое, пожалуйста."},
+  {en:"Could you turn down the volume a little?", ru:"Не могли бы вы немного убавить громкость?"},
+  {en:"I think I made a mistake in my report.", ru:"Кажется, я допустил ошибку в отчёте."},
+  {en:"Let's meet at the entrance at six o'clock.", ru:"Давай встретимся у входа в шесть часов."},
+  {en:"I'm not sure if I can make it tonight.", ru:"Я не уверен, что смогу прийти сегодня вечером."},
+  {en:"Do you have any plans for the weekend?", ru:"У тебя есть планы на выходные?"},
+  {en:"I'll send you the details by email.", ru:"Я пришлю тебе детали по почте."},
+  {en:"Could you recommend a good hotel nearby?", ru:"Не могли бы вы порекомендовать хороший отель поблизости?"},
+  {en:"I really appreciate your help with this.", ru:"Я очень ценю твою помощь с этим."},
+  {en:"Let me know if you need anything else.", ru:"Дай знать, если тебе нужно что-то ещё."},
+  {en:"I have a doctor's appointment this afternoon.", ru:"У меня сегодня после обеда приём у врача."},
+  {en:"The traffic was terrible this morning.", ru:"Сегодня утром были ужасные пробки."},
+  {en:"I'm looking forward to seeing you soon.", ru:"Жду не дождусь встречи с тобой."},
+  {en:"Could you explain that one more time?", ru:"Не могли бы вы объяснить это ещё раз?"},
+  {en:"I forgot to bring my umbrella today.", ru:"Я забыл сегодня взять зонт."},
+  {en:"She is much better at cooking than I am.", ru:"Она готовит намного лучше меня."},
+  {en:"We need to buy some groceries after work.", ru:"Нам нужно купить продукты после работы."},
+  {en:"I couldn't sleep well last night.", ru:"Я плохо спал прошлой ночью."},
+  {en:"This project has taken longer than expected.", ru:"Этот проект занял больше времени, чем ожидалось."},
+  {en:"Could you keep an eye on my bag for a second?", ru:"Не могли бы вы присмотреть за моей сумкой секунду?"},
+  {en:"I'm trying to save money for a trip abroad.", ru:"Я пытаюсь накопить деньги на поездку за границу."}
 ];
 
 /* ==========================================================================
    ХРАНИЛИЩЕ (window.storage)
-   Логин/пароль хранятся в SHARED-хранилище (единый реестр пользователей),
-   личная история/профиль — тоже в shared, но под ключом с именем пользователя,
-   чтобы вход работал одинаково с любого устройства/браузера по паролю,
-   а не только "автоматически" по аккаунту Claude.
+   Артефакты Claude.ai блокируют fetch к сторонним доменам (CSP), поэтому
+   Supabase отсюда недоступен. Вместо этого используем встроенное shared-
+   хранилище артефактов: логин/пароль/история сохраняются навсегда и видны
+   на любом устройстве, где человек заходит под тем же аккаунтом Claude.
+   Админ-панель в самом приложении (кнопка "👥 пользователи") показывает
+   всех зарегистрированных — это ваш способ управлять данными.
    ========================================================================== */
 async function sha256Hex(text){
   const enc = new TextEncoder().encode(text);
@@ -1930,7 +2437,6 @@ const Store = {
     try{ await window.storage.set('history:'+normUser(username), JSON.stringify(hist.slice(0,300)), true); }catch(e){ console.error(e); }
     return hist;
   },
-  // локальный "запомненный" логин на этом устройстве, чтобы не вводить пароль каждый раз
   async rememberDevice(username){
     try{ await window.storage.set('remember_me', username, false); }catch(e){}
   },
@@ -2043,6 +2549,9 @@ async function doAuthSubmit(){
       if(hash !== existing.hash){ errEl.textContent = t2('err_wrong_pass'); return; }
       await completeLogin(username);
     }
+  } catch(e){
+    errEl.textContent = App.lang==='en' ? 'Connection error. Please try again.' : 'Ошибка соединения. Попробуйте ещё раз.';
+    console.error(e);
   } finally {
     btn.disabled = false;
     btn.textContent = originalLabel;
@@ -2052,7 +2561,7 @@ async function doAuthSubmit(){
 async function completeLogin(username){
   App.username = normUser(username);
   let profile = await Store.getProfile(App.username);
-  if(!profile){ profile = { name: username, joined: new Date().toISOString() }; await Store.setProfile(App.username, profile); }
+  if(!profile){ profile = { name: username, joined: new Date().toISOString() }; }
   App.profile = profile;
   App.history = await Store.getHistory(App.username);
   await Store.rememberDevice(App.username);
@@ -2579,8 +3088,6 @@ function wordOverlapScore(target, said){
   return Math.round((matched/t.length)*100);
 }
 async function requestMicPermission(){
-  // Явный запрос доступа к микрофону — многие браузеры молча "виснут" на
-  // распознавании речи, если разрешение ещё не выдано или было отклонено.
   if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
     return true; // нет способа проверить заранее — пробуем через SpeechRecognition напрямую
   }
